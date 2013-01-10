@@ -1,0 +1,135 @@
+--- 
+layout: post
+status: publish
+published: true
+title: AVR Dragon Write Arduino Bootloader On Linux To ATMega328p
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  This article will contain a small summary on how to write an arduino bootloader to an AVR ATMega328p on Debian linux using the AVR Dragon.
+
+wordpress_id: 700
+wordpress_url: /?p=700
+date: 2011-10-18 22:27:35 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: []
+
+---
+This article will contain a small summary on how to write an arduino bootloader to an AVR ATMega328p on Debian linux using the AVR Dragon.
+<a id="more"></a><a id="more-700"></a>
+
+h2. Get an AVR Dragon
+I got mine from <a href="http://www.watterott.com/de/Atmel-AVR-Dragon">watterott.com</a>.
+
+h2. Solder a 40pin ZIF socket to your AVR Dragon as described <a href="http://www.youtube.com/watch?v=yJo29VMXt90">here</a>
+
+<br/>
+
+h2. 3. Wire the pins using the following diagram. 
+
+<a href="/images/avr-dragon/pinout_dw.png"><img src="/images/avr-dragon/pinout_dw.png" alt="" title="pinout_dw" width="417" height="365" class="alignnone size-full wp-image-701" /></a>
+
+Provide a external oscillator to your avr chip. Just connect connect pin 9 and 10 (XTAL1,XTAL2) to an 16 MHz crystal. 
+<a href="/images/avr-dragon/Avr-atmega328-pins.png"><img src="/images/avr-dragon/Avr-atmega328-pins.png" alt="" title="Avr-atmega328-pins" width="322" height="207" class="alignnone size-full wp-image-735" /></a>
+
+Each of the two pins of the the quartz crystal should be connected to an 22pF capacitor. The capacitor then connects to GND of the a avr dragon Ext_Power connector.
+
+<a href="/images/avr-dragon/avrdragon_arduino.jpg"><img src="/images/avr-dragon/avrdragon_arduino.jpg" alt="" title="avrdragon_arduino" width="320"  class="alignnone size-full wp-image-733" /></a>
+<br/>
+<a href="/images/avr-dragon/avrdragon_arduino-top.jpg"><img src="/images/avr-dragon/avrdragon_arduino-top.jpg" alt="" title="avrdragon_arduino-top" width="320"  class="alignnone size-full wp-image-734" /></a>
+
+
+I got the following error when trying to program the chip when using no external oscillator:
+{% raw %}
+<pre class="syntax bash">
+$  make atmega328_isp  ISPTOOL=dragon_isp
+avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -e -u -U lock:w:0x3f:m -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m
+avrdude: jtagmkII_setparm(): bad response to set parameter command: RSP_FAILED
+avrdude: jtagmkII_getsync(): ISP activation failed, trying debugWire
+avrdude: jtagmkII_setparm(): bad response to set parameter command: RSP_DEBUGWIRE_SYNC_FAILED
+avrdude: failed to sync with the AVR Dragon in ISP mode
+avrdude: jtagmkII_close(): timeout/error communicating with programmer (status -1)
+
+avrdude done.  Thank you.
+
+make: *** [isp] Error 1
+</pre>
+{% endraw %}
+
+
+h2. 4. Create the following udev file within /etc/udev/rules.d to enable AVR Dragon detection and restart your udev (or force a reload).
+
+z60_avarice.rules:
+{% raw %}
+<pre class="syntax c">
+SUBSYSTEM!="usb_device", ACTION!="add", GOTO="avarice_end"
+
+# Atmel Corp. JTAG ICE mkII
+SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2103", MODE="660", GROUP="dialout"
+
+# Atmel Corp. AVR Dragon
+SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2107", MODE="660", GROUP="dialout"
+
+LABEL="avarice_end"
+</pre>
+{% endraw %}
+
+You can validate your rule by examining the output of the lsusb command:
+{% raw %}
+<pre class="syntax bash">
+   Bus 007 Device 008: ID 03eb:2107 Atmel Corp. AVR Dragon
+</pre>
+{% endraw %}
+
+h2. 5. Install avrdude
+{% raw %}
+<pre class="syntax bash">
+apt-get install avrdude
+</pre>
+{% endraw %}
+
+
+h2. 6. Get the arduino bootloader and use avrdude to write it
+
+Somehow the bootloaders which i found in the Arduino SDK (0022) (eg. arduino-0022/hardware/arduino/bootloaders/atmega) did not work properly for my Arduino UNO Board. I could not push sketches to the board when using those bootloaders.
+
+The optiboot bootloaders on the otherhand worked for me. They can be found here: arduino-0022/hardware/arduino/bootloaders/optiboot.
+
+You have two options:
+
+* a) Use the build script provided. The buildscript within the optiboot folder is faulty since it contains comments after the fusebit settings. Those comments introduce a whitespace which messes up the avrdude command. You can also get an updated version of <a href="http://code.google.com/p/optiboot/">optiboot here</a>.
+
+{% raw %}
+<pre class="syntax bash">
+make atmega328_isp  ISPTOOL=dragon_isp
+</pre>
+{% endraw %}
+
+Possible issues: 
+The following error was caused by avrdude since the avr dragon was not directly ready to accept new commands after the fusebits have been set. You can just call the avrdude command manually. Perhaps there is a avrdude setting which fixes this issue.
+{% raw %}
+<pre class="syntax bash">
+avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -U flash:w:optiboot_atmega328.hex -U lock:w:0x2f:m
+avrdude: usbdev_open(): did not find any USB device "usb"
+make: *** [isp] Error 1
+</pre>
+{% endraw %}
+
+
+* b) Call the avrdude command manually:
+
+{% raw %}
+<pre class="syntax bash">
+avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -e -u -U lock:w:0x3f:m -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m
+avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -U flash:w:optiboot_atmega328.hex -U lock:w:0x2f:m
+</pre>
+{% endraw %}
+
+h2. 7. Test your arduino chip
+
+I just removed the ATMega328p from the dragon and placed it in an arduino uno socket to test it. 

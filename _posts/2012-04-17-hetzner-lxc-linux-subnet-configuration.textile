@@ -1,0 +1,134 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Hetzner LXC Linux Subnet Configuration
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  This article will explain how to setup the configuration for a hetzner server that will expose LXC guests to the WAN with a provided subnet ip.
+
+wordpress_id: 755
+wordpress_url: /?p=755
+date: 2012-04-17 23:50:10 +00:00
+categories: 
+- Technik
+tags: []
+
+comments: 
+- id: 11676
+  author: Sebastian
+  author_email: sebastian@vonconrad.com
+  author_url: ""
+  date: 2012-12-29 03:24:01 +0000
+  date_gmt: 2012-12-29 01:24:01 +0000
+  content: |-
+    Thanks, you are a lifesaver! Been bashing my head against the wall for a few days, then came across this and managed to get it all working.
+    
+    The only difference to your setup is that I had to add in the virtual MAC address of the container IP into the LXC config file (lxc.network.hwaddr). Once I did that, everything worked perfectly. I'm also using 255.255.255.255 as the netmask everywhere, which means I don't need the "default route to access subnet" line.
+---
+This article will explain how to setup the configuration for a hetzner server that will expose LXC guests to the WAN with a provided subnet ip.
+<a id="more"></a><a id="more-755"></a>
+
+<h1>IP Summary</h1>
+Host IP: <strong>78.46.xx.98</strong>
+Host Gateway: <strong>78.46.xx.97</strong>
+Container IP: <strong>78.46.zz.116</strong>
+
+<h1>Host Configuration</h1>
+At first we have to configure the bridge. The the normal settings like gateway and netmask were just copied from the existing eth0 configuration.  Please take a look at <a href="http://www.jotschi.de/?p=554">my other post on LXC</a> if you want to know how to setup lxc and bridging itself. 
+The pointopoint setting is the key to your routing between our host server and our lxc guests. As you can see the pointopoint points to the gateway server.
+
+<pre class="syntax c">
+### Hetzner Online AG - installimage
+# Loopback device:
+auto lo
+iface lo inet loopback
+
+# device: eth0
+#auto  eth0
+#iface eth0 inet static
+#  address   78.46.xx.98
+#  broadcast 78.46.xx.127
+#  netmask   255.255.255.224
+#  gateway   78.46.xx.97
+
+auto  br0
+iface br0 inet static
+  bridge_ports eth0
+  bridge_fd 0
+  address   78.46.xx.98
+  broadcast 78.46.xx.127
+  netmask   255.255.255.224
+  pointopoint 78.46.xx.97
+  gateway   78.46.xx.97
+  
+  # container 1
+  up route add -host 78.46.zz.116 dev br0
+  # container 2
+  up route add -host 78.46.zz.118 dev br0
+  # container 3
+  up route add -host 78.46.zz.119 dev br0
+
+# default route to access subnet
+up route add -net 78.46.xx.96 netmask 255.255.255.224 gw 78.46.xx.97 br0
+</pre>
+
+Don't forget to enable routing on your host:
+<pre class="syntax c">
+  echo 1 > /proc/sys/net/ipv4/ip_forward
+</pre>
+
+<h1>LXC Configuration</h1>
+We need to modify the LXC container specific configuration. Adding the lxc.network.ipv4 will result in lxc to provide the correct routes within the container when it is starting up. Otherwise you have to tweak your routes within your container.
+<pre class="syntax c">
+# network
+lxc.network.type = veth
+lxc.network.flags = up
+lxc.network.link = br0
+lxc.network.veth.pair = veth_cms
+lxc.network.ipv4 = 78.46.zz.116/32
+</pre>
+
+<h1>Guest Configuration</h1>
+The LXC container network configuration file (/etc/network/interfaces) need to be modified as well. We have to add the pointopoint setting. The host server will be used as a pointopoint endpoint and gateway.
+<pre class="syntax c">
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 78.46.zz.116
+    netmask 255.255.255.255
+    pointopoint 78.46.xx.98
+    gateway 78.46.xx.98
+    up route add default gw 78.46.xx.98
+</pre>
+
+<h1>Routes</h1>
+
+The container route should look like this once the container is started.
+<pre class="syntax c">
+root@container1:/# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+78.46.xx.98     0.0.0.0         255.255.255.255 UH    0      0        0 eth0
+0.0.0.0         78.46.xx.98     0.0.0.0         UG    0      0        0 eth0
+</pre>
+
+Your host server root should look like this:
+<pre class="syntax c">
+root@host /# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+78.46.zz.116    0.0.0.0         255.255.255.255 UH    0      0        0 br0
+78.46.zz.118    0.0.0.0         255.255.255.255 UH    0      0        0 br0
+78.46.zz.119    0.0.0.0         255.255.255.255 UH    0      0        0 br0
+78.46.xx.96     78.46.xx.97     255.255.255.224 UG    0      0        0 br0
+78.46.xx.96     0.0.0.0         255.255.255.224 U     0      0        0 br0
+0.0.0.0         78.46.xx.97     0.0.0.0         UG    0      0        0 br0
+</pre>
+
+A german tutorial which explains this concept in combination with kvm can be found <a href="http://wiki.hetzner.de/index.php/KVM_mit_Nutzung_aller_IPs_aus_Subnetz">here</a>.

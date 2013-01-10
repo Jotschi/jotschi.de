@@ -1,0 +1,29 @@
+--- 
+layout: post
+status: publish
+published: true
+title: JOGL2 Maven Examples (Linux i586)
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  I just uploaded a small maven project <a href="https://github.com/Jotschi/jogl2-example">to GitHub</a> that shows how to work with <a href="http://maven.apache.org">Maven</a> and <a href="http://www.jogamp.org">JOGL2</a>. The example also make usage of the ClassPathLoader mechanism i decribed in <a href="http://www.jotschi.de/?p=660">my other post</a>.
+
+wordpress_id: 666
+wordpress_url: /?p=666
+date: 2011-09-26 23:56:00 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: []
+
+---
+I just uploaded a small maven project <a href="https://github.com/Jotschi/jogl2-example">to GitHub</a> that shows how to work with <a href="http://maven.apache.org">Maven</a> and <a href="http://www.jogamp.org">JOGL2</a>. The example also make usage of the ClassPathLoader mechanism i decribed in <a href="http://www.jotschi.de/?p=660">my other post</a>.
+<a id="more"></a><a id="more-666"></a>
+I added the jogl2 libraries by using the system scope since i could not find a maven repository with those libraries. The example currently works only with i586 linux. But i could be easily modified to handle other architectures as well.
+
+Update: I migrated the nehe jogl examples which i found <a href="http://www.java-tips.org/other-api-tips/jogl/vertex-buffer-objects-nehe-tutorial-jogl-port-2.html">here</a> to make use of jogl2. 
+
+<a href="/images/opengl/JOGLQuadExample.png"><img src="/images/opengl/JOGLQuadExample.png" alt="" title="JOGLQuadExample" width="271" height="283" class="alignnone size-full wp-image-674" /></a>

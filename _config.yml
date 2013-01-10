@@ -1,0 +1,10 @@
+markdown: rdiscount
+pygments: true
+exclude: [".gitignore", "README.md"]
+
+# Variables
+author :
+  name : Jotschi
+  email : webmaster@jotschi.de
+  github : jotschi
+  twitter : Jotschi

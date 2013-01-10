@@ -1,0 +1,32 @@
+--- 
+layout: post
+status: publish
+published: true
+title: OpenGL matrix/vector libraries
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+wordpress_id: 444
+wordpress_url: /?p=444
+date: 2009-12-14 00:27:46 +00:00
+categories: 
+- Uncategorized
+tags: 
+- OpenGL
+- c++
+comments: []
+
+---
+While searching for a sufficient c++ library that provides matrix and vector algebra implementations i found those two:
+
+1. <a href="http://glm.g-truc.net/about.html">http://glm.g-truc.net/about.html</a>
+GLM contains over 500 useful math functions for OpenGL. Mostly vector, matrix and quaternion math.
+
+2. <a href="http://bartipan.net/vmath/">http://bartipan.net/vmath/</a>
+vmath is set of C++ classes for Vector and Matrix algebra used in computer graphics. 
+
+3. <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">http://eigen.tuxfamily.org/</a>
+Eigen is a C++ template library for linear algebra: vectors, matrices, and related algorithms.
+
+I'll test GLM since i want to integrate GLSL within my program.

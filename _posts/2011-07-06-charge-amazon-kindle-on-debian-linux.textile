@@ -1,0 +1,24 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Charge Amazon Kindle On Debian Linux
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+wordpress_id: 567
+wordpress_url: /?p=567
+date: 2011-07-06 10:54:20 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: []
+
+---
+You have to eject the Amazon Kindle to switch into charging mode:
+
+{% snippet c %}
+ sudo eject /dev/disk/by-label/Kindle
+{% endsnippet %}

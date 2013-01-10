@@ -1,0 +1,30 @@
+--- 
+layout: post
+status: publish
+published: true
+title: mplayer still picture extraction
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+wordpress_id: 116
+wordpress_url: /?p=116
+date: 2008-04-06 21:09:25 +00:00
+categories: 
+- Fundgrube
+tags: 
+- linux
+- mplayer
+comments: []
+
+---
+Do you want to extract one specific frame from a movie using mplayer?
+
+<pre> 
+mplayer -ss [second] -frames 1 -vo png [moviefile]
+</pre>
+
+Example:
+<pre> 
+mplayer -ss 0.04166666667 -frames 1 -vo png test.mov
+</pre>

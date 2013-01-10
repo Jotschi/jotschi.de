@@ -1,0 +1,11 @@
+---
+layout: default
+---
+
+<h2 class="entry-title" style="font-size: 19px;">Posts tagged with '{{page.tag}}'</h2>
+
+<ul>
+{% for p in page.collated_posts %}
+  <li><a href='{{ p.url }}'>{{ p.title }}</a></li>
+{% endfor %}
+</ul>

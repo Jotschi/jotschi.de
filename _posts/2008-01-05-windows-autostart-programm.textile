@@ -1,0 +1,44 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Windows Autostart Programm
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: |-
+  <p lang="en">CD-Rom Autorun<br />
+  This small program will be called by Autorun.ini. The program itself just executes Index.html. This means Index.html will be opened in the default webbrowser. In comparision to some other methods i discovered while searching for a solution this one won't open a consol window or something else.</p>
+  <p>
+wordpress_id: 89
+wordpress_url: /?p=89
+date: 2008-01-05 01:16:32 +00:00
+categories: 
+- Technik
+tags: []
+
+comments: []
+
+---
+CD-Rom Autorun
+This small program will be called by Autorun.ini. The program itself just executes Index.html. This means Index.html will be opened in the default webbrowser. In comparision to some other methods i discovered while searching for a solution this one won't open a consol window or something else.</p>
+<p><a id="more"></a><a id="more-89"></a></p>
+Compile with:
+
+{% snippet c %}
+gcc  -o open.exe  start.c res.o -mwindows
+{% endsnippet %}
+
+<p>Code:<br />
+{% snippet c %}
+#include <stdio.h>
+#include <windows.h>
+int WINAPI WinMain(HINSTANCE hinst,HINSTANCE hprev,LPSTR cmdline,int cmdshow)
+{
+  HINSTANCE hInst = ShellExecute(0   ,"open","index.html",NULL , 0,  SW_SHOW);
+return 0;
+}
+{% endsnippet %}
+
+Note: You may need to change the " in '.

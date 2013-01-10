@@ -1,0 +1,54 @@
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+
+	google.load("search", "1");
+
+	function OnLoad() {
+			
+		var searchComplete = function(searchControl, searcher) {
+			for (result in searcher.results) {
+				var content = searcher.results[result].content;
+				var title = searcher.results[result].title;
+				var url = searcher.results[result].url;
+				jQuery('#searchResults ul').remove('li');
+				jQuery('#searchResults ul').append(jQuery('<li></li>')
+				.append(jQuery('<a/>').attr('href', url).html(title))
+				.append(jQuery('<p/>').html(content)));
+				jQuery('#content').hide();
+				jQuery('#searchResults').slideDown('slow');
+			}
+		}
+			
+		// called on form submit
+		newSearch = function(query) {
+			if (query) {
+				var webSearch = new google.search.WebSearch();
+				webSearch.setSiteRestriction('www.jotschi.de');
+				var searchControl = new google.search.SearchControl();
+				searchControl.addSearcher(webSearch);
+				searchControl.draw();
+	
+				searchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
+				searchControl.setSearchCompleteCallback(this, searchComplete);
+				searchControl.execute(query);
+			}
+			return false;
+		}
+	
+		jQuery(document).ready(function() {
+			jQuery('#searchform').submit(function() {
+				var query = jQuery('#s').val();
+				newSearch(query);
+				return false;
+			});
+		});
+	}
+	google.setOnLoadCallback(OnLoad);
+//]]>
+</script>
+<form method="get" id="searchform" action="/">
+	<label for="s" class="assistive-text">Search</label>
+	<input type="text" class="field" name="s" id="s" placeholder="Search" />
+	<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+</form>

@@ -1,0 +1,44 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Holodeck v2.0
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: "Ein weiterer Ansatz in die tiefen der virtuellen Welt vorzusto\xC3\x83\xC5\xB8en bieten <a href=\"http://en.wikipedia.org/wiki/Head-mounted_display\">Video LCD Brillen</a> / <a href=\"http://de.wikipedia.org/wiki/Head-Mounted_Display\">HMD</a> oder <a href=\"http://en.wikipedia.org/wiki/Virtual_retinal_display\">Virtual retinal Display</a> bei dem das erzeugte Bild direkt auf die Netzhaut projiziert wird.\r\n\
+  \r\n"
+wordpress_id: 96
+wordpress_url: /?p=96
+date: 2008-01-16 14:27:19 +00:00
+categories: 
+- Fundgrube
+- Technik
+tags: []
+
+comments: []
+
+---
+Ein weiterer Ansatz in die tiefen der virtuellen Welt vorzustoßen bieten <a href="http://en.wikipedia.org/wiki/Head-mounted_display">Video LCD Brillen</a> / <a href="http://de.wikipedia.org/wiki/Head-Mounted_Display">HMD</a> oder <a href="http://en.wikipedia.org/wiki/Virtual_retinal_display">Virtual retinal Display</a> bei dem das erzeugte Bild direkt auf die Netzhaut projiziert wird.
+
+<a id="more"></a><a id="more-96"></a>
+
+<strong>Ansatz:</strong>
+
+In Verbindung mit einer hochauflösenden Stereokamera, welche auf dem getragenen Display montiert ist, wäre es möglich die Umgebung zu filmen und dieses Bildmaterial auf den Displayes dazustellen. Klingt im Grund sehr unsinnig da man das selbe Bild auch ohne jegliche technische Spielereien sehen könnte. Diese Vorgehensweise bietet jedoch eine weitere interessante Möglichkeit. Es ist nun Möglich in das gewonnene Bildmaterial neue Objekte einzublenden bzw. das nun sichtbare Bildmaterial zu verändern. So erhält man eine <a href="http://de.wikipedia.org/wiki/Erweiterte_Realit%C3%A4t" target="_blank">erweiterte Realität</a>.
+
+<strong>Reale Umsetzung:</strong>
+
+An der Universität Paderborn habe ich z.B. eine <a href="http://www.cs.uni-paderborn.de/fachgebiete/ag-domik/studienarbeiten/2003/bjoern-schwerdtfeger.html" target="_blank">solche Technik</a> testen könnnen. Es wurde jedoch nur eine Kamera eingesetzt bei der sich somit nur ein zwei dimensionales Bild erfassen ließ. Zusätzlich wurde in das aufgenommene Bild ein 3D Objekt eingeblendet. So konnte die Kamera ein Muster auf einer weißen Fläche erfassen und aus dem Muster die Position und Orientierung der Fläche ermitteln. Dadurch war es möglich in Echtzeit ein Objekt in den Raum zu "projiziert."
+
+<a href="http://www.cs.uni-paderborn.de/fachgebiete/ag-domik/studienarbeiten/2005/andreas-pfau.html" target="_blank">Entwicklung im Jahr 2005</a>
+
+Alternativ würde sich auch eine Videobrille anbieten die über durchscheinende Displays verfügt. Wie z.B. bei einem HUD Display (Siehe Bild unten) . Bei dieser Technik trägt eine Person eine Projektionsfläche vor dem Auge. Diese Fläche ist in der Regel durchscheinend und ermöglicht zum Teil den Blick auf ein LCD Display. Perfekt wäre jedoch ein LCD ähnliches Display welches eine Art Alpha/Transparenz Effekt ermöglicht.
+
+<a href="/images/holo/hud.jpg" onclick="return false;" title="Direct link to file">
+</a>
+
+<strong>Mögliche Anwendungen: </strong>
+
+Durch diese Technik wäre z.B. Möglich Bilder in einen Raum zu erzeugen die real natürlich nicht vorhanden sind.

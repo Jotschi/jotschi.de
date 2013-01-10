@@ -1,0 +1,78 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Calculating The ModelView Matrix For OpenGL
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  Sometimes its very useful to create a modelview matrix without modifying the OpenGL matrix stack. Methods that will modify the matrix stack are for example gluLookAt or similar methods.
+
+wordpress_id: 697
+wordpress_url: /?p=697
+date: 2011-10-12 23:37:10 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: []
+
+---
+Sometimes its very useful to create a modelview matrix without modifying the OpenGL matrix stack. Methods that will modify the matrix stack are for example gluLookAt or similar methods.
+<a id="more"></a><a id="more-697"></a>
+I wrote my own method that calculates the modelview matrix for java but i guess it can be easily adapted. Calculating a modelview matrix in this way allows one to pass the generated matrix to a glsl shader using a simple matrix uniform. Using vertex processing in a vertex shader is even the preferred way of dealing with modelview transformations in OpenGL 3.1.
+
+A full example can be found <a href="https://github.com/Jotschi/jogl2-example">here</a>.
+{% raw %}
+<pre class="syntax java">
+	public float[] calculateModelViewMatrix(Vector3f eye, Vector3f center,
+			Vector3f up) {
+
+		// Create a new matrix that will hold the modelview matrix
+		Matrix4fe mv = new Matrix4fe();
+
+		// Set the identity matrix
+		mv.setIdentity();
+
+		// Calculate the forward vector
+		Vector3f forward = new Vector3f();
+		forward.sub(center, eye);
+		forward.normalize();
+
+		// Calculate the side vector by calculating the cross product of the
+		// forward and up vector
+		Vector3f side = new Vector3f();
+		side.cross(forward, up);
+		side.normalize();
+
+		// Recalculate up
+		up.cross(side, forward);
+
+		// Set the matrix fields
+		mv.setElement(0, 0, side.getX());
+		mv.setElement(0, 1, side.getY());
+		mv.setElement(0, 2, side.getZ());
+
+		mv.setElement(1, 0, up.getX());
+		mv.setElement(1, 1, up.getY());
+		mv.setElement(1, 2, up.getZ());
+
+		mv.setElement(2, 0, -forward.getX());
+		mv.setElement(2, 1, -forward.getY());
+		mv.setElement(2, 2, -forward.getZ());
+
+		// Negate the eye vector and create a translation matrix
+		eye.negate();
+		Matrix4f translationMatrix = new Matrix4f();
+		translationMatrix.setIdentity();
+		translationMatrix.setTranslation(eye);
+
+		// Apply the translation
+		mv.mul(translationMatrix);
+
+		return mv.getFloatArray();
+	}
+</pre>
+{% endraw %}

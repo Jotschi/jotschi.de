@@ -1,0 +1,54 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Realtime Webserver Access Monitoring For Linux Users
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  For my arduino project i needed to find a way of monitoring webserver requests in realtime. 
+
+wordpress_id: 713
+wordpress_url: /?p=713
+date: 2011-10-23 12:53:05 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: []
+
+---
+For my arduino project i needed to find a way of monitoring webserver requests in realtime. 
+<a id="more"></a><a id="more-713"></a>
+
+h2. This is how it works:
+
+On the server side i start a script that monitors the apache access log. The script just pipes useful lines into ncat to send them to connected client. <a href="http://nmap.org/ncat/">ncat</a> is similar to netcat but it allows multiple connections. ncat is included in the nmap package. You can also use netcat but this would limit you to one client connection.
+The stdbuf command is very important since it changes the output buffering. Otherwise you would receive big chucks of data instead of discrete lines.
+
+h2. On the server side:
+
+{% raw %}
+<pre class="syntax bash">
+#!/bin/bash
+LOG=/var/log/apache2/blog_access.log
+tail -f -n 20 $LOG | stdbuf -oL awk '{print $7 " "  $9}'  | stdbuf -oL  grep "/?p" |  ncat -l 2222 -m 20 -k
+</pre>
+{% endraw %}
+
+h2. On the client side you need the following script:
+
+On the client side a script is used that connects to the ncat server and reads the piped lines. Those lines are then passed to the notify-send command which is a neat small command that displays a notification message on your desktop.
+I don't recommend that you open the port 2222 to access it from the internet. Instead you could use openvpn to keep a open connection to your server or use ssh port forward.
+
+{% raw %}
+<pre class="syntax bash">
+#!/bin/bash
+nc yourwebserver 2222 | while read line  ; do
+  echo $line
+  notify-send "Blog: $line"
+done
+</pre>
+{% endraw %}

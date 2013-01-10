@@ -1,0 +1,385 @@
+--- 
+layout: post
+status: publish
+published: true
+title: ProjectiveTextureExample OpenSceneGraph
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  Another OSG ProjectiveTexture Example - I did some code cleanup and added a bounding box test feature. My goal this example was to align the projector so that it would cover 100% of the second cameras field of view. In other words the view volume of the perspector of the scene should always be inside of the view volume of the projector. I solved this task by using some bounding box features and by setting the projector view matrix to align the view.
+
+wordpress_id: 378
+wordpress_url: /?p=378
+date: 2009-09-10 18:31:37 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: []
+
+---
+Another OSG ProjectiveTexture Example - I did some code cleanup and added a bounding box test feature. My goal this example was to align the projector so that it would cover 100% of the second cameras field of view. In other words the view volume of the perspector of the scene should always be inside of the view volume of the projector. I solved this task by using some bounding box features and by setting the projector view matrix to align the view.
+<a id="more"></a><a id="more-378"></a>
+<a href="/images/opengl/BoundingBoxedView.png"><img src="/images/opengl/BoundingBoxedView.png" alt="BoundingBoxedView" title="BoundingBoxedView" width="500" class="alignnone size-full wp-image-384" /></a>
+
+<strong>ProjectiveTextureExample.cpp</strong>
+<pre class="syntax c">
+#include <iostream>
+#include <osg/Notify>
+#include <osg/MatrixTransform>
+#include <osg/ShapeDrawable>
+#include <osg/PositionAttitudeTransform>
+#include <osg/Geometry>
+#include <osgGA/TrackballManipulator>
+
+#include <osg/Texture2D>
+#include <osg/Geode>
+#include <osg/LightSource>
+#include <osg/TexGenNode>
+#include <osg/TexMat>
+#include <osgDB/WriteFile>
+#include <osgUtil/Optimizer>
+
+#include <osgDB/Registry>
+#include <osgDB/ReadFile>
+
+#include <osgViewer/Viewer>
+#include <osgViewer/CompositeViewer>
+#include <string>
+using namespace std;
+
+osgViewer::View* viewA = new osgViewer::View;
+osg::TexMat* texMat = new osg::TexMat;
+
+/**
+ * This method is used to mark the camera position
+ */
+osg::Node * markCameraPosition(osg::Camera* camera) {
+
+	osg::Group* root = new osg::Group();
+	osg::Matrixd proj;
+	osg::Matrixd mv;
+	if (camera) {
+		proj = camera->getProjectionMatrix();
+		mv = camera->getViewMatrix();
+	} else {
+		// Create some kind of reasonable default Projection matrix.
+		proj.makePerspective(30., 1., 1., 10.);
+		// leave mv as identity
+	}
+
+	osg::Vec3f vector = osg::Vec3f(proj(0, 0), proj(0, 0), proj(0, 0));
+	osg::Vec3f posVec = osg::Matrixd::inverse(mv).preMult(vector);
+
+	//	printf("VectorX: %f\n", posVec.x());
+	//	printf("VectorY: %f\n", posVec.y());
+	//	printf("VectorZ: %f\n", posVec.z());
+
+	osg::Sphere* unitSphere = new osg::Sphere(osg::Vec3(0, 0, 0), 2.0);
+	osg::ShapeDrawable* unitSphereDrawable = new osg::ShapeDrawable(unitSphere);
+	osg::Geode* unitSphereGeode = new osg::Geode();
+	unitSphereGeode->addDrawable(unitSphereDrawable);
+
+	osg::PositionAttitudeTransform* sphereXForm =
+			new osg::PositionAttitudeTransform();
+	sphereXForm->setPosition(posVec);
+	sphereXForm->addChild(unitSphereGeode);
+	root->addChild(sphereXForm);
+
+	return root;
+
+}
+// Given a Camera, create a wireframe representation of its
+// view frustum. Create a default representation if camera==NULL.
+osg::Node*
+makeFrustumFromCamera(osg::Camera* camera) {
+
+	// Projection and ModelView matrices
+	osg::Matrixd proj;
+	osg::Matrixd mv;
+	if (camera) {
+		proj = camera->getProjectionMatrix();
+		mv = camera->getViewMatrix();
+	} else {
+		// Create some kind of reasonable default Projection matrix.
+		proj.makePerspective(30., 1., 1., 10.);
+		// leave mv as identity
+	}
+
+	//camera->setViewMatrix(camera->getViewMatrix().frustum(100,200,100,100,10,100));
+
+	// Get near and far from the Projection matrix.
+	const double near = proj(3, 2) / (proj(2, 2) - 1.0);
+	const double far = proj(3, 2) / (1.0 + proj(2, 2));
+
+	// Get the sides of the near plane.
+	const double nLeft = near * (proj(2, 0) - 1.0) / proj(0, 0);
+	const double nRight = near * (1.0 + proj(2, 0)) / proj(0, 0);
+	const double nTop = near * (1.0 + proj(2, 1)) / proj(1, 1);
+	const double nBottom = near * (proj(2, 1) - 1.0) / proj(1, 1);
+
+	// Get the sides of the far plane.
+	const double fLeft = far * (proj(2, 0) - 1.0) / proj(0, 0);
+	const double fRight = far * (1.0 + proj(2, 0)) / proj(0, 0);
+	const double fTop = far * (1.0 + proj(2, 1)) / proj(1, 1);
+	const double fBottom = far * (proj(2, 1) - 1.0) / proj(1, 1);
+
+	// Our vertex array needs only 9 vertices: The origin, and the
+	// eight corners of the near and far planes.
+	osg::Vec3Array* v = new osg::Vec3Array;
+	v->resize(9);
+	(*v)[0].set(0., 0., 0.);
+	(*v)[1].set(nLeft, nBottom, -near);
+	(*v)[2].set(nRight, nBottom, -near);
+	(*v)[3].set(nRight, nTop, -near);
+	(*v)[4].set(nLeft, nTop, -near);
+	(*v)[5].set(fLeft, fBottom, -far);
+	(*v)[6].set(fRight, fBottom, -far);
+	(*v)[7].set(fRight, fTop, -far);
+	(*v)[8].set(fLeft, fTop, -far);
+
+	osg::Geometry* geom = new osg::Geometry;
+	geom->setUseDisplayList(false);
+	geom->setVertexArray(v);
+
+	osg::Vec4Array* c = new osg::Vec4Array;
+	c->push_back(osg::Vec4(1., 1., 1., 1.));
+	geom->setColorArray(c);
+	geom->setColorBinding(osg::Geometry::BIND_OVERALL);
+
+	GLushort idxLines[8] = { 0, 5, 0, 6, 0, 7, 0, 8 };
+	GLushort idxLoops0[4] = { 1, 2, 3, 4 };
+	GLushort idxLoops1[4] = { 5, 6, 7, 8 };
+	geom->addPrimitiveSet(new osg::DrawElementsUShort(osg::PrimitiveSet::LINES,
+			8, idxLines));
+	geom->addPrimitiveSet(new osg::DrawElementsUShort(
+			osg::PrimitiveSet::LINE_LOOP, 4, idxLoops0));
+	geom->addPrimitiveSet(new osg::DrawElementsUShort(
+			osg::PrimitiveSet::LINE_LOOP, 4, idxLoops1));
+
+	osg::Geode* geode = new osg::Geode;
+	geode->addDrawable(geom);
+
+	geode->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::OFF
+			| osg::StateAttribute::PROTECTED);
+
+	// Create parent MatrixTransform to transform the view volume by
+	// the inverse ModelView matrix.
+	osg::MatrixTransform* mt = new osg::MatrixTransform;
+	mt->setMatrix(osg::Matrixd::inverse(mv));
+	mt->addChild(geode);
+
+	return mt;
+}
+
+osg::ref_ptr<osg::Program> addShader() {
+	osg::ref_ptr<osg::Program> projProg(new osg::Program);
+	osg::ref_ptr<osg::Shader> projvertexShader(osg::Shader::readShaderFile(
+			osg::Shader::VERTEX, "VertexShader.glsl"));
+	osg::ref_ptr<osg::Shader> projfragShader(osg::Shader::readShaderFile(
+			osg::Shader::FRAGMENT, "FragmentShader.glsl"));
+
+	projProg->addShader(projvertexShader.get());
+	projProg->addShader(projfragShader.get());
+	return projProg;
+}
+
+void addProjectionInfoToState(osg::StateSet* stateset, string fn) {
+
+	/* 1. Load the texture that will be projected */
+	osg::Texture2D* texture = new osg::Texture2D();
+	texture->setImage(osgDB::readImageFile(fn));
+	texture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_BORDER);
+	texture->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_BORDER);
+	texture->setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_BORDER);
+	stateset->setTextureAttributeAndModes(1, texture, osg::StateAttribute::ON);
+
+	// set up tex gens
+	stateset->setTextureMode(1, GL_TEXTURE_GEN_S, osg::StateAttribute::ON);
+	stateset->setTextureMode(1, GL_TEXTURE_GEN_T, osg::StateAttribute::ON);
+	stateset->setTextureMode(1, GL_TEXTURE_GEN_R, osg::StateAttribute::ON);
+	stateset->setTextureMode(1, GL_TEXTURE_GEN_Q, osg::StateAttribute::ON);
+
+	/* 3. Handover the texture to the fragment shader via uniform */
+	osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,
+			"projectionMap");
+	texUniform->set(1);
+	stateset->addUniform(texUniform);
+
+	/* 4. set Texture matrix*/
+
+	//If you want to create the texture matrix by yourself you can do this like this way:
+	//osg::Vec3 projectorPos = osg::Vec3(0.0f, 0.0f, 324.0f);
+	//osg::Vec3 projectorDirection = osg::Vec3(osg::inDegrees(dirX),osg::inDegrees(dirY), osg::inDegrees(dirZ));
+	//osg::Vec3 up(0.0f, 1.0f, 0.0f);
+	//osg::Vec3 target = osg::Vec3(0.0f, 0.0f,0.0f);
+	//float projectorAngle = 80.f; //FOV
+	//mat = osg::Matrixd::lookAt(projectorPos, projectorPos*target ,up) * osg::Matrixd::perspective(projectorAngle, 1.0, 1.0, 10);
+
+
+	osg::Matrix mat = viewA->getCamera()->getViewMatrix()
+			* viewA->getCamera()->getProjectionMatrix();
+
+	texMat->setMatrix(mat);
+	stateset->setTextureAttributeAndModes(1, texMat, osg::StateAttribute::ON);
+
+}
+
+osg::StateSet* createProjectorState() {
+	osg::StateSet* stateset = new osg::StateSet;
+	osg::ref_ptr<osg::Program> prog = addShader();
+	addProjectionInfoToState(stateset, "foo2.jpg");
+	stateset->setAttribute(prog.get());
+	return stateset;
+}
+
+/**
+ * Load some model, scale it and apply the shader
+ */
+osg::Node* createModel() {
+
+	osg::Group* root = new osg::Group;
+
+	/* Load the terrain which will be the receiver of out projection */
+	osg::Node* terr = osgDB::readNodeFile("Terrain2.3ds");
+
+	/* Scale the terrain and move it. */
+	osg::Matrix m;
+	osg::ref_ptr<osg::MatrixTransform> mt = new osg::MatrixTransform;
+	m.makeTranslate(0.f, 0.f, 0.f);
+	m.makeScale(2.f, 2.f, 2.f);
+	mt->setMatrix(m);
+	mt->addChild(terr);
+
+	/* Add the transformed node to our graph */
+	root->addChild(mt.get());
+
+	/* Enable projective texturing for all objects of this node */
+	root->setStateSet(createProjectorState());
+	return root;
+}
+
+/**
+ * Creates a small ball node for the given coords.
+ */
+osg::Node* createBall(osg::Vec3 pos) {
+	osg::Sphere* unitSphere = new osg::Sphere(osg::Vec3(0, 0, 0), 62.0);
+	osg::ShapeDrawable* unitSphereDrawable = new osg::ShapeDrawable(unitSphere);
+	osg::Geode* unitSphereGeode = new osg::Geode();
+	unitSphereGeode->addDrawable(unitSphereDrawable);
+
+	osg::PositionAttitudeTransform* sphereXForm =
+			new osg::PositionAttitudeTransform();
+	sphereXForm->setPosition(pos);
+	sphereXForm->addChild(unitSphereGeode);
+	return sphereXForm;
+}
+
+int main(int argc, char ** argv) {
+
+	osg::ArgumentParser arguments(&argc, argv);
+
+	osg::ref_ptr<osg::Group> sceneA = new osg::Group;
+	osg::ref_ptr<osg::Group> sceneB = new osg::Group;
+	osg::ref_ptr<osg::Group> sceneC = new osg::Group;
+	sceneA->addChild(createModel());
+	sceneB->addChild(createModel());
+	sceneC->addChild(createModel());
+
+	osgViewer::CompositeViewer viewer(arguments);
+
+	// Turn on FSAA, makes the lines look better.
+	//osg::DisplaySettings::instance()->setNumMultiSamples( 4 );
+
+	viewer.addView(viewA);
+	viewA->setUpViewInWindow(10, 10, 640, 480);
+	viewA->setSceneData(sceneA.get());
+	//Add this to move the projector by mouse - you need to disable the set of the viewmatrix in the while loop below.
+	//viewA->setCameraManipulator(new osgGA::TrackballManipulator);
+
+	osgViewer::View* viewB = new osgViewer::View;
+	viewer.addView(viewB);
+	viewB->setUpViewInWindow(10, 510, 640, 480);
+	viewB->setSceneData(sceneB.get());
+	viewB->setCameraManipulator(new osgGA::TrackballManipulator);
+
+	osgViewer::View* viewC = new osgViewer::View;
+	viewer.addView(viewC);
+	viewC->setUpViewInWindow(500, 510, 640, 480);
+	viewC->setSceneData(sceneC.get());
+	viewC->setCameraManipulator(new osgGA::TrackballManipulator);
+
+	// You can disable the auto computed near far bounds by disabling the osg mode.
+	// viewer.getView(0)->getCamera()->setComputeNearFarMode(osg::Camera::DO_NOT_COMPUTE_NEAR_FAR);
+
+
+	while (!viewer.done()) {
+
+		osg::Matrix mat = viewA->getCamera()->getViewMatrix()
+				* viewA->getCamera()->getProjectionMatrix();
+		texMat->setMatrix(mat);
+
+		sceneA->removeChild(1, 1);
+		sceneA->insertChild(1, makeFrustumFromCamera(viewB->getCamera()));
+
+		//sceneB->removeChild(1, 1);
+		//sceneB->insertChild(1, makeFrustumFromCamera(viewA->getCamera()));
+
+		sceneC->removeChild(1, 1);
+		sceneC->insertChild(1, makeFrustumFromCamera(viewA->getCamera()));
+
+		sceneC->removeChild(2, 1);
+		sceneC->insertChild(2, makeFrustumFromCamera(viewB->getCamera()));
+
+		// Finnaly set the camera
+		osg::Node* frustum = makeFrustumFromCamera(viewB->getCamera());
+		const osg::BoundingSphere& boundingSphere = frustum->getBound();
+		osg::Matrix myviewMatrix;
+		osg::Vec3 boxEye = boundingSphere._center + osg::Vec3(0.0f, -3.5f
+				* boundingSphere._radius, 0.0f);
+		osg::Vec3 boxCenter = boundingSphere._center;
+		osg::Vec3 boxUp = osg::Vec3(0.0f, 0.0f, 1.0f);
+		myviewMatrix.makeLookAt(boxEye, boxCenter, boxUp);
+		viewA->getCamera()->setViewMatrix(myviewMatrix);
+
+		viewer.frame();
+	}
+	return 0;
+
+}
+</pre>
+As you can see the texture coordinated will be shifted by 0.5/0.5. I had to do this because the projective center was in the middle of the texture. Without correction you get results like this one:
+
+<img src="/images/opengl/texture_projection.png" alt="1" title="1" width="628" height="475" class="alignnone size-full wp-image-385" />
+
+<img src="/images/opengl/texture_projection_2.png" alt="2" title="2" width="628" height="470" class="alignnone size-full wp-image-386" />
+
+
+<strong>FragmentShader.glsl</strong>
+<pre class="syntax c">
+uniform sampler2D projectionMap;
+varying vec4 projCoord;
+
+void main()
+{
+	vec4 dividedCoord = projCoord / projCoord.w ;
+	vec4 color =  texture2D(projectionMap,dividedCoord.st+vec2(0.5,0.5)  );
+  	gl_FragColor =	 color * gl_Color;
+}
+
+
+</pre>
+
+<strong>VertexShader.glsl</strong>
+<pre class="syntax c">
+varying vec4 projCoord;
+void main()
+{
+
+		projCoord =  gl_TextureMatrix[1]  *  gl_Vertex;
+		gl_Position = ftransform();
+		gl_FrontColor = gl_Color;
+}
+</pre>

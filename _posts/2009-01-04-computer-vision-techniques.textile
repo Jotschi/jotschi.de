@@ -1,0 +1,36 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Computer Vision Techniques
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  This post contains a list of some computer vision techniques.
+
+wordpress_id: 246
+wordpress_url: /?p=246
+date: 2009-01-04 00:45:45 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: []
+
+---
+This post contains a list of some computer vision techniques.
+<a id="more"></a><a id="more-246"></a>
+See also <a href="http://en.wikipedia.org/wiki/Category:Computer_vision">Wikipedia: Computer Vision</a>
+
+Depth Estimation
+Structure from Motion
+Image Separation
+Optical Flow
+Face Tracking
+Feature Detection
+Object Removal
+
+
+

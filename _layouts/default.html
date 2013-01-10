@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+	<title>{{ page.title }}</title>
+	{% include head-includes.html %}
+</head>
+
+<body class="home blog one-column content">
+	<header id="branding" role="banner">
+		<hgroup>
+			<h1 id="site-title"><span><a href="/" title="Jotschi&#039;s Blog" rel="home">Jotschi&#039;s Blog</a></span></h1>
+			<h2 id="site-description">NeXuS</h2>
+		</hgroup>
+		
+		{% include widgets/search-widget.html %}
+			
+		<nav id="access" role="navigation">
+			<h3 class="assistive-text">Main menu</h3>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to primary content">Skip to primary content</a></div>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to secondary content">Skip to secondary content</a></div>
+			<div class="menu">
+				<ul>
+					<li class="current_page_item">
+						<a href="/" title="Home">Home</a>
+					</li>
+					<li class="page_item page-item-2">
+						<a href="/about.html">About</a>
+					</li>
+					<li class="page_item page-item-143">
+						<a href="/projects.html">Projects</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div id="page" class="hfeed">
+		<div id="main">
+			<div id="primary">
+				<div id="searchResults" title="Search Results">
+					<h2 class="search-title">Search Results:</h2>
+					<ul></ul>
+				</div>
+					
+				<div id="content" role="main">
+					{{ content }}
+				</div>
+			</div>
+		</div>
+		<footer id="colophon" role="contentinfo">
+			<div id="supplementary" class="three">
+				<div id="first" class="widget-area" role="complementary">
+					{% include widgets/tagcloud-widget.html %}
+				</div>
+				<div id="second" class="widget-area" role="complementary">
+					{% include widgets/recent-posts-widget.html %}
+				</div>
+				<div id="third" class="widget-area" role="complementary">
+					{% include widgets/category-widget.html %}
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

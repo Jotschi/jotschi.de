@@ -1,0 +1,30 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Mars Phoenix - Landing Ellipse - Update
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: |
+  The last pre EDL mission briefing revealed that the latest OD (orbit determination solution) changed the 99% probability landing ellipse slightly. 
+
+wordpress_id: 135
+wordpress_url: /?p=135
+date: 2008-05-25 22:04:00 +00:00
+categories: 
+- Das kalte Nichts
+tags: 
+- mars
+- landing
+- phoenix
+comments: []
+
+---
+The last pre EDL mission briefing revealed that the latest OD (orbit determination solution) changed the 99% probability landing ellipse slightly. 
+<a id="more"></a><a id="more-135"></a>
+I did a overlapping image of both images to show the difference. As you can see the new landing ellipse (blue) is not that far extended than the previous predicted landing ellipse (red). My calculations based on these images reveal that the new landing ellipse extends about 66km in length compared to the old one with about 70km.
+
+<a href='/images/mars/250508phoenix-landingelipse.png'><img src="/images/mars/250508phoenix-landingelipse.png" alt="" title="250508phoenix-landingelipse" width="500" height="375" class="alignnone size-full wp-image-134" /></a>
+Image Credit: NASA/JPL-Caltech

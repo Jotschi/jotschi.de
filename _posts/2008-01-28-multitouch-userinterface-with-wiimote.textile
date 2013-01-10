@@ -1,0 +1,39 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Multitouch Userinterface with WiiMote
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: |-
+  <p lang="en">Using the WiiMote you can create a multitouch userinterface. Johnny Chung Lee, Carnegie Mellon University demonstrate this in one of his videos:</p>
+  <p>
+wordpress_id: 108
+wordpress_url: /?p=108
+date: 2008-01-28 02:11:11 +00:00
+categories: 
+- Neuronensturm
+- Technik
+tags: 
+- multitouch
+- wiimote
+- invention
+comments: []
+
+---
+<p lang="en">Using the WiiMote you can create a multitouch userinterface. Johnny Chung Lee, Carnegie Mellon University demonstrate this in one of his videos:</p>
+<p><a id="more"></a><a id="more-108"></a></p>
+<p lang="de">Mittels WiiMote lässt sich einfach ein multitouch userinterface erstellen. Johnny Chung Lee, Carnegie Mellon University zeigt dies in einem seiner videos:</p>
+<p><embed src="http://www.youtube.com/v/5s5EvhHy7eQ&rel=1" type="application/x-shockwave-flash" wmode="transparent" height="355" width="425"></embed></p>
+</p>
+<p lang="de">Er benutzt einen Lightpen mit einer eingebauten Infrarot LED um einen Punkt zu erzeugen welcher von der WiiMote Infrarot Kamera erfasst werden kann. Ich denke es möglich auch ohne einen solchen LightPen ein Touchpad zu realisieren. Dies wäre ein ein Touchpad mit dem man direkt über die Finger wie z.B. beim Touchpad vom Laptop Benutzereingaben erzeugen kann. Durch die Berührung des Touchpads vertieft sich die berührte Stellen minimal. Platziert man nun unterhalb des Touchpads eine direktionale Infrarotlichtquelle, mit einer Ausrichtung die parallel zur Touchpadfläche verläuft, erhält man bei genauer Abstimmung einen Strahlenverlauf welcher direkt unterhalb der Touchpadfläche verläuft. Bei ausreichendem Druck "biegt" sich nun das Touchpad soweit durch das es den Bereich berührt welcher durch Infrarotlicht durchsetzt ist. Aus Folge davon wird die durchgedehnte Stelle unterhalb des Touchpads nun von Infrarotlicht beleuchtet und somit sichtbar für den WiiMote Infrarot Sensor.</p>
+<p lang="en">He uses a lightpen with a build in infrared LED to get a tracking point for the wiimote infrared camera.I think it is possible to build a touchpad/touchtable where you don't need any pen to interact with the userinterface.Touching the upper layer of the touchpad will lower the layer section in this place and cross the directional lightbeams which are arranged underneath the touchpad. Therefor the place where the touchpad was touched is marked with IR light and can be tracked by the wii controler which is placed under the touchpad area. The infrared camera points to the touchpad and 'sees' the places where the material crosses the lightbeams. The video illustrates this process.</p>
+<p><embed src="http://www.youtube.com/v/YUGGAuENsZA&rel=1" type="application/x-shockwave-flash" wmode="transparent" height="355" width="425"></embed></p>
+<p lang="de">Eine weitere Möglichkeit berührte Gebiete auf dem TouchPad zu erfassen könnte man mit einem speziellen Material der oberen Schicht erreichen. Die Oberseite des Touchpads kann im Grunde jedes relativ gut verformbare Material sein. Die Unterseite hingegen sollte Licht reflektieren können. Wenn nun ein Infrarot Strahl auf dieses Material fällt wird dieser in eine bestimmte Richtung reflektiert werden. Wie man aus der Schule weiß ergibt sich aus dem Einfallswinkel automatisch bei einer flachen Oberfläche der Reflektionswinkel. Würden wir unsere Infrarotlichtquelle nun in einem Winkel von 45 Grad zu  der reflektierenden Fläche ausrichten, würde kein Licht zum WiiMote geworfen werden wenn dieser direkt unter der reflektierenden Fläche platziert wäre. Eine Berührung des Touchpads würde nun zu einer Verformung der Oberfläche führen. Die relektierende Fläche wäre nicht mehr eben und würde somit an der verformten Stelle Licht in viele Richtungen reflektieren. Eben diese Reflektion könnte die WiiMote erfassen und somit die Position an dem das Touchpad berührt wurde erfassen.
+</p>
+<p lang="en">Another way to detect touched areas on the touchpad might work with a special material of the upper layer. The top of the touchpad layer can be anything you like but the bottom layer should be something reflective. When you point an infrared lightsource to this reflective material the light will bounce off to another direction. As we know from school the angle of the incoming light will result to the angle of the reflected light when using a flat surface. We just put our lightsource relative to the reflective layer so that we reach an angle about 45 degree. The incoming light will bounce off and never reache the WiiMote which is placed directly underneath the reflective layer. Touching the layer will cause the surface to be bended so that the light will bounce in nearly every direction. The toucharea is now visible to our WiiMote because some lightrays beeing reflected to the WiiMote.</p>
+
+<p><img src="/images/holo/lightbeams.png" alt="Lightbeams" /><br />
+<img src="/images/holo/lightbeams2.png" alt="Lightbeams2" /></p>

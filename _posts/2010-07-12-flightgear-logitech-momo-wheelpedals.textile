@@ -1,0 +1,59 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Flightgear Logitech Momo Wheel/Pedals
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: |
+  To use my Momo Racing Wheel Pedals as rudder control i just had to change the following files.
+
+wordpress_id: 486
+wordpress_url: /?p=486
+date: 2010-07-12 20:48:47 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: []
+
+---
+To use my Momo Racing Wheel Pedals as rudder control i just had to change the following files.
+<a id="more"></a><a id="more-486"></a>
+
+__joysticks.xml:__
+
+{% raw %}
+<pre lang="xml">
+<PropertyList>
+<js-named include="Input/Joysticks/Logitech/extreme-3d-pro.xml" />
+<js n="1" include="Input/Joysticks/Logitech/extreme-3d-pro.xml" />
+<js-named include="Input/momo.xml" />
+<js n="0" include="Input/momo.xml" />
+</PropertyList>
+</pre>
+{% endraw %}
+
+As you can see use the extreme-3d-pro. Remove the "/controls/flight/rudder" axis setting from the extreme 3d pro file if you want to disable the rudder control by the joystick. The 'n' parameter defined the number of the controler device. If you attached your joystick first and your momo afterwards than your setting whould be 1,0. 
+
+__momo.xml:__
+{% raw %}
+<pre lang="xml">
+<?xml version="1.0"?>
+<PropertyList>
+ <name>default</name>
+ <axis n="1">
+  <desc>Elevator</desc>
+  <binding>
+   <command>property-scale</command>
+   <property>/controls/flight/rudder</property>
+ <factor type="double">-1.0</factor> 
+  </binding>
+ </axis>
+</PropertyList>
+</pre>
+{% endraw %}
+
+I had change the axis settings for the momo wheel with my Logitech Profiler. Go to Options, Global Settings and activate 'Combine pedals'.

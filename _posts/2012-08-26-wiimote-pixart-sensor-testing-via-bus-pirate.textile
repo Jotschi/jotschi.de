@@ -1,0 +1,78 @@
+--- 
+layout: post
+status: publish
+published: true
+title: "WiiMote PixArt Sensor Testing Via Bus Pirate "
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  The WiiMote PixArt sensor can be unsoldered and used as a regular I2C device. Here you can find some information on how to get it working with the buspirate.
+  
+  Unsoldering tip: Disconnect the two metal clips that are connected to the case of the sensor. You can carefully lift the sensor after that has been done. The connection wires can easily be reinserted into the sensor housing. 
+  
+
+wordpress_id: 780
+wordpress_url: /?p=780
+date: 2012-08-26 15:52:18 +00:00
+categories: 
+- Technik
+tags: []
+
+comments: []
+
+---
+The WiiMote PixArt sensor can be unsoldered and used as a regular I2C device. Here you can find some information on how to get it working with the buspirate.
+
+Unsoldering tip: Disconnect the two metal clips that are connected to the case of the sensor. You can carefully lift the sensor after that has been done. The connection wires can easily be reinserted into the sensor housing. 
+
+<a id="more"></a><a id="more-780"></a>
+
+
+IR Camera pin configuration:
+<ul>
+<li>1: 3.3V -> BusPirate 3.3V & BusPirate VPU</li>
+<li>2: GND -> BusPirate GND</li>
+<li>3: GND -> BusPirate GND</li>
+<li>4: NC</li>
+<li>5: SCL -> BusPirate CLK</li>
+<li>6: SDA -> BusPirate MOSI</li>
+<li>7: CLK -> Connect to pin 8 of an 25MHz quartz oscillator</li>
+<li>8: Reset -> Pull Up with 22k Resistor to 3.3V</li>
+</ul>
+
+Additionally you have to provide voltage and ground for your quartz oscillator.
+
+BusPirate Commands:
+<pre class="syntax c">
+// Reset the bus pirate
+#
+// Switch to I2C mode
+m4
+// Select I2C speed
+3
+// Turn off the voltage 
+w
+// Turn on the voltage
+W
+// Turn on the Pulldown resistor
+P
+// Print the voltages
+v
+// Control byte, allows modification of settings / Turn camera on
+[0xB0 0x30 0x01]
+[0xB0 0x30 0x08]
+ // 10 MAXSIZE - Maximum blob size. Wii uses values from 0x62 to 0xc8.
+[0xB0 0x06 0x90]
+// 15 GAIN - Sensor Gain. Smaller values = higher gain. Numerical gain is proportional to 1/2^(n/16) for n<0x40
+[0xB0 0x08 0xC0]
+// 10 GAINLIMIT - Sensor Gain Limit. Must be less than GAIN for camera to function.
+[0xB0 0x1A 0x40]
+[0xB0 0x33 0x33]
+
+// Request data
+[0xB0 0x36]
+// Read 16 bytes of data
+[0xB1 r:16]
+</pre>

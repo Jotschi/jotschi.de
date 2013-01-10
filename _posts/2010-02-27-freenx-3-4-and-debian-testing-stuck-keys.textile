@@ -1,0 +1,37 @@
+--- 
+layout: post
+status: publish
+published: true
+title: FreeNX 3.4 and Debian Testing - Stuck Keys
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: |
+  When using FreeNX 3.4 as server version i stumbled uppon an odd problem. My control (ctrl right) and alt gr key got stuck. By using xev i found out that the keyup event was never triggered. If i disabled the powerful freenx compression the event was handled correctly. 
+  
+  The solution was rather simple. I just reverted to 3.3 and everything seems to work now properly.
+
+wordpress_id: 482
+wordpress_url: /?p=482
+date: 2010-02-27 18:00:26 +00:00
+categories: 
+- Fundgrube
+- Technik
+tags: 
+- debian
+- freenx
+- remote
+comments: []
+
+---
+When using FreeNX 3.4 as server version i stumbled uppon an odd problem. My control (ctrl right) and alt gr key got stuck. By using xev i found out that the keyup event was never triggered. If i disabled the powerful freenx compression the event was handled correctly. 
+
+The solution was rather simple. I just reverted to 3.3 and everything seems to work now properly.
+<a id="more"></a><a id="more-482"></a>
+You can download the previous version here:
+{% snippet c %}
+wget http://64.34.161.181/download/3.3.0/Linux/nxnode_3.3.0-17_i386.deb
+wget http://64.34.161.181/download/3.3.0/Linux/nxclient_3.3.0-6_i386.deb
+wget http://64.34.161.181/download/3.3.0/Linux/FE/nxserver_3.3.0-15_i386.deb
+{% endsnippet %}

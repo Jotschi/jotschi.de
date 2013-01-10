@@ -1,0 +1,62 @@
+--- 
+layout: post
+status: publish
+published: true
+title: "OpenGL Tesselation Techniques Comparison "
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: |
+  There is a veraity of different tesselation techniques you can use within opengl. This post should give a overview over the different techniques currently available:
+
+wordpress_id: 471
+wordpress_url: /?p=471
+date: 2009-12-16 01:22:24 +00:00
+categories: 
+- Technik
+- GFX
+tags: []
+
+comments: []
+
+---
+There is a veraity of different tesselation techniques you can use within opengl. This post should give a overview over the different techniques currently available:
+<a id="more"></a><a id="more-471"></a>
+
+{% youtube Bcalc8UoJzo %}
+
+<ul>
+<br/>
+<strong>1. External Library:</strong>
+<a href="http://www.cs.cmu.edu/~quake/triangle.html">Triangle</a>
+
+<li>Pro's: More flexibel usage</li>
+<li>Con's: Doesn't use GPU computing capabilities</li>
+<br/>
+
+<strong>2. Static pipeline functionality provided by GLU the GLUtesselator:</strong>
+
+<a href="/?p=466">OpenGL GLU Tesselation Method Without DisplayLists</a>
+
+<li>Pro's: Simple to use</li>
+<li>Con's: Doesn't use GPU computing capabilities</li>
+<br/>
+<strong>3. Using the GL_AMD_vertex_shader_tessellator extension from AMD / ATI</strong>
+
+<a href="http://www.opengl.org/registry/specs/AMD/vertex_shader_tessellator.txt">Spec: vertex_shader_tessellator</a>
+<a href="/?p=460">OpenGL AMD Tesselation Example (CatmullCark SubDivision) - Linux</a>
+
+<li>Pro's: Does use GPU computing features</li>
+<li>Con's: Does not work with Nvidia cards at all.</li>
+<br/>
+<strong>4. Using OpenGL 3.2 Geometry Shader Extensions:</strong>
+
+<a href="http://www.opengl.org/registry/specs/EXT/geometry_shader4.txt">Spec: geometry_shader4</a>
+<a href="http://wiki.delphigl.com/index.php/shader_tesselation">http://wiki.delphigl.com/index.php/shader_tesselation</a>
+
+<li>Pro's: Does use GPU computing features</li>
+<li>Con's: GPU must Shader Model 4</li>
+</ul>
+
+

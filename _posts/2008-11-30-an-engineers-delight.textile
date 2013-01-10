@@ -1,0 +1,49 @@
+--- 
+layout: post
+status: publish
+published: true
+title: An Engineers Delight
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: "<p lang=\"en\">\r\n\
+  As an introduction of an press conference about phoenix mars landing Berry Goldstein shows the image below. The image shows the Phoenix Mars Lander in its descent phase within EDL. The parachute is deployed and you even can see the wires that connect the parachute with the lander.\r\n\
+  </p>\r\n\
+  \r\n\
+  <p lang=\"de\">\r\n\
+  Zu Beginn einer Press Konferenz zur Landung von Phoenix zeigte Barry Goldstein das untere Bild. Auf dem Bild l\xC3\x83\xC2\xA4sst sich der Lander in seiner Landephase beobachten. Der Fallschirm ist entfaltet und man kann sogar die Seile erkennen die den Fallschirm mit dem Lander verbinden.\r\n\
+  </p>\r\n"
+wordpress_id: 156
+wordpress_url: /?p=156
+date: 2008-11-30 23:20:12 +00:00
+categories: 
+- Das kalte Nichts
+tags: 
+- mars
+- nasa
+- mro
+- phoenix
+- nasatv
+comments: []
+
+---
+<p lang="en">
+As an introduction of an press conference about phoenix mars landing Berry Goldstein shows the image below. The image shows the Phoenix Mars Lander in its descent phase within EDL. The parachute is deployed and you even can see the wires that connect the parachute with the lander.
+</p>
+
+<p lang="de">
+Zu Beginn einer Press Konferenz zur Landung von Phoenix zeigte Barry Goldstein das untere Bild. Auf dem Bild lässt sich der Lander in seiner Landephase beobachten. Der Fallschirm ist entfaltet und man kann sogar die Seile erkennen die den Fallschirm mit dem Lander verbinden.
+</p>
+<a id="more"></a><a id="more-156"></a>
+<a href="/images/mars/psp_008579_9020_descent_800-600.jpg"><img src="/images/mars/psp_008579_9020_descent_800-600.jpg" alt="Phoenix Descent" title="psp_008579_9020_descent_800-600" width="400" /></a>
+
+<blockquote>
+Phoenix Mars Lander - Press Briefing - May 26. 2008
+Barry Goldstein shows another boring engineering picture 
+</blockquote>
+
+httpv://de.youtube.com/watch?v=2nmflvzJBu0
+
+Credit JPL/Nasa
+<a href="http://hirise.lpl.arizona.edu/phoenix-descent.php">http://hirise.lpl.arizona.edu/phoenix-descent.php</a>

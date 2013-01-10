@@ -1,0 +1,484 @@
+--- 
+layout: post
+status: publish
+published: true
+title: OpenGL TBO's - Texture Buffer Objects
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  This example will create a texture buffer object which is usable via glsl within the fragment shader (samplerBuffer uniform). The shader accesses the texel of the buffer object to alternate the fragment color. You can update the tbo by pressing 'a'.
+
+wordpress_id: 424
+wordpress_url: /?p=424
+date: 2009-11-29 00:20:02 +00:00
+categories: 
+- Uncategorized
+tags: []
+
+comments: 
+- id: 1838
+  author: Enrique G. Paredes
+  author_email: egparedes+www@gmail.com
+  author_url: ""
+  date: 2010-09-22 11:35:44 +0000
+  date_gmt: 2010-09-22 09:35:44 +0000
+  content: |-
+    Hi Johannes,
+    
+    Nice post. 
+    
+    Maybe it's a bit out of topic but I've coded an OpenGL application using the GL_TEXTURE_BUFFER_EXT extension which looks quite similar to this one, and right now I'm trying to port this code to OpenSceneGraph. The problem is that I don't really know which way to go. Do you know how to use this extension with OSG?
+- id: 1839
+  author: Jotschi
+  author_email: webmaster@jotschi.de
+  author_url: http://www.jotschi.de
+  date: 2010-09-22 12:59:51 +0000
+  date_gmt: 2010-09-22 10:59:51 +0000
+  content: |-
+    Hi Enrique,
+    
+    i used OSG some time ago but i did not figure out how to implement  features that extend the opengl capabilities of OSG. There is an example that shows how to use opengl within OSG somewhere. At the end i did not use OSG for my project because i wanted to use special OpenGL extensions within my project. Furthermore OSG uses as far as i know its own way to initialize the opengl context. At that point when i used OSG i had trouble getting it to creating a OpenGL 4 context.
+    
+    Perhaps you could ask for help within the OSG forum.
+    
+    If you solve this problem please let me know. 
+    
+    
+    Greetings
+    
+    Jotschi
+- id: 1993
+  author: Walter
+  author_email: walter.sutter@gmx.ch
+  author_url: ""
+  date: 2010-12-09 04:24:33 +0000
+  date_gmt: 2010-12-09 02:24:33 +0000
+  content: |-
+    Hi Johannes,
+    
+    First of, great work. It's been very helpful for my project.
+    
+    Secondly, I wonder if there is a way of creating a large TBO which contains more than only one texture? In my project, I need to access 30 textures from vertex shader. It would be awesome if I only could create one TBO containing all the textures, attach that to the vertex shader and address each texture in the vertex shader. It's really just an idea. Do you think it might be possible and, if so, how?
+    
+    Walter
+- id: 7428
+  author: Zebadiah
+  author_email: thegreatzebadiah@gmail.com
+  author_url: http://www.zebadiah.me
+  date: 2012-10-22 22:43:14 +0000
+  date_gmt: 2012-10-22 20:43:14 +0000
+  content: Thanks for this. I know this is a 3 year old article at this point but it was one of the only examples I could find for using texture buffers. If anyone is interested in how to do this in java I just did a write-up on my blog http://zebadiah.me/?p=44
+---
+This example will create a texture buffer object which is usable via glsl within the fragment shader (samplerBuffer uniform). The shader accesses the texel of the buffer object to alternate the fragment color. You can update the tbo by pressing 'a'.
+<a id="more"></a><a id="more-424"></a>
+
+<strong>GLSLTextureBufferObjectExample.cpp:</strong>
+<pre class="syntax c">
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include "textfile.h"
+#include <stdio.h>
+#include <GL/glew.h>
+#include <GL/glut.h>
+
+typedef float float4[4];
+
+const unsigned int window_width = 512;
+const unsigned int window_height = 512;
+
+#define texture_height 256
+#define texture_width 256
+
+char *VertexShaderSource, *FragmentShaderSource;
+
+float4* p;
+GLuint tbo;
+float anim = 0.0;
+
+// mouse controls
+int mouse_old_x, mouse_old_y;
+int mouse_buttons = 0;
+float rotate_x = 0.0, rotate_y = 0.0;
+float translate_z = -2.0;
+
+// vertex Shader
+GLuint vertexShader;
+GLuint fragmentShader;
+GLuint shaderProgram;
+GLuint vs_tboSampler;
+
+//texture
+GLuint displacementTex;
+
+// declaration, forward
+void runTest(int argc, char** argv);
+
+// GL functionality
+int initGL();
+void initShader();
+void createTBO(GLuint* tbo, GLuint* tex);
+void deleteTBO(GLuint* tbo);
+void setShaderUniforms();
+
+void setTextureBufferData(float f);
+
+// rendering callbacks
+void display();
+void keyboard(unsigned char key, int x, int y);
+void mouse(int button, int state, int x, int y);
+void motion(int x, int y);
+
+int main(int argc, char** argv) {
+	runTest(argc, argv);
+}
+
+void runTest(int argc, char** argv) {
+
+	// Create GL context
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+	glutInitWindowSize(window_width, window_height);
+	glutCreateWindow("TBO GL3 ATI Example");
+
+	// initialize GL
+	if (false == initGL()) {
+		return;
+	}
+	initShader();
+
+	// register callbacks
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMouseFunc(mouse);
+	glutMotionFunc(motion);
+
+	// create TBO
+	createTBO(&tbo, &displacementTex);
+
+	setTextureBufferData(0.9f);
+
+	//set shader uniforms
+	setShaderUniforms();
+
+	// start rendering mainloop
+	glutMainLoop();
+}
+
+int initGL() {
+	// initialize necessary OpenGL extensions
+	glewInit();
+	if (!glewIsSupported("GL_VERSION_2_0 "
+		"GL_ARB_pixel_buffer_object")) {
+		fprintf(stderr,
+				"ERROR: Support for necessary OpenGL extensions missing.");
+		fflush(stderr);
+		return false;
+	}
+
+	// default initialization
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glDisable(GL_DEPTH_TEST);
+
+	// viewport
+	glViewport(0, 0, window_width, window_height);
+
+	// projection
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60.0, (GLfloat) window_width / (GLfloat) window_height, 0.1,
+			10.0);
+
+	return true;
+}
+
+void initShader() {
+
+	VertexShaderSource = textFileRead("src/shader.vert");
+	FragmentShaderSource = textFileRead("src/shader.frag");
+
+	const char * VS = VertexShaderSource;
+	const char * FS = FragmentShaderSource;
+
+	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &VS, 0);
+
+	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &FS, NULL);
+
+	glCompileShader(vertexShader);
+	glCompileShader(fragmentShader);
+
+	shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	glLinkProgram(shaderProgram);
+
+	// check for errors
+	GLint status;
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &status);
+	if (status == GL_FALSE) {
+		printf("ERROR: Shader Compilation Error\n");
+		char data[1024];
+		int len;
+		glGetShaderInfoLog(vertexShader, 1024, &len, data);
+		printf("%s", data);
+	}
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
+	if (status == GL_FALSE) {
+		printf("ERROR: Shader Program Link Error\n");
+	}
+
+	// get shader variables
+	vs_tboSampler = glGetUniformLocation(shaderProgram, "tboSampler");
+
+	//use shader and set the displacement map
+	glUseProgram(shaderProgram);
+}
+
+void createTBO(GLuint* tbo, GLuint* tex) {
+	// create buffer object
+	glGenBuffers(1, tbo);
+	glBindBuffer(GL_TEXTURE_BUFFER_EXT, *tbo);
+
+	// initialize buffer object
+	unsigned int size = texture_width * texture_height * 4 * sizeof(float);
+	glBufferData(GL_TEXTURE_BUFFER_EXT, size, 0, GL_DYNAMIC_DRAW);
+
+	//tex
+	glGenTextures(1, tex);
+	glBindTexture(GL_TEXTURE_BUFFER_EXT, *tex);
+	glTexBufferEXT(GL_TEXTURE_BUFFER_EXT, GL_RGBA32F_ARB, *tbo);
+	glBindBuffer(GL_TEXTURE_BUFFER_EXT, 0);
+
+}
+
+void deleteTBO(GLuint* tbo) {
+	glBindBuffer(1, *tbo);
+	glDeleteBuffers(1, tbo);
+	*tbo = 0;
+}
+
+void setShaderUniforms() {
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_BUFFER_EXT, displacementTex);
+}
+
+void setTextureBufferData(float f) {
+	glBindBuffer(GL_TEXTURE_BUFFER_EXT, tbo);
+	p = (float4*) glMapBuffer(GL_TEXTURE_BUFFER_EXT, GL_WRITE_ONLY);
+
+	for (int u = 0; u < texture_height; u++) {
+		for (int v = 0; v < texture_width; v++) {
+			float d =f;
+			//printf("P[%i][%i] = %f\n ",u,v,f);
+			if (u == 125 && v == 125) {
+				d= 0.325;
+			}
+			p[u + (v * texture_width)][0] = ((float) d);
+
+			p[u + (v * texture_width)][1] = ((float) v / texture_width) * 2 - (1.0);
+			p[u + (v * texture_width)][2] = 0.0f;
+			p[u + (v * texture_width)][3] = 1.0f;
+		}
+	}
+	glUnmapBuffer(GL_TEXTURE_BUFFER_EXT);
+	glBindBuffer(GL_TEXTURE_BUFFER_EXT, 0);
+
+}
+
+void display() {
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// set view matrix
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.0, 0.0, translate_z);
+	glRotatef(rotate_x, 1.0, 0.0, 0.0);
+	glRotatef(rotate_y, 0.0, 1.0, 0.0);
+
+	glMatrixMode(GL_MODELVIEW);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(-2.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(-2.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(0.0, -1.0, 0.0);
+
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(1.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(1.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(2.41421, 1.0, -1.41421);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(2.41421, -1.0, -1.41421);
+	glEnd();
+	glFlush();
+
+	glutSwapBuffers();
+	glutPostRedisplay();
+
+	anim += 0.01;
+	//printf("Anim: %f\n", anim);
+
+	if (anim > 1.0) {
+		anim = 0.0f;
+	}
+
+}
+
+void keyboard(unsigned char key, int /*x*/, int /*y*/) {
+	switch (key) {
+	case (27):
+		deleteTBO(&tbo);
+		exit(0);
+	case (97):
+		setTextureBufferData(anim);
+		break;
+	}
+}
+
+void mouse(int button, int state, int x, int y) {
+	if (state == GLUT_DOWN) {
+		mouse_buttons |= 1 << button;
+	} else if (state == GLUT_UP) {
+		mouse_buttons = 0;
+	}
+
+	mouse_old_x = x;
+	mouse_old_y = y;
+	glutPostRedisplay();
+}
+
+void motion(int x, int y) {
+	float dx, dy;
+	dx = x - mouse_old_x;
+	dy = y - mouse_old_y;
+
+	if (mouse_buttons & 1) {
+		rotate_x += dy * 0.2;
+		rotate_y += dx * 0.2;
+	} else if (mouse_buttons & 4) {
+		translate_z += dy * 0.01;
+	}
+
+	mouse_old_x = x;
+	mouse_old_y = y;
+}
+</pre>
+
+<strong>textfile.cpp:</strong>
+<pre class="syntax c">
+#include <stdio.h>
+#include <malloc.h>
+#include <fcntl.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+
+char *textFileRead(char *fn) {
+
+
+	FILE *fp;
+	char *content = NULL;
+
+	int f,count;
+	f = open(fn, O_RDONLY);
+
+	count = lseek(f, 0, SEEK_END);
+
+	close(f);
+
+	if (fn != NULL) {
+		fp = fopen(fn,"rt");
+
+		if (fp != NULL) {
+
+
+			if (count > 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = '\0';
+			}
+			fclose(fp);
+		}
+	}
+	return content;
+}
+
+int textFileWrite(char *fn, char *s) {
+
+	FILE *fp;
+	int status = 0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,"w");
+
+		if (fp != NULL) {
+			
+			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
+				status = 1;
+			fclose(fp);
+		}
+	}
+	return(status);
+}
+</pre>
+
+<strong>textfile.h:</strong>
+<pre class="syntax c">
+char *textFileRead(char *fn);
+int textFileWrite(char *fn, char *s);
+</pre>
+
+<strong>shader.frag:</strong>
+<pre class="syntax c">
+#extension EXT_gpu_shader4 : enable
+uniform samplerBuffer tboSampler;
+
+float texelFetch(ivec2 coords)
+{
+	int width = int( sqrt(textureSizeBuffer(tboSampler)));
+	float pixel = texelFetchBuffer(tboSampler, int((coords.x*width)+coords.y)).r;
+	return pixel;
+}
+
+
+void main() {
+
+
+	float pixel = texelFetch(ivec2(124,125));
+
+	/*
+	if( pixel == 0.325 ) {
+		gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+	}
+	else {
+  		gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
+  	}
+	*/
+	
+	vec4 color = vec4(pixel,0.5,0.2,0.1);
+	gl_FragColor = color;
+}
+</pre>
+
+<strong>shader.vert:</strong>
+<pre class="syntax c">
+void main()																	
+{																			
+   gl_Position = ftransform();                                                
+   gl_FrontColor = vec4(0.0, 1.0, 1.0, 0.0);									
+}																				 
+</pre>
+

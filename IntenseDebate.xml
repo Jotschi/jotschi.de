@@ -1,0 +1,30 @@
+---
+layout: nil
+---
+<?xml version="1.0"?>
+<output>
+  {% for post in site.posts %}
+  {% if post.comments.size > 0 %}
+  <blogpost>
+    <url>http://www.jotschi.de{{ post.url }}</url>
+    <title>{{ post.title }}</title>
+    <guid>http://www.jotschi.de{{ post.url }}</guid>
+    <comments>
+      {% for comment in post.comments %}
+      <comment>
+        <isAnon>1</isAnon>
+        <score>1</score>
+        <name>{{ comment.author | xml_escape }}</name>
+        <email>{{ comment.author_email }}</email>
+        <url>{{ comment.author_url }}</url>
+        <ip>127.0.0.1</ip>
+        <date>{{ comment.date }}</date>
+        <gmt>{{ comment.date_gmt }}</gmt>
+        <comment>{{ comment.content |xml_escape }}</comment>
+      </comment>
+     {% endfor %}
+    </comments>
+  </blogpost>
+  {% endif %}
+  {% endfor %}
+</output>

@@ -1,0 +1,106 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Remote Monitoring Heap Memory Usage Using JMX RMI
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  Perhaps you want to record the memory usage of your application during runtime? Here is how to do it within java iself. Note that you won't have to add code to your target application.
+
+wordpress_id: 251
+wordpress_url: /?p=251
+date: 2009-01-26 00:20:03 +00:00
+categories: 
+- Uncategorized
+tags: 
+- java
+- JMX
+- RMI
+- Memory Profiling
+comments: 
+- id: 1455
+  author: Anupam
+  author_email: anupam128@gmail.com
+  author_url: ""
+  date: 2010-07-02 09:40:50 +0000
+  date_gmt: 2010-07-02 07:40:50 +0000
+  content: Thanks dude! It helped me save some time. I had no idea how to get MemoryMXBean from MBeanServerConnection
+---
+Perhaps you want to record the memory usage of your application during runtime? Here is how to do it within java iself. Note that you won't have to add code to your target application.
+<a id="more"></a><a id="more-251"></a>
+
+An example application that will be monitored using jmx/rmi:
+<pre class="syntax java">
+package org.schueth.dummytest;
+
+import java.util.ArrayList;
+
+public class DummyApp {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) throws Exception {
+		ArrayList<String> anyList = new ArrayList<String>();
+		while (true) {
+			Thread.sleep(100);
+			anyList.add(random());
+		}
+	}
+
+	public static String random() {
+		StringBuffer s = new StringBuffer();
+		int i = 0;
+		while (i < 400) {
+			s.append((char) (int) (Math.random() * 10 + 65));
+			i++;
+		}
+		return s.toString();
+	}
+
+}
+</pre>
+
+The application that will read the MemoryMXBean information:
+<pre class="syntax java">
+package org.schueth.jmx;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import javax.management.MBeanServerConnection;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+
+public class JMXTest {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) throws Exception {
+
+		JMXServiceURL u = new JMXServiceURL(
+				"service:jmx:rmi:///jndi/rmi://localhost:9999/jmxrmi");
+		JMXConnector c = JMXConnectorFactory.connect(u);
+		MBeanServerConnection mbsc = c.getMBeanServerConnection();
+
+		MemoryMXBean mbean = ManagementFactory.newPlatformMXBeanProxy(mbsc,
+				ManagementFactory.MEMORY_MXBEAN_NAME, MemoryMXBean.class);
+
+		while (true) {
+			System.out.println(mbean.getHeapMemoryUsage());
+			System.out.println(mbean.getNonHeapMemoryUsage());
+			Thread.sleep(100);
+		}
+
+	}
+}
+</pre>
+
+1. Start the DummyApp with the folling params using at least java 1.5: 
+<pre class="syntax bash">
+java -D -Dcom.sun.management.jmxremote.authenticate=false  -Dcom.sun.management.jmxremote.port=9999  -Dcom.sun.management.jmxremote.ssl=false  -cp bin org.schueth.dummytest.DummyApp
+</pre>

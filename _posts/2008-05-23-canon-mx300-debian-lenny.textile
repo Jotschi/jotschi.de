@@ -1,0 +1,72 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Canon MX300 - Debian Lenny
+author: Jotschi
+author_login: Jotschi
+author_email: webmaster@jotschi.de
+author_url: http://www.jotschi.de
+excerpt: |
+  <p lang="en">
+  Canon MX300 with Debian Lenny<br>
+  </p>
+  <p lang="de">
+  Canon MX300 unter Debian Lenny<br>
+  </p>
+
+wordpress_id: 121
+wordpress_url: /?p=121
+date: 2008-05-23 23:38:46 +00:00
+categories: 
+- Technik
+tags: 
+- lenny
+- debian
+- canon mx300
+- udev
+comments: []
+
+---
+<p lang="en">
+Canon MX300 with Debian Lenny<br>
+</p>
+<p lang="de">
+Canon MX300 unter Debian Lenny<br>
+</p>
+<a id="more"></a><a id="more-121"></a>
+
+<p lang="de">
+Mittels CVS Version von Sane (22.05.2008)<br>
+1. Sane auschecken, bauen und installieren.<br>
+</p>
+<p lang="en">
+Using the CVS version of Sane (22.05.2008)<br>
+1. checkout sane, build and install.<br>
+</p>
+<pre>
+  cvs -z3 -d:pserver:anonymous@cvs.alioth.debian.org:/cvsroot/sane co sane-backends
+</pre>
+<p lang="de">
+2. Gruppe 'scanner' anlegen (falls dies nicht schon gemacht wurde)<br>
+3. Der Benutzer der scannen darf muss der Gruppe 'scanner' hinzugefügt werden.<br>
+4. UDev Rule anlegen
+5. Scanner anschließen
+6. xsane ausführen
+</p>
+<p lang="en">
+2. Add group 'scanner' (if not yet been done already)<br>
+3. The user that scans must be added to the group 'scanner'.<br>
+4. Add matching UDev rule.
+5. Connect your scanner.
+6. execute xsane
+</p>
+
+<br>
+uDev Rule:<br>
+<pre>
+# Canon PIXMA MX300
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="1727", MODE="0664", GROUP="scanner", ENV{libsane_matched}="yes"
+</pre>
+
+

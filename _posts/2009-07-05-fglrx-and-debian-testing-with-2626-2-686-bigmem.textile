@@ -1,0 +1,36 @@
+--- 
+layout: post
+status: publish
+published: true
+title: fglrx and Debian testing with 2.6.26-2-686-bigmem
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  Wuarg! Again PAIN with fglrx. I just setup a fresh and clean debian installation but fglrx just creates pain. 
+  Well.. fglrx installed fine (with the known errors) the module compiled and everything looked ok but i wasn't able to setup Dual-Head because amdcccle gave me no option to select a Multi-Monitor arragnement. There were only two options: Single (Indipendent Position) and Unknown. I solved the issue. 
+
+wordpress_id: 305
+wordpress_url: /?p=305
+date: 2009-07-05 13:17:12 +00:00
+categories: 
+- Fundgrube
+tags: 
+- debian
+- ati
+- fglrx
+- amd
+comments: []
+
+---
+Wuarg! Again PAIN with fglrx. I just setup a fresh and clean debian installation but fglrx just creates pain. 
+Well.. fglrx installed fine (with the known errors) the module compiled and everything looked ok but i wasn't able to setup Dual-Head because amdcccle gave me no option to select a Multi-Monitor arragnement. There were only two options: Single (Indipendent Position) and Unknown. I solved the issue. 
+<a id="more"></a><a id="more-305"></a>
+
+<br/><a href="/images/ati/amdcccle-unknown.png"><img src="/images/ati/amdcccle-unknown.png" alt="" title="amdcccle-unknown" width="150" height="116" class="alignnone size-thumbnail wp-image-307" /></a><br/>
+
+I had to overwrite the /etc/ati/amdpcsdb file with one i saved from a working installation.<a href='/downloads/ati/amdpcsdb'>Download /etc/ati/amdpcsdb</a>. I used this <a href='/downloads/xorg/xorg.conf_workingfine'>/etc/X11/xorg.conf</a> X11 configuration file. 
+
+
+I belive the amdcccle does not create a correct amdpcsdb file from the amdpcsdb.default file. 

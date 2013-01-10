@@ -1,0 +1,45 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Raspberry PI 433MHz Remote Controlled Power Plugs
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+wordpress_id: 853
+wordpress_url: /?p=853
+date: 2012-12-05 00:18:40 +00:00
+categories: 
+- Technik
+tags: 
+- raspberrypi
+comments: []
+
+---
+<h2>Hardware</h2>
+
+First you'll need to buy a set of remote controlled power plugs. I got mine from <a href="http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html">pollin.de</a> for around 10 €.
+<a href="/images/hx2262-remote/G550666.jpg"><img src="/images/hx2262-remote/G550666.jpg" alt="" title="G550666" width="300" height="225" class="aligncenter size-full wp-image-854" /></a>
+
+Connect your 5V VCC from the GPIO pins of your Raspberry PI to the positiv terminal of your remote control. 
+Connect the GCN GPIO pin to the negativ terminal of your remote control.
+Connect the PIN 17 GPIO pin to a 8k Ohm resistor and the resistor to pin P1 of the remote control.
+I drilled a hole trough the existing via and scrapped away the soldermask to expose the copper for soldering a connection in place.
+<a href="/images/hx2262-remote/hx2262-remote.jpg"><img src="/images/hx2262-remote/hx2262-remote.jpg" alt="" title="hx2262-remote" width="1024" height="742" class="aligncenter size-full wp-image-855" /></a>
+
+<h2>Software</h2>
+
+1. Install wiringpi
+<a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/">https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/</a>
+
+2. Install rcswitch-pi
+<a href="https://github.com/r10r/rcswitch-pi">https://github.com/r10r/rcswitch-pi</a>
+
+3. Execute test command
+<pre class="syntax c">
+// Send off command to plug 4 with system id 11111
+./send 11111 4 0
+// Send on command to plug 4 with system id 11111
+./send 11111 4 1
+</pre>

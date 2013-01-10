@@ -1,0 +1,34 @@
+--- 
+layout: post
+status: publish
+published: true
+title: OpenPhotoVR
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: While searching for a solution to get mono and silverlight and the whole M$ stuff working under my debian installation i just found <a href="http://openphotovr.org/#a90">OpenPhotoVR</a>. OpenPhotoVR is a pseudo-3D photo browser using Flash instead of silverlight. However the matching of the images is not done automatically.
+wordpress_id: 294
+wordpress_url: /?p=294
+date: 2009-06-11 10:46:27 +00:00
+categories: 
+- Fundgrube
+- GFX
+tags: 
+- bundler
+- photosynth
+comments: []
+
+---
+While searching for a solution to get mono and silverlight and the whole M$ stuff working under my debian installation i just found <a href="http://openphotovr.org/#a90">OpenPhotoVR</a>. OpenPhotoVR is a pseudo-3D photo browser using Flash instead of silverlight. However the matching of the images is not done automatically.<a id="more"></a><a id="more-294"></a>
+
+<object width="400" height="300">  
+<param name="movie" value="http://openphotovr.org/main.swf"></param>  
+<param name="FlashVars" value="id=a299"></param>  
+<embed src="http://openphotovr.org/main.swf"   FlashVars="id=a299"   type="application/x-shockwave-flash"     width="400" height="300" ></embed>  
+</object>
+
+
+{% youtube 0f5NuHzGXJA %}
+
+Since the <a href="http://phototour.cs.washington.edu/bundler/">bundler code</a> which is used to match images in images is free it should be possible to create an automatically way of matching the images.

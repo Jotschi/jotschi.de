@@ -1,0 +1,408 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Texture Array Example And Clamp to Border Ati Issue Example
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: |
+  This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY's it might also be interessting for someone who want's to know how to set a texture uniform (sampler2d) or (sampler2darray).
+  
+  The specification for texture arrays can be found here: <a href="http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt">http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt</a>. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
+
+wordpress_id: 396
+wordpress_url: /?p=396
+date: 2009-10-08 22:00:39 +00:00
+categories: 
+- Technik
+- GFX
+tags: 
+- ati
+- fglrx
+- GLSL
+- OpenGL
+comments: 
+- id: 10310
+  author: Catalin
+  author_email: catalinfest@gmail.com
+  author_url: ""
+  date: 2012-12-07 12:55:59 +0000
+  date_gmt: 2012-12-07 10:55:59 +0000
+  content: Seam not link with shader. Console return  "Notfound" .
+---
+This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY's it might also be interessting for someone who want's to know how to set a texture uniform (sampler2d) or (sampler2darray).
+
+The specification for texture arrays can be found here: <a href="http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt">http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt</a>. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
+<a id="more"></a><a id="more-396"></a>
+
+<b>Update - Note: </b> 
+Compile with:
+<blockquote>g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp</blockquote>
+Get sources and libs:
+<blockquote>apt-get install libglut3 libglut3-dev libglew1.5 libglew1.5-dev</blockquote>
+
+<b>Update:</b>
+I just developed an workaround for this issue by adding clamp to border by myself to the shader:
+<pre class="syntax c">
+#extension GL_EXT_gpu_shader4 : enable
+
+uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+		
+		vec4 borderColor =vec4(0.1,0.7,0.2,0.1);
+		if(texCoord.s<1 && texCoord.s >0 && texCoord.t <1 && texCoord.t >0)
+		{
+			borderColor		= texture2DArray(base_texture, vec3(texCoord.st,1));
+		}
+		gl_FragColor = borderColor;
+	   	
+}
+</pre>
+
+
+
+
+<strong>NOARRAY - not definied</strong>
+The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:
+<img src="/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png" alt="GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI" title="GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI" width="412" height="327" class="alignnone size-full wp-image-397" />
+The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set. 
+
+<strong>NOARRAY - definied</strong>
+The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:
+<img src="/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png" alt="GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI" title="GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI" width="392" height="292" class="alignnone size-full wp-image-398" />
+As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:
+
+Download the complete example sources: <a href="/downloads/opengl/opengl_texture_array_glsl_example.tgz">opengl_texture_array_glsl_example.tgz</a>
+
+<strong>shader_array.frag:</strong>
+<pre class="syntax c">
+uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		vec4 base_color		= texture2DArray(base_texture, vec3(texCoord.st*vec2(0.5,1.5), 0));
+		gl_FragColor = color * base_color;
+	   	
+}
+</pre>
+
+<strong>shader_simple.frag:</strong>
+<pre class="syntax c">
+uniform sampler2D base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		//vec2 texCoord = vec2(1.0,0.5);
+		vec4 base_color = texture2D(base_texture, texCoord);
+		gl_FragColor = color * base_color;
+}
+</pre>
+
+<strong>shader.vert:</strong>
+<pre class="syntax c">
+varying vec2 texCoord;
+void main()
+{
+    texCoord = vec2(gl_MultiTexCoord0);
+	gl_Position = ftransform();
+}
+</pre>
+
+
+<strong>Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp:</strong>
+<pre class="syntax c">
+#include <GL/glew.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <stdio.h>
+#include "textfile.h"
+
+#define NOARRAY
+
+#define	checkImageWidth 64
+#define	checkImageHeight 64
+static GLubyte checkImage[checkImageHeight][checkImageWidth][4];
+
+char *VertexShaderSource, *FragmentShaderSource;
+
+int VertexShader, FragmentShader;
+
+int ShaderProgram;
+
+GLfloat angle = 0.0;
+
+GLuint texture;
+
+void makeCheckImage(void) {
+	int i, j, c;
+
+	for (i = 0; i < checkImageHeight; i++) {
+		for (j = 0; j < checkImageWidth; j++) {
+			c = ((((i & 0x8) == 0) ^ ((j & 0x8)) == 0)) * 255;
+			checkImage[i][j][0] = (GLubyte) c;
+			checkImage[i][j][1] = (GLubyte) c;
+			checkImage[i][j][2] = (GLubyte) c;
+			checkImage[i][j][3] = (GLubyte) 255;
+		}
+	}
+}
+
+GLuint LoadTexture() {
+	GLuint texture;
+	makeCheckImage();
+	glGenTextures(1, &texture);
+
+	GLfloat borderColor[4] = { 1.0, 1.0, 1.0, 1.0 };
+#ifdef NOARRAY
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth, checkImageHeight,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+#else
+	glBindTexture(GL_TEXTURE_2D_ARRAY_EXT, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+	glTexImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, GL_RGBA, checkImageWidth,
+			checkImageHeight, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 0, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 1, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+
+#endif
+
+	return texture;
+}
+
+void FreeTexture(GLuint texture) {
+	glDeleteTextures(1, &texture);
+}
+
+void Lighting(void) {
+	GLfloat LightPosition[] = { 0.0, 0.0, 5.0, 1.0 };
+
+	GLfloat DiffuseLight[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientLight[] = { 1.0, 1.0, 1.0 };
+	GLfloat SpecularLight[] = { 1.0, 1.0, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+
+	GLfloat mShininess[] = { 8 };
+
+	GLfloat DiffuseMaterial[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientMaterial[] = { 0.3, 0.3, 0.3 };
+	GLfloat SpecularMaterial[] = { 1.0, 1.0, 1.0 };
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+}
+
+void display(void) {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	Lighting();
+	glTranslatef(0, 0, -5);
+	glRotatef(angle, 1, 1, 1);
+	glRotatef(angle, 0, 1, 1);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	int texture_location = glGetUniformLocationARB(ShaderProgram,
+			"base_texture");
+	if (texture_location == -1) {
+		printf("Notfound\n");
+	}
+	glUniform1iARB(texture_location, 0);
+
+	// Disabled glsl fallback
+	//glEnable(GL_TEXTURE_2D);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(-2.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(-2.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(0.0, -1.0, 0.0);
+
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(1.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(1.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(2.41421, 1.0, -1.41421);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(2.41421, -1.0, -1.41421);
+	glEnd();
+	glFlush();
+
+	glutSolidTeapot(1);
+	glutSwapBuffers();
+	//angle += 0.5;
+}
+
+void InitShader(void) {
+
+	VertexShader = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
+	FragmentShader = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
+	VertexShaderSource = textFileRead("shader.vert");
+#ifdef NOARRAY
+	FragmentShaderSource = textFileRead("shader_simple.frag");
+#else
+	FragmentShaderSource = textFileRead("shader_array.frag");
+#endif
+
+	const char * VS = VertexShaderSource;
+	const char * FS = FragmentShaderSource;
+
+	glShaderSourceARB(VertexShader, 1, &VS, NULL);
+	glShaderSourceARB(FragmentShader, 1, &FS, NULL);
+
+	glCompileShaderARB(VertexShader);
+	glCompileShaderARB(FragmentShader);
+
+	ShaderProgram = glCreateProgramObjectARB();
+
+	glAttachObjectARB(ShaderProgram, VertexShader);
+	glAttachObjectARB(ShaderProgram, FragmentShader);
+
+	glLinkProgramARB(ShaderProgram);
+	glUseProgramObjectARB(ShaderProgram);
+}
+
+void DeInitShader(void) {
+	glDetachObjectARB(ShaderProgram, VertexShader);
+	glDetachObjectARB(ShaderProgram, FragmentShader);
+
+	glDeleteObjectARB(ShaderProgram);
+}
+
+void Init(void) {
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	texture = LoadTexture();
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60, (GLfloat) w / (GLfloat) h, 0.1, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+int main(int argc, char **argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow("Ati texture array clamp issue example");
+	glewInit();
+	InitShader();
+	Init();
+	glutDisplayFunc(display);
+	glutIdleFunc(display);
+	glutReshapeFunc(reshape);
+	glutMainLoop();
+	DeInitShader();
+	return 0;
+}
+</pre>
+
+<strong>textfile.cpp:</strong>
+<pre class="syntax c">
+#include <stdio.h>
+#include <malloc.h>
+#include <fcntl.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+
+char *textFileRead(char *fn) {
+
+
+	FILE *fp;
+	char *content = NULL;
+
+	int f,count;
+	f = open(fn, O_RDONLY);
+
+	count = lseek(f, 0, SEEK_END);
+
+	close(f);
+
+	if (fn != NULL) {
+		fp = fopen(fn,"rt");
+
+		if (fp != NULL) {
+
+
+			if (count > 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = '\0';
+			}
+			fclose(fp);
+		}
+	}
+	return content;
+}
+
+int textFileWrite(char *fn, char *s) {
+
+	FILE *fp;
+	int status = 0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,"w");
+
+		if (fp != NULL) {
+			
+			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
+				status = 1;
+			fclose(fp);
+		}
+	}
+	return(status);
+}
+</pre>
+
+<strong>textfile.h:</strong>
+<pre class="syntax c">
+char *textFileRead(char *fn);
+int textFileWrite(char *fn, char *s);
+</pre>
+
+
+
+
+

@@ -1,0 +1,70 @@
+--- 
+layout: post
+status: publish
+published: true
+title: Problem mit T19DS
+author: Jotschi
+author_login: admin
+author_email: webmaster@jotschi.de
+author_url: http://www.Jotschi.de
+excerpt: Vor einiger Zeit hatte ich Probleme mit meinem TFT.
+wordpress_id: 52
+wordpress_url: /?p=52
+date: 2007-04-01 21:54:26 +00:00
+categories: 
+- Technik
+tags: 
+- electronic
+comments: 
+- id: 26
+  author: counterroot
+  author_email: microwallet@arcor.de
+  author_url: http://counterroot.openwallet.de
+  date: 2007-07-22 23:52:05 +0000
+  date_gmt: 2007-07-22 21:52:05 +0000
+  content: "Moinsen!\r\n\
+    \r\n\
+    Habe selber die gleiche Reparatur durchgeführt... bei mir war der Kondensator in unmittelbarer nähe des Körpers danz links im Bild defekt.\r\n\
+    Der 400Volt Elko war in ordnung.\r\n\
+    Habe vorsichtshalber alle Elkos (4x 470µF, 1x 1000µF) bis auf 2 Ausgetauscht (1x 0,68µF und den 400V! Elko).\r\n\
+    \r\n\
+    Das Ding schnurrt wieder wie ein Kätzchen...\r\n\
+    Beim Öffnen des Gehäuses ein Tipp:\r\n\
+    Nehmt einen möglichst breiten Flachen schraubenzieher und fangt an der unterseite zentral an das ding durch in die Ritze stecken und drehen an auseinanderzupfriemeln... Dann immer weiter nach rechts und links gleichmäßig... geht dann im endeffekt ziemlich leicht =) (20 min arbeitsaufwand)\r\n\
+    \r\n\
+    Insgesamt hat mich die Reparatur einen Set Kondensatoren (12€) gekostet... Wobei ich den nur bestellt hab, weil ich nicht wusste welche alle gebraucht wurden. Verwendet für die Reparatur: ~ 1€\r\n\
+    \r\n\
+    Gruß Matze"
+- id: 28
+  author: makossa
+  author_email: gopc@gmx.net
+  author_url: ""
+  date: 2007-07-26 18:21:01 +0000
+  date_gmt: 2007-07-26 16:21:01 +0000
+  content: "MoinMoin!\r\n\
+    \r\n\
+    Stimme counterroot voll zu. Der Tipp zum Öffnen des Gehäuses hat Kratzer und Nerven gespart :)\r\n\
+    \r\n\
+    Ich habe die gleichen Elkos getauscht und zusätzlich die zwei 470er in der Nähe des linken Körpers an ihren langen (isolierten) Beinen gelassen, um sie aus der Nähe des Körpers zu biegen. Der erreicht nämlich locker 80 Grad!\r\n\
+    \r\n\
+    Gruß, Sanabasin"
+- id: 64
+  author: John
+  author_email: l.kelmendi@web.de
+  author_url: ""
+  date: 2008-02-12 22:26:07 +0000
+  date_gmt: 2008-02-12 20:26:07 +0000
+  content: "Hi,\r\n\
+    habe auch das Problem mit dem einschalten, jedoch zeigt es 80% wieß und den rest bunte zeilen, 1s lang.\r\n\
+    \r\n\
+    Die Elkos habe ich alle nachgemessen, alle noch im toletanz.\r\n\
+    \r\n\
+    Waren die bei euch die Elkos Kapazitiv messbar defekt?\r\n\
+    Gruß John"
+---
+Vor einiger Zeit hatte ich Probleme mit meinem TFT.<a id="more"></a><a id="more-52"></a> Nach dem Einschalten zündet kurz die Hintergrundbeleuchtung und danach bleibt das Display dunkel. Es handelt sich hierbei um einen Fehler im Netzteil. Scheinbar fallen sehr viele Vision Magic T19DS nach ~1 Jahr Betrieb aus weil die eingebauten Kondensatoren minderwertig sind. Ich habe zwar alle Elkos ausgetauscht aber ich glaube das der im Bild rot markierte Kondenator bei mir der Hauptübeltäter war. (400V Elko)
+
+<img src='/images/t19ds/t19ds_power.jpg' alt='Power' />
+
+Ersatzteile gibts bei <a href="http://www.pollin.de">Pollin electronic</a>.
+
