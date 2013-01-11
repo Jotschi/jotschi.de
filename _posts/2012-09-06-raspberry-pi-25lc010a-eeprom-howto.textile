@@ -55,6 +55,7 @@ The two resistors are very important because they are used to pullup the SCK and
 </a>
 
 6. Compile the source file. You can use this make file:
+{% raw %}
 <pre class="syntax c">
 #DEBUG  = -g -O0
 DEBUG   = -O3
@@ -94,8 +95,9 @@ depend:
 
 # DO NOT DELETE
 </pre>
+{% endraw %}
 
-Sources:
-[gist id=3659646 file=rpi_spi_eepromtest.c]
+Sources: rpi_spi_eepromtest.c]
+{% gist 3659646 %}
 
 <a href="/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg"><img src="/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg" alt="" title="raspberry_pi-spi-25LC010a_schem" width="1024" height="548" class="aligncenter size-full wp-image-786" /></a>
