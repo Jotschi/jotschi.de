@@ -10,7 +10,7 @@
 			for (result in searcher.results) {
 				var content = searcher.results[result].content;
 				var title = searcher.results[result].title;
-				var url = searcher.results[result].url;
+				var url = decodeURIComponent(searcher.results[result].url);
 				jQuery('#searchResults ul').remove('li');
 				jQuery('#searchResults ul').append(jQuery('<li></li>')
 				.append(jQuery('<a/>').attr('href', url).html(title))
@@ -28,7 +28,6 @@
 				var searchControl = new google.search.SearchControl();
 				searchControl.addSearcher(webSearch);
 				searchControl.draw();
-	
 				searchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
 				searchControl.setSearchCompleteCallback(this, searchComplete);
 				searchControl.execute(query);
