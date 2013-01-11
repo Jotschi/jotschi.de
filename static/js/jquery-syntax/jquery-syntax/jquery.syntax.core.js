@@ -49,7 +49,7 @@ return null;}else{return this._splice(0,match);}};Syntax.Match.prototype._insert
 return this._splice(0,match);for(var i=0;i<this.children.length;i+=1){var child=this.children[i];if(match.endOffset<=child.offset)
 return this._splice(i,match);if(match.offset>=child.endOffset)
 continue;if(child.contains(match)){return child._insert(match);}
-console.log("Bisect at offsets",match,child.offset,child.endOffset);var parts=match.bisectAtOffsets([child.offset,child.endOffset]);console.log("parts =",parts);if(parts[0]){this._splice(i,parts[0])}
+var parts=match.bisectAtOffsets([child.offset,child.endOffset]);console.log("parts =",parts);if(parts[0]){this._splice(i,parts[0])}
 if(parts[1]){child.insert(parts[1])}
 if(parts[2]){match=parts[2]}else{return this;}}
 this._splice(this.children.length,match);}
