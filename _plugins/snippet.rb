@@ -1,3 +1,5 @@
+require 'cgi'
+
 module Jekyll
 
   class SnippetBlock < Liquid::Block
@@ -35,7 +37,7 @@ module Jekyll
           @options = {}
         end
       else
-        raise SyntaxError.new("Syntax Error in 'snippet' - Valid syntax: snippet <lang> [linenos]")
+        raise SyntaxError.new("Syntax Error in 'snippet' - Valid syntax: snippet <lang>")
       end
     end
 
@@ -63,7 +65,7 @@ module Jekyll
     end
 
     def add_code_tags(code, lang)
-      code = '<pre class="syntax '+ lang + '">' + code + '</pre>'
+      code = '<notextile><pre class="syntax escaped '+ lang + '">' + CGI.escapeHTML(code) + '</pre></notextile>'
 
       code
     end
