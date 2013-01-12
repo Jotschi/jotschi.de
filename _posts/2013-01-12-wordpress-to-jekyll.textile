@@ -1,0 +1,244 @@
+---
+layout: post
+title: Wordpress to Jekyll Migration
+date: 2013-01-12 00:05:46 +00:00
+tags: []
+---
+
+I just finished my migration from wordpress to jekyll.
+
+h2. Before you start
+
+Make yourself familiar with the "Jekyll liquid template info page":https://github.com/mojombo/jekyll/wiki/Liquid-Extensions and the "Liquid for Designers":https://github.com/shopify/liquid/wiki/liquid-for-designers wiki page.
+
+It is also very helpful to take a look at the sources for one of the "listed jekyll sites":https://github.com/mojombo/jekyll/wiki/sites.
+
+h2. Splitting up your wordpress theme template
+
+I save the index page into a dummy file and started to split the contents of that file up into manageable parts. At the end i got the following files:
+
+* head-includes.html - A include file that contains all the css and javascript includes for my blog
+* default.html - The default template file that contains the raw html skeleton for my blog. It also contained include tags for the head-includes.html.
+* post.html - The post template is a child of the __default.html__ template. This template adds those html parts to the default.html that is needed to frame a post. It also contains various includes for widgets - such as the tag cloud widget and so on.
+
+h2. Exporting Wordpress Posts
+
+{% raw %}<pre class="syntax c">
+$ ruby -rubygems -e 'require "jekyll/migrators/wordpress"; Jekyll::WordPress.process("database", "user", "pass", "127.0.0.1")'
+</pre>{% endraw %}
+
+I had to fix a lot of encoding issues in the generated post files. I used __sed__ to correct those encoding issues. There might by way configuring the encoding format for the exporter.
+
+h3. Plugins
+
+I added some plugins to handle youtube videos, adding code snippets etc. Please note that you mostly can't use such plugins with github pages because github is only allowing building jekyll pages with __safe__ plugins.
+
+* "Youtube":https://github.com/Jotschi/jotschi.github.com/blob/master/_plugins/youtube.rb
+* "Gist":https://gist.github.com/1027674
+* "Code Snippets":https://github.com/Jotschi/jotschi.github.com/blob/master/_plugins/snippet.rb
+* "Tag Clouds":https://gist.github.com/2290195
+* "Categories":http://recursive-design.com/projects/jekyll-plugins/
+
+h2. RSS Feed
+
+* /feed/index.html
+{% snippet c %}
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ <title>Jotschi.de</title>
+ <link href="http://www.jotschi.de/atom.xml" rel="self"/>
+ <link href="http://www.jotschi.de/"/>
+ <updated>{{ site.time | date_to_xmlschema }}</updated>
+ <id>http://www.jotschi.de/</id>
+ <author>
+   <name>Jotschi</name>
+   <email>webmaster@jotschi.de</email>
+ </author>
+ {% for post in site.posts %}
+ <entry>
+   <title>{{ post.title }}</title>
+   <link href="http://www.jotschi.de{{ post.url }}"/>
+   <updated>{{ post.date | date_to_xmlschema }}</updated>
+   <id>http://www.jotschi.de{{ post.id }}</id>
+   <content type="html">{{ post.content | xml_escape }}</content>
+ </entry>
+ {% endfor %}
+</feed>
+{% endsnippet %}
+
+h3. Importing Comments to Disqus
+
+I choose "disqus":http://disqus.com/ to handle comments on my blog. I created a comments-widget.html file which i placed within my ___includes__ directory. That file "contains the needed javascript":https://github.com/Jotschi/jotschi.github.com/blob/master/_includes/widgets/comments-widget.html that is used to embed disqus within my website.
+
+It is possible to import your wordpress comments into your disqus account. I created a Intense Debate xml template and Wordpress export template.
+
+* IntenseDebate.xml
+{% snippet c %}
+---
+layout: nil
+---
+<?xml version="1.0"?>
+<output>
+  {% for post in site.posts %}
+  {% if post.comments.size > 0 %}
+  <blogpost>
+    <url>http://www.jotschi.de{{ post.url }}</url>
+    <title>{{ post.title }}</title>
+    <guid>http://www.jotschi.de{{ post.url }}</guid>
+    <comments>
+      {% for comment in post.comments %}
+      <comment>
+        <isAnon>1</isAnon>
+        <score>1</score>
+        <name>{{ comment.author | xml_escape }}</name>
+        <email>{{ comment.author_email }}</email>
+        <url>{{ comment.author_url }}</url>
+        <ip>127.0.0.1</ip>
+        <date>{{ comment.date }}</date>
+        <gmt>{{ comment.date_gmt }}</gmt>
+        <comment>{{ comment.content |xml_escape }}</comment>
+      </comment>
+     {% endfor %}
+    </comments>
+  </blogpost>
+  {% endif %}
+  {% endfor %}
+</output>
+{% endsnippet %}
+
+* Wordpress.xml
+{% snippet c %}
+---
+layout: nil
+---
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dsq="http://www.disqus.com/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:wp="http://wordpress.org/export/1.0/">
+  <channel>
+        {% for post in site.posts %}
+  		{% if post.comments.size > 0 %}
+		<item>
+		  <title>{{ post.title }}</title>
+		  <link>http://www.jotschi.de{{ post.url }}</link>
+		  <content:encoded></content:encoded>
+		  <!-- value used within disqus_identifier; usually internal identifier of article -->
+		  <dsq:thread_identifier>237</dsq:thread_identifier>
+		  <wp:post_date_gmt>{{ comment.date_gmt }}</wp:post_date_gmt>
+		  <wp:comment_status>open</wp:comment_status>
+		  {% for comment in post.comments %}
+		  <wp:comment>
+			<!-- internal id of comment -->
+			<wp:comment_id>{{ comment.id }}</wp:comment_id>
+			<wp:comment_author>{{ comment.author | xml_escape }}</wp:comment_author>
+			<wp:comment_author_email>{{ comment.author_email }}</wp:comment_author_email>
+			<wp:comment_author_url>{{ comment.author_url }}</wp:comment_author_url>
+			<wp:comment_author_IP>127.0.0.1</wp:comment_author_IP>
+			<wp:comment_date_gmt>{{ comment.date_gmt }}</wp:comment_date_gmt>
+			<wp:comment_content>{{ comment.content | xml_escape }}</wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_parent>0</wp:comment_parent>
+		</wp:comment>
+		{% endfor %}
+		</item>
+		{% endif %}
+		{% endfor %}
+</channel>
+</rss>
+{% endsnippet %}
+
+Somehow the generated __IntenseDebate.xml__ file could not be successfully imported in disqus. I therefore created the Wordpress.xml export file. This file was successfully imported.
+
+h2. Search engine optimization
+
+The sitemap.xml will help the search engine crawler to find your content as fast as possible.
+
+* sitemap.xml
+{% snippet c %}
+<?xml version="1.0"?>
+---
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">    
+  <url>
+    <loc>http://www.jotschi.de/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  {% for post in site.posts %}
+  <url>
+    <loc>http://www.jotschi.de{{ post.url }}/</loc>
+    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  {% endfor %}
+</urlset>
+{% endsnippet %}
+
+
+* robots.xml
+
+{% snippet c %}
+User-agent: *
+Disallow:
+Sitemap: http://www.jotschi.de/sitemap.xml
+{% endsnippet %}
+
+h2. Google Search for Jekyll
+
+I create a "small template for a search widget":https://github.com/Jotschi/jotschi.github.com/blob/master/_includes/widgets/search-widget.html. This template adds a search form that will use the google jsapi to provide search capability for my blog. 
+
+h2. Handling wordpress urls
+
+I wrote two templates that create a set of rewrite rules that can be used to redirect request to the old wordpress urls to the new jekyll urls.
+
+h3. Apache2
+
+{% snippet c %}
+---
+layout: nil
+---
+<IfModule mod_rewrite.c>
+RewriteEngine on
+{% for post in site.posts %}
+{% if post.wordpress_url %}
+# Rule for {{ post.title }}
+RewriteCond %{QUERY_STRING} ^{{ post.wordpress_url }}$
+RewriteRule ^$ http://www.jotschi.de{{ post.url }}? [R=302,NC,L]
+{% endif %}
+{% endfor %}
+</IfModule>
+{% endsnippet %}
+
+h3. Nginx
+
+This template create a list of rewrite rules for nginx to handle wordpress shorturls so that those urls can be remapped for jekyll.
+
+{% snippet c %}
+---
+layout: nil
+---
+  {% for post in site.posts %}{% if post.wordpress_url %}
+  # Rule for {{ post.title }}
+  if ($args ~ "^p={{ post.wordpress_id }}$") {
+    rewrite ^.*$ http://www.jotschi.de{{ post.url }}? permanent;
+    break;
+  }{% endif %}{%
+   endfor %}
+{% endsnippet %}
+
+Include the generated file within a __location /__ section of your nginx site configuration file like this:
+
+{% snippet c %}
+location / {
+  try_files $uri $uri/ /index.html;
+  include /etc/nginx/sites-extra/wordpress-rewrites.conf;
+}
+{% endsnippet %}
