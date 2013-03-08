@@ -21,7 +21,7 @@ tags: []
 comments: []
 
 ---
-Due to an update of my linux kernel i stumbled uppon a stange issue. I could not get sockets working properly. After some googling i figured out that it had to be a network configuration issue.
+Due to an update of my linux kernel i stumbled uppon a strange issue. I could not get sockets working properly. After some googling i figured out that it had to be a network configuration issue.
 <a id="more"></a><a id="more-480"></a>
 By default (Debian Testing) sockets bind only to ipv6. 
 
