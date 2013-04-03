@@ -81,17 +81,10 @@ comments:
 ---
 This page will contain images and descriptions of my current DIY HMD project that was inspired by the Oculus Rift. Please note that this rift clone will most likely not be compatible with any "Rift Ready" Game.
 
-*Blar*
-
-gsgdasg
-
-<a id="more"></a><a id="more-793"></a>
-
-h2. Test
 
 <strong>Used Parts:</strong>
 
-* Displays: 2x HV056WX1-100 
+* Displays: 2x HV056WX1-100
 * Driver Boards: NT68674.5X, Unknown 7+1 Driver Board
 * Tracking: The <a href="https://www.sparkfun.com/products/10736">9 DoF Razor IMU from Sparkfun</a> in addition to the WiiMote Pixart sensor (connected via I2C).
 * Dual Head Setup: <a href="http://www.matrox.com/graphics/en/products/gxm/dh2go/digital_se/">Matrox Dual Head 2 Go Digital Edition</a>
