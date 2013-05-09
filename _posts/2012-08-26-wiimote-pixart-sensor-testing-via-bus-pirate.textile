@@ -29,23 +29,24 @@ Unsoldering tip: Disconnect the two metal clips that are connected to the case o
 
 <a id="more"></a><a id="more-780"></a>
 
+<img src="/images/pixart/pixart_pinout.jpg"/>
+
+<img src="/images/pixart/pixart_pinout_2.jpg"/>
 
 IR Camera pin configuration:
-<ul>
-<li>1: 3.3V -> BusPirate 3.3V & BusPirate VPU</li>
-<li>2: GND -> BusPirate GND</li>
-<li>3: GND -> BusPirate GND</li>
-<li>4: NC</li>
-<li>5: SCL -> BusPirate CLK</li>
-<li>6: SDA -> BusPirate MOSI</li>
-<li>7: CLK -> Connect to pin 8 of an 25MHz quartz oscillator</li>
-<li>8: Reset -> Pull Up with 22k Resistor to 3.3V</li>
-</ul>
+* 1: 3.3V -> BusPirate 3.3V & BusPirate VPU
+* 2: GND -> BusPirate GND
+* 3: GND -> BusPirate GND
+* 4: NC
+* 5: SCL -> BusPirate CLK
+* 6: SDA -> BusPirate MOSI
+* 7: CLK -> Connect to pin 8 of an 25MHz quartz oscillator
+* 8: Reset -> Pull Up with 22k Resistor to 3.3V
 
-Additionally you have to provide voltage and ground for your quartz oscillator.
+Additionally you have to provide voltage and ground for your quartz oscillator. Connect the buspirate VPU pin to VCC 3.3V.
 
 BusPirate Commands:
-<pre class="syntax c">
+{% snippet c %}
 // Reset the bus pirate
 #
 // Switch to I2C mode
@@ -75,4 +76,4 @@ v
 [0xB0 0x36]
 // Read 16 bytes of data
 [0xB1 r:16]
-</pre>
+{% endsnippet %}
