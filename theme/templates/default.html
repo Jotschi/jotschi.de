@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
-	<title>{{ page.title }}</title>
-	{% include head-includes.html %}
+	<title>{% block title %}{{ SITENAME }}{%endblock%}</title>
+	{% include 'head-includes.html' %}
 </head>
 
 <body class="home blog one-column content">
@@ -11,7 +11,7 @@
 			<h2 id="site-description">NeXuS</h2>
 		</hgroup>
 		
-		{% include widgets/search-widget.html %}
+		{% include 'widgets/search-widget.html' %}
 			
 		<nav id="access" role="navigation">
 			<h3 class="assistive-text">Main menu</h3>
@@ -42,20 +42,21 @@
 				</div>
 					
 				<div id="content" role="main">
-					{{ content }}
+					{% block content %}
+					{% endblock %}
 				</div>
 			</div>
 		</div>
 		<footer id="colophon" role="contentinfo">
 			<div id="supplementary" class="three">
 				<div id="first" class="widget-area" role="complementary">
-					{% include widgets/tagcloud-widget.html %}
+					{% include 'widgets/tagcloud-widget.html' %}
 				</div>
 				<div id="second" class="widget-area" role="complementary">
-					{% include widgets/recent-posts-widget.html %}
+					{% include 'widgets/recent-posts-widget.html' %}
 				</div>
 				<div id="third" class="widget-area" role="complementary">
-					{% include widgets/category-widget.html %}
+					{% include 'widgets/category-widget.html' %}
 				</div>
 			</div>
 		</footer>

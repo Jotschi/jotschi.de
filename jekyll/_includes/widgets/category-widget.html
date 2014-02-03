@@ -1,7 +1,0 @@
-				<aside id="categories" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
-						<ul>
-						{% for category in site.categories %}
-							<li><a href="/categories/{{ category | first | downcase }}/ ">{{ category | first }}</a></li>
-						{% endfor %}
-						</ul>
-				</aside>

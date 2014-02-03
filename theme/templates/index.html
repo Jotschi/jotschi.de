@@ -1,15 +1,13 @@
----
-layout: default
-title: Jotschi's Blog
----
+{% extends "default.html" %}
 
-{% for page in site.posts limit: 4 %}
+{% block content %}
+    {% for page in PAGES %}
 	<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
 	<header class="entry-header">
 		<h1 class="entry-title"><a href="{{ page.url }}" title="Permalink to {{ page.title }}" rel="bookmark">{{ page.title }}</a></h1>
 		<div class="entry-meta">
 			<span class="sep">Posted on </span>
-			<a href="{{ page.url }}" title="" rel="bookmark"><time class="entry-date" datetime="{{ page.date }}" pubdate>{{ page.date | date_to_string }}</time></a>
+			<a href="{{ page.url }}" title="" rel="bookmark"><time class="entry-date" datetime="{{ page.date }}" pubdate>{{ page.date }}</time></a>
 			<span class="by-author"> 
 				<span class="sep"> by </span> 
 				<span class="author vcard">
@@ -24,7 +22,9 @@ title: Jotschi's Blog
 	<div class="entry-content">
 		{{ page.content }}
 	</div>
-	{% include article-footer.html %}
+	
+	{% include 'article-footer.html' %}
 
 </article>
 {% endfor %}
+{% endblock content %}

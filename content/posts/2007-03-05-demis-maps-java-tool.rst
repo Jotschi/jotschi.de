@@ -1,8 +1,12 @@
---- 
+"Demis Maps Java Tool"
+########
+
+:date: 27-12-2012
+:tags: note
+
 layout: post
 status: publish
 published: true
-title: Demis Maps Java Tool
 author: Jotschi
 author_login: admin
 author_email: webmaster@jotschi.de

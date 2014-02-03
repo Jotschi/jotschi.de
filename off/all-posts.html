@@ -1,7 +1,4 @@
----
-layout: default
-title: Jotschi's Blog
----
+{% extends "default.html" %}
 
 {% for page in site.posts %}
 	<a href="{{ page.url }}">{{ page.title }}</a><br/>
