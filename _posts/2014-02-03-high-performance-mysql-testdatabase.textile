@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hight Performance MySQL Test Database Setup
+title: High Performance MySQL Test Database Setup
 date: 2014-02-03 19:05:46 +00:00
 tags: 
 - lxc
@@ -74,6 +74,6 @@ Example:
 # 9. /etc/init.d/mysql-tmpfs.sh start
 {% endsnippet %}
 
-When put into lxc container a jenkins job can be created to restart the container on a regular basis and thus keep the mysql data directoy clean. 
+When put into lxc container a jenkins job can be created to restart the container on a regular basis and thus keep the mysql data directoy clean.
 
 Happy testing!
