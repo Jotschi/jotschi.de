@@ -298,7 +298,7 @@ body {
 /* Make sure the logo and search form don't collide */
 .one-column #branding #searchform {
 	right: 40px;
-	top: 4em;
+	top: 3em;
 }
 /* Talking avatars take up too much room at this size */
 .one-column .commentlist > li.comment {
@@ -483,8 +483,24 @@ input#s {
 	line-height: 1.2em;
 	padding: 4px 10px 4px 28px;
 }
-input#searchsubmit {
+
+.gcse-searchbox {
+	width: 361px;
+}
+#___gcse_0 {
+	width: 360px;
+} 
+.gsc-search-button {
 	display: none;
+}
+
+.gsc-input-box {
+	height: 33px !important;
+}
+
+.cse .gsc-control-cse, .gsc-control-cse {
+	background-color: transparent !important;
+	border: 0px !important;
 }
 
 /* Links */
