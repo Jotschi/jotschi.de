@@ -1,0 +1,21 @@
+---
+layout: post
+title: Temporary Server Portforward
+date: 2015-05-27 21:30:26 +00:00
+tags: 
+- debian
+- iptables
+- tcp
+---
+
+Sometimes it is useful to redirect all tcp traffic to port 80 from one server to another. This can be important when you decide to change your DNS entries from one server to another and you don't want to leave the old webserver server running.
+
+{% snippet c %}
+  echo 1 > /proc/sys/net/ipv4/ip_forward
+  iptables -F
+  iptables -t nat -F
+  iptables -X
+  iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination SOURCE_IP:80
+  iptables -t nat -A POSTROUTING -p tcp -d SOURCE_IP --dport 80 -j SNAT --to-source DESTINATIONIP
+  iptables -t nat -A POSTROUTING -j MASQUERADE
+{% endsnippet %}
