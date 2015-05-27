@@ -15,7 +15,7 @@ I won't describe how to setup glustefs. There are various good guides "available
 {% snippet c %}
   gluster volume create gv0 replica 2 hydra:/opt/gfs/brick1/gv0 plexus:/gfs/brick1/gv0
   gluster volume set gv0 network.ping-timeout 5
-    gluster volume start gv0
+  gluster volume start gv0
 
   root@plexus:/gfs# mount -t glusterfs localhost:/gv0 gv0/
   root@hydra:/gfs# mount -t glusterfs localhost:/gv0 gv0/
@@ -55,7 +55,7 @@ Succeeding writes to the union folder are now very fast and the files are stored
 After that step we only need to make sure to sync those files from the writecache to the glusterfs mount.
 
 {% snippet c %}
-  root@plexus:/gfs/gv0-writecache# rsync  --remove-source-files -av /gfs/gv0-writecache/* /gfs/gv0
+  root@hydra:/gfs/gv0-writecache# rsync  --remove-source-files -av /gfs/gv0-writecache/* /gfs/gv0
 {% endsnippet %}
 
 I also tried to use aufs instead of unionfs-fuse but i got various strange errors.
