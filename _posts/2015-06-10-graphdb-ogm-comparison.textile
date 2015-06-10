@@ -14,9 +14,9 @@ But there are alternatives to which we'll get in a moment.
 
 There are also a few other databases around which are pretty neat. My list only includes Java based graph databases that allow embedding.
 
-# Graph Databases
+h1. Graph Databases
 
-## Neo4j
+h2. Neo4j
 
 "Neo4j":http://neo4j.com/ was the first graph database i have ever used. It is "open source":https://github.com/neo4j and very fast. It also ships directly with a neat little admin ui which can be used to visualize your graph data.
 The database is very easy to embedd and comes with a powerful query language (cypher). I don't know whether there are any other dedicated OGM/ORM layers for Neo4j besides of SDN.
@@ -25,25 +25,25 @@ Neo4j Community Edition is licensed under GPL. MySQL is also licensed under GPL.
 This means when you would not embedd the database and only use the provided Neo4j REST API you would not need to license your application under GPL.
 Once you embedd the database in your application you must license your application under GPL. This gets even worse when you decide to utilze the clustering features. In this case you would need to license your application under AGPL (even if you would use neo4j though the REST API)
 
-## OrientDB
+h2. OrientDB
 
 "OrientDB":http://orientdb.com/ is also open source. There is no cypher but you can use Orient SQL. Embedding is also very easy and the licensing with Apache 2 license is also very developer friendly.
   
-## Sparsity Sparksee
+h2. Sparsity Sparksee
 
 I have never used "Sparsity Sparksee":http://www.sparsity-technologies.com/ but feature wise it is compareable to the other big graph databases.
 
-## Titan DB
+h2. Titan DB
 
 "Titan DB":http://thinkaurelius.github.io/titan/ is an interessting database. 
 The storage layer for this graph database is interchangeable. You can use "Berkeley DB":http://en.wikipedia.org/wiki/Berkeley_DB which is quiet fast but it basically limits the size of nodes you can store and you can't use clustering.
 Alternativly you can also use "Cassandra":http://cassandra.apache.org/. Cassandra is slower compared to BerkeleyDB but it supports replication.
 
-## Hypergraphdb
+h2. Hypergraphdb
 
 I have never used this database and can't say much about it but my impression is that it is very small and the feature set is limited.
 
-# Performance comparison
+h1. Performance comparison
 
 The performance comparision is very superficial and you should keep in mind that the usecase for the database should always dictate the choice. 
 I have just compared low level read and write speed because i was interessted in those.
@@ -58,14 +58,14 @@ As a baseline i choose neo4j because it got the overall best performance.
 | Titan DB (Cassandra)  | 314%        | 502%           | 510%              |
 | Titan DB (BerkeleyDB) | -           | 200%           | 205%              |
 
-# OGM - Object Graph Mapping
+h1. OGM - Object Graph Mapping
 
-## Spring Data Neo4j 
+h2. Spring Data Neo4j 
 
 I have used SDN a lot and i'm quiet impressed by it. Getting started is quiet easy and there are a lot of examples out there.
 When talking about SDN it is important to note the differences between the versions. SDN 3.3x is currently only supported for Neo4j 2.1.x while SDN 4.x also supports the newly releases Neo4j version 2.x.
 
-### 3.3.x
+h3. 3.3.x
 
 {% snippet java %}
 @NodeEntity
@@ -92,12 +92,12 @@ At the end i removed nearly all @Fetch annotations from my projects. Instead i d
 
 Additionally SDN 3.x was/is slow as hell when using a remote Neo4j instead of the embedded one. This is another reason why SDN 4.x was developed.
 
-### 4.x
+h3. 4.x
 
 SDN 4.x is currently is not using the Neo4j Core API directly. Instead it relies on the Neo4j REST API. The overall performance for remote connected neo4j servers is faster (compared to SDN 3.3 in remote mode).
 I can only guess why Neo4j/Pivotal Software choose this approach but my guess is that they started a rewrite of SDN in preparation for the binary protocol support for neo4j and to speedup SDN when using a remote Neo4j. 
 
-## Tinkerpop
+h2. Tinkerpop
 
 "Tinkerpop":http://tinkerpop.incubator.apache.org/ is a collection of APIs that are allow transparent and easy interfacing with graph databases.
 The blueprint API is the most low level api which is used to wrap the graph databases native API. By doing so it provides a standarized API which other APIs can use to interface with a graph db through this API layer. 
@@ -107,7 +107,7 @@ Tinkerpop Blueprint is generally a good choice when you want to develop your app
 
 There are three OGM's that are based upon the blueprint API i have looked at.
 
-### Tinkerpop 2 - Frames
+h3. Tinkerpop 2 - Frames
 
 The Frames API uses annotations similar to SDN and thus switching from SDN to Frames is not that hard. Indices have to be created seperatly. Tinkerpop does not support cypher. You would need to write your "statements in gremlin":http://sql2gremlin.com/ instead.
 
@@ -137,7 +137,7 @@ public interface User extends AbstractPersistable {
 }
 {% endsnippet %}
 
-### Tinkerpop - totorom
+h3. Tinkerpop - Totorom
 
 I guess "Totorom":https://github.com/BrynCooke/totorom could be seen as a successor to Frames. It is faster compared to Frames and it nativly interfaces with the tinkerpop gremlin query API.
 The whole OGM is also very small. Many (all?) annotations are gone. Instead of interfaces you write classes which make thinks a lot easier compared to frames. In frames custom method handlers would need a special annotation (@JavaHandler) and a dedicated handler implementation for the method. With Totorom you just add your custom method.
@@ -183,7 +183,7 @@ public class User extends AbstractPersistable {
 {% endsnippet %}
 
 
-### Ferma
+h3. Ferma
 
 The API of "Ferma":https://github.com/Syncleus/Ferma is very similar to Totorom. Ferma has various operation modes. It also supports the Frames annotations.
 
