@@ -9,10 +9,9 @@ tags:
 - ogm
 ---
 
-For sometime i have been using "Neo4j":http://neo4j.com/ in combination with "Spring Data Neo4j (SDN)":http://projects.spring.io/spring-data-neo4j/. As the name suggests when using SDN you are bound to use Neo4j.
-But there are alternatives to which we'll get in a moment.
+I have been using graph databases for a while (mostly Neo4j) and i thought it might be a good idea to write down some of the things i noted while using "Neo4j":http://neo4j.com/ in combination with "Spring Data Neo4j (SDN)":http://projects.spring.io/spring-data-neo4j/. 
 
-There are also a few other databases around which are pretty neat. My list only includes Java based graph databases that allow embedding.
+I also compiled a comparision of various graph databases a while ago. My list only includes Java based graph databases that allow embedding. I won't go into details about the feature sets and how those differ between each of those databases. Instead i just point out the most important aspects i noticed while using the OGM's and graph databases.
 
 h1. Graph Databases
 
@@ -25,9 +24,11 @@ Neo4j Community Edition is licensed under GPL. MySQL is also licensed under GPL.
 This means when you would not embedd the database and only use the provided Neo4j REST API you would not need to license your application under GPL.
 Once you embedd the database in your application you must license your application under GPL. This gets even worse when you decide to utilze the clustering features. In this case you would need to license your application under AGPL (even if you would use neo4j though the REST API)
 
+The High Availability mode (Master/Slave Replication) can also be used when embedding the database. I wrote a "dummy project":https://github.com/Jotschi/neo4j-ha-example a while ago that contains a working example.
+
 h2. OrientDB
 
-"OrientDB":http://orientdb.com/ is also open source. There is no cypher but you can use Orient SQL. Embedding is also very easy and the licensing with Apache 2 license is very developer friendly.
+"OrientDB":http://orientdb.com/ is also open source. There is no cypher but you can use Orient SQL. Embedding is also very easy and the licensing with Apache 2 license is very developer friendly. Tinkerpop support is very good.
   
 h2. Sparsity Sparksee
 
