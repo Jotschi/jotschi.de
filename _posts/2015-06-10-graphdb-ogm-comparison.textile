@@ -27,7 +27,7 @@ Once you embedd the database in your application you must license your applicati
 
 h2. OrientDB
 
-"OrientDB":http://orientdb.com/ is also open source. There is no cypher but you can use Orient SQL. Embedding is also very easy and the licensing with Apache 2 license is also very developer friendly.
+"OrientDB":http://orientdb.com/ is also open source. There is no cypher but you can use Orient SQL. Embedding is also very easy and the licensing with Apache 2 license is very developer friendly.
   
 h2. Sparsity Sparksee
 
@@ -35,8 +35,7 @@ I have never used "Sparsity Sparksee":http://www.sparsity-technologies.com/ but 
 
 h2. Titan DB
 
-"Titan DB":http://thinkaurelius.github.io/titan/ is an interessting database. 
-The storage layer for this graph database is interchangeable. You can use "Berkeley DB":http://en.wikipedia.org/wiki/Berkeley_DB which is quiet fast but it basically limits the size of nodes you can store and you can't use clustering.
+"Titan DB":http://thinkaurelius.github.io/titan/ is an interessting database. The storage layer for this graph database is interchangeable. You can use "Berkeley DB":http://en.wikipedia.org/wiki/Berkeley_DB which is quiet fast but it basically limits the size of nodes you can store and you can't use clustering.
 Alternativly you can also use "Cassandra":http://cassandra.apache.org/. Cassandra is slower compared to BerkeleyDB but it supports replication.
 
 h2. Hypergraphdb
@@ -46,11 +45,11 @@ I have never used this database and can't say much about it but my impression is
 h1. Performance comparison
 
 The performance comparision is very superficial and you should keep in mind that the usecase for the database should always dictate the choice. 
-I have just compared low level read and write speed because i was interessted in those.
-The benchmark does not cover any kind of graph traversals.
-I was merely interessted in the speed it takes each database to output a single node.
-All tests were executed in a jvm that also ran the graph database. I created 10k nodes and read those 10k nodes sequentially and in random order. No warmup phase was added. 
-As a baseline i choose neo4j because it got the overall best performance.
+I have just compared low level read and write speed because i was interested in those. The benchmark does not cover any kind of graph traversals. I was merely interessted in the speed it takes each database to output a single node.
+
+
+All tests were executed within in a JVM that also excuted the graph database. I created 10k nodes and read those 10k nodes sequentially and in random order. No warmup phase was added. 
+As a baseline i choose neo4j because it got the overall best performance. (less % is better)
 
 |_. DB                  |_. write 10k |_. read 10k seq |_. read 10k random |
 | Neo4j                 | 100%        | 100%           | 100%              |
@@ -63,9 +62,28 @@ h1. OGM - Object Graph Mapping
 h2. Spring Data Neo4j 
 
 I have used SDN a lot and i'm quiet impressed by it. Getting started is quiet easy and there are a lot of examples out there.
-When talking about SDN it is important to note the differences between the versions. SDN 3.3x is currently only supported for Neo4j 2.1.x while SDN 4.x also supports the newly releases Neo4j version 2.x.
+When talking about SDN it is important to note the differences between the versions. SDN 3.3.x is currently only supported for Neo4j 2.1.x while SDN 4.x also supports the newly releases Neo4j version 2.x.
 
 h3. 3.3.x
+
+SDN uses annotations to map the entities and relationships. Inheritance of objects is direcly mapped to the labels of a node. It is possible to create Spring Data Repositories that retrieve objects by using property values or by specifying cypher statements.
+
+What i like is the paging cypher support. What i do not like is the amount of classes and interfaces you need to create to interface with your objects but i guess this is always application specific.
+
+Example usecase:
+
+* User.java - Defines the entity
+* UserRepository.java - Defines the SDN user repository
+* UserRepositoryImpl.java - Defines a SDN repository implementation that may contain custom repository method implementations
+* UserActions.java - Interface that contains the methods (is extendes by UserRepository and implemented by UserRepositoryImpl)
+* UserService      - Defines methods that the implementation may use to manipulate user objects.
+* UserServiceImpl  - Implements the defined methods.
+
+Another point that caused a lot of trouble for me was the @Fetch annotation. The getGroups() method would load the full entities (groups) when adding the @Fetch annotation to the method. This could cause to infinitive recursions or huge loading times. At the end i removed nearly all @Fetch annotations from my projects. 
+
+Instead i did use the "Neo4jTemplate":http://docs.spring.io/autorepo/docs/spring-data-neo4j/current/api/org/springframework/data/neo4j/support/Neo4jTemplate.html class in order to populate the returned enitity. When no @Fetch was specified only a shallow object with no properties is returned. Using the neo4jTemplate.fetch() this shallow object could be loaded.
+
+Additionally SDN 3.x was/is slow as hell when using a remote Neo4j instead of the embedded one. This is another reason why SDN 4.x was developed.
 
 {% snippet java %}
 @NodeEntity
@@ -83,15 +101,6 @@ public class User extends AbstractPersistable {
 }
 {% endsnippet %}
 
-SDN uses annotations to map the entities and relationships. Inheritance of objects is direcly mapped to the labels of a node.
-It is possible to create sping data repositories that retrieve objects by using property values or by specifiy cypher statements.
-
-What i like is the paging cypher support. What i did not like is the amount of classes and interfaces you need to create to interface with your objects but i guess this is always application specific.
-The @Fetch annotation also did cause a lot of trouble for me. SDN would load the full entity (groups) when adding the @Fetch annotation to the groups set in the example above. This could cause to infinitive recursions and huge loading times. 
-At the end i removed nearly all @Fetch annotations from my projects. Instead i did use the "Neo4jTemplate":http://docs.spring.io/autorepo/docs/spring-data-neo4j/current/api/org/springframework/data/neo4j/support/Neo4jTemplate.html class in order to populate the returned enitity. When no @Fetch was specified only a shallow object with no properties is returned. Using the neo4jTemplate.fetch() this shallow object could be loaded.
-
-Additionally SDN 3.x was/is slow as hell when using a remote Neo4j instead of the embedded one. This is another reason why SDN 4.x was developed.
-
 h3. 4.x
 
 SDN 4.x is currently is not using the Neo4j Core API directly. Instead it relies on the Neo4j REST API. The overall performance for remote connected neo4j servers is faster (compared to SDN 3.3 in remote mode).
@@ -99,9 +108,7 @@ I can only guess why Neo4j/Pivotal Software choose this approach but my guess is
 
 h2. Tinkerpop
 
-"Tinkerpop":http://tinkerpop.incubator.apache.org/ is a collection of APIs that are allow transparent and easy interfacing with graph databases.
-The blueprint API is the most low level api which is used to wrap the graph databases native API. By doing so it provides a standarized API which other APIs can use to interface with a graph db through this API layer. 
-The API layer is very thin. There are various wrappers for many graph databases. I have used the "blueprint neo4j implementation":https://github.com/tinkerpop/blueprints/tree/master/blueprints-neo4j2-graph.
+"Tinkerpop":http://tinkerpop.incubator.apache.org/ is a collection of APIs that are allow transparent and easy interfacing with graph databases. The blueprint API is the most low level api which is used to wrap the graph databases native API. By doing so it provides a standarized API which other APIs can use to interface with a graph db through this API layer. The API layer is very thin. There are various wrappers for many graph databases. I have used the "blueprint neo4j implementation":https://github.com/tinkerpop/blueprints/tree/master/blueprints-neo4j2-graph.
 
 Tinkerpop Blueprint is generally a good choice when you want to develop your application but you are not yet sure what graph database you will use at the end.
 
