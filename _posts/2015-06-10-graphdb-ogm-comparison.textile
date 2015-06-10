@@ -19,10 +19,10 @@ h2. Neo4j
 
 "Neo4j":http://neo4j.com/ was the first graph database i have ever used. It is "open source":https://github.com/neo4j and very fast. It also ships directly with a neat little admin ui which can be used to visualize your graph data.
 The database is very easy to embedd and comes with a powerful query language (cypher). I don't know whether there are any other dedicated OGM/ORM layers for Neo4j besides of SDN.
-The licensing on the other hand is not very useful once you decide to embedd neo4j in your application. 
+The licensing on the other hand is not very useful once you decide to embedd Neo4j in your application. 
 Neo4j Community Edition is licensed under GPL. MySQL is also licensed under GPL. 
 This means when you would not embedd the database and only use the provided Neo4j REST API you would not need to license your application under GPL.
-Once you embedd the database in your application you must license your application under GPL. This gets even worse when you decide to utilze the clustering features. In this case you would need to license your application under AGPL (even if you would use neo4j though the REST API)
+Once you embedd the database in your application you must license your application under GPL. This gets even worse when you decide to utilze the clustering features. In this case you would need to license your application under AGPL (even if you would use Neo4j though the REST API)
 
 The High Availability mode (Master/Slave Replication) can also be used when embedding the database. I wrote a "dummy project":https://github.com/Jotschi/neo4j-ha-example a while ago that contains a working example.
 
@@ -50,7 +50,7 @@ I have just compared low level read and write speed because i was interested in 
 
 
 All tests were executed within in a JVM that also excuted the graph database. I created 10k nodes and read those 10k nodes sequentially and in random order. No warmup phase was added. 
-As a baseline i choose neo4j because it got the overall best performance. (less % is better)
+As a baseline i choose Neo4j because it got the overall best performance. (less % is better)
 
 |_. DB                  |_. write 10k |_. read 10k seq |_. read 10k random |
 | Neo4j                 | 100%        | 100%           | 100%              |
