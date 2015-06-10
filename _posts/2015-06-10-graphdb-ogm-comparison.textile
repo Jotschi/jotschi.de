@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Graph Database Java OGM Comparision
+title: Graph Database Java OGM Comparison
 date: 2015-06-10 18:00:00 +00:00
 tags: 
 - java
