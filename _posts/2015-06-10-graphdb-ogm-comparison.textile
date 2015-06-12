@@ -115,6 +115,8 @@ Tinkerpop Blueprint is generally a good choice when you want to develop your app
 
 There are three OGM's that are based upon the blueprint API i have looked at.
 
+The "Ferma Benchmark":https://github.com/freemo/Ferma-benchmark contains mesurements for Frames, Totorom and Ferma.
+
 h3. Tinkerpop 2 - Frames
 
 The Frames API uses annotations similar to SDN and thus switching from SDN to Frames is not that hard. Indices have to be created seperatly. Tinkerpop does not support cypher. You would need to write your "statements in gremlin":http://sql2gremlin.com/ instead.
