@@ -10,42 +10,54 @@ tags:
 
 h1. Guide on how to use SVP (Smooth Video Project) with AVISynth under linux using wine.
 
-Requirements: 
+h2. Requirements: 
 
 * Wine
 * avconv
 * libx264
 * The installed tools and plugins below
 
-1. Install SVP using wine:
+h2. Install SVP using wine
 
-wine SVP_3.1.7.exe
-
+Download and install "SVP":http://www.svp-team.com/wiki/Download
 Don't install MPC or SVPTube. We'll not need those tools.
 
+{% snippet c %}
+wine SVP_3.1.7.exe
+{% endsnippet %}
+
 For some reason the installation process has not updated the system32 lib. We need to overwrite the dll with the one that was provided by SVP.
+
+{% snippet c %}
 cp ~/.wine/drive_c/Program Files/SVP/Resources/Avisynth/avisynth.dll ~/.wine/drive_c/windows/system32
+{% endsnippet %}
 
-2. Download avs2yuv.exe
+h2. Download "avs2yuv.exe":http://akuvian.org/src/avisynth/avs2yuv/
 
-3. Download the ffms2 plugin for avisynth from github.
-https://github.com/FFMS/ffms2/releases
+h2. Download the "ffms2 plugin":https://github.com/FFMS/ffms2/releases for avisynth from github.
+
 I used ffms2-2.21-icl.7z and extract the ffms2.dll that matches your architecture.
 
-4. Download the mvtools-2.5.11.9-svp tools. We'll need the following dlls from that archive:
+h2. Download the SVP MVTools
+
+I used the "mvtools-2.5.11.9-svp tools":http://www.svp-team.com/wiki/Plugins:_MVTools2#Downloads
+
+We'll need the following DLL files from that archiv:
 
 * libflowsse.dll
 * mvtools2.dll
 
+Place all the mentioned dll's in one folder. 
 
-5. Place all the mentioned dll's in one folder. The folder should now contain:
+The folder should now contain:
 
 * libflowsse.dll
 * mvtools2.dll
 * avs2yuv.exe
 * ffms2.dll
 
-6. Create a avs script called script.avs which has this content:
+Create a avs script called script.avs which has this content:
+
 {% snippet c %}
 SetMemoryMax(1024)
 
@@ -75,8 +87,8 @@ forward_vec=MAnalyse(super, isb=false, blksize=16, overlap=4)
 MSmoothFps(super, backward_vec, forward_vec, finest=finest, num=60, den=1, algo=13, sadml=200, blend=false)
 {% endsnippet  %}
 
-7. Update the placeholder in the script and trigger the processing using:
+Update the placeholder in the script and trigger the processing using:
 
-wine avs2yuv script.avs - | avconv -i - -c:v libx264 -crf 20 -tune film -preset slow -y output.mp4 -f yuv4mpegpipe
+{% snippet c %}wine avs2yuv script.avs - | avconv -i - -c:v libx264 -crf 20 -tune film -preset slow -y output.mp4 -f yuv4mpegpipe{% endsnippet  %}
 
 The smoothed video will directly be encoded using libx264 and the result will be written to output.mp4. This process only works for the video and you would need to muxin the sound after this process.
