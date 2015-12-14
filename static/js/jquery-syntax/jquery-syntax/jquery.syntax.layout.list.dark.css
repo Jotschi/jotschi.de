@@ -1,0 +1,17 @@
+ol.syntax {
+  background-color: #232323 !important;
+  border: 1px solid #444444 !important; }
+  ol.syntax li div.source {
+    color: #aaaaaa !important;
+    border-left: 1px solid #444444 !important;
+    background-color: #101010 !important; }
+  ol.syntax li.alt div.source {
+    background-color: #151515 !important; }
+ul.syntax {
+  background-color: #232323 !important;
+  border: 1px solid #444444 !important; }
+  ul.syntax li div.source {
+    color: #aaaaaa !important;
+    background-color: #101010 !important; }
+  ul.syntax li.alt div.source {
+    background-color: #151515 !important; }

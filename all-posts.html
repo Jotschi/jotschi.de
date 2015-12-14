@@ -1,0 +1,9 @@
+---
+layout: default
+title: Jotschi's Blog
+---
+
+{% for page in site.posts %}
+	<a href="{{ page.url }}">{{ page.title }}</a><br/>
+</article>
+{% endfor %}
