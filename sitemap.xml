@@ -1,20 +1,837 @@
----
----
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">    
   <url>
     <loc>http://www.jotschi.de/</loc>
-    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <lastmod>2015-12-13T23:47:38+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  {% for post in site.posts %}
+  
   <url>
-    <loc>http://www.jotschi.de{{ post.url }}/</loc>
-    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+    <loc>http://www.jotschi.de/2015/08/12/svp-wine-linux.html/</loc>
+    <lastmod>2015-08-12T18:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  {% endfor %}
+  
+  <url>
+    <loc>http://www.jotschi.de/2015/06/10/graphdb-ogm-comparison.html/</loc>
+    <lastmod>2015-06-10T18:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/2015/05/27/portforward-to-another-webserver.html/</loc>
+    <lastmod>2015-05-27T21:30:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/2015/05/27/glusterfs-async-write.html/</loc>
+    <lastmod>2015-05-27T20:30:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html/</loc>
+    <lastmod>2014-02-09T15:31:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/2014/02/07/mysql-5.6-debian-wheezy-installation.html/</loc>
+    <lastmod>2014-02-07T11:48:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/2014/02/03/high-performance-mysql-testdatabase.html/</loc>
+    <lastmod>2014-02-03T19:05:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/2013/01/12/wordpress-to-jekyll.html/</loc>
+    <lastmod>2013-01-12T00:05:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2012/12/05/raspberry-pi-433mhz-remote-controlled-power-plugs.html/</loc>
+    <lastmod>2012-12-05T00:18:40+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2012/11/12/nfs-debian-squeeze-cheatsheet.html/</loc>
+    <lastmod>2012-11-12T23:20:35+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/2012/09/23/oculus-rift-diy-dual-screen-clone.html/</loc>
+    <lastmod>2012-09-23T18:18:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2012/09/06/raspberry-pi-25lc010a-eeprom-howto.html/</loc>
+    <lastmod>2012-09-06T22:00:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2012/08/26/wiimote-pixart-sensor-testing-via-bus-pirate.html/</loc>
+    <lastmod>2012-08-26T15:52:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2012/05/01/forward-tcp-connections-with-iptables.html/</loc>
+    <lastmod>2012-05-01T11:49:47+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2012/04/29/fail2ban-debian-cheat-sheet.html/</loc>
+    <lastmod>2012-04-29T11:21:58+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2012/04/21/arduino-ethernet-shield-simple-rest-api-example.html/</loc>
+    <lastmod>2012-04-21T12:59:27+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2012/04/17/hetzner-lxc-linux-subnet-configuration.html/</loc>
+    <lastmod>2012-04-17T23:50:10+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2012/04/17/rsync-to-ftp-operation-not-supported-95.html/</loc>
+    <lastmod>2012-04-17T21:58:07+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/10/23/realtime-webserver-access-monitoring-for-linux-users.html/</loc>
+    <lastmod>2011-10-23T12:53:05+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/10/18/avr-dragon-linux-write-arduino-bootloader.html/</loc>
+    <lastmod>2011-10-18T22:27:35+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/10/12/calculating-the-modelview-matrix-for-opengl.html/</loc>
+    <lastmod>2011-10-12T23:37:10+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/09/28/jogl-2-glsl-example.html/</loc>
+    <lastmod>2011-09-28T20:31:06+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/09/27/openstreetmap-libtinyosm-geoconvert-lonlat-to-utm.html/</loc>
+    <lastmod>2011-09-27T00:21:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/09/27/openstreetmap-osmparser-example.html/</loc>
+    <lastmod>2011-09-27T00:05:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/09/26/jogl2-maven-example-linux-i586.html/</loc>
+    <lastmod>2011-09-26T23:56:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/09/26/jogl2-jogamp-classpathloader-for-native-libraries.html/</loc>
+    <lastmod>2011-09-26T23:17:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/neuronensturm/technik/2011/09/23/javacpp-examples.html/</loc>
+    <lastmod>2011-09-23T21:10:34+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/2011/09/23/audiobooks-mixed-with-soundtracks.html/</loc>
+    <lastmod>2011-09-23T02:17:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/09/03/nasatv-hd-linux.html/</loc>
+    <lastmod>2011-09-03T16:07:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/08/25/jni-via-javacpp-on-android.html/</loc>
+    <lastmod>2011-08-25T23:50:55+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2011/07/08/eclipse-cdt-cross-platform-development-within-a-chroot-environment.html/</loc>
+    <lastmod>2011-07-08T18:36:49+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/07/08/pandaboard-powervr-opengl-es2-example.html/</loc>
+    <lastmod>2011-07-08T14:12:40+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/07/07/pandaboard-opengl-powervr-crosscompile-on-debian.html/</loc>
+    <lastmod>2011-07-07T00:45:28+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/07/06/charge-amazon-kindle-on-debian-linux.html/</loc>
+    <lastmod>2011-07-06T10:54:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2011/07/04/lxc-linux-containers-for-debian-squeeze.html/</loc>
+    <lastmod>2011-07-04T21:17:11+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/07/01/pandaboard-audiosetup.html/</loc>
+    <lastmod>2011-07-01T20:47:55+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/05/21/polling-74er-ic-set-contents.html/</loc>
+    <lastmod>2011-05-21T16:13:13+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/05/07/java-quadtree-implementation.html/</loc>
+    <lastmod>2011-05-07T22:45:49+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2011/04/23/creating-an-uberjar-webapp-using-jetty-and-maven.html/</loc>
+    <lastmod>2011-04-23T17:51:59+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2010/11/11/memory-allocation-test.html/</loc>
+    <lastmod>2010-11-11T22:08:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2010/10/15/xserver-within-vserver-linux.html/</loc>
+    <lastmod>2010-10-15T18:11:50+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2010/09/08/summarize-memory-consumption-for-linux-processes.html/</loc>
+    <lastmod>2010-09-08T12:44:36+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2010/09/01/aloha-editor-wordpress-plugin.html/</loc>
+    <lastmod>2010-09-01T22:42:45+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2010/08/10/howto-generate-sambantpassword-ldap-attribute.html/</loc>
+    <lastmod>2010-08-10T10:22:22+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2010/08/05/skype-crash-debian-testing-amd64.html/</loc>
+    <lastmod>2010-08-05T09:50:57+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2010/07/12/flightgear-logitech-momo-wheelpedals.html/</loc>
+    <lastmod>2010-07-12T20:48:47+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2010/02/27/freenx-3-4-and-debian-testing-stuck-keys.html/</loc>
+    <lastmod>2010-02-27T18:00:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2010/01/30/debian-kernel-2-6-30-1-and-jvm-socket-issues.html/</loc>
+    <lastmod>2010-01-30T11:46:58+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/gfx/2009/12/16/opengl-tesselation-techniques-comparison.html/</loc>
+    <lastmod>2009-12-16T01:22:24+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/gfx/2009/12/15/opengl-glu-tesselation-method-without-displaylists.html/</loc>
+    <lastmod>2009-12-15T23:23:32+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2009/12/15/opengl-amd-tesselation-example-catmullcark-subdivision-linux.html/</loc>
+    <lastmod>2009-12-15T02:22:53+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2009/12/14/mars-society-startet-humans-to-mars-petition.html/</loc>
+    <lastmod>2009-12-14T23:06:49+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/12/14/opengl-matrixvector-libraries.html/</loc>
+    <lastmod>2009-12-14T00:27:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/12/13/drawing-the-perspective-view-frustum-with-opengl.html/</loc>
+    <lastmod>2009-12-13T19:43:38+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2009/12/12/opengl-freeglut-multiple-window-callbacks-and-c-oop.html/</loc>
+    <lastmod>2009-12-12T18:15:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2009/12/09/xlib-multiple-window-events-example.html/</loc>
+    <lastmod>2009-12-09T20:16:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2009/12/06/minimal-google-docs-java-client.html/</loc>
+    <lastmod>2009-12-06T23:45:12+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/12/05/opengl-ubos-uniform-buffer-objects.html/</loc>
+    <lastmod>2009-12-05T20:18:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/11/29/opengl-tbos-texture-buffer-objects.html/</loc>
+    <lastmod>2009-11-29T00:20:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2009/10/18/openscenegraph-osgimage-getting-a-subimage-from-an-image.html/</loc>
+    <lastmod>2009-10-18T16:49:03+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/10/16/esa-television-ftp-site.html/</loc>
+    <lastmod>2009-10-16T19:30:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2009/10/10/sed-awk-replace-section-within-file.html/</loc>
+    <lastmod>2009-10-10T14:01:05+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/10/09/dynamic-shadowmaps-revisited.html/</loc>
+    <lastmod>2009-10-09T09:32:38+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/gfx/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example.html/</loc>
+    <lastmod>2009-10-08T22:00:39+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/09/19/convert-equirectangular-panorama-to-cube-images-under-debian.html/</loc>
+    <lastmod>2009-09-19T12:29:32+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/09/10/projectivetextureexample-openscenegraph.html/</loc>
+    <lastmod>2009-09-10T18:31:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/gfx/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface.html/</loc>
+    <lastmod>2009-08-17T23:20:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/08/16/debian-testing-and-fglrx-8-632-1-ati-driver-package-9-7-and-linux-image-2-6-30-1-686-bigmem.html/</loc>
+    <lastmod>2009-08-16T14:16:59+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/08/16/laggy-2d-fglrx-performance-debian-testing.html/</loc>
+    <lastmod>2009-08-16T14:04:22+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/07/13/generating-city-models-by-using-panorama-images.html/</loc>
+    <lastmod>2009-07-13T00:03:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/07/05/fglrx-installation-and-debian-testing-with-2626-2-686-bigmem.html/</loc>
+    <lastmod>2009-07-05T14:17:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem.html/</loc>
+    <lastmod>2009-07-05T13:17:12+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/2009/06/24/remove-ctrlq-firefox-linux-keybinding.html/</loc>
+    <lastmod>2009-06-24T19:28:29+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/gfx/2009/06/11/openphotovr.html/</loc>
+    <lastmod>2009-06-11T10:46:27+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/gfx/2009/05/31/projective-textures-with-openscenegraph.html/</loc>
+    <lastmod>2009-05-31T21:55:15+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head.html/</loc>
+    <lastmod>2009-05-19T22:23:59+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64.html/</loc>
+    <lastmod>2009-05-19T20:33:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/gfx/2009/04/23/automated-scalable-airborne-only-3d-modeling.html/</loc>
+    <lastmod>2009-04-23T22:58:44+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2009/02/21/javascript-website-clipping-using-ajax-jquery.html/</loc>
+    <lastmod>2009-02-21T23:00:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/01/26/remote-monitoring-heap-memory-usage-using-jmx-rmi.html/</loc>
+    <lastmod>2009-01-26T00:20:03+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2009/01/04/computer-vision-techniques.html/</loc>
+    <lastmod>2009-01-04T00:45:45+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/neuronensturm/gfx/2009/01/04/removal-of-humans-in-motion-pictures.html/</loc>
+    <lastmod>2009-01-04T00:16:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2008/12/07/farewell-phoenix.html/</loc>
+    <lastmod>2008-12-07T13:06:53+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2008/12/03/code-coverage-with-emma-and-cruisecontrol.html/</loc>
+    <lastmod>2008-12-03T22:22:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/das%20kalte%20nichts/traumzone/2008/12/02/startrek-quotes.html/</loc>
+    <lastmod>2008-12-02T23:06:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2008/12/02/asynchronousbufferedinputstreamwrapper.html/</loc>
+    <lastmod>2008-12-02T21:53:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2008/12/02/bandwidth-controlling-for-apache2-lenny.html/</loc>
+    <lastmod>2008-12-02T21:41:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/das%20kalte%20nichts/2008/11/30/an-engineers-delight.html/</loc>
+    <lastmod>2008-11-30T23:20:12+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2008/11/30/snplayer.html/</loc>
+    <lastmod>2008-11-30T01:50:23+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2008/11/30/projects.html/</loc>
+    <lastmod>2008-11-30T01:47:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2008/06/15/dual-head-on-i810-945gm-debian-lenny.html/</loc>
+    <lastmod>2008-06-15T16:02:29+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/das%20kalte%20nichts/2008/05/26/phoenix-lander-touchdown.html/</loc>
+    <lastmod>2008-05-26T02:23:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/das%20kalte%20nichts/2008/05/25/mars-phoenix-landing-ellipse-update.html/</loc>
+    <lastmod>2008-05-25T22:04:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/2008/05/25/nasa-tv-high-quality.html/</loc>
+    <lastmod>2008-05-25T11:14:34+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/das%20kalte%20nichts/2008/05/24/mars-phoenix-trajectory.html/</loc>
+    <lastmod>2008-05-24T21:47:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/das%20kalte%20nichts/2008/05/24/mars-phoenix-lander-landing-site.html/</loc>
+    <lastmod>2008-05-24T16:28:28+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/das%20kalte%20nichts/2008/05/24/mars-phoenix-lander-time-schedule.html/</loc>
+    <lastmod>2008-05-24T13:16:47+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2008/05/23/canon-mx300-debian-lenny.html/</loc>
+    <lastmod>2008-05-23T23:38:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/uncategorized/2008/05/15/search-for-mars-polar-lander-crashed-1999.html/</loc>
+    <lastmod>2008-05-15T21:00:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/2008/04/06/mplayer-still-picture-extraction.html/</loc>
+    <lastmod>2008-04-06T21:09:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2008/02/09/dual-head-on-i810-945gm-amilo-pro.html/</loc>
+    <lastmod>2008-02-09T13:50:27+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/neuronensturm/technik/2008/01/28/multitouch-userinterface-with-wiimote.html/</loc>
+    <lastmod>2008-01-28T02:11:11+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/neuronensturm/technik/gfx/2008/01/21/inflatable-vr-hemisphere.html/</loc>
+    <lastmod>2008-01-21T03:18:58+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/neuronensturm/technik/gfx/2008/01/20/virtual-reality-freedom.html/</loc>
+    <lastmod>2008-01-20T22:29:49+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2008/01/16/holodeck-20.html/</loc>
+    <lastmod>2008-01-16T14:27:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2008/01/16/holodeck-v10.html/</loc>
+    <lastmod>2008-01-16T01:00:08+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2008/01/12/xhtml-20-vs-html-5.html/</loc>
+    <lastmod>2008-01-12T01:23:57+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/life/2008/01/12/auswandern-nach-osterreich-ausbildung-in-wien-mein-erfahrungsbericht.html/</loc>
+    <lastmod>2008-01-12T00:44:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2008/01/06/java-global-keyboard-hook-jni.html/</loc>
+    <lastmod>2008-01-06T14:39:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2008/01/05/windows-autostart-programm.html/</loc>
+    <lastmod>2008-01-05T01:16:32+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2007/08/24/ipw3945-kill-switch-problem-solved.html/</loc>
+    <lastmod>2007-08-24T17:27:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/gfx/2007/07/27/lighthouse-gdg2-projekt-ss07.html/</loc>
+    <lastmod>2007-07-27T02:28:55+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/neuronensturm/technik/2007/07/27/fast-orientated-desktop-item-transfer.html/</loc>
+    <lastmod>2007-07-27T01:25:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/technik/2007/04/13/der-erlenrouter.html/</loc>
+    <lastmod>2007-04-13T17:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/2007/04/01/problem-mit-t19ds.html/</loc>
+    <lastmod>2007-04-01T21:54:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/neuronensturm/gfx/2007/03/31/phantasinator.html/</loc>
+    <lastmod>2007-03-31T15:57:54+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/fundgrube/das%20kalte%20nichts/2007/03/29/strom-verjungt.html/</loc>
+    <lastmod>2007-03-29T03:02:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.jotschi.de/technik/gfx/2007/03/05/demis-maps-java-tool.html/</loc>
+    <lastmod>2007-03-05T02:35:52+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
 </urlset>

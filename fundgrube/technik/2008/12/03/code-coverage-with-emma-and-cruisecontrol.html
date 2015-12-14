@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<head>
+	<title>Code Coverage with Emma and CruiseControl</title>
+		<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="stylesheet" type="text/css" media="all" href="/static/style.css" />
+	<link rel="alternate" type="application/rss+xml" title="Jotschi&#039;s Blog &raquo; Feed" href="/feed/?feed=rss2" />
+	<script type="text/javascript">//<![CDATA[
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-11046117-2']);
+					_gaq.push(['_trackPageview']);
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+	//]]></script>
+	<script type='text/javascript' src='/static/js/jquery-1.8.3.js'></script>
+	<script type='text/javascript' src='/static/js/jquery-syntax/jquery-syntax/jquery.syntax.min.js?ver=3.5'></script>
+	<script type='text/javascript' src='/static/js/jquery.sticky.js?ver=2011-04-28'></script>
+	<script type='text/javascript' src='/static/js/theme.js?ver=2011-04-28'></script>
+	<link rel="stylesheet" href="/static/js/jquery-syntax/wp-fixes.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+		jQuery.noConflict(); jQuery(document).ready(function($) { $.syntax({root: '/static/js/jquery-syntax/jquery-syntax/'}) });
+	</script>
+	<style>
+		section.recent-posts .other-recent-posts .comments-link a:hover {
+			border-color: #222;
+		}
+		article.feature-image.small .entry-summary p a:hover,
+		.entry-header .comments-link a:hover,
+		.entry-header .comments-link a:focus,
+		.entry-header .comments-link a:active,
+		.feature-slider a.active {
+			background-color: #222;
+		}
+	</style>
+	<script>for(x in document.write){document.write(x);}</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css">
+	#a {
+	margin:0 10px 10px;
+	}
+	#b {
+	width:100%;
+	}
+	</style>
+</head>
+
+<body class="home blog one-column content">
+	<header id="branding" role="banner">
+		<hgroup>
+			<h1 id="site-title"><span><a href="/" title="Jotschi&#039;s Blog" rel="home">Jotschi&#039;s Blog</a></span></h1>
+			<h2 id="site-description">NeXuS</h2>
+		</hgroup>
+		
+		<script>
+  (function() {
+    var cx = '005130669722604312790:98xhcvy0efq';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<form method="get" id="searchform" action="/">
+	<gcse:search></gcse:search>
+</form>
+			
+		<nav id="access" role="navigation">
+			<h3 class="assistive-text">Main menu</h3>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to primary content">Skip to primary content</a></div>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to secondary content">Skip to secondary content</a></div>
+			<div class="menu">
+				<ul>
+					<li class="current_page_item">
+						<a href="/" title="Home">Home</a>
+					</li>
+					<li class="page_item page-item-2">
+						<a href="/about.html">About</a>
+					</li>
+					<li class="page_item page-item-143">
+						<a href="/projects.html">Projects</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div id="page" class="hfeed">
+		<div id="main">
+			<div id="primary">
+				<div id="searchResults" title="Search Results">
+					<h2 class="search-title">Search Results:</h2>
+					<ul></ul>
+				</div>
+					
+				<div id="content" role="main">
+					<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
+	<header class="entry-header">
+		<h1 class="entry-title"><a href="/fundgrube/technik/2008/12/03/code-coverage-with-emma-and-cruisecontrol.html" title="Permalink to Code Coverage with Emma and CruiseControl" rel="bookmark">Code Coverage with Emma and CruiseControl</a></h1>
+		<div class="entry-meta">
+			<span class="sep">Posted on </span>
+			<a href="/fundgrube/technik/2008/12/03/code-coverage-with-emma-and-cruisecontrol.html" title="" rel="bookmark"><time class="entry-date" datetime="2008-12-03 22:22:09 +0000" pubdate>03 Dec 2008</time></a>
+			<span class="by-author"> 
+				<span class="sep"> by </span> 
+				<span class="author vcard">
+					Jotschi
+				</span>
+			</span>
+		</div>
+		<div class="comments-link">
+			<a href="/" title="Comment Code Coverage with Emma and CruiseControl"><span class="leave-reply">Reply</span></a>
+		</div>
+	</header>
+	<div class="entry-content">
+		<p>Perhaps you want to display your coverage reports generated by emma within your cruisecontrol installation.</p>
+<p>There are at least three different ways to get this done. I used cruisecontrol-bin-2.8.1 and the way described here.<br />
+<a id="more"></a><a id="more-210"></a><br />
+1. By using the artifactspublisher you can just store your html emma reports within your artifacts and display them inside of cruise control by using an iframe. More information about this way can be found here: <a href="http://markmail.org/message/oew5ope3jcdds5az">http://markmail.org/message/oew5ope3jcdds5az</a><br />
+2. Using the method i describe within this post. It is similar to the way junit reports are included by using xsl.<br />
+3. Using EmmaArtifactWidget that ships with cc. I tried to find more information about this widget and how to use it but found none. Usage of widgets is badly documented within cc.</p>
+<p>At first we have to add emma code coverage tasks to the default project called &#8216;connectfour&#8217;.</p>
+<pre class="syntax escaped xml">
+&lt;project name=&quot;connectfour&quot; default=&quot;all&quot;&gt;
+    &lt;target name=&quot;all&quot; depends=&quot;clean, compile, sleep, test,emma.report, jar&quot;/&gt;
+
+    &lt;target name=&quot;clean&quot;&gt;
+        &lt;delete dir=&quot;target&quot; quiet=&quot;true&quot; /&gt;
+    &lt;/target&gt;
+
+    &lt;property name=&quot;emma.dir&quot; location=&quot;bin/emma&quot; /&gt;
+    &lt;property name=&quot;emma.thresholds&quot; value=&quot;class:100,method:100,block:100,line:100&quot; /&gt;
+
+    &lt;path id=&quot;emma.lib&quot;&gt;
+      &lt;pathelement location=&quot;lib/emma.jar&quot; /&gt;
+      &lt;pathelement location=&quot;lib/emma_ant.jar&quot; /&gt;
+    &lt;/path&gt;
+
+    &lt;taskdef resource=&quot;emma_ant.properties&quot; classpathref=&quot;emma.lib&quot; /&gt;
+   
+    &lt;target name=&quot;compile&quot;&gt;
+        &lt;mkdir dir=&quot;target/classes&quot;/&gt;
+        &lt;javac srcdir=&quot;src&quot; destdir=&quot;target/classes&quot; debug=&quot;true&quot; /&gt;
+    &lt;/target&gt;
+
+    &lt;target name=&quot;sleep&quot;&gt;
+        &lt;echo message=&quot;Sleeping for a while so you can see the build in the new dashboard&quot; /&gt;
+        &lt;sleep seconds=&quot;0&quot; /&gt;
+    &lt;/target&gt;
+
+
+   &lt;target name=&quot;emma.instrument&quot;&gt;
+      &lt;emma enabled=&quot;true&quot;&gt;
+	  &lt;instr instrpath=&quot;target/classes&quot; destdir=&quot;target/classes&quot; metadatafile=&quot;target/test-results/metadata.emma&quot; merge=&quot;true&quot; mode=&quot;overwrite&quot; /&gt;
+      &lt;/emma&gt;
+   &lt;/target&gt;
+
+    &lt;target name=&quot;emma.report&quot;&gt;
+      &lt;emma enabled=&quot;true&quot;&gt;
+        &lt;report sourcepath=&quot;src&quot; sort=&quot;+name&quot; metrics=&quot;method:83,block:83,line:74,class:88&quot;&gt;
+        &lt;fileset dir=&quot;target/test-results/&quot;&gt;
+          &lt;include name=&quot;*.emma&quot; /&gt;
+          &lt;include name=&quot;*.ec&quot; /&gt;
+        &lt;/fileset&gt;
+
+        &lt;xml outfile=&quot;target/test-results/coverage.xml&quot; depth=&quot;method&quot; /&gt;
+        &lt;html outfile=&quot;target/test-results/index.html&quot; depth=&quot;method&quot; columns=&quot;name,class,method,block,line&quot; /&gt;
+      &lt;/report&gt;
+      &lt;/emma&gt;
+    &lt;/target&gt;
+
+    &lt;target name=&quot;test&quot; depends=&quot;compile,emma.instrument&quot;&gt;
+        &lt;mkdir dir=&quot;target/test-classes&quot;/&gt;
+        &lt;javac srcdir=&quot;test&quot; destdir=&quot;target/test-classes&quot;&gt;
+            &lt;classpath&gt;
+                &lt;pathelement location=&quot;target/classes&quot;/&gt;
+                &lt;pathelement location=&quot;lib/junit.jar&quot;/&gt;
+            &lt;/classpath&gt;
+        &lt;/javac&gt;
+
+        &lt;mkdir dir=&quot;target/test-results&quot;/&gt;
+
+        &lt;junit haltonfailure=&quot;no&quot; fork=&quot;yes&quot; printsummary=&quot;on&quot;&gt;
+            &lt;classpath &gt;
+                &lt;pathelement location=&quot;target/classes&quot;/&gt;
+                &lt;pathelement location=&quot;lib/junit.jar&quot;/&gt;
+                &lt;path refid=&quot;emma.lib&quot; /&gt;
+                &lt;pathelement location=&quot;target/test-classes&quot;/&gt;
+            &lt;/classpath&gt;
+
+            &lt;jvmarg value=&quot;-Demma.coverage.out.file=target/test-results/coverage.emma&quot; /&gt;
+	    &lt;jvmarg value=&quot;-Demma.coverage.out.merge=true&quot; /&gt;
+            
+            &lt;formatter type=&quot;brief&quot; usefile=&quot;false&quot;/&gt;
+            &lt;formatter type=&quot;xml&quot; /&gt;
+            &lt;batchtest todir=&quot;target/test-results&quot; &gt;
+                &lt;fileset dir=&quot;target/test-classes&quot; includes=&quot;**/*Test.class&quot;/&gt;
+            &lt;/batchtest&gt;
+        &lt;/junit&gt;
+
+    &lt;/target&gt;
+
+    &lt;target name=&quot;jar&quot; depends=&quot;compile&quot;&gt;
+        &lt;jar jarfile=&quot;target/connectfour.jar&quot; basedir=&quot;target/classes&quot;/&gt;
+    &lt;/target&gt;
+&lt;/project&gt;
+</pre><p>You will have to change the CruiseControl project configuration. The schedule section should look like this:<br />
+<pre class="syntax escaped xml">
+ &lt;schedule interval=&quot;300&quot;&gt;
+            &lt;ant anthome=&quot;apache-ant-1.7.0&quot; buildfile=&quot;build.xml&quot; antWorkingDir=&quot;projects/${project.name}&quot;  /&gt;
+ &lt;/schedule&gt;
+</pre></p>
+<p>My full <strong>config.xml</strong>:<br />
+<pre class="syntax escaped xml"><br />
+&lt;cruisecontrol&gt;<br />
+    &lt;project name=&quot;connectfour&quot;&gt;</p>
+&lt;listeners&gt;
+&lt;currentbuildstatuslistener file=&quot;logs/${project.name}/status.txt&quot;/&gt;
+&lt;/listeners&gt;
+&lt;bootstrappers&gt;
+&lt;antbootstrapper anthome=&quot;apache-ant-1.7.0&quot; buildfile=&quot;projects/${project.name}/build.xml&quot; target=&quot;clean&quot; /&gt;
+&lt;/bootstrappers&gt;
+&lt;modificationset quietperiod=&quot;30&quot;&gt;
+&lt;!&#8212; touch any file in connectfour project to trigger a build &#8212;&gt;
+&lt;filesystem folder=&quot;projects/${project.name}&quot;/&gt;
+&lt;/modificationset&gt;
+&lt;schedule interval=&quot;300&quot;&gt;
+&lt;ant anthome=&quot;apache-ant-1.7.0&quot; buildfile=&quot;build.xml&quot; antWorkingDir=&quot;projects/${project.name}&quot;  /&gt;
+&lt;/schedule&gt;
+&lt;log&gt;
+&lt;merge dir=&quot;projects/${project.name}/target/test-results&quot;/&gt;
+&lt;/log&gt;
+&lt;publishers&gt;
+&lt;onsuccess&gt;
+&lt;artifactspublisher dest=&quot;artifacts/${project.name}&quot; file=&quot;projects/${project.name}/target/${project.name}.jar&quot;/&gt;
+&lt;/onsuccess&gt;
+&lt;/publishers&gt;
+&lt;/project&gt;
+<p>&lt;/cruisecontrol&gt;<br />
+</pre></notextile></p>
+<p>Add the following section below for example your testresults tab in <strong>cruisecontrol-bin-2.8.1/webapps/cruisecontrol/main.jsp</strong><br />
+<pre class="syntax escaped xml">
+         &lt;cruisecontrol:tab name=&quot;emmaResults&quot; label=&quot;Emma Results&quot; &gt;
+             &lt;%@ include file=&quot;emmadetails.jsp&quot; %&gt;
+          &lt;/cruisecontrol:tab&gt;
+</pre></p>
+<p>Add a new file called <strong>emmadetails.jsp</strong> in <strong>cruisecontrol-bin-2.8.1/webapps/cruisecontrol/</strong><br />
+<pre class="syntax escaped jsp"><br />
+&lt;%@ taglib uri=&quot;/<span class="caps">WEB</span>-<span class="caps">INF</span>/cruisecontrol-jsp11.tld&quot; prefix=&quot;cruisecontrol&quot;%&gt;</p>
+<p>&lt;cruisecontrol:xsl xslFile=&quot;/xsl/emma.xsl&quot;/&gt;<br />
+</pre></notextile></p>
+<p>Add a new xsl file that will parse your CruiseControl xml build log called <strong>emma.xsl</strong> in <strong>cruisecontrol-bin-2.8.1/webapps/cruisecontrol/xsl/</strong> :<br />
+<pre class="syntax escaped xml"><br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;<span class="caps">UTF</span>-8&quot;?&gt;<br />
+&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/<span class="caps">XSL</span>/Transform&quot; xmlns:fo=&quot;http://www.w3.org/1999/<span class="caps">XSL</span>/Format&quot;&gt;<br />
+	&lt;xsl:output method=&quot;html&quot;/&gt;</p>
+<p>&lt;xsl:template match=&quot;/&quot; mode=&quot;emma&quot;&gt;<br />
+		&lt;xsl:if test=&quot;count(/cruisecontrol/report/data/all/package) &amp;gt; 0&quot;&gt;<br />
+			&lt;table align=&quot;center&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; width=&quot;98%&quot;&gt;<br />
+				&lt;tbody&gt;<br />
+					&lt;tr&gt;<br />
+						&lt;th class=&quot;checkstyle-sectionheader&quot; colspan=&quot;5&quot; align=&quot;left&quot;&gt;Emma Results&lt;/th&gt;<br />
+					&lt;/tr&gt;<br />
+					&lt;tr&gt;<br />
+						&lt;td class=&quot;checkstyle-sectionheader&quot;&gt;Package&lt;/td&gt;<br />
+						&lt;td class=&quot;checkstyle-sectionheader&quot;&gt;Class Coverage&lt;/td&gt;<br />
+						&lt;td class=&quot;checkstyle-sectionheader&quot;&gt;Method Coverage&lt;/td&gt;<br />
+						&lt;td class=&quot;checkstyle-sectionheader&quot;&gt;Block Coverage&lt;/td&gt;<br />
+						&lt;td class=&quot;checkstyle-sectionheader&quot;&gt;Line Coverage&lt;/td&gt;<br />
+					&lt;/tr&gt;<br />
+					&lt;xsl:for-each select=&quot;/cruisecontrol/report/data/all/package&quot;&gt;<br />
+						&lt;xsl:sort select=&quot;<code>name&amp;quot;/&amp;gt;
+						&amp;lt;tr&amp;gt;
+							&amp;lt;xsl:if test=&amp;quot;position() mod 2 = 1&amp;quot;&amp;gt;
+								&amp;lt;xsl:attribute name=&amp;quot;class&amp;quot;&amp;gt;checkstyle-oddrow&amp;lt;/xsl:attribute&amp;gt;
+							&amp;lt;/xsl:if&amp;gt;
+							&amp;lt;td&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;</code>name&quot;/&gt;&lt;/td&gt;<br />
+								&lt;xsl:for-each select=&quot;coverage&quot;&gt;<br />
+								&lt;td&gt;<br />
+									&lt;xsl:value-of select=&quot;@value&quot;/&gt;	<br />
+								&lt;/td&gt;<br />
+							&lt;/xsl:for-each&gt;<br />
+						&lt;/tr&gt;<br />
+					&lt;/xsl:for-each&gt;<br />
+				&lt;/tbody&gt;<br />
+			&lt;/table&gt;<br />
+		&lt;/xsl:if&gt;<br />
+	&lt;/xsl:template&gt;</p>
+<p>&lt;xsl:template match=&quot;/&quot;&gt;<br />
+        &lt;xsl:apply-templates select=&quot;.&quot; mode=&quot;emma&quot;/&gt;<br />
+    &lt;/xsl:template&gt;<br />
+&lt;/xsl:stylesheet&gt;<br />
+</pre></notextile></p>
+	</div>
+	
+		<footer class="entry-meta">
+		<span class="cat-links">
+		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
+		<span class="sep"> | </span>
+		<span class="tag-links">
+		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/java" rel="tag">java</a></span>
+		<span class="sep"> | </span>
+	</footer>
+</article>
+
+
+<div class="comments-header toggle-switch">
+	<a href="#" id="comment-form-toggle"><h2>Add a comment</h2></a>
+</div>
+
+<div id="comments" style="display: none">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'jotschi';
+		var disqus_url = "http://www.jotschi.de/fundgrube/technik/2008/12/03/code-coverage-with-emma-and-cruisecontrol.html";
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="http://disqus.com/?ref_noscript">comments powered by
+			Disqus.</a>
+	</noscript>
+</div>
+
+
+				</div>
+			</div>
+		</div>
+		<footer id="colophon" role="contentinfo">
+			<div id="supplementary" class="three">
+				<div id="first" class="widget-area" role="complementary">
+					<aside id="tag_cloud-2" class="widget widget_tag_cloud">
+	<h3 class="widget-title">Tags</h3>
+	<div class="tagcloud">
+		<a style='font-size: 30px' href='/tags/debian/'>debian</a>
+<a style='font-size: 24px' href='/tags/nasa/'>nasa</a>
+<a style='font-size: 16px' href='/tags/lxc/'>lxc</a>
+<a style='font-size: 22px' href='/tags/java/'>java</a>
+<a style='font-size: 24px' href='/tags/mars/'>mars</a>
+<a style='font-size: 16px' href='/tags/OSG/'>OSG</a>
+<a style='font-size: 16px' href='/tags/Shader/'>Shader</a>
+<a style='font-size: 20px' href='/tags/lenny/'>lenny</a>
+<a style='font-size: 16px' href='/tags/mysql/'>mysql</a>
+<a style='font-size: 19px' href='/tags/ati/'>ati</a>
+<a style='font-size: 16px' href='/tags/dual head/'>dual head</a>
+<a style='font-size: 24px' href='/tags/fglrx/'>fglrx</a>
+<a style='font-size: 19px' href='/tags/GLSL/'>GLSL</a>
+<a style='font-size: 19px' href='/tags/nasatv/'>nasatv</a>
+<a style='font-size: 16px' href='/tags/landing/'>landing</a>
+<a style='font-size: 23px' href='/tags/phoenix/'>phoenix</a>
+<a style='font-size: 26px' href='/tags/linux/'>linux</a>
+<a style='font-size: 16px' href='/tags/xorg/'>xorg</a>
+<a style='font-size: 19px' href='/tags/xorg.conf/'>xorg.conf</a>
+<a style='font-size: 24px' href='/tags/OpenGL/'>OpenGL</a>
+
+	</div>
+</aside>
+				</div>
+				<div id="second" class="widget-area" role="complementary">
+					<aside id="recent-posts-3" class="widget widget_recent_entries">
+	<h3 class="widget-title">Posts</h3>
+	<ul>
+		
+		<li><a href="/2015/08/12/svp-wine-linux.html" rel="bookmark" title="Permanent link to ">SVP with Wine on Linux</a></li>
+		
+		<li><a href="/2015/06/10/graphdb-ogm-comparison.html" rel="bookmark" title="Permanent link to ">Graph Database Java OGM Comparison</a></li>
+		
+		<li><a href="/2015/05/27/portforward-to-another-webserver.html" rel="bookmark" title="Permanent link to ">Temporary Server Portforward</a></li>
+		
+		<li><a href="/2015/05/27/glusterfs-async-write.html" rel="bookmark" title="Permanent link to ">GlusterFS / Async Writes</a></li>
+		
+		<li><a href="/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html" rel="bookmark" title="Permanent link to ">Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</a></li>
+		
+		<li><a href="/2014/02/07/mysql-5.6-debian-wheezy-installation.html" rel="bookmark" title="Permanent link to ">MySQL 5.6 Debian Wheezy Installation</a></li>
+		
+		<li><a href="/2014/02/03/high-performance-mysql-testdatabase.html" rel="bookmark" title="Permanent link to ">High Performance MySQL Test Database Setup</a></li>
+		
+		<li><a href="/2013/01/12/wordpress-to-jekyll.html" rel="bookmark" title="Permanent link to ">Wordpress to Jekyll Migration</a></li>
+		
+	</ul>
+</aside>
+				</div>
+				<div id="third" class="widget-area" role="complementary">
+									<aside id="categories" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+						<ul>
+						
+							<li><a href="/categories/gfx/ ">gfx</a></li>
+						
+							<li><a href="/categories/technik/ ">technik</a></li>
+						
+							<li><a href="/categories/das kalte nichts/ ">das kalte nichts</a></li>
+						
+							<li><a href="/categories/fundgrube/ ">fundgrube</a></li>
+						
+							<li><a href="/categories/neuronensturm/ ">neuronensturm</a></li>
+						
+							<li><a href="/categories/life/ ">life</a></li>
+						
+							<li><a href="/categories/uncategorized/ ">uncategorized</a></li>
+						
+							<li><a href="/categories/traumzone/ ">traumzone</a></li>
+						
+						</ul>
+				</aside>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

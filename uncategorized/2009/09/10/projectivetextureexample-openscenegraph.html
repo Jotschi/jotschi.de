@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<head>
+	<title>ProjectiveTextureExample OpenSceneGraph</title>
+		<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="stylesheet" type="text/css" media="all" href="/static/style.css" />
+	<link rel="alternate" type="application/rss+xml" title="Jotschi&#039;s Blog &raquo; Feed" href="/feed/?feed=rss2" />
+	<script type="text/javascript">//<![CDATA[
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-11046117-2']);
+					_gaq.push(['_trackPageview']);
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+	//]]></script>
+	<script type='text/javascript' src='/static/js/jquery-1.8.3.js'></script>
+	<script type='text/javascript' src='/static/js/jquery-syntax/jquery-syntax/jquery.syntax.min.js?ver=3.5'></script>
+	<script type='text/javascript' src='/static/js/jquery.sticky.js?ver=2011-04-28'></script>
+	<script type='text/javascript' src='/static/js/theme.js?ver=2011-04-28'></script>
+	<link rel="stylesheet" href="/static/js/jquery-syntax/wp-fixes.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+		jQuery.noConflict(); jQuery(document).ready(function($) { $.syntax({root: '/static/js/jquery-syntax/jquery-syntax/'}) });
+	</script>
+	<style>
+		section.recent-posts .other-recent-posts .comments-link a:hover {
+			border-color: #222;
+		}
+		article.feature-image.small .entry-summary p a:hover,
+		.entry-header .comments-link a:hover,
+		.entry-header .comments-link a:focus,
+		.entry-header .comments-link a:active,
+		.feature-slider a.active {
+			background-color: #222;
+		}
+	</style>
+	<script>for(x in document.write){document.write(x);}</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css">
+	#a {
+	margin:0 10px 10px;
+	}
+	#b {
+	width:100%;
+	}
+	</style>
+</head>
+
+<body class="home blog one-column content">
+	<header id="branding" role="banner">
+		<hgroup>
+			<h1 id="site-title"><span><a href="/" title="Jotschi&#039;s Blog" rel="home">Jotschi&#039;s Blog</a></span></h1>
+			<h2 id="site-description">NeXuS</h2>
+		</hgroup>
+		
+		<script>
+  (function() {
+    var cx = '005130669722604312790:98xhcvy0efq';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<form method="get" id="searchform" action="/">
+	<gcse:search></gcse:search>
+</form>
+			
+		<nav id="access" role="navigation">
+			<h3 class="assistive-text">Main menu</h3>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to primary content">Skip to primary content</a></div>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to secondary content">Skip to secondary content</a></div>
+			<div class="menu">
+				<ul>
+					<li class="current_page_item">
+						<a href="/" title="Home">Home</a>
+					</li>
+					<li class="page_item page-item-2">
+						<a href="/about.html">About</a>
+					</li>
+					<li class="page_item page-item-143">
+						<a href="/projects.html">Projects</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div id="page" class="hfeed">
+		<div id="main">
+			<div id="primary">
+				<div id="searchResults" title="Search Results">
+					<h2 class="search-title">Search Results:</h2>
+					<ul></ul>
+				</div>
+					
+				<div id="content" role="main">
+					<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
+	<header class="entry-header">
+		<h1 class="entry-title"><a href="/uncategorized/2009/09/10/projectivetextureexample-openscenegraph.html" title="Permalink to ProjectiveTextureExample OpenSceneGraph" rel="bookmark">ProjectiveTextureExample OpenSceneGraph</a></h1>
+		<div class="entry-meta">
+			<span class="sep">Posted on </span>
+			<a href="/uncategorized/2009/09/10/projectivetextureexample-openscenegraph.html" title="" rel="bookmark"><time class="entry-date" datetime="2009-09-10 18:31:37 +0000" pubdate>10 Sep 2009</time></a>
+			<span class="by-author"> 
+				<span class="sep"> by </span> 
+				<span class="author vcard">
+					Jotschi
+				</span>
+			</span>
+		</div>
+		<div class="comments-link">
+			<a href="/" title="Comment ProjectiveTextureExample OpenSceneGraph"><span class="leave-reply">Reply</span></a>
+		</div>
+	</header>
+	<div class="entry-content">
+		<p>Another <span class="caps">OSG</span> ProjectiveTexture Example &#8211; I did some code cleanup and added a bounding box test feature. My goal this example was to align the projector so that it would cover 100% of the second cameras field of view. In other words the view volume of the perspector of the scene should always be inside of the view volume of the projector. I solved this task by using some bounding box features and by setting the projector view matrix to align the view.<br />
+<a id="more"></a><a id="more-378"></a><br />
+<a href="/images/opengl/BoundingBoxedView.png"><img src="/images/opengl/BoundingBoxedView.png" alt="BoundingBoxedView" title="BoundingBoxedView" width="500" class="alignnone size-full wp-image-384" /></a></p>
+<p><strong>ProjectiveTextureExample.cpp</strong><br />
+<pre class="syntax c"><br />
+#include <iostream><br />
+#include &lt;osg/Notify&gt;<br />
+#include &lt;osg/MatrixTransform&gt;<br />
+#include &lt;osg/ShapeDrawable&gt;<br />
+#include &lt;osg/PositionAttitudeTransform&gt;<br />
+#include &lt;osg/Geometry&gt;<br />
+#include &lt;osgGA/TrackballManipulator&gt;</p>
+<p>#include &lt;osg/Texture2D&gt;<br />
+#include &lt;osg/Geode&gt;<br />
+#include &lt;osg/LightSource&gt;<br />
+#include &lt;osg/TexGenNode&gt;<br />
+#include &lt;osg/TexMat&gt;<br />
+#include &lt;osgDB/WriteFile&gt;<br />
+#include &lt;osgUtil/Optimizer&gt;</p>
+<p>#include &lt;osgDB/Registry&gt;<br />
+#include &lt;osgDB/ReadFile&gt;</p>
+<p>#include &lt;osgViewer/Viewer&gt;<br />
+#include &lt;osgViewer/CompositeViewer&gt;<br />
+#include <string><br />
+using namespace std;</p>
+<p>osgViewer::View* viewA = new osgViewer::View;<br />
+osg::TexMat* texMat = new osg::TexMat;</p>
+<p>/**</p>
+<ul>
+	<li>This method is used to mark the camera position<br />
+ <strong>/<br />
+osg::Node * markCameraPosition(osg::Camera</strong> camera) {</li>
+</ul>
+<p>osg::Group* root = new osg::Group();<br />
+	osg::Matrixd proj;<br />
+	osg::Matrixd mv;<br />
+	if (camera) {<br />
+		proj = camera&#8594;getProjectionMatrix();<br />
+		mv = camera&#8594;getViewMatrix();<br />
+	} else {<br />
+		// Create some kind of reasonable default Projection matrix.<br />
+		proj.makePerspective(30., 1., 1., 10.);<br />
+		// leave mv as identity<br />
+	}</p>
+<p>osg::Vec3f vector = osg::Vec3f(proj(0, 0), proj(0, 0), proj(0, 0));<br />
+	osg::Vec3f posVec = osg::Matrixd::inverse(mv).preMult(vector);</p>
+<p>//	printf(&#8220;VectorX: %f\n&#8221;, posVec.x());<br />
+	//	printf(&#8220;VectorY: %f\n&#8221;, posVec.y());<br />
+	//	printf(&#8220;VectorZ: %f\n&#8221;, posVec.z());</p>
+<p>osg::Sphere* unitSphere = new osg::Sphere(osg::Vec3(0, 0, 0), 2.0);<br />
+	osg::ShapeDrawable* unitSphereDrawable = new osg::ShapeDrawable(unitSphere);<br />
+	osg::Geode* unitSphereGeode = new osg::Geode();<br />
+	unitSphereGeode&#8594;addDrawable(unitSphereDrawable);</p>
+<p>osg::PositionAttitudeTransform* sphereXForm =<br />
+			new osg::PositionAttitudeTransform();<br />
+	sphereXForm&#8594;setPosition(posVec);<br />
+	sphereXForm&#8594;addChild(unitSphereGeode);<br />
+	root&#8594;addChild(sphereXForm);</p>
+<p>return root;</p>
+<p>}<br />
+// Given a Camera, create a wireframe representation of its<br />
+// view frustum. Create a default representation if camera==<span class="caps">NULL</span>.<br />
+osg::Node*<br />
+makeFrustumFromCamera(osg::Camera* camera) {</p>
+<p>// Projection and ModelView matrices<br />
+	osg::Matrixd proj;<br />
+	osg::Matrixd mv;<br />
+	if (camera) {<br />
+		proj = camera&#8594;getProjectionMatrix();<br />
+		mv = camera&#8594;getViewMatrix();<br />
+	} else {<br />
+		// Create some kind of reasonable default Projection matrix.<br />
+		proj.makePerspective(30., 1., 1., 10.);<br />
+		// leave mv as identity<br />
+	}</p>
+<p>//camera&#8594;setViewMatrix(camera&#8594;getViewMatrix().frustum(100,200,100,100,10,100));</p>
+<p>// Get near and far from the Projection matrix.<br />
+	const double near = proj(3, 2) / (proj(2, 2) &#8211; 1.0);<br />
+	const double far = proj(3, 2) / (1.0 + proj(2, 2));</p>
+<p>// Get the sides of the near plane.<br />
+	const double nLeft = near * (proj(2, 0) &#8211; 1.0) / proj(0, 0);<br />
+	const double nRight = near * (1.0 + proj(2, 0)) / proj(0, 0);<br />
+	const double nTop = near * (1.0 + proj(2, 1)) / proj(1, 1);<br />
+	const double nBottom = near * (proj(2, 1) &#8211; 1.0) / proj(1, 1);</p>
+<p>// Get the sides of the far plane.<br />
+	const double fLeft = far * (proj(2, 0) &#8211; 1.0) / proj(0, 0);<br />
+	const double fRight = far * (1.0 + proj(2, 0)) / proj(0, 0);<br />
+	const double fTop = far * (1.0 + proj(2, 1)) / proj(1, 1);<br />
+	const double fBottom = far * (proj(2, 1) &#8211; 1.0) / proj(1, 1);</p>
+<p>// Our vertex array needs only 9 vertices: The origin, and the<br />
+	// eight corners of the near and far planes.<br />
+	osg::Vec3Array* v = new osg::Vec3Array;<br />
+	v&#8594;resize(9);<br />
+	(<strong>v)<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>.set(0., 0., 0.);<br />
+	(</strong>v)<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.set(nLeft, nBottom, -near);<br />
+	(<strong>v)<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>.set(nRight, nBottom, -near);<br />
+	(</strong>v)<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>.set(nRight, nTop, -near);<br />
+	(<strong>v)<sup class="footnote" id="fnr4"><a href="#fn4">4</a></sup>.set(nLeft, nTop, -near);<br />
+	(</strong>v)<sup class="footnote" id="fnr5"><a href="#fn5">5</a></sup>.set(fLeft, fBottom, -far);<br />
+	(<strong>v)<sup class="footnote" id="fnr6"><a href="#fn6">6</a></sup>.set(fRight, fBottom, -far);<br />
+	(</strong>v)<sup class="footnote" id="fnr7"><a href="#fn7">7</a></sup>.set(fRight, fTop, -far);<br />
+	(*v)<sup class="footnote" id="fnr8"><a href="#fn8">8</a></sup>.set(fLeft, fTop, -far);</p>
+<p>osg::Geometry* geom = new osg::Geometry;<br />
+	geom&#8594;setUseDisplayList(false);<br />
+	geom&#8594;setVertexArray(v);</p>
+<p>osg::Vec4Array* c = new osg::Vec4Array;<br />
+	c&#8594;push_back(osg::Vec4(1., 1., 1., 1.));<br />
+	geom&#8594;setColorArray&#169;;<br />
+	geom&#8594;setColorBinding(osg::Geometry::BIND_OVERALL);</p>
+<p>GLushort idxLines<sup class="footnote" id="fnr8"><a href="#fn8">8</a></sup> = { 0, 5, 0, 6, 0, 7, 0, 8 };<br />
+	GLushort idxLoops0<sup class="footnote" id="fnr4"><a href="#fn4">4</a></sup> = { 1, 2, 3, 4 };<br />
+	GLushort idxLoops1<sup class="footnote" id="fnr4"><a href="#fn4">4</a></sup> = { 5, 6, 7, 8 };<br />
+	geom&#8594;addPrimitiveSet(new osg::DrawElementsUShort(osg::PrimitiveSet::<span class="caps">LINES</span>,<br />
+			8, idxLines));<br />
+	geom&#8594;addPrimitiveSet(new osg::DrawElementsUShort(<br />
+			osg::PrimitiveSet::LINE_LOOP, 4, idxLoops0));<br />
+	geom&#8594;addPrimitiveSet(new osg::DrawElementsUShort(<br />
+			osg::PrimitiveSet::LINE_LOOP, 4, idxLoops1));</p>
+<p>osg::Geode* geode = new osg::Geode;<br />
+	geode&#8594;addDrawable(geom);</p>
+<p>geode&#8594;getOrCreateStateSet()&#8594;setMode(GL_LIGHTING, osg::StateAttribute::<span class="caps">OFF</span><br />
+			| osg::StateAttribute::<span class="caps">PROTECTED</span>);</p>
+<p>// Create parent MatrixTransform to transform the view volume by<br />
+	// the inverse ModelView matrix.<br />
+	osg::MatrixTransform* mt = new osg::MatrixTransform;<br />
+	mt&#8594;setMatrix(osg::Matrixd::inverse(mv));<br />
+	mt&#8594;addChild(geode);</p>
+<p>return mt;<br />
+}</p>
+<p>osg::ref_ptr<osg::Program> addShader() {<br />
+	osg::ref_ptr<osg::Program> projProg(new osg::Program);<br />
+	osg::ref_ptr<osg::Shader> projvertexShader(osg::Shader::readShaderFile(<br />
+			osg::Shader::<span class="caps">VERTEX</span>, &#8220;VertexShader.glsl&#8221;));<br />
+	osg::ref_ptr<osg::Shader> projfragShader(osg::Shader::readShaderFile(<br />
+			osg::Shader::<span class="caps">FRAGMENT</span>, &#8220;FragmentShader.glsl&#8221;));</p>
+<p>projProg&#8594;addShader(projvertexShader.get());<br />
+	projProg&#8594;addShader(projfragShader.get());<br />
+	return projProg;<br />
+}</p>
+<p>void addProjectionInfoToState(osg::StateSet* stateset, string fn) {</p>
+<p>/* 1. Load the texture that will be projected <strong>/<br />
+	osg::Texture2D</strong> texture = new osg::Texture2D();<br />
+	texture&#8594;setImage(osgDB::readImageFile(fn));<br />
+	texture&#8594;setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_BORDER);<br />
+	texture&#8594;setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_BORDER);<br />
+	texture&#8594;setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_BORDER);<br />
+	stateset&#8594;setTextureAttributeAndModes(1, texture, osg::StateAttribute::ON);</p>
+<p>// set up tex gens<br />
+	stateset&#8594;setTextureMode(1, GL_TEXTURE_GEN_S, osg::StateAttribute::ON);<br />
+	stateset&#8594;setTextureMode(1, GL_TEXTURE_GEN_T, osg::StateAttribute::ON);<br />
+	stateset&#8594;setTextureMode(1, GL_TEXTURE_GEN_R, osg::StateAttribute::ON);<br />
+	stateset&#8594;setTextureMode(1, GL_TEXTURE_GEN_Q, osg::StateAttribute::ON);</p>
+<p>/* 3. Handover the texture to the fragment shader via uniform <strong>/<br />
+	osg::Uniform</strong> texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,<br />
+			&#8220;projectionMap&#8221;);<br />
+	texUniform&#8594;set(1);<br />
+	stateset&#8594;addUniform(texUniform);</p>
+<p>/* 4. set Texture matrix*/</p>
+<p>//If you want to create the texture matrix by yourself you can do this like this way:<br />
+	//osg::Vec3 projectorPos = osg::Vec3(0.0f, 0.0f, 324.0f);<br />
+	//osg::Vec3 projectorDirection = osg::Vec3(osg::inDegrees(dirX),osg::inDegrees(dirY), osg::inDegrees(dirZ));<br />
+	//osg::Vec3 up(0.0f, 1.0f, 0.0f);<br />
+	//osg::Vec3 target = osg::Vec3(0.0f, 0.0f,0.0f);<br />
+	//float projectorAngle = 80.f; //<span class="caps">FOV</span><br />
+	//mat = osg::Matrixd::lookAt(projectorPos, projectorPos*target ,up) * osg::Matrixd::perspective(projectorAngle, 1.0, 1.0, 10);</p>
+<p>osg::Matrix mat = viewA&#8594;getCamera()&#8594;getViewMatrix()<br />
+			* viewA&#8594;getCamera()&#8594;getProjectionMatrix();</p>
+<p>texMat&#8594;setMatrix(mat);<br />
+	stateset&#8594;setTextureAttributeAndModes(1, texMat, osg::StateAttribute::ON);</p>
+<p>}</p>
+<p>osg::StateSet* createProjectorState() {<br />
+	osg::StateSet* stateset = new osg::StateSet;<br />
+	osg::ref_ptr<osg::Program> prog = addShader();<br />
+	addProjectionInfoToState(stateset, &#8220;foo2.jpg&#8221;);<br />
+	stateset&#8594;setAttribute(prog.get());<br />
+	return stateset;<br />
+}</p>
+<p>/**</p>
+<ul>
+	<li>Load some model, scale it and apply the shader<br />
+ <strong>/<br />
+osg::Node</strong> createModel() {</li>
+</ul>
+<p>osg::Group* root = new osg::Group;</p>
+<p>/* Load the terrain which will be the receiver of out projection <strong>/<br />
+	osg::Node</strong> terr = osgDB::readNodeFile(&#8220;Terrain2.3ds&#8221;);</p>
+<p>/* Scale the terrain and move it. */<br />
+	osg::Matrix m;<br />
+	osg::ref_ptr<osg::MatrixTransform> mt = new osg::MatrixTransform;<br />
+	m.makeTranslate(0.f, 0.f, 0.f);<br />
+	m.makeScale(2.f, 2.f, 2.f);<br />
+	mt&#8594;setMatrix(m);<br />
+	mt&#8594;addChild(terr);</p>
+<p>/* Add the transformed node to our graph */<br />
+	root&#8594;addChild(mt.get());</p>
+<p>/* Enable projective texturing for all objects of this node */<br />
+	root&#8594;setStateSet(createProjectorState());<br />
+	return root;<br />
+}</p>
+<p>/**</p>
+<ul>
+	<li>Creates a small ball node for the given coords.<br />
+ <strong>/<br />
+osg::Node</strong> createBall(osg::Vec3 pos) {<br />
+	osg::Sphere* unitSphere = new osg::Sphere(osg::Vec3(0, 0, 0), 62.0);<br />
+	osg::ShapeDrawable* unitSphereDrawable = new osg::ShapeDrawable(unitSphere);<br />
+	osg::Geode* unitSphereGeode = new osg::Geode();<br />
+	unitSphereGeode&#8594;addDrawable(unitSphereDrawable);</li>
+</ul>
+<p>osg::PositionAttitudeTransform* sphereXForm =<br />
+			new osg::PositionAttitudeTransform();<br />
+	sphereXForm&#8594;setPosition(pos);<br />
+	sphereXForm&#8594;addChild(unitSphereGeode);<br />
+	return sphereXForm;<br />
+}</p>
+<p>int main(int argc, char ** argv) {</p>
+<p>osg::ArgumentParser arguments(&amp;argc, argv);</p>
+<p>osg::ref_ptr<osg::Group> sceneA = new osg::Group;<br />
+	osg::ref_ptr<osg::Group> sceneB = new osg::Group;<br />
+	osg::ref_ptr<osg::Group> sceneC = new osg::Group;<br />
+	sceneA&#8594;addChild(createModel());<br />
+	sceneB&#8594;addChild(createModel());<br />
+	sceneC&#8594;addChild(createModel());</p>
+<p>osgViewer::CompositeViewer viewer(arguments);</p>
+<p>// Turn on <span class="caps">FSAA</span>, makes the lines look better.<br />
+	//osg::DisplaySettings::instance()&#8594;setNumMultiSamples( 4 );</p>
+<p>viewer.addView(viewA);<br />
+	viewA&#8594;setUpViewInWindow(10, 10, 640, 480);<br />
+	viewA&#8594;setSceneData(sceneA.get());<br />
+	//Add this to move the projector by mouse &#8211; you need to disable the set of the viewmatrix in the while loop below.<br />
+	//viewA&#8594;setCameraManipulator(new osgGA::TrackballManipulator);</p>
+<p>osgViewer::View* viewB = new osgViewer::View;<br />
+	viewer.addView(viewB);<br />
+	viewB&#8594;setUpViewInWindow(10, 510, 640, 480);<br />
+	viewB&#8594;setSceneData(sceneB.get());<br />
+	viewB&#8594;setCameraManipulator(new osgGA::TrackballManipulator);</p>
+<p>osgViewer::View* viewC = new osgViewer::View;<br />
+	viewer.addView(viewC);<br />
+	viewC&#8594;setUpViewInWindow(500, 510, 640, 480);<br />
+	viewC&#8594;setSceneData(sceneC.get());<br />
+	viewC&#8594;setCameraManipulator(new osgGA::TrackballManipulator);</p>
+<p>// You can disable the auto computed near far bounds by disabling the osg mode.<br />
+	// viewer.getView(0)&#8594;getCamera()&#8594;setComputeNearFarMode(osg::Camera::DO_NOT_COMPUTE_NEAR_FAR);</p>
+<p>while (!viewer.done()) {</p>
+<p>osg::Matrix mat = viewA&#8594;getCamera()&#8594;getViewMatrix()<br />
+				* viewA&#8594;getCamera()&#8594;getProjectionMatrix();<br />
+		texMat&#8594;setMatrix(mat);</p>
+<p>sceneA&#8594;removeChild(1, 1);<br />
+		sceneA&#8594;insertChild(1, makeFrustumFromCamera(viewB&#8594;getCamera()));</p>
+<p>//sceneB&#8594;removeChild(1, 1);<br />
+		//sceneB&#8594;insertChild(1, makeFrustumFromCamera(viewA&#8594;getCamera()));</p>
+<p>sceneC&#8594;removeChild(1, 1);<br />
+		sceneC&#8594;insertChild(1, makeFrustumFromCamera(viewA&#8594;getCamera()));</p>
+<p>sceneC&#8594;removeChild(2, 1);<br />
+		sceneC&#8594;insertChild(2, makeFrustumFromCamera(viewB&#8594;getCamera()));</p>
+<p>// Finnaly set the camera<br />
+		osg::Node* frustum = makeFrustumFromCamera(viewB&#8594;getCamera());<br />
+		const osg::BoundingSphere&amp; boundingSphere = frustum&#8594;getBound();<br />
+		osg::Matrix myviewMatrix;<br />
+		osg::Vec3 boxEye = boundingSphere.<em>center + osg::Vec3(0.0f, -3.5f<br />
+				* boundingSphere._radius, 0.0f);<br />
+		osg::Vec3 boxCenter = boundingSphere.</em>center;<br />
+		osg::Vec3 boxUp = osg::Vec3(0.0f, 0.0f, 1.0f);<br />
+		myviewMatrix.makeLookAt(boxEye, boxCenter, boxUp);<br />
+		viewA&#8594;getCamera()&#8594;setViewMatrix(myviewMatrix);</p>
+<p>viewer.frame();<br />
+	}<br />
+	return 0;</p>
+<p>}<br />
+</pre><br />
+As you can see the texture coordinated will be shifted by 0.5/0.5. I had to do this because the projective center was in the middle of the texture. Without correction you get results like this one:</p>
+<p><img src="/images/opengl/texture_projection.png" alt="1" title="1" width="628" height="475" class="alignnone size-full wp-image-385" /></p>
+<p><img src="/images/opengl/texture_projection_2.png" alt="2" title="2" width="628" height="470" class="alignnone size-full wp-image-386" /></p>
+<p><strong>FragmentShader.glsl</strong><br />
+<pre class="syntax c"><br />
+uniform sampler2D projectionMap;<br />
+varying vec4 projCoord;</p>
+<p>void main()<br />
+{<br />
+	vec4 dividedCoord = projCoord / projCoord.w ;<br />
+	vec4 color =  texture2D(projectionMap,dividedCoord.st+vec2(0.5,0.5)  );<br />
+  	gl_FragColor =	 color * gl_Color;<br />
+}</p>
+<p></pre></p>
+<p><strong>VertexShader.glsl</strong><br />
+<pre class="syntax c"><br />
+varying vec4 projCoord;<br />
+void main()<br />
+{</p>
+<p>projCoord =  gl_TextureMatrix<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>  *  gl_Vertex;<br />
+		gl_Position = ftransform();<br />
+		gl_FrontColor = gl_Color;<br />
+}<br />
+</pre></p>
+	</div>
+	
+		<footer class="entry-meta">
+		<span class="cat-links">
+		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
+		<span class="sep"> | </span>
+		<span class="tag-links">
+		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/" rel="tag"></a></span>
+		<span class="sep"> | </span>
+	</footer>
+</article>
+
+
+<div class="comments-header toggle-switch">
+	<a href="#" id="comment-form-toggle"><h2>Add a comment</h2></a>
+</div>
+
+<div id="comments" style="display: none">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'jotschi';
+		var disqus_url = "http://www.jotschi.de/uncategorized/2009/09/10/projectivetextureexample-openscenegraph.html";
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="http://disqus.com/?ref_noscript">comments powered by
+			Disqus.</a>
+	</noscript>
+</div>
+
+
+				</div>
+			</div>
+		</div>
+		<footer id="colophon" role="contentinfo">
+			<div id="supplementary" class="three">
+				<div id="first" class="widget-area" role="complementary">
+					<aside id="tag_cloud-2" class="widget widget_tag_cloud">
+	<h3 class="widget-title">Tags</h3>
+	<div class="tagcloud">
+		<a style='font-size: 22px' href='/tags/java/'>java</a>
+<a style='font-size: 16px' href='/tags/Shader/'>Shader</a>
+<a style='font-size: 16px' href='/tags/landing/'>landing</a>
+<a style='font-size: 19px' href='/tags/xorg.conf/'>xorg.conf</a>
+<a style='font-size: 30px' href='/tags/debian/'>debian</a>
+<a style='font-size: 16px' href='/tags/OSG/'>OSG</a>
+<a style='font-size: 24px' href='/tags/fglrx/'>fglrx</a>
+<a style='font-size: 16px' href='/tags/mysql/'>mysql</a>
+<a style='font-size: 26px' href='/tags/linux/'>linux</a>
+<a style='font-size: 24px' href='/tags/mars/'>mars</a>
+<a style='font-size: 16px' href='/tags/dual head/'>dual head</a>
+<a style='font-size: 23px' href='/tags/phoenix/'>phoenix</a>
+<a style='font-size: 16px' href='/tags/lxc/'>lxc</a>
+<a style='font-size: 19px' href='/tags/ati/'>ati</a>
+<a style='font-size: 24px' href='/tags/OpenGL/'>OpenGL</a>
+<a style='font-size: 19px' href='/tags/GLSL/'>GLSL</a>
+<a style='font-size: 16px' href='/tags/xorg/'>xorg</a>
+<a style='font-size: 19px' href='/tags/nasatv/'>nasatv</a>
+<a style='font-size: 20px' href='/tags/lenny/'>lenny</a>
+<a style='font-size: 24px' href='/tags/nasa/'>nasa</a>
+
+	</div>
+</aside>
+				</div>
+				<div id="second" class="widget-area" role="complementary">
+					<aside id="recent-posts-3" class="widget widget_recent_entries">
+	<h3 class="widget-title">Posts</h3>
+	<ul>
+		
+		<li><a href="/2015/08/12/svp-wine-linux.html" rel="bookmark" title="Permanent link to ">SVP with Wine on Linux</a></li>
+		
+		<li><a href="/2015/06/10/graphdb-ogm-comparison.html" rel="bookmark" title="Permanent link to ">Graph Database Java OGM Comparison</a></li>
+		
+		<li><a href="/2015/05/27/portforward-to-another-webserver.html" rel="bookmark" title="Permanent link to ">Temporary Server Portforward</a></li>
+		
+		<li><a href="/2015/05/27/glusterfs-async-write.html" rel="bookmark" title="Permanent link to ">GlusterFS / Async Writes</a></li>
+		
+		<li><a href="/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html" rel="bookmark" title="Permanent link to ">Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</a></li>
+		
+		<li><a href="/2014/02/07/mysql-5.6-debian-wheezy-installation.html" rel="bookmark" title="Permanent link to ">MySQL 5.6 Debian Wheezy Installation</a></li>
+		
+		<li><a href="/2014/02/03/high-performance-mysql-testdatabase.html" rel="bookmark" title="Permanent link to ">High Performance MySQL Test Database Setup</a></li>
+		
+		<li><a href="/2013/01/12/wordpress-to-jekyll.html" rel="bookmark" title="Permanent link to ">Wordpress to Jekyll Migration</a></li>
+		
+	</ul>
+</aside>
+				</div>
+				<div id="third" class="widget-area" role="complementary">
+									<aside id="categories" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+						<ul>
+						
+							<li><a href="/categories/gfx/ ">gfx</a></li>
+						
+							<li><a href="/categories/technik/ ">technik</a></li>
+						
+							<li><a href="/categories/das kalte nichts/ ">das kalte nichts</a></li>
+						
+							<li><a href="/categories/fundgrube/ ">fundgrube</a></li>
+						
+							<li><a href="/categories/neuronensturm/ ">neuronensturm</a></li>
+						
+							<li><a href="/categories/life/ ">life</a></li>
+						
+							<li><a href="/categories/uncategorized/ ">uncategorized</a></li>
+						
+							<li><a href="/categories/traumzone/ ">traumzone</a></li>
+						
+						</ul>
+				</aside>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

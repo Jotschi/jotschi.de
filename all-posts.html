@@ -1,9 +1,545 @@
----
-layout: default
-title: Jotschi's Blog
----
+<!DOCTYPE html>
+<head>
+	<title>Jotschi's Blog</title>
+		<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="stylesheet" type="text/css" media="all" href="/static/style.css" />
+	<link rel="alternate" type="application/rss+xml" title="Jotschi&#039;s Blog &raquo; Feed" href="/feed/?feed=rss2" />
+	<script type="text/javascript">//<![CDATA[
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-11046117-2']);
+					_gaq.push(['_trackPageview']);
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+	//]]></script>
+	<script type='text/javascript' src='/static/js/jquery-1.8.3.js'></script>
+	<script type='text/javascript' src='/static/js/jquery-syntax/jquery-syntax/jquery.syntax.min.js?ver=3.5'></script>
+	<script type='text/javascript' src='/static/js/jquery.sticky.js?ver=2011-04-28'></script>
+	<script type='text/javascript' src='/static/js/theme.js?ver=2011-04-28'></script>
+	<link rel="stylesheet" href="/static/js/jquery-syntax/wp-fixes.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+		jQuery.noConflict(); jQuery(document).ready(function($) { $.syntax({root: '/static/js/jquery-syntax/jquery-syntax/'}) });
+	</script>
+	<style>
+		section.recent-posts .other-recent-posts .comments-link a:hover {
+			border-color: #222;
+		}
+		article.feature-image.small .entry-summary p a:hover,
+		.entry-header .comments-link a:hover,
+		.entry-header .comments-link a:focus,
+		.entry-header .comments-link a:active,
+		.feature-slider a.active {
+			background-color: #222;
+		}
+	</style>
+	<script>for(x in document.write){document.write(x);}</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css">
+	#a {
+	margin:0 10px 10px;
+	}
+	#b {
+	width:100%;
+	}
+	</style>
+</head>
 
-{% for page in site.posts %}
-	<a href="{{ page.url }}">{{ page.title }}</a><br/>
+<body class="home blog one-column content">
+	<header id="branding" role="banner">
+		<hgroup>
+			<h1 id="site-title"><span><a href="/" title="Jotschi&#039;s Blog" rel="home">Jotschi&#039;s Blog</a></span></h1>
+			<h2 id="site-description">NeXuS</h2>
+		</hgroup>
+		
+		<script>
+  (function() {
+    var cx = '005130669722604312790:98xhcvy0efq';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<form method="get" id="searchform" action="/">
+	<gcse:search></gcse:search>
+</form>
+			
+		<nav id="access" role="navigation">
+			<h3 class="assistive-text">Main menu</h3>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to primary content">Skip to primary content</a></div>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to secondary content">Skip to secondary content</a></div>
+			<div class="menu">
+				<ul>
+					<li class="current_page_item">
+						<a href="/" title="Home">Home</a>
+					</li>
+					<li class="page_item page-item-2">
+						<a href="/about.html">About</a>
+					</li>
+					<li class="page_item page-item-143">
+						<a href="/projects.html">Projects</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div id="page" class="hfeed">
+		<div id="main">
+			<div id="primary">
+				<div id="searchResults" title="Search Results">
+					<h2 class="search-title">Search Results:</h2>
+					<ul></ul>
+				</div>
+					
+				<div id="content" role="main">
+					
+	<a href="/2015/08/12/svp-wine-linux.html">SVP with Wine on Linux</a><br/>
 </article>
-{% endfor %}
+
+	<a href="/2015/06/10/graphdb-ogm-comparison.html">Graph Database Java OGM Comparison</a><br/>
+</article>
+
+	<a href="/2015/05/27/portforward-to-another-webserver.html">Temporary Server Portforward</a><br/>
+</article>
+
+	<a href="/2015/05/27/glusterfs-async-write.html">GlusterFS / Async Writes</a><br/>
+</article>
+
+	<a href="/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html">Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</a><br/>
+</article>
+
+	<a href="/2014/02/07/mysql-5.6-debian-wheezy-installation.html">MySQL 5.6 Debian Wheezy Installation</a><br/>
+</article>
+
+	<a href="/2014/02/03/high-performance-mysql-testdatabase.html">High Performance MySQL Test Database Setup</a><br/>
+</article>
+
+	<a href="/2013/01/12/wordpress-to-jekyll.html">Wordpress to Jekyll Migration</a><br/>
+</article>
+
+	<a href="/technik/2012/12/05/raspberry-pi-433mhz-remote-controlled-power-plugs.html">Raspberry PI 433MHz Remote Controlled Power Plugs</a><br/>
+</article>
+
+	<a href="/technik/2012/11/12/nfs-debian-squeeze-cheatsheet.html">NFS Debian Squeeze CheatSheet</a><br/>
+</article>
+
+	<a href="/2012/09/23/oculus-rift-diy-dual-screen-clone.html">DIY Dual Screen HMD</a><br/>
+</article>
+
+	<a href="/technik/2012/09/06/raspberry-pi-25lc010a-eeprom-howto.html">Raspberry PI - 25LC010A EEPROM Howto</a><br/>
+</article>
+
+	<a href="/technik/2012/08/26/wiimote-pixart-sensor-testing-via-bus-pirate.html">WiiMote PixArt Sensor Testing Via Bus Pirate </a><br/>
+</article>
+
+	<a href="/uncategorized/2012/05/01/forward-tcp-connections-with-iptables.html">Forward TCP Connections with Iptables</a><br/>
+</article>
+
+	<a href="/uncategorized/2012/04/29/fail2ban-debian-cheat-sheet.html">Fail2Ban Debian Cheat Sheet</a><br/>
+</article>
+
+	<a href="/technik/2012/04/21/arduino-ethernet-shield-simple-rest-api-example.html">Arduino Ethernet Shield Simple REST API Example</a><br/>
+</article>
+
+	<a href="/technik/2012/04/17/hetzner-lxc-linux-subnet-configuration.html">Hetzner LXC Linux Subnet Configuration</a><br/>
+</article>
+
+	<a href="/uncategorized/2012/04/17/rsync-to-ftp-operation-not-supported-95.html">rsync to ftp - Operation not supported (95)</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/10/23/realtime-webserver-access-monitoring-for-linux-users.html">Realtime Webserver Access Monitoring For Linux Users</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/10/18/avr-dragon-linux-write-arduino-bootloader.html">AVR Dragon Write Arduino Bootloader On Linux To ATMega328p</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/10/12/calculating-the-modelview-matrix-for-opengl.html">Calculating The ModelView Matrix For OpenGL</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/09/28/jogl-2-glsl-example.html">JOGL 2 GLSL Example</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/09/27/openstreetmap-libtinyosm-geoconvert-lonlat-to-utm.html">OpenStreetMap libTinyOSM & GeoConvert lon/lat to UTM</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/09/27/openstreetmap-osmparser-example.html">OpenStreetMap osmParser Example</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/09/26/jogl2-maven-example-linux-i586.html">JOGL2 Maven Examples (Linux i586)</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/09/26/jogl2-jogamp-classpathloader-for-native-libraries.html">JOGL2 (jogamp) ClassPathLoader For Native Libraries</a><br/>
+</article>
+
+	<a href="/neuronensturm/technik/2011/09/23/javacpp-examples.html">JavaCPP Examples</a><br/>
+</article>
+
+	<a href="/fundgrube/2011/09/23/audiobooks-mixed-with-soundtracks.html">Where words are only half the story..</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/09/03/nasatv-hd-linux.html">NasaTV HD Linux</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/08/25/jni-via-javacpp-on-android.html">JNI via JavaCPP on Android</a><br/>
+</article>
+
+	<a href="/technik/2011/07/08/eclipse-cdt-cross-platform-development-within-a-chroot-environment.html">Eclipse CDT Cross Platform Development Within A Chroot Environment</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/07/08/pandaboard-powervr-opengl-es2-example.html">Cross Compile Pandaboard PowerVR OpenGL ES2 Example</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/07/07/pandaboard-opengl-powervr-crosscompile-on-debian.html">Pandaboard OpenGL PowerVR CrossCompile On Debian</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/07/06/charge-amazon-kindle-on-debian-linux.html">Charge Amazon Kindle On Debian Linux</a><br/>
+</article>
+
+	<a href="/technik/2011/07/04/lxc-linux-containers-for-debian-squeeze.html">LXC (Linux Containers) For Debian Squeeze</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/07/01/pandaboard-audiosetup.html">Pandaboard Audiosetup</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/05/21/polling-74er-ic-set-contents.html">Pollin 74er IC Set Contents</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/05/07/java-quadtree-implementation.html">Java QuadTree Implementation</a><br/>
+</article>
+
+	<a href="/uncategorized/2011/04/23/creating-an-uberjar-webapp-using-jetty-and-maven.html">Creating an uberjar webapp using jetty and maven</a><br/>
+</article>
+
+	<a href="/uncategorized/2010/11/11/memory-allocation-test.html">Memory Allocation Test </a><br/>
+</article>
+
+	<a href="/uncategorized/2010/10/15/xserver-within-vserver-linux.html">XServer within VServer Linux</a><br/>
+</article>
+
+	<a href="/uncategorized/2010/09/08/summarize-memory-consumption-for-linux-processes.html">Summarize memory consumption for linux processes</a><br/>
+</article>
+
+	<a href="/uncategorized/2010/09/01/aloha-editor-wordpress-plugin.html">Aloha Editor Wordpress Plugin</a><br/>
+</article>
+
+	<a href="/uncategorized/2010/08/10/howto-generate-sambantpassword-ldap-attribute.html">Howto generate sambaNTPassword LDAP Attribute</a><br/>
+</article>
+
+	<a href="/uncategorized/2010/08/05/skype-crash-debian-testing-amd64.html">Skype Crash Debian Testing AMD64 </a><br/>
+</article>
+
+	<a href="/uncategorized/2010/07/12/flightgear-logitech-momo-wheelpedals.html">Flightgear Logitech Momo Wheel/Pedals</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2010/02/27/freenx-3-4-and-debian-testing-stuck-keys.html">FreeNX 3.4 and Debian Testing - Stuck Keys</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2010/01/30/debian-kernel-2-6-30-1-and-jvm-socket-issues.html">Debian Kernel 2.6.30-1 and JVM Socket Issues</a><br/>
+</article>
+
+	<a href="/technik/gfx/2009/12/16/opengl-tesselation-techniques-comparison.html">OpenGL Tesselation Techniques Comparison </a><br/>
+</article>
+
+	<a href="/technik/gfx/2009/12/15/opengl-glu-tesselation-method-without-displaylists.html">OpenGL GLU Tesselation Method Without DisplayLists</a><br/>
+</article>
+
+	<a href="/technik/2009/12/15/opengl-amd-tesselation-example-catmullcark-subdivision-linux.html">OpenGL AMD Tesselation Example (CatmullCark SubDivision) - Linux</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2009/12/14/mars-society-startet-humans-to-mars-petition.html">Mars Society startet 'Humans To Mars' Petition</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/12/14/opengl-matrixvector-libraries.html">OpenGL matrix/vector libraries</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/12/13/drawing-the-perspective-view-frustum-with-opengl.html">Drawing the perspective view frustum with OpenGL</a><br/>
+</article>
+
+	<a href="/technik/2009/12/12/opengl-freeglut-multiple-window-callbacks-and-c-oop.html">OpenGL - FreeGlut Multiple Window Callbacks and C++ (OOP) </a><br/>
+</article>
+
+	<a href="/technik/2009/12/09/xlib-multiple-window-events-example.html">Xlib Multiple Window & Events Example</a><br/>
+</article>
+
+	<a href="/technik/2009/12/06/minimal-google-docs-java-client.html">Minimal Google Docs Java Client</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/12/05/opengl-ubos-uniform-buffer-objects.html">OpenGL UBO's - Uniform Buffer Objects</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/11/29/opengl-tbos-texture-buffer-objects.html">OpenGL TBO's - Texture Buffer Objects</a><br/>
+</article>
+
+	<a href="/technik/2009/10/18/openscenegraph-osgimage-getting-a-subimage-from-an-image.html">OpenSceneGraph osg::Image - getting a subimage from an image.</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/10/16/esa-television-ftp-site.html">ESA Television FTP Site</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2009/10/10/sed-awk-replace-section-within-file.html">SED - AWK - Replace Section Within File</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/10/09/dynamic-shadowmaps-revisited.html">Dynamic ShadowMaps revisited</a><br/>
+</article>
+
+	<a href="/technik/gfx/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example.html">Texture Array Example And Clamp to Border Ati Issue Example</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/09/19/convert-equirectangular-panorama-to-cube-images-under-debian.html">Convert Equirectangular Panorama To Cube Images Under Debian</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/09/10/projectivetextureexample-openscenegraph.html">ProjectiveTextureExample OpenSceneGraph</a><br/>
+</article>
+
+	<a href="/technik/gfx/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface.html">GLSL shader to handle multiple projections onto the same surface</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/08/16/debian-testing-and-fglrx-8-632-1-ati-driver-package-9-7-and-linux-image-2-6-30-1-686-bigmem.html">Debian testing and fglrx 8.632-1 ( Ati Driver Package 9.7 ) and linux-image-2.6.30-1-686-bigmem</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/08/16/laggy-2d-fglrx-performance-debian-testing.html">Laggy 2D fglrx Performance Debian Testing</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/07/13/generating-city-models-by-using-panorama-images.html">Generating City Models By Using Panorama Images</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/07/05/fglrx-installation-and-debian-testing-with-2626-2-686-bigmem.html">fglrx 9-6 to 9-11 Installation and Debian testing with 2.6.26-2-686-bigmem </a><br/>
+</article>
+
+	<a href="/fundgrube/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem.html">fglrx and Debian testing with 2.6.26-2-686-bigmem</a><br/>
+</article>
+
+	<a href="/fundgrube/2009/06/24/remove-ctrlq-firefox-linux-keybinding.html">Remove CTRL+Q Firefox Linux Keybinding</a><br/>
+</article>
+
+	<a href="/fundgrube/gfx/2009/06/11/openphotovr.html">OpenPhotoVR</a><br/>
+</article>
+
+	<a href="/fundgrube/gfx/2009/05/31/projective-textures-with-openscenegraph.html">Projective Textures with OpenSceneGraph</a><br/>
+</article>
+
+	<a href="/technik/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head.html">ATI fglrx video tearing vsync problem with dual-head</a><br/>
+</article>
+
+	<a href="/technik/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64.html">fglrx and Debian testing on amd64 - 2.6.26-2-amd64</a><br/>
+</article>
+
+	<a href="/fundgrube/gfx/2009/04/23/automated-scalable-airborne-only-3d-modeling.html">Automated, Scalable, Airborne Only, 3D Modeling </a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2009/02/21/javascript-website-clipping-using-ajax-jquery.html">Javascript Frames Without Frames Using Ajax (JQuery)</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/01/26/remote-monitoring-heap-memory-usage-using-jmx-rmi.html">Remote Monitoring Heap Memory Usage Using JMX RMI</a><br/>
+</article>
+
+	<a href="/uncategorized/2009/01/04/computer-vision-techniques.html">Computer Vision Techniques</a><br/>
+</article>
+
+	<a href="/neuronensturm/gfx/2009/01/04/removal-of-humans-in-motion-pictures.html">Removal of Humans In Motion Pictures</a><br/>
+</article>
+
+	<a href="/uncategorized/2008/12/07/farewell-phoenix.html">Farewell Phoenix</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2008/12/03/code-coverage-with-emma-and-cruisecontrol.html">Code Coverage with Emma and CruiseControl</a><br/>
+</article>
+
+	<a href="/das%20kalte%20nichts/traumzone/2008/12/02/startrek-quotes.html">StarTrek Quotes</a><br/>
+</article>
+
+	<a href="/uncategorized/2008/12/02/asynchronousbufferedinputstreamwrapper.html">AsynchronousBufferedInputStreamWrapper</a><br/>
+</article>
+
+	<a href="/uncategorized/2008/12/02/bandwidth-controlling-for-apache2-lenny.html">Bandwidth Controlling for Apache2 (Lenny)</a><br/>
+</article>
+
+	<a href="/das%20kalte%20nichts/2008/11/30/an-engineers-delight.html">An Engineers Delight</a><br/>
+</article>
+
+	<a href="/uncategorized/2008/11/30/snplayer.html">SNPlayer</a><br/>
+</article>
+
+	<a href="/uncategorized/2008/11/30/projects.html">Projects</a><br/>
+</article>
+
+	<a href="/technik/2008/06/15/dual-head-on-i810-945gm-debian-lenny.html">Dual Head on i810 - 945GM - Debian Lenny</a><br/>
+</article>
+
+	<a href="/das%20kalte%20nichts/2008/05/26/phoenix-lander-touchdown.html">Phoenix Lander - Touchdown!</a><br/>
+</article>
+
+	<a href="/das%20kalte%20nichts/2008/05/25/mars-phoenix-landing-ellipse-update.html">Mars Phoenix - Landing Ellipse - Update</a><br/>
+</article>
+
+	<a href="/fundgrube/2008/05/25/nasa-tv-high-quality.html">Nasa TV - High Quality </a><br/>
+</article>
+
+	<a href="/das%20kalte%20nichts/2008/05/24/mars-phoenix-trajectory.html">Mars Phoenix - Trajectory</a><br/>
+</article>
+
+	<a href="/das%20kalte%20nichts/2008/05/24/mars-phoenix-lander-landing-site.html">Mars Phoenix Lander - Landing Site</a><br/>
+</article>
+
+	<a href="/das%20kalte%20nichts/2008/05/24/mars-phoenix-lander-time-schedule.html">Mars Phoenix Lander - Time Schedule</a><br/>
+</article>
+
+	<a href="/technik/2008/05/23/canon-mx300-debian-lenny.html">Canon MX300 - Debian Lenny</a><br/>
+</article>
+
+	<a href="/uncategorized/2008/05/15/search-for-mars-polar-lander-crashed-1999.html">Search for Mars Polar Lander (crashed 1999)</a><br/>
+</article>
+
+	<a href="/fundgrube/2008/04/06/mplayer-still-picture-extraction.html">mplayer still picture extraction</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2008/02/09/dual-head-on-i810-945gm-amilo-pro.html">Dual Head on i810 - 945GM - Amilo Pro </a><br/>
+</article>
+
+	<a href="/neuronensturm/technik/2008/01/28/multitouch-userinterface-with-wiimote.html">Multitouch Userinterface with WiiMote</a><br/>
+</article>
+
+	<a href="/neuronensturm/technik/gfx/2008/01/21/inflatable-vr-hemisphere.html">Inflatable VR hemisphere</a><br/>
+</article>
+
+	<a href="/neuronensturm/technik/gfx/2008/01/20/virtual-reality-freedom.html">Virtual Reality Freedom</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2008/01/16/holodeck-20.html">Holodeck v2.0</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2008/01/16/holodeck-v10.html">Holodeck v1.0</a><br/>
+</article>
+
+	<a href="/technik/2008/01/12/xhtml-20-vs-html-5.html">XHTML 2.0 vs. HTML 5</a><br/>
+</article>
+
+	<a href="/life/2008/01/12/auswandern-nach-osterreich-ausbildung-in-wien-mein-erfahrungsbericht.html">Auswandern nach Österreich - Ausbildung in Wien - Mein Erfahrungsbericht</a><br/>
+</article>
+
+	<a href="/technik/2008/01/06/java-global-keyboard-hook-jni.html">Java Global Keyboard/Mouse Hook - JNI</a><br/>
+</article>
+
+	<a href="/technik/2008/01/05/windows-autostart-programm.html">Windows Autostart Programm</a><br/>
+</article>
+
+	<a href="/technik/2007/08/24/ipw3945-kill-switch-problem-solved.html">Ipw3945 - Kill Switch Problem - Solved</a><br/>
+</article>
+
+	<a href="/technik/gfx/2007/07/27/lighthouse-gdg2-projekt-ss07.html">Lighthouse GDG2 Projekt SS07</a><br/>
+</article>
+
+	<a href="/neuronensturm/technik/2007/07/27/fast-orientated-desktop-item-transfer.html">Fast Orientated Desktop Item Transfer</a><br/>
+</article>
+
+	<a href="/fundgrube/technik/2007/04/13/der-erlenrouter.html">Der Erlenrouter</a><br/>
+</article>
+
+	<a href="/technik/2007/04/01/problem-mit-t19ds.html">Problem mit T19DS</a><br/>
+</article>
+
+	<a href="/neuronensturm/gfx/2007/03/31/phantasinator.html">Phantasinator</a><br/>
+</article>
+
+	<a href="/fundgrube/das%20kalte%20nichts/2007/03/29/strom-verjungt.html">Strom verjüngt</a><br/>
+</article>
+
+	<a href="/technik/gfx/2007/03/05/demis-maps-java-tool.html">Demis Maps Java Tool</a><br/>
+</article>
+
+				</div>
+			</div>
+		</div>
+		<footer id="colophon" role="contentinfo">
+			<div id="supplementary" class="three">
+				<div id="first" class="widget-area" role="complementary">
+					<aside id="tag_cloud-2" class="widget widget_tag_cloud">
+	<h3 class="widget-title">Tags</h3>
+	<div class="tagcloud">
+		<a style='font-size: 16px' href='/tags/xorg/'>xorg</a>
+<a style='font-size: 16px' href='/tags/mysql/'>mysql</a>
+<a style='font-size: 20px' href='/tags/lenny/'>lenny</a>
+<a style='font-size: 19px' href='/tags/ati/'>ati</a>
+<a style='font-size: 26px' href='/tags/linux/'>linux</a>
+<a style='font-size: 16px' href='/tags/dual head/'>dual head</a>
+<a style='font-size: 19px' href='/tags/xorg.conf/'>xorg.conf</a>
+<a style='font-size: 22px' href='/tags/java/'>java</a>
+<a style='font-size: 24px' href='/tags/fglrx/'>fglrx</a>
+<a style='font-size: 24px' href='/tags/nasa/'>nasa</a>
+<a style='font-size: 23px' href='/tags/phoenix/'>phoenix</a>
+<a style='font-size: 16px' href='/tags/lxc/'>lxc</a>
+<a style='font-size: 19px' href='/tags/GLSL/'>GLSL</a>
+<a style='font-size: 16px' href='/tags/OSG/'>OSG</a>
+<a style='font-size: 16px' href='/tags/landing/'>landing</a>
+<a style='font-size: 24px' href='/tags/mars/'>mars</a>
+<a style='font-size: 16px' href='/tags/Shader/'>Shader</a>
+<a style='font-size: 24px' href='/tags/OpenGL/'>OpenGL</a>
+<a style='font-size: 19px' href='/tags/nasatv/'>nasatv</a>
+<a style='font-size: 30px' href='/tags/debian/'>debian</a>
+
+	</div>
+</aside>
+				</div>
+				<div id="second" class="widget-area" role="complementary">
+					<aside id="recent-posts-3" class="widget widget_recent_entries">
+	<h3 class="widget-title">Posts</h3>
+	<ul>
+		
+		<li><a href="/2015/08/12/svp-wine-linux.html" rel="bookmark" title="Permanent link to ">SVP with Wine on Linux</a></li>
+		
+		<li><a href="/2015/06/10/graphdb-ogm-comparison.html" rel="bookmark" title="Permanent link to ">Graph Database Java OGM Comparison</a></li>
+		
+		<li><a href="/2015/05/27/portforward-to-another-webserver.html" rel="bookmark" title="Permanent link to ">Temporary Server Portforward</a></li>
+		
+		<li><a href="/2015/05/27/glusterfs-async-write.html" rel="bookmark" title="Permanent link to ">GlusterFS / Async Writes</a></li>
+		
+		<li><a href="/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html" rel="bookmark" title="Permanent link to ">Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</a></li>
+		
+		<li><a href="/2014/02/07/mysql-5.6-debian-wheezy-installation.html" rel="bookmark" title="Permanent link to ">MySQL 5.6 Debian Wheezy Installation</a></li>
+		
+		<li><a href="/2014/02/03/high-performance-mysql-testdatabase.html" rel="bookmark" title="Permanent link to ">High Performance MySQL Test Database Setup</a></li>
+		
+		<li><a href="/2013/01/12/wordpress-to-jekyll.html" rel="bookmark" title="Permanent link to ">Wordpress to Jekyll Migration</a></li>
+		
+	</ul>
+</aside>
+				</div>
+				<div id="third" class="widget-area" role="complementary">
+									<aside id="categories" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+						<ul>
+						
+							<li><a href="/categories/gfx/ ">gfx</a></li>
+						
+							<li><a href="/categories/technik/ ">technik</a></li>
+						
+							<li><a href="/categories/das kalte nichts/ ">das kalte nichts</a></li>
+						
+							<li><a href="/categories/fundgrube/ ">fundgrube</a></li>
+						
+							<li><a href="/categories/neuronensturm/ ">neuronensturm</a></li>
+						
+							<li><a href="/categories/life/ ">life</a></li>
+						
+							<li><a href="/categories/uncategorized/ ">uncategorized</a></li>
+						
+							<li><a href="/categories/traumzone/ ">traumzone</a></li>
+						
+						</ul>
+				</aside>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
