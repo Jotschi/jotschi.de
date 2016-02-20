@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xlib on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/xlib/</link>
+    <description>Recent content in Xlib on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 09 Dec 2009 20:16:43 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/xlib/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Xlib Multiple Window &amp; Events Example</title>
+      <link>http://jotschi.de/2009/12/09/xlib-multiple-window-events-example/</link>
+      <pubDate>Wed, 09 Dec 2009 20:16:43 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/09/xlib-multiple-window-events-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This small example shows how to use events with xlib windows. After you created your windows you can check events of both of them. I tried to use threads for each displayWin* method to show them parallel and check within both the events. That did not work. What will work is shown in the example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;See also &amp;lt;a href=&#34;http://en.wikipedia.org/wiki/Xlib&#34;&amp;gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Xlib&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://en.wikipedia.org/wiki/Xlib&amp;lt;/a&amp;gt&lt;/a&gt;;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;#include &amp;lt;X11/X.h&amp;gt;
+#include &amp;lt;X11/Xlib.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+Display *display;
+Window winA;
+Window winB;
+Window rootwindow;
+
+unsigned long white_pixel, black_pixel;
+
+void checkEvents() {
+
+	XEvent xev;
+	XWindowAttributes gwa;
+
+	while (1) {
+
+		printf(&#34;Next Iteration\n&#34;);
+
+		// alternativly you can get the event of a determined window
+		//XWindowEvent(display, winA, PointerMotionMask, &amp;amp;xev);
+
+		// the next call will lock until an event was received.
+		XNextEvent(display, &amp;amp;xev);
+
+		switch (xev.type) {
+		case Expose: {
+			XGetWindowAttributes(display, winA, &amp;amp;gwa);
+			printf(&#34;Exposed Window\n&#34;);
+			break;
+		}
+		case MotionNotify: {
+
+			int MouseX = xev.xmotion.x;
+			int MouseY = xev.xmotion.y;
+			if (xev.xclient.window == winA) {
+				printf(&#34;MouseA %i , %i\n&#34;, MouseX, MouseY);
+			} else {
+				printf(&#34;MouseB %i , %i\n&#34;, MouseX, MouseY);
+			}
+			break;
+		}
+		case ButtonPressMask: {
+			printf(&#34;ButtonPressed - Destroying window\n&#34;);
+			if (xev.xclient.window == winA) {
+				XDestroyWindow(display, winA);
+
+			} else {
+				XDestroyWindow(display, winB);
+			}
+
+			break;
+		}
+		case KeyPress: {
+			printf(&#34;Stopping event loop\n&#34;);
+			return;
+		}
+
+		}
+
+	}
+
+}
+
+void displayWinA() {
+
+	printf(&#34;Creating window A\n&#34;);
+	winA = XCreateSimpleWindow(display, rootwindow, 220, 220, 200, 200, 5,
+			black_pixel, white_pixel);
+
+	// name the window (titlebar)
+	XStoreName(display, winA, &#34;Window A&#34;);
+
+	// since we used XCreateSimpleWindow we need to enable event listening for this window
+	XSelectInput(display, winA, StructureNotifyMask | ExposureMask
+			| KeyPressMask | ButtonPressMask | PointerMotionMask);
+
+	// map the window (make it visible)
+	XMapWindow(display, winA);
+
+}
+
+void displayWinB() {
+
+	printf(&#34;Creating window B\n&#34;);
+	winB = XCreateSimpleWindow(display, rootwindow, 0, 0, 100, 100, 1, 0, 0);
+	XStoreName(display, winB, &#34;Window B&#34;);
+	XSelectInput(display, winB, StructureNotifyMask | ExposureMask
+			| KeyPressMask | ButtonPressMask | PointerMotionMask);
+
+	XMapWindow(display, winB);
+
+}
+
+int main(void) {
+
+	int screen;
+
+	display = XOpenDisplay(NULL);
+	screen = DefaultScreen(display);
+
+	white_pixel = WhitePixel (display, screen);
+	black_pixel = BlackPixel (display, screen);
+
+	rootwindow = RootWindow(display,screen);
+
+	displayWinA();
+	displayWinB();
+
+	checkEvents();
+	XFlush(display);
+
+	XDestroyWindow(display, winA);
+	XDestroyWindow(display, winB);
+	XCloseDisplay(display);
+	return (0);
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

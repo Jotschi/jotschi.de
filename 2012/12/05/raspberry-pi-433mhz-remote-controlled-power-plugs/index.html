@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Raspberry PI 433MHz Remote Controlled Power Plugs - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Raspberry PI 433MHz Remote Controlled Power Plugs</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2012-12-05">December 05, 2012</time></span>
+				</div>
+				<section>
+					<div class="sect1">
+<h2 id="_hardware">Hardware</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First you&#8217;ll need to buy a set of remote controlled power plugs. I got mine from &lt;a href="http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html"&gt;pollin.de&lt;/a&gt; for around 10 €.
+&lt;a href="/images/hx2262-remote/G550666.jpg"&gt;&lt;img src="/images/hx2262-remote/G550666.jpg" alt="" title="G550666" width="300" height="225" class="aligncenter size-full wp-image-854" /&gt;&lt;/a&gt;</p>
+</div>
+<div class="paragraph">
+<p>Connect your 5V VCC from the GPIO pins of your Raspberry PI to the positiv terminal of your remote control.
+Connect the GCN GPIO pin to the negativ terminal of your remote control.
+Connect the PIN 17 GPIO pin to a 8k Ohm resistor and the resistor to pin P1 of the remote control.
+I drilled a hole trough the existing via and scrapped away the soldermask to expose the copper for soldering a connection in place.
+&lt;a href="/images/hx2262-remote/hx2262-remote.jpg"&gt;&lt;img src="/images/hx2262-remote/hx2262-remote.jpg" alt="" title="hx2262-remote" width="1024" height="742" class="aligncenter size-full wp-image-855" /&gt;&lt;/a&gt;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_software">Software</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install wiringpi</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/" class="bare">https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Install rcswitch-pi</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/r10r/rcswitch-pi"&gt;https://github.com/r10r/rcswitch-pi" class="bare">https://github.com/r10r/rcswitch-pi"&gt;https://github.com/r10r/rcswitch-pi</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Execute test command</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">// Send off command to plug 4 with system id 11111
+./send 11111 4 0
+// Send on command to plug 4 with system id 11111
+./send 11111 4 1</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Raspberry PI 433MHz Remote Controlled Power Plugs</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+        <span class="tag-item"><a href="http://jotschi.de//tags/raspberrypi">#raspberrypi</a></span>
+        
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

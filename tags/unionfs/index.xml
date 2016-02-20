@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Unionfs on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/unionfs/</link>
+    <description>Recent content in Unionfs on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 27 May 2015 20:30:26 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/unionfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>GlusterFS / Async Writes</title>
+      <link>http://jotschi.de/2015/05/27/glusterfs-async-write/</link>
+      <pubDate>Wed, 27 May 2015 20:30:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2015/05/27/glusterfs-async-write/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Over the weekend i decided to experiment and setup a glusterfs between my root server(plexus) and my fileserver at home(hydra).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I won&amp;#8217;t describe how to setup glustefs. There are various good guides &#34;available&#34;:http://www.gluster.org/community/documentation/index.php/QuickStart.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  gluster volume create gv0 replica 2 hydra:/opt/gfs/brick1/gv0 plexus:/gfs/brick1/gv0
+  gluster volume set gv0 network.ping-timeout 5
+  gluster volume start gv0
+
+  root@plexus:/gfs# mount -t glusterfs localhost:/gv0 gv0/
+  root@hydra:/gfs# mount -t glusterfs localhost:/gv0 gv0/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At first glance i hoped that small writes would be cached and asynchronously flushed to the filesystem. I tried to increase the performance.cache-size and performance.write-behind-window-size option but did not succeed in increasing the write performance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;As you can see the write performance is basically predetermined by my max upload speed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  # Write 1MB
+  root@hydra:/gfs/gv0# dd if=/dev/zero  of=testfile bs=1K count=1024
+  1024+0 records in
+  1024+0 records out
+  1048576 bytes (1.0 MB) copied, 3.36612 s, 312 kB/s&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;But luckily there are branching filesystems like &#34;unionfs&#34;:http://en.wikipedia.org/wiki/UnionFS that is for example used for live CDs. Such filesystems work in that way that they overlay multiple filesystems into a single virtual one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I created a new gv0-writecache folder which can be written to. The follow command creates a unionfs filesystem that is mounted to the /gv0/union folder.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  mkdir -p /gfs/union
+  unionfs-fuse  -o default_permissions -o allow_other /gfs/gv0-writecache=RW:/gfs/gv0=RO /gfs/union/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Succeeding writes to the union folder are now very fast and the files are stored within the /gfs/gv0-writecache folder.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  root@hydra:/gfs/union# dd if=/dev/zero of=test2 bs=1M count=10
+  10+0 records in
+  10+0 records out
+  10485760 bytes (10 MB) copied, 0.0454509 s, 231 MB/s&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;After that step we only need to make sure to sync those files from the writecache to the glusterfs mount.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  root@hydra:/gfs/gv0-writecache# rsync  --remove-source-files -av /gfs/gv0-writecache/* /gfs/gv0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I also tried to use aufs instead of unionfs-fuse but i got various strange errors.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

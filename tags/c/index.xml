@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/c/</link>
+    <description>Recent content in C on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 14 Dec 2009 00:27:46 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>OpenGL matrix/vector libraries</title>
+      <link>http://jotschi.de/2009/12/14/opengl-matrixvector-libraries/</link>
+      <pubDate>Mon, 14 Dec 2009 00:27:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/14/opengl-matrixvector-libraries/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;While searching for a sufficient c++ library that provides matrix and vector algebra implementations i found those two:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://glm.g-truc.net/about.html&#34;&amp;gt;&lt;a href=&#34;http://glm.g-truc.net/about.html&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://glm.g-truc.net/about.html&amp;lt;/a&amp;gt&lt;/a&gt;;
+GLM contains over 500 useful math functions for OpenGL. Mostly vector, matrix and quaternion math.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://bartipan.net/vmath/&#34;&amp;gt;&lt;a href=&#34;http://bartipan.net/vmath/&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://bartipan.net/vmath/&amp;lt;/a&amp;gt&lt;/a&gt;;
+vmath is set of C++ classes for Vector and Matrix algebra used in computer graphics.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://eigen.tuxfamily.org/index.php?title=Main_Page&#34;&amp;gt;&lt;a href=&#34;http://eigen.tuxfamily.org/&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://eigen.tuxfamily.org/&amp;lt;/a&amp;gt&lt;/a&gt;;
+Eigen is a C++ template library for linear algebra: vectors, matrices, and related algorithms.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I&amp;#8217;ll test GLM since i want to integrate GLSL within my program.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,999 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/linux/</link>
+    <description>Recent content in Linux on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 12 Aug 2015 18:00:00 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SVP with Wine on Linux</title>
+      <link>http://jotschi.de/2015/08/12/svp-wine-linux</link>
+      <pubDate>Wed, 12 Aug 2015 18:00:00 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2015/08/12/svp-wine-linux</guid>
+      <description>&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_requirements&#34;&gt;Requirements:&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Wine&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;avconv&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;libx264&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The installed tools and plugins below&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_install_svp_using_wine&#34;&gt;Install SVP using wine&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download and install &#34;SVP&#34;:http://www.svp-team.com/wiki/Download
+Don&amp;#8217;t install MPC or SVPTube. We&amp;#8217;ll not need those tools.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wine SVP_3.1.7.exe&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For some reason the installation process has not updated the system32 lib. We need to overwrite the dll with the one that was provided by SVP.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;cp ~/.wine/drive_c/Program Files/SVP/Resources/Avisynth/avisynth.dll ~/.wine/drive_c/windows/system32&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_download_a_href_http_akuvian_org_src_avisynth_avs2yuv_avs2yuv_exe_a&#34;&gt;Download &lt;a href=&#34;http://akuvian.org/src/avisynth/avs2yuv/&#34;&gt;avs2yuv.exe&lt;/a&gt;&lt;/h3&gt;
+
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_download_the_a_href_https_github_com_ffms_ffms2_releases_ffms2_plugin_a_for_avisynth_from_github&#34;&gt;Download the &lt;a href=&#34;https://github.com/FFMS/ffms2/releases&#34;&gt;ffms2 plugin&lt;/a&gt; for avisynth from github.&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I used ffms2-2.21-icl.7z and extract the ffms2.dll that matches your architecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_download_the_svp_mvtools&#34;&gt;Download the SVP MVTools&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I used the &lt;a href=&#34;http://www.svp-team.com/wiki/Plugins:_MVTools2#Downloads&#34;&gt;mvtools-2.5.11.9-svp tools&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;We&amp;#8217;ll need the following DLL files from that archiv:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;libflowsse.dll&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mvtools2.dll&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Place all the mentioned dll&amp;#8217;s in one folder.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The folder should now contain:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;libflowsse.dll&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mvtools2.dll&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;avs2yuv.exe&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ffms2.dll&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Create a avs script called script.avs which has this content:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;SetMemoryMax(1024)
+
+pel=2
+recalc=true
+
+svp_flow_lib=&#34;libflowsse.dll&#34;
+LoadPlugin(&#34;ffms2.dll&#34;)
+LoadPlugin(&#34;mvtools2.dll&#34;)
+
+SetMTMode(3,10)
+
+FFVideoSource(&#34;YOUR_VIDEO.mkv&#34;).ConvertToYV12()
+
+SetMTMode(2)
+
+super=MSuper(pel=pel)
+finest=pel==1 ? super : MFinest(super)
+
+backward_vec=MAnalyse(super, isb=true, blksize=16, overlap=4)
+forward_vec=MAnalyse(super, isb=false, blksize=16, overlap=4)
+
+# I don&#39;t know why but these lines are not working for me. My avisync can&#39;t parse those lines and aborts
+#backward_vec = recalc == 0 ? backward_vec : MRecalculate(super, backward_vec, blksize=8, overlap=2)
+#forward_vec  = recalc == 0 ? forward_vec  : MRecalculate(super, forward_vec, blksize=8, overlap=2)
+
+MSmoothFps(super, backward_vec, forward_vec, finest=finest, num=60, den=1, algo=13, sadml=200, blend=false)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update the placeholder in the script and trigger the processing using:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wine avs2yuv script.avs - | avconv -i - -c:v libx264 -crf 20 -tune film -preset slow -y output.mp4 -f yuv4mpegpipe&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The smoothed video will directly be encoded using libx264 and the result will be written to output.mp4. This process only works for the video and you would need to muxin the sound after this process.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>NFS Debian Squeeze CheatSheet</title>
+      <link>http://jotschi.de/2012/11/12/nfs-debian-squeeze-cheatsheet/</link>
+      <pubDate>Mon, 12 Nov 2012 23:20:35 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/11/12/nfs-debian-squeeze-cheatsheet/</guid>
+      <description>&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install nfs&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get install nfs-kernel-server&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Add the export&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt; echo &#34;/media/nfs-share 192.168.0.15(rw,no_subtree_check)&#34; &amp;gt;&amp;gt; /etc/exports&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Update your exports&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;exportfs -a&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Change the following line in /etc/default/nfs-kernel-server&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;RPCMOUNTDOPTS=&#34;--manage-gids&#34;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;RPCMOUNTDOPTS=&#34;-p 32767 --manage-gids&#34;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This will bind the nfs to the given port. Otherwise i guess you would have to use portmap.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Finally mount your data:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;sudo mount -t nfs YOURNFSSERVERIP:/media/nfs-share nfs-share&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;A fstab entry could look like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;YOURNFSSERVERIP:/media/nfs-share /media/nfs-share nfs rw,rsize=4096,wsize=4096,hard,intr,async,nodev,nosuid 0 0&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Forward TCP Connections with Iptables</title>
+      <link>http://jotschi.de/2012/05/01/forward-tcp-connections-with-iptables/</link>
+      <pubDate>Tue, 01 May 2012 11:49:47 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/05/01/forward-tcp-connections-with-iptables/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Sometimes it is useful to forward a tcp connection to another server. For example if you want to switch a web service to another servers with no DNS delay.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You have to enable ip_forward and nat for the given port using iptables.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward
+# iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination someip:80
+# iptables -t nat -A POSTROUTING -j MASQUERADE&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>NasaTV HD Linux</title>
+      <link>http://jotschi.de/2011/09/03/nasatv-hd-linux/</link>
+      <pubDate>Sat, 03 Sep 2011 16:07:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/03/nasatv-hd-linux/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just found a very useful script to download the Nasatv HD stream on linux. The script was written by the user Naito. I found it &lt;a href=&#34;http://forum.nasaspaceflight.com/index.php?topic=19846.990;wap2&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+filename=&#34;NASA-TV-HD.`date +%y%m%d-%s`&#34;
+
+httpurl=&#39;http://liveips.nasa.gov.edgesuite.net/msfc/Wifi.m3u8&#39;
+trap &#34;break; echo Finished recording. ; exit 0&#34; SIGINT SIGTERM
+
+echo -n Buffering
+#Get initial set of files
+for nextfile in $(curl -s $httpurl | grep &#39;.ts&#39;); do
+        echo -n .
+        curl -s &#34;$nextfile&#34; &amp;gt;&amp;gt; $filename.ts
+        lastfile=&#34;$nextfile&#34;
+done
+
+echo 100\%
+
+echo Starting continuous recording. Press CTRL-C to quit.
+while true; do
+        nextfile=$(curl -s $httpurl | grep &#39;.ts&#39; | tail -1)
+        if [ &#34;$nextfile&#34; != &#34;$lastfile&#34; ]; then
+                curl -s &#34;$nextfile&#34; &amp;gt;&amp;gt; $filename.ts
+                lastfile=&#34;$nextfile&#34;
+        fi
+ #File list updates every 10 seconds, but don&#39;t want to sleep too long and miss an update!
+        sleep 7
+done&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Xlib Multiple Window &amp; Events Example</title>
+      <link>http://jotschi.de/2009/12/09/xlib-multiple-window-events-example/</link>
+      <pubDate>Wed, 09 Dec 2009 20:16:43 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/09/xlib-multiple-window-events-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This small example shows how to use events with xlib windows. After you created your windows you can check events of both of them. I tried to use threads for each displayWin* method to show them parallel and check within both the events. That did not work. What will work is shown in the example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;See also &amp;lt;a href=&#34;http://en.wikipedia.org/wiki/Xlib&#34;&amp;gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Xlib&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://en.wikipedia.org/wiki/Xlib&amp;lt;/a&amp;gt&lt;/a&gt;;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;#include &amp;lt;X11/X.h&amp;gt;
+#include &amp;lt;X11/Xlib.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+Display *display;
+Window winA;
+Window winB;
+Window rootwindow;
+
+unsigned long white_pixel, black_pixel;
+
+void checkEvents() {
+
+	XEvent xev;
+	XWindowAttributes gwa;
+
+	while (1) {
+
+		printf(&#34;Next Iteration\n&#34;);
+
+		// alternativly you can get the event of a determined window
+		//XWindowEvent(display, winA, PointerMotionMask, &amp;amp;xev);
+
+		// the next call will lock until an event was received.
+		XNextEvent(display, &amp;amp;xev);
+
+		switch (xev.type) {
+		case Expose: {
+			XGetWindowAttributes(display, winA, &amp;amp;gwa);
+			printf(&#34;Exposed Window\n&#34;);
+			break;
+		}
+		case MotionNotify: {
+
+			int MouseX = xev.xmotion.x;
+			int MouseY = xev.xmotion.y;
+			if (xev.xclient.window == winA) {
+				printf(&#34;MouseA %i , %i\n&#34;, MouseX, MouseY);
+			} else {
+				printf(&#34;MouseB %i , %i\n&#34;, MouseX, MouseY);
+			}
+			break;
+		}
+		case ButtonPressMask: {
+			printf(&#34;ButtonPressed - Destroying window\n&#34;);
+			if (xev.xclient.window == winA) {
+				XDestroyWindow(display, winA);
+
+			} else {
+				XDestroyWindow(display, winB);
+			}
+
+			break;
+		}
+		case KeyPress: {
+			printf(&#34;Stopping event loop\n&#34;);
+			return;
+		}
+
+		}
+
+	}
+
+}
+
+void displayWinA() {
+
+	printf(&#34;Creating window A\n&#34;);
+	winA = XCreateSimpleWindow(display, rootwindow, 220, 220, 200, 200, 5,
+			black_pixel, white_pixel);
+
+	// name the window (titlebar)
+	XStoreName(display, winA, &#34;Window A&#34;);
+
+	// since we used XCreateSimpleWindow we need to enable event listening for this window
+	XSelectInput(display, winA, StructureNotifyMask | ExposureMask
+			| KeyPressMask | ButtonPressMask | PointerMotionMask);
+
+	// map the window (make it visible)
+	XMapWindow(display, winA);
+
+}
+
+void displayWinB() {
+
+	printf(&#34;Creating window B\n&#34;);
+	winB = XCreateSimpleWindow(display, rootwindow, 0, 0, 100, 100, 1, 0, 0);
+	XStoreName(display, winB, &#34;Window B&#34;);
+	XSelectInput(display, winB, StructureNotifyMask | ExposureMask
+			| KeyPressMask | ButtonPressMask | PointerMotionMask);
+
+	XMapWindow(display, winB);
+
+}
+
+int main(void) {
+
+	int screen;
+
+	display = XOpenDisplay(NULL);
+	screen = DefaultScreen(display);
+
+	white_pixel = WhitePixel (display, screen);
+	black_pixel = BlackPixel (display, screen);
+
+	rootwindow = RootWindow(display,screen);
+
+	displayWinA();
+	displayWinB();
+
+	checkEvents();
+	XFlush(display);
+
+	XDestroyWindow(display, winA);
+	XDestroyWindow(display, winB);
+	XCloseDisplay(display);
+	return (0);
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ATI fglrx video tearing vsync problem with dual-head</title>
+      <link>http://jotschi.de/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head/</link>
+      <pubDate>Tue, 19 May 2009 22:23:59 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I got problem with video playback when using the fglrx drivers as you can tell by the image below.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-278&#34;&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://jotschi.de/images/ati/crappy_video.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/ati/crappy_video.png&#34; alt=&#34;&#34; title=&#34;crappy_video&#34; width=&#34;200&#34; height=&#34;152&#34; class=&#34;alignnone size-medium wp-image-277&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Playing movies which include rapid motions produce these teared video frames. This problem is cause by the missing vsync. Apparently fglrx does not support vsync for xv yet ( fglrxinfo: 2.1.8591 / Driver Package: 8.602-1 / Installer Package: ati-driver-installer-9-4-x86.x86_64.run )&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can enable vsync for OpenGL:
+&amp;lt;code&amp;gt;sudo aticonfig --overlay-type=Xv
+sudo sudo aticonfig --sync-video=on
+sudo aticonfig --vs=on&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Thus now you can use mplayer -vo gl somefile.mkv to play your movies with vsync enabled. Of course gl output is a lot slower than xv.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;blockquote&amp;gt;
+Xv currently has no vsync with fglrx, so there is no other way than using opengl as output.
+&amp;lt;/blockquote&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&#34;&amp;gt;&lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://www.phoronix.com/forums/showthread.php?t=11891&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update: That workaround gave me a better image on one monitor (less tearing) but there is still tearing in the image.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If someone knows a solution for this issue please let me know.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fglrx and Debian testing on amd64 - 2.6.26-2-amd64</title>
+      <link>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</link>
+      <pubDate>Tue, 19 May 2009 20:33:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get fglrx working with dri and dual head using the latest ati driver:
+ati-driver-installer-9-4-x86.x86_64.run&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;
+works also with:
+ati-driver-installer-9-5-x86.x86_64.run&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-269&#34;&amp;gt;&amp;lt;/a&amp;gt;
+Some Notes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;jotschi@NeXuS:~$ uname -r
+2.6.26-2-amd64
+
+jotschi@NeXuS:~$ fglrxinfo
+display: :0.0  screen: 0
+OpenGL vendor string: ATI Technologies Inc.
+OpenGL renderer string: ATI Radeon HD 4800 Series
+OpenGL version string: 2.1.8591
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep fglrx
+ii  fglrx-amdcccle                     8.602-1                     Catalyst Control Center for the ATI graphics accelerators
+ii  fglrx-driver                            8.602-1                     Video driver for the ATI graphics accelerators
+ii  fglrx-driver-dev                      8.602-1                     Video driver for the ATI graphics accelerators (devel files)
+ii  fglrx-kernel-2.6.26-2-amd64   8.602-1+2.6.26-15           ATI binary kernel module for Linux 2.6.26-2-amd64
+ii  fglrx-kernel-src                     8.602-1                     Kernel module source for the ATI graphics accelerators
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep xorg | head -n 4 | grep -v docs
+ii  xorg                                    1:7.3+18                    X.Org X Window System
+ii  xserver-xorg                         1:7.3+18                    the X.Org X server
+ii  xserver-xorg-core                  2:1.4.2-11                  Xorg X server - core server&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Mainly i used this guide: &amp;lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&#34;&amp;gt;&lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There were some glitches because of missing files and creation of diverations. I belive the uninstallation of fglrx does not revert created diverations of certain libraries. (I dunno if the removeal of created diverations this is the expected behaviour of package removeal)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;My short Howto:
+0. Optional:
+I removed non-free from my source.lst and did an apt-get update and apt-get clean to make sure that the module assistent would not fetch some fglrx packages via network.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Stop X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;unload fglrx module&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;modprobe -r fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install additional packages you might need:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 ia32-libs
+apt-get install kernel-headers-$(uname -r)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.
+&amp;lt;code&amp;gt;dpkg -l | grep fglrx
+dpkg -P  fglrx-amdcccle
+dpkg -P fglrx-driver-dev
+dpkg -P fglrx-kernel-src
+dpkg -P fglrx-kernel-2.6.26-2-amd64
+dpkg -P fglrx-driver&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To restore the files that might have been deleted by the fglrx package removeal routines you can use:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get --reinstall install libgl1-mesa-glx
+apt-get --reinstall install xserver-xorg-core
+apt-get --reinstall install ia32-libs&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Create the fglrx packages:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;./ati-driver-installer-9-4-x86.x86_64.run --extract fglrx_9-4
+cd fglrx_9-4
+cd arch/x86_64/usr/X11R6
+ln -s lib64 lib
+cd ../../..
+./packages/Debian/ati-packager.sh --buildpkg testing
+cd ..&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Remove leftovers of previous installations:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;rm /usr/src/fglrx.tar.bz2
+rm /usr/src/*fglrx*.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the packages. You might have to change the order due to dependencies.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;dpkg -i fglrx-driver_8.602-1_amd64.deb
+dpkg -i fglrx-amdcccle_8.602-1_amd64.deb
+dpkg -i fglrx-driver-dev_8.602-1_amd64.deb
+dpkg -i fglrx-kernel-src_8.602-1_amd64.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Note: diversion problem&lt;/em&gt;
+I got some nasty failure while installing fglrx-driver_8.602-1_amd64.deb
+The package installation script was complaining about a failure while creating a diversion of libGL.so.1.2 because that file was used by the package xserver-xorg-core.
+The installation terminated with:
+&amp;lt;code&amp;gt;dpkg: error processing xorg-driver-fglrx&amp;lt;/code&amp;gt;
+You can get rid of those failures by using the &amp;lt;a href=&#34;http://www.debian.org/distrib/packages&#34;&amp;gt;Debian Package Search&amp;lt;/a&amp;gt;. Use the last form of the page to locate the file (e.g. libGL.so.1.2)
+As you see the file /usr/lib/libGL.so.1.2 is part of fglrx and the package libgl1-mesa-glx. I just reinstalled libgl1-mesa-glx and fixed the bug. &amp;lt;del datetime=&#34;2009-05-19T21:01:33+00:00&#34;&amp;gt;You may also remove the package because you wont need mesa once using hardware acceleration. (Please correct me if this is wrong - I&amp;#8217;m not quite sure about this)
+&amp;lt;/del&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;(Reading database ... 84741 files and directories currently installed.)
+Unpacking fglrx-driver (from fglrx-driver_8.612-1_amd64.deb) ...
+No diversion `diversion of /usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;, none removed
+Adding `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+No diversion `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2_32bit by fglrx-driver&#39;, none removed
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+rmdir: failed to remove `/usr/share/fglrx/diversions&#39;: No such file or directory
+rmdir: failed to remove `/usr/share/fglrx&#39;: No such file or directory
+Leaving `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/xorg/modules/extensions/libdri.so to /usr/lib/fglrx/diversions/libdri.so by fglrx-driver&#39;
+dpkg - warning, overriding problem because --force enabled:
+_ trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.so&#39;, which is also in package xserver-xorg-core_
+dpkg: error processing 1 (--install):
+ cannot access archive: No such file or directory
+Setting up fglrx-driver (8.612-1) ...
+
+Configuration file `/etc/acpi/fglrx-powermode.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-lid-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-ac-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/init.d/atieventsd&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/default/fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo_mask.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/signature&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/control&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/atiogl.xml&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/amdpcsdb.default&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/authatieventsd.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/X11/Xsession.d/70fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+update-rc.d: warning: /etc/init.d/atieventsd missing LSB information
+update-rc.d: see &amp;lt;http://wiki.debian.org/LSBInitScripts&amp;gt;
+Starting atieventsd: /usr/sbin/atieventsd already running.
+done.
+Processing triggers for man-db ...
+Errors were encountered while processing:
+ 1&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once you get only the following error you can proceed with dpkg --force-all:
+&lt;em&gt;trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Finally i had to use the --force-all option to install the package.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;dpkg --force-all -i fglrx-driver_8.602-1_amd64.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;_You should try to use the procedure described above before taking this quite drastic step. _&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Build and install the fglrx kernel module. I had not to modify the sources in any way.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;module-assistant auto-install fglrx-kernel-src&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Load the module:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;modprobe fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure it was loaded. If it wasn&amp;#8217;t loaded use dmesg to check what happed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;lsmod | grep fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;If you want to create a new xorg.conf file which stores your monitor setup etc.:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;mv /etc/X11/xorg.conf /etc/X11/xorg.conf.backup
+dpkg-reconfigure xserver-xorg (just follow the instructions)
+aticonfig --initial&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;You are done. Now start X and run the amdcccle tool and setup your screens. I had to run those steps to get dual head working:&lt;/p&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Enable both displays using amdcccle&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the resolution of both displays to the same one&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling Xinerama&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling Multi-Display Settings (Left of ..)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disabling Xinerama in /etc/X11/xorg.conf&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download my xorg.conf:
+&amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorg.conf&#39;&amp;gt;xorg.conf&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Overall this is a painstaking way of setting up dual head display and drivers. Please AMD / ATI create an Installer that creates valid Deb. packages or even better delete it and create a deb repository that everybody can use.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>mplayer still picture extraction</title>
+      <link>http://jotschi.de/2008/04/06/mplayer-still-picture-extraction/</link>
+      <pubDate>Sun, 06 Apr 2008 21:09:25 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/04/06/mplayer-still-picture-extraction/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Do you want to extract one specific frame from a movie using mplayer?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mplayer -ss [second] -frames 1 -vo png [moviefile]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mplayer -ss 0.04166666667 -frames 1 -vo png test.mov&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dual Head on i810 - 945GM - Amilo Pro </title>
+      <link>http://jotschi.de/2008/02/09/dual-head-on-i810-945gm-amilo-pro/</link>
+      <pubDate>Sat, 09 Feb 2008 13:50:27 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/02/09/dual-head-on-i810-945gm-amilo-pro/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If you want to set up a dual head configuration you might want to take a look at my xorg.conf&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Section &#34;Files&#34;
+	FontPath	&#34;/usr/share/fonts/X11/misc&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/misc&#34;
+	FontPath	&#34;/usr/share/fonts/X11/cyrillic&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/cyrillic&#34;
+	FontPath	&#34;/usr/share/fonts/X11/100dpi/:unscaled&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/100dpi/:unscaled&#34;
+	FontPath	&#34;/usr/share/fonts/X11/75dpi/:unscaled&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/75dpi/:unscaled&#34;
+	FontPath	&#34;/usr/share/fonts/X11/Type1&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/Type1&#34;
+	FontPath	&#34;/usr/share/fonts/X11/100dpi&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/100dpi&#34;
+	FontPath	&#34;/usr/share/fonts/X11/75dpi&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/75dpi&#34;
+	# path to defoma fonts
+	FontPath	&#34;/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType&#34;
+EndSection
+
+Section &#34;Module&#34;
+	Load    &#34;GLcore&#34;
+	Load	&#34;bitmap&#34;
+	Load	&#34;dbe&#34;
+	Load	&#34;ddc&#34;
+	Load	&#34;dri&#34;
+	Load	&#34;extmod&#34;
+	Load	&#34;freetype&#34;
+	Load	&#34;glx&#34;
+	Load	&#34;int10&#34;
+	Load	&#34;record&#34;
+	Load	&#34;type1&#34;
+	Load	&#34;vbe&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Generic Keyboard&#34;
+	Driver		&#34;kbd&#34;
+	Option		&#34;CoreKeyboard&#34;
+	Option		&#34;XkbRules&#34;	&#34;xorg&#34;
+	Option		&#34;XkbModel&#34;	&#34;pc105&#34;
+	Option		&#34;XkbLayout&#34;	&#34;de&#34;
+	Option		&#34;XkbVariant&#34;	&#34;nodeadkeys&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Configured Mouse&#34;
+	Driver		&#34;evdev&#34;
+	Option		&#34;CorePointer&#34;
+	Option          &#34;Name&#34; &#34;Logitech USB-PS/2 Optical Mouse&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Synaptics Touchpad&#34;
+	Driver		&#34;synaptics&#34;
+	Option		&#34;SendCoreEvents&#34;	&#34;true&#34;
+	Option		&#34;Device&#34; 		&#34;/dev/psaux&#34;
+	Option          &#34;SHMConfig&#34;		&#34;true&#34;
+	Option		&#34;Protocol&#34;		&#34;auto-dev&#34;
+	Option		&#34;HorizScrollDelta&#34;	&#34;0&#34;
+EndSection
+
+Section &#34;Device&#34;
+	Identifier	&#34;Device LCD dual&#34;
+	Driver		&#34;i810&#34;
+	BusID		&#34;PCI:0:2:0&#34;
+	Screen		0
+	Option          &#34;MonitorLayout&#34; &#34;CRT,LFP&#34;
+EndSection
+
+Section &#34;Device&#34;
+	Identifier	&#34;Device CRT dual&#34;
+	Driver		&#34;i810&#34;
+	BusID		&#34;PCI:0:2:0&#34;
+	Screen		1
+EndSection
+
+Section &#34;Monitor&#34;
+        Identifier      &#34;Monitor LCD&#34;
+        Option          &#34;DPMS&#34;
+EndSection
+
+Section &#34;Monitor&#34;
+	Identifier	&#34;Monitor CRT&#34;
+	HorizSync     50-80
+	VertRefresh   60
+EndSection
+
+Section &#34;Screen&#34;
+	Identifier	&#34;Screen CRT dual&#34;
+	Device		&#34;Device CRT dual&#34;
+	Monitor		&#34;Monitor CRT&#34;
+	DefaultDepth	24
+	SubSection &#34;Display&#34;
+		Depth	24
+		Modes   &#34;1280x1024&#34;
+	EndSubSection
+EndSection
+
+Section &#34;Screen&#34;
+	Identifier	&#34;Screen LCD dual&#34;
+	Device		&#34;Device LCD dual&#34;
+	Monitor		&#34;Monitor LCD&#34;
+	DefaultDepth	24
+	SubSection &#34;Display&#34;
+		Depth	24
+		Modes	&#34;1280x800&#34;
+	EndSubSection
+EndSection
+
+Section &#34;ServerLayout&#34;
+	Identifier	&#34;Default Layout&#34;
+	Screen		0 &#34;Screen LCD dual&#34;
+	Screen		1 &#34;Screen CRT dual&#34; RightOf &#34;Screen LCD dual&#34;
+	InputDevice	&#34;Generic Keyboard&#34;
+	InputDevice	&#34;Configured Mouse&#34;
+	InputDevice	&#34;Synaptics Touchpad&#34;
+	Option		&#34;Xinerama&#34; &#34;true&#34;
+EndSection
+
+Section &#34;DRI&#34;
+	Mode	0666
+EndSection&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Note: You might need to change the input devices to match your current hardware. The secondary display device does not work with Option &#34;DPMS&#34;. Just fetch the right properties of your display and change the matching values for HorizSync and VertRefresh and you will get a higher resoultion on the device attached to secondary output.&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://jotschi.de/downloads/xorg/xorg.conf.i810&#34;&gt;Dual Head Xorg.conf&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

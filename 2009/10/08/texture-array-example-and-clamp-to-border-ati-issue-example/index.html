@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Texture Array Example And Clamp to Border Ati Issue Example - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Texture Array Example And Clamp to Border Ati Issue Example</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2009-10-08">October 08, 2009</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY&#8217;s it might also be interessting for someone who want&#8217;s to know how to set a texture uniform (sampler2d) or (sampler2darray).</p>
+</div>
+<div class="paragraph">
+<p>The specification for texture arrays can be found here: &lt;a href="http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt"&gt;<a href="http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&lt;/a&gt" class="bare">http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&lt;/a&gt</a>;. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
+&lt;a id="more"&gt;&lt;/a&gt;&lt;a id="more-396"&gt;&lt;/a&gt;</p>
+</div>
+<div class="paragraph">
+<p>&lt;b&gt;Update - Note: &lt;/b&gt;
+Compile with:
+&lt;blockquote&gt;g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp&lt;/blockquote&gt;
+Get sources and libs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>apt-get install libglut3 libglut3-dev libglew1.5 libglew1.5-dev</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&lt;b&gt;Update:&lt;/b&gt;
+I just developed an workaround for this issue by adding clamp to border by myself to the shader:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#extension GL_EXT_gpu_shader4 : enable
+
+uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+
+		vec4 borderColor =vec4(0.1,0.7,0.2,0.1);
+		if(texCoord.s&lt;1 &amp;&amp; texCoord.s &gt;0 &amp;&amp; texCoord.t &lt;1 &amp;&amp; texCoord.t &gt;0)
+		{
+			borderColor		= texture2DArray(base_texture, vec3(texCoord.st,1));
+		}
+		gl_FragColor = borderColor;
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>NOARRAY - not definied</em></p>
+</div>
+<div class="paragraph">
+<p>The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:
+&lt;img src="/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png" alt="GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI" title="GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI" width="412" height="327" class="alignnone size-full wp-image-397" /&gt;
+The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set.</p>
+</div>
+<div class="paragraph">
+<p><em>NOARRAY - definied</em></p>
+</div>
+<div class="paragraph">
+<p>The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:
+&lt;img src="/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png" alt="GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI" title="GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI" width="392" height="292" class="alignnone size-full wp-image-398" /&gt;
+As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:</p>
+</div>
+<div class="paragraph">
+<p>Download the complete example sources: &lt;a href="/downloads/opengl/opengl_texture_array_glsl_example.tgz"&gt;opengl_texture_array_glsl_example.tgz&lt;/a&gt;</p>
+</div>
+<div class="paragraph">
+<p><em>shader_array.frag:</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		vec4 base_color		= texture2DArray(base_texture, vec3(texCoord.st*vec2(0.5,1.5), 0));
+		gl_FragColor = color * base_color;
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>shader_simple.frag:</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">uniform sampler2D base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		//vec2 texCoord = vec2(1.0,0.5);
+		vec4 base_color = texture2D(base_texture, texCoord);
+		gl_FragColor = color * base_color;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>shader.vert:</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">varying vec2 texCoord;
+void main()
+{
+    texCoord = vec2(gl_MultiTexCoord0);
+	gl_Position = ftransform();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp:</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#include &lt;GL/glew.h&gt;
+#include &lt;GL/gl.h&gt;
+#include &lt;GL/glut.h&gt;
+#include &lt;stdio.h&gt;
+#include "textfile.h"
+
+#define NOARRAY
+
+#define	checkImageWidth 64
+#define	checkImageHeight 64
+static GLubyte checkImage[checkImageHeight][checkImageWidth][4];
+
+char *VertexShaderSource, *FragmentShaderSource;
+
+int VertexShader, FragmentShader;
+
+int ShaderProgram;
+
+GLfloat angle = 0.0;
+
+GLuint texture;
+
+void makeCheckImage(void) {
+	int i, j, c;
+
+	for (i = 0; i &lt; checkImageHeight; i++) {
+		for (j = 0; j &lt; checkImageWidth; j++) {
+			c = ((((i &amp; 0x8) == 0) ^ ((j &amp; 0x8)) == 0)) * 255;
+			checkImage[i][j][0] = (GLubyte) c;
+			checkImage[i][j][1] = (GLubyte) c;
+			checkImage[i][j][2] = (GLubyte) c;
+			checkImage[i][j][3] = (GLubyte) 255;
+		}
+	}
+}
+
+GLuint LoadTexture() {
+	GLuint texture;
+	makeCheckImage();
+	glGenTextures(1, &amp;texture);
+
+	GLfloat borderColor[4] = { 1.0, 1.0, 1.0, 1.0 };
+#ifdef NOARRAY
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth, checkImageHeight,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+#else
+	glBindTexture(GL_TEXTURE_2D_ARRAY_EXT, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+	glTexImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, GL_RGBA, checkImageWidth,
+			checkImageHeight, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 0, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 1, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+
+#endif
+
+	return texture;
+}
+
+void FreeTexture(GLuint texture) {
+	glDeleteTextures(1, &amp;texture);
+}
+
+void Lighting(void) {
+	GLfloat LightPosition[] = { 0.0, 0.0, 5.0, 1.0 };
+
+	GLfloat DiffuseLight[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientLight[] = { 1.0, 1.0, 1.0 };
+	GLfloat SpecularLight[] = { 1.0, 1.0, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+
+	GLfloat mShininess[] = { 8 };
+
+	GLfloat DiffuseMaterial[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientMaterial[] = { 0.3, 0.3, 0.3 };
+	GLfloat SpecularMaterial[] = { 1.0, 1.0, 1.0 };
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+}
+
+void display(void) {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	Lighting();
+	glTranslatef(0, 0, -5);
+	glRotatef(angle, 1, 1, 1);
+	glRotatef(angle, 0, 1, 1);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	int texture_location = glGetUniformLocationARB(ShaderProgram,
+			"base_texture");
+	if (texture_location == -1) {
+		printf("Notfound\n");
+	}
+	glUniform1iARB(texture_location, 0);
+
+	// Disabled glsl fallback
+	//glEnable(GL_TEXTURE_2D);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(-2.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(-2.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(0.0, -1.0, 0.0);
+
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(1.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(1.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(2.41421, 1.0, -1.41421);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(2.41421, -1.0, -1.41421);
+	glEnd();
+	glFlush();
+
+	glutSolidTeapot(1);
+	glutSwapBuffers();
+	//angle += 0.5;
+}
+
+void InitShader(void) {
+
+	VertexShader = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
+	FragmentShader = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
+	VertexShaderSource = textFileRead("shader.vert");
+#ifdef NOARRAY
+	FragmentShaderSource = textFileRead("shader_simple.frag");
+#else
+	FragmentShaderSource = textFileRead("shader_array.frag");
+#endif
+
+	const char * VS = VertexShaderSource;
+	const char * FS = FragmentShaderSource;
+
+	glShaderSourceARB(VertexShader, 1, &amp;VS, NULL);
+	glShaderSourceARB(FragmentShader, 1, &amp;FS, NULL);
+
+	glCompileShaderARB(VertexShader);
+	glCompileShaderARB(FragmentShader);
+
+	ShaderProgram = glCreateProgramObjectARB();
+
+	glAttachObjectARB(ShaderProgram, VertexShader);
+	glAttachObjectARB(ShaderProgram, FragmentShader);
+
+	glLinkProgramARB(ShaderProgram);
+	glUseProgramObjectARB(ShaderProgram);
+}
+
+void DeInitShader(void) {
+	glDetachObjectARB(ShaderProgram, VertexShader);
+	glDetachObjectARB(ShaderProgram, FragmentShader);
+
+	glDeleteObjectARB(ShaderProgram);
+}
+
+void Init(void) {
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	texture = LoadTexture();
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60, (GLfloat) w / (GLfloat) h, 0.1, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+int main(int argc, char **argv) {
+	glutInit(&amp;argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow("Ati texture array clamp issue example");
+	glewInit();
+	InitShader();
+	Init();
+	glutDisplayFunc(display);
+	glutIdleFunc(display);
+	glutReshapeFunc(reshape);
+	glutMainLoop();
+	DeInitShader();
+	return 0;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>textfile.cpp:</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#include &lt;stdio.h&gt;
+#include &lt;malloc.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+
+
+char *textFileRead(char *fn) {
+
+
+	FILE *fp;
+	char *content = NULL;
+
+	int f,count;
+	f = open(fn, O_RDONLY);
+
+	count = lseek(f, 0, SEEK_END);
+
+	close(f);
+
+	if (fn != NULL) {
+		fp = fopen(fn,"rt");
+
+		if (fp != NULL) {
+
+
+			if (count &gt; 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = '\0';
+			}
+			fclose(fp);
+		}
+	}
+	return content;
+}
+
+int textFileWrite(char *fn, char *s) {
+
+	FILE *fp;
+	int status = 0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,"w");
+
+		if (fp != NULL) {
+
+			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
+				status = 1;
+			fclose(fp);
+		}
+	}
+	return(status);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>textfile.h:</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">char *textFileRead(char *fn);
+int textFileWrite(char *fn, char *s);</code></pre>
+</div>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Texture Array Example And Clamp to Border Ati Issue Example</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+        <span class="tag-item"><a href="http://jotschi.de//tags/ati">#ati</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/fglrx">#fglrx</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/GLSL">#GLSL</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/OpenGL">#OpenGL</a></span>
+        
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

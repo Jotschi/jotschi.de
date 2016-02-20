@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Multitouch Userinterface with WiiMote - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Multitouch Userinterface with WiiMote</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2008-01-28">January 28, 2008</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>Using the WiiMote you can create a multitouch userinterface. Johnny Chung Lee, Carnegie Mellon University demonstrate this in one of his videos:&lt;/p&gt;
+&lt;p&gt;&lt;a id="more"&gt;&lt;/a&gt;&lt;a id="more-108"&gt;&lt;/a&gt;</p>
+</div>
+<div class="paragraph">
+<p>&lt;embed src="http://www.youtube.com/v/5s5EvhHy7eQ&amp;rel=1" type="application/x-shockwave-flash" wmode="transparent" height="355" width="425"&gt;&lt;/embed&gt;&lt;/p&gt;</p>
+</div>
+<div class="paragraph">
+<p>He uses a lightpen with a build in infrared LED to get a tracking point for the wiimote infrared camera.I think it is possible to build a touchpad/touchtable where you don&#8217;t need any pen to interact with the userinterface.Touching the upper layer of the touchpad will lower the layer section in this place and cross the directional lightbeams which are arranged underneath the touchpad. Therefor the place where the touchpad was touched is marked with IR light and can be tracked by the wii controler which is placed under the touchpad area. The infrared camera points to the touchpad and 'sees' the places where the material crosses the lightbeams. The video illustrates this process.&lt;/p&gt;
+&lt;p&gt;&lt;embed src="http://www.youtube.com/v/YUGGAuENsZA&amp;rel=1" type="application/x-shockwave-flash" wmode="transparent" height="355" width="425"&gt;&lt;/embed&gt;&lt;/p&gt;</p>
+</div>
+<div class="paragraph">
+<p>Another way to detect touched areas on the touchpad might work with a special material of the upper layer. The top of the touchpad layer can be anything you like but the bottom layer should be something reflective. When you point an infrared lightsource to this reflective material the light will bounce off to another direction. As we know from school the angle of the incoming light will result to the angle of the reflected light when using a flat surface. We just put our lightsource relative to the reflective layer so that we reach an angle about 45 degree. The incoming light will bounce off and never reache the WiiMote which is placed directly underneath the reflective layer. Touching the layer will cause the surface to be bended so that the light will bounce in nearly every direction. The toucharea is now visible to our WiiMote because some lightrays beeing reflected to the WiiMote.&lt;/p&gt;</p>
+</div>
+<div class="paragraph">
+<p>&lt;p&gt;&lt;img src="/images/holo/lightbeams.png" alt="Lightbeams" /&gt;&lt;br /&gt;
+&lt;img src="/images/holo/lightbeams2.png" alt="Lightbeams2" /&gt;&lt;/p&gt;</p>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Multitouch Userinterface with WiiMote</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+        <span class="tag-item"><a href="http://jotschi.de//tags/multitouch">#multitouch</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/wiimote">#wiimote</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/invention">#invention</a></span>
+        
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

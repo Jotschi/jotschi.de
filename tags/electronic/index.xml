@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Electronic on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/electronic/</link>
+    <description>Recent content in Electronic on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Apr 2007 21:54:26 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/electronic/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Problem mit T19DS</title>
+      <link>http://jotschi.de/2007/04/01/problem-mit-t19ds/</link>
+      <pubDate>Sun, 01 Apr 2007 21:54:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2007/04/01/problem-mit-t19ds/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Vor einiger Zeit hatte ich Probleme mit meinem TFT.
+Nach dem Einschalten zündet kurz die Hintergrundbeleuchtung und danach bleibt das Display dunkel. Es handelt sich hierbei um einen Fehler im Netzteil.
+Scheinbar fallen sehr viele Vision Magic T19DS nach ~1 Jahr Betrieb aus weil die eingebauten Kondensatoren minderwertig sind.
+Ich habe zwar alle Elkos ausgetauscht aber ich glaube das der im Bild rot markierte Kondenator bei mir der Hauptübeltäter war. (400V Elko)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;image:/images/t19ds/t19ds_power.jpg&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Die Bauteile gibt es bei &lt;a href=&#34;http://www.pollin.de&#34; class=&#34;bare&#34;&gt;http://www.pollin.de&lt;/a&gt; oder &lt;a href=&#34;http://reichelt.de&#34; class=&#34;bare&#34;&gt;http://reichelt.de&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

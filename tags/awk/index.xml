@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Awk on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/awk/</link>
+    <description>Recent content in Awk on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 10 Oct 2009 14:01:05 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/awk/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SED - AWK - Replace Section Within File</title>
+      <link>http://jotschi.de/2009/10/10/sed-awk-replace-section-within-file/</link>
+      <pubDate>Sat, 10 Oct 2009 14:01:05 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/10/10/sed-awk-replace-section-within-file/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is how to replace a multiline text between two tags or lines of text with awk or sed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;File: &#39;test&#39;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;###START
+1
+2
+###STOP&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_sed&#34;&gt;SED:&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;sed  -i -e &#34;/&lt;sup&gt;&lt;mark&gt;START\$/,/&lt;/sup&gt;&lt;/mark&gt;STOP\$/c &lt;mark&gt;START\n${REPLACEMENT}\n&lt;/mark&gt;STOP&#34; test&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;AWK:&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;awk &#34;/&lt;mark&gt;START/{p=1;print\&#34;&lt;/mark&gt;#START\n${REPLACEMENT}\n&lt;mark&gt;#STOP\&#34;;next}/&lt;/mark&gt;STOP/{p=0;next}!p&#34; test.tmp &amp;gt; test&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;Note: test must be copied to test.tmp before replacement can be done.&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

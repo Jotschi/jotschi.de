@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Lighthouse GDG2 Projekt SS07 - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Lighthouse GDG2 Projekt SS07</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2007-07-27">July 27, 2007</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>Lighthouse ist eine Anwendung die ich zusammen mit Manuel Deil im Zuge meines Studium als Projektaufgabe entwickeln musste. &lt;a id="more"&gt;&lt;/a&gt;&lt;a id="more-83"&gt;&lt;/a&gt;
+Screenshot:
+&lt;a href='/images/lighthouse/bildschirmfoto.png' title='Screenshot'&gt;&lt;img src='/images/lighthouse/bildschirmfoto.thumbnail.png' alt='Screenshot' /&gt;&lt;/a&gt;
+Es handelt sich hierbei um eine Anwendung, die die Prinzipien des Schattenwurfs von verschiedenen Objekten und verschiedenen Lichtquellen verdeutlichen soll.
+Wir haben uns hierbei auf drei Lichtquellen beschränkt.
+(Single Light) - punktförmige Lichtquelle
+(Dual Light)  - zwei punktförmige Lichtquellen
+(Area Light) - flächenförmige Lichtquelle</p>
+</div>
+<div class="paragraph">
+<p>Als technische Grundlage für dieses Projekt habe ich einen Java OpenGL Wrapper benutzt (JOGL). Hierbei verwendete ich &lt;a href="http://xith.org/" target=_new&gt;Xith&lt;/a&gt; als Scenengraph und API für Hilfsfunktionen. An dieser Stelle möchte ich ein dickes Lob an die Xith Community los werden denn ohne deren rasche Hilfe wäre ich nicht fertig geworden. Die Funktionen für den Schattenwurf habe ich komplett selber implementiert. Allerdings muss ich dazu sagen das es an einigen Stellen noch Probleme gibt. Aufgrund von bestimmten Aspekten unseres Programms (z.B. zwei überlagernde Schatten) musste ich von der typischen Stencilbuffer-technik abweichen. Daher empfehle ich den jenigen die sich für Shadowcasting in 3D Anwendungen interessieren sich kein Beispiel an meiner Implementierung zunehmen. Allein schon für die Bestimmung der Siluette gibt es wesentlich effizientere Methoden.
+Ich habe eine Methode verwendet die in diesem PDF beschrieben wird: &lt;a href="http://www.scherfgen-software.net/downloads/book/excerpt.pdf" target=_new&gt;Link&lt;/a&gt;
+Eine effizientere Methode wird von Tom Hall in diesem Paper beschrieben: &lt;a href="http://www.geocities.com/tom_j_hall/SilhouetteTracking.pdf" target=_new&gt;Link&lt;/a&gt;
+Die dort beschrieben Methode basiert auf &lt;em&gt;Markosian&#8217;s Randomized silhouette&lt;/em&gt; Algorithmus. Wenn mich nicht alles täuscht verwendet die Occluder Klasse von Xith genau diesen Algorithmus. Allerdings funktioniert die dort enthaltene Implementierung im Moment (07/2007) aufgrund von API Changes nicht.</p>
+</div>
+<div class="paragraph">
+<p>&lt;a href="/downloads/lighthouse/lighthouse.7z" target=_new&gt;Download Lighthouse incl. src&lt;/a&gt;
+Das Archiv enthält Lighthouse welches lauffähig unter Linux und Windows ist. Macintosh Support ist vorhanden aber wurde nicht getestet.
+Die verwendete XithAPI ist nicht enthalten. Zur Entwicklung verwendete ich einen SVN Trunk von 07/2007. Ein neuerer Trunk wird wahrscheinlich viele API Changes enthalten. Diese sind in Xith Forum allerdings sehr gut dokumentiert.</p>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Lighthouse GDG2 Projekt SS07</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

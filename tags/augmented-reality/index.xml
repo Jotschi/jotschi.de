@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Augmented Reality on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/augmented-reality/</link>
+    <description>Recent content in Augmented Reality on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 Apr 2009 22:58:44 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/augmented-reality/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Automated, Scalable, Airborne Only, 3D Modeling </title>
+      <link>http://jotschi.de/2009/04/23/automated-scalable-airborne-only-3d-modeling/</link>
+      <pubDate>Thu, 23 Apr 2009 22:58:44 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/04/23/automated-scalable-airborne-only-3d-modeling/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just found this page which describes methods of 3D City Modeling. They use airborn and ground based lasers to get the geometric information that is needed to complete the model. Keep in mind that Google StreetView Cars are also equiped with lidar.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://www-video.eecs.berkeley.edu/~avz/aironly.htm&#34; class=&#34;bare&#34;&gt;http://www-video.eecs.berkeley.edu/~avz/aironly.htm&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Also take a look at this interesting techtalk:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://video.google.com/videoplay?docid=1783762882645705066&amp;amp;ei=P9XwSe2fJJ7e2gL3kJWxDA&amp;amp;q=Avideh+Zakhor&amp;amp;hl=en&amp;amp;client=iceweasel-a&#34; class=&#34;bare&#34;&gt;http://video.google.com/videoplay?docid=1783762882645705066&amp;amp;ei=P9XwSe2fJJ7e2gL3kJWxDA&amp;amp;q=Avideh+Zakhor&amp;amp;hl=en&amp;amp;client=iceweasel-a&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

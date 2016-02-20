@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Math on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/math/</link>
+    <description>Recent content in Math on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 13 Dec 2009 19:43:38 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Drawing the perspective view frustum with OpenGL</title>
+      <link>http://jotschi.de/2009/12/13/drawing-the-perspective-view-frustum-with-opengl/</link>
+      <pubDate>Sun, 13 Dec 2009 19:43:38 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/13/drawing-the-perspective-view-frustum-with-opengl/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;A visualization of the current view frustum can be helpful in some cases. &amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-441&#34;&amp;gt;&amp;lt;/a&amp;gt;
+1. Extract the two important matrices you wish to visualize:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;static float proj[16];
+glGetFloatv(GL_PROJECTION_MATRIX, proj);
+
+static float mv[16];
+glGetFloatv(GL_MODELVIEW_MATRIX, mv);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Do some math and draw your frustum:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;void Helper::drawFrustum(float * proj, float *mv) {
+
+	// Get near and far from the Projection matrix.
+	const double near = proj[11] / (proj[10] - 1.0);
+	const double far = proj[11] / (1.0 + proj[10]);
+
+	// Get the sides of the near plane.
+	const double nLeft = near * (proj[2] - 1.0) / proj[0];
+	const double nRight = near * (1.0 + proj[2]) / proj[0];
+	const double nTop = near * (1.0 + proj[6]) / proj[5];
+	const double nBottom = near * (proj[6] - 1.0) / proj[5];
+
+	// Get the sides of the far plane.
+	const double fLeft = far * (proj[2] - 1.0) / proj[0];
+	const double fRight = far * (1.0 + proj[2]) / proj[0];
+	const double fTop = far * (1.0 + proj[6]) / proj[5];
+	const double fBottom = far * (proj[6] - 1.0) / proj[5];
+
+	/*
+	 0	glVertex3f(0.0f, 0.0f, 0.0f);
+	 1	glVertex3f(nLeft, nBottom, -near);
+	 2	glVertex3f(nRight, nBottom, -near);
+	 3	glVertex3f(nRight, nTop, -near);
+	 4	glVertex3f(nLeft, nTop, -near);
+	 5	glVertex3f(fLeft, fBottom, -far);
+	 6	glVertex3f(fRight, fBottom, -far);
+	 7	glVertex3f(fRight, fTop, -far);
+	 8	glVertex3f(fLeft, fTop, -far);
+	 */
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	//glLoadIdentity ();
+
+        // TODO - Update: You need to invert the mv before multiplying it with the current mv!
+
+	glMultMatrixf(mv);
+
+	glLineWidth(2);
+	glBegin(GL_LINES);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fLeft, fBottom, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fRight, fTop, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fLeft, fTop, -far);
+
+	//far
+	glVertex3f(fLeft, fBottom, -far);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(fRight, fTop, -far);
+	glVertex3f(fLeft, fTop, -far);
+
+	glVertex3f(fRight, fTop, -far);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(fLeft, fTop, -far);
+	glVertex3f(fLeft, fBottom, -far);
+
+	//near
+	glVertex3f(nLeft, nBottom, -near);
+	glVertex3f(nRight, nBottom, -near);
+
+	glVertex3f(nRight, nTop, -near);
+	glVertex3f(nLeft, nTop, -near);
+
+	glVertex3f(nLeft, nTop, -near);
+	glVertex3f(nLeft, nBottom, -near);
+
+	glVertex3f(nRight, nTop, -near);
+	glVertex3f(nRight, nBottom, -near);
+
+	glEnd();
+	glLineWidth(1);
+	glPopMatrix();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

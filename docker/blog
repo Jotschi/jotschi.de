@@ -1,0 +1,51 @@
+server {
+
+        listen 80;
+#       listen 443 ssl;
+        server_name www.jotschi.* jotschi.*;
+
+#        ssl_certificate     www.jotschi.de.crt;
+#        ssl_certificate_key www.jotschi.de.key;
+#        ssl_protocols       SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+#        ssl_ciphers         HIGH:!aNULL:!MD5;
+
+        root /opt/jotschi.de/_site;
+        server_tokens off;
+
+        index index.php index.html index.htm;
+
+        access_log /var/log/nginx/blog-jekyll.log;
+        error_log /var/log/nginx/blog-error-jekyll.log warn;
+
+
+#       if ($ssl_protocol = "") {
+#               rewrite ^   https://www.jotschi.de$request_uri? permanent;
+#       }
+
+        location / {
+                try_files $uri $uri/ /index.html;
+                include /etc/nginx/sites-extra/wordpress-rewrites.conf;
+        }
+
+        location ~ /\.ht {
+           deny all;
+        }
+
+
+#        location ~ \.php$ {
+#            try_files $uri =404;
+#            include /etc/nginx/php.conf;
+#        }
+
+#        location /uploader/ {
+#                alias /var/www/extra/uploader;
+#                autoindex off;
+#        }
+
+        location ~ /\. {
+            access_log off;
+            log_not_found off; 
+            deny all;
+        }
+}
+

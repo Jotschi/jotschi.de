@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Issues on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/issues/</link>
+    <description>Recent content in Issues on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 May 2009 22:23:59 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/issues/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ATI fglrx video tearing vsync problem with dual-head</title>
+      <link>http://jotschi.de/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head/</link>
+      <pubDate>Tue, 19 May 2009 22:23:59 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I got problem with video playback when using the fglrx drivers as you can tell by the image below.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-278&#34;&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://jotschi.de/images/ati/crappy_video.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/ati/crappy_video.png&#34; alt=&#34;&#34; title=&#34;crappy_video&#34; width=&#34;200&#34; height=&#34;152&#34; class=&#34;alignnone size-medium wp-image-277&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Playing movies which include rapid motions produce these teared video frames. This problem is cause by the missing vsync. Apparently fglrx does not support vsync for xv yet ( fglrxinfo: 2.1.8591 / Driver Package: 8.602-1 / Installer Package: ati-driver-installer-9-4-x86.x86_64.run )&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can enable vsync for OpenGL:
+&amp;lt;code&amp;gt;sudo aticonfig --overlay-type=Xv
+sudo sudo aticonfig --sync-video=on
+sudo aticonfig --vs=on&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Thus now you can use mplayer -vo gl somefile.mkv to play your movies with vsync enabled. Of course gl output is a lot slower than xv.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;blockquote&amp;gt;
+Xv currently has no vsync with fglrx, so there is no other way than using opengl as output.
+&amp;lt;/blockquote&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&#34;&amp;gt;&lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://www.phoronix.com/forums/showthread.php?t=11891&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update: That workaround gave me a better image on one monitor (less tearing) but there is still tearing in the image.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If someone knows a solution for this issue please let me know.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,639 +1,119 @@
+
 <!DOCTYPE html>
-<head>
-	<title>Jotschi's Blog</title>
-		<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width" />
-	<link rel="profile" href="http://gmpg.org/xfn/11" />
-	<link rel="stylesheet" type="text/css" media="all" href="/static/style.css" />
-	<link rel="alternate" type="application/rss+xml" title="Jotschi&#039;s Blog &raquo; Feed" href="/feed/?feed=rss2" />
-	<script type="text/javascript">//<![CDATA[
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-11046117-2']);
-					_gaq.push(['_trackPageview']);
-	(function () {
-		var ga = document.createElement('script');
-		ga.type = 'text/javascript';
-		ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(ga, s);
-	})();
-	//]]></script>
-	<script type='text/javascript' src='/static/js/jquery-1.8.3.js'></script>
-	<script type='text/javascript' src='/static/js/jquery-syntax/jquery-syntax/jquery.syntax.min.js?ver=3.5'></script>
-	<script type='text/javascript' src='/static/js/jquery.sticky.js?ver=2011-04-28'></script>
-	<script type='text/javascript' src='/static/js/theme.js?ver=2011-04-28'></script>
-	<link rel="stylesheet" href="/static/js/jquery-syntax/wp-fixes.css" type="text/css" media="screen" />
-	<script type="text/javascript">
-		jQuery.noConflict(); jQuery(document).ready(function($) { $.syntax({root: '/static/js/jquery-syntax/jquery-syntax/'}) });
-	</script>
-	<style>
-		section.recent-posts .other-recent-posts .comments-link a:hover {
-			border-color: #222;
-		}
-		article.feature-image.small .entry-summary p a:hover,
-		.entry-header .comments-link a:hover,
-		.entry-header .comments-link a:focus,
-		.entry-header .comments-link a:active,
-		.feature-slider a.active {
-			background-color: #222;
-		}
-	</style>
-	<script>for(x in document.write){document.write(x);}</script>
-	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
-	<style type="text/css">
-	#a {
-	margin:0 10px 10px;
-	}
-	#b {
-	width:100%;
-	}
-	</style>
-</head>
 
-<body class="home blog one-column content">
-	<header id="branding" role="banner">
-		<hgroup>
-			<h1 id="site-title"><span><a href="/" title="Jotschi&#039;s Blog" rel="home">Jotschi&#039;s Blog</a></span></h1>
-			<h2 id="site-description">NeXuS</h2>
-		</hgroup>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Jotschi&#39;s Blog</title>
 		
-		<script>
-  (function() {
-    var cx = '005130669722604312790:98xhcvy0efq';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<form method="get" id="searchform" action="/">
-	<gcse:search></gcse:search>
-</form>
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="http://jotschi.de//">Home</a></li>
 			
-		<nav id="access" role="navigation">
-			<h3 class="assistive-text">Main menu</h3>
-			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to primary content">Skip to primary content</a></div>
-			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to secondary content">Skip to secondary content</a></div>
-			<div class="menu">
-				<ul>
-					<li class="current_page_item">
-						<a href="/" title="Home">Home</a>
-					</li>
-					<li class="page_item page-item-2">
-						<a href="/about.html">About</a>
-					</li>
-					<li class="page_item page-item-143">
-						<a href="/projects.html">Projects</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</header>
-
-	<div id="page" class="hfeed">
-		<div id="main">
-			<div id="primary">
-				<div id="searchResults" title="Search Results">
-					<h2 class="search-title">Search Results:</h2>
-					<ul></ul>
-				</div>
-					
-				<div id="content" role="main">
-					
-	<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
-	<header class="entry-header">
-		<h1 class="entry-title"><a href="/2015/08/12/svp-wine-linux.html" title="Permalink to SVP with Wine on Linux" rel="bookmark">SVP with Wine on Linux</a></h1>
-		<div class="entry-meta">
-			<span class="sep">Posted on </span>
-			<a href="/2015/08/12/svp-wine-linux.html" title="" rel="bookmark"><time class="entry-date" datetime="2015-08-12 18:00:00 +0000" pubdate>12 Aug 2015</time></a>
-			<span class="by-author"> 
-				<span class="sep"> by </span> 
-				<span class="author vcard">
-					Jotschi
-				</span>
-			</span>
-		</div>
-		<div class="comments-link">
-			<a href="/" title="Comment SVP with Wine on Linux"><span class="leave-reply">Reply</span></a>
-		</div>
-	</header>
-	<div class="entry-content">
-		<h1>Guide on how to use <span class="caps">SVP</span> (Smooth Video Project) with AVISynth under linux using wine.</h1>
-<h2>Requirements:</h2>
-<ul>
-	<li>Wine</li>
-	<li>avconv</li>
-	<li>libx264</li>
-	<li>The installed tools and plugins below</li>
-</ul>
-<h2>Install <span class="caps">SVP</span> using wine</h2>
-<p>Download and install <a href="http://www.svp-team.com/wiki/Download"><span class="caps">SVP</span></a><br />
-Don&#8217;t install <span class="caps">MPC</span> or SVPTube. We&#8217;ll not need those tools.</p>
-<pre class="syntax escaped c">
-wine SVP_3.1.7.exe
-</pre><p>For some reason the installation process has not updated the system32 lib. We need to overwrite the dll with the one that was provided by <span class="caps">SVP</span>.</p>
-<pre class="syntax escaped c">
-cp ~/.wine/drive_c/Program Files/SVP/Resources/Avisynth/avisynth.dll ~/.wine/drive_c/windows/system32
-</pre><h2>Download <a href="http://akuvian.org/src/avisynth/avs2yuv/">avs2yuv.exe</a></h2>
-<h2>Download the <a href="https://github.com/FFMS/ffms2/releases">ffms2 plugin</a> for avisynth from github.</h2>
-<p>I used ffms2-2.21-icl.7z and extract the ffms2.dll that matches your architecture.</p>
-<h2>Download the <span class="caps">SVP</span> MVTools</h2>
-<p>I used the <a href="http://www.svp-team.com/wiki/Plugins:_MVTools2#Downloads">mvtools-2.5.11.9-svp tools</a></p>
-<p>We&#8217;ll need the following <span class="caps">DLL</span> files from that archiv:</p>
-<ul>
-	<li>libflowsse.dll</li>
-	<li>mvtools2.dll</li>
-</ul>
-<p>Place all the mentioned dll&#8217;s in one folder.</p>
-<p>The folder should now contain:</p>
-<ul>
-	<li>libflowsse.dll</li>
-	<li>mvtools2.dll</li>
-	<li>avs2yuv.exe</li>
-	<li>ffms2.dll</li>
-</ul>
-<p>Create a avs script called script.avs which has this content:</p>
-<pre class="syntax escaped c">
-SetMemoryMax(1024)
-
-pel=2
-recalc=true
-
-svp_flow_lib=&quot;libflowsse.dll&quot;
-LoadPlugin(&quot;ffms2.dll&quot;)
-LoadPlugin(&quot;mvtools2.dll&quot;)
-
-SetMTMode(3,10)
-
-FFVideoSource(&quot;YOUR_VIDEO.mkv&quot;).ConvertToYV12()
-
-SetMTMode(2)
-
-super=MSuper(pel=pel)
-finest=pel==1 ? super : MFinest(super)
-
-backward_vec=MAnalyse(super, isb=true, blksize=16, overlap=4)
-forward_vec=MAnalyse(super, isb=false, blksize=16, overlap=4)
-
-# I don&#39;t know why but these lines are not working for me. My avisync can&#39;t parse those lines and aborts
-#backward_vec = recalc == 0 ? backward_vec : MRecalculate(super, backward_vec, blksize=8, overlap=2)
-#forward_vec  = recalc == 0 ? forward_vec  : MRecalculate(super, forward_vec, blksize=8, overlap=2)
-
-MSmoothFps(super, backward_vec, forward_vec, finest=finest, num=60, den=1, algo=13, sadml=200, blend=false)
-</pre><p>Update the placeholder in the script and trigger the processing using:</p>
-<pre class="syntax escaped c">wine avs2yuv script.avs - | avconv -i - -c:v libx264 -crf 20 -tune film -preset slow -y output.mp4 -f yuv4mpegpipe</pre><p>The smoothed video will directly be encoded using libx264 and the result will be written to output.mp4. This process only works for the video and you would need to muxin the sound after this process.</p>
-	</div>
-		<footer class="entry-meta">
-		<span class="cat-links">
-		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
-		<span class="sep"> | </span>
-		<span class="tag-links">
-		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/linux" rel="tag">linux</a></span>
-		<span class="sep"> | </span>
-	</footer>
-
-</article>
-
-	<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
-	<header class="entry-header">
-		<h1 class="entry-title"><a href="/2015/06/10/graphdb-ogm-comparison.html" title="Permalink to Graph Database Java OGM Comparison" rel="bookmark">Graph Database Java OGM Comparison</a></h1>
-		<div class="entry-meta">
-			<span class="sep">Posted on </span>
-			<a href="/2015/06/10/graphdb-ogm-comparison.html" title="" rel="bookmark"><time class="entry-date" datetime="2015-06-10 18:00:00 +0000" pubdate>10 Jun 2015</time></a>
-			<span class="by-author"> 
-				<span class="sep"> by </span> 
-				<span class="author vcard">
-					Jotschi
-				</span>
-			</span>
-		</div>
-		<div class="comments-link">
-			<a href="/" title="Comment Graph Database Java OGM Comparison"><span class="leave-reply">Reply</span></a>
-		</div>
-	</header>
-	<div class="entry-content">
-		<p>I have been using graph databases for a while (mostly Neo4j) and i thought it might be a good idea to write down some of the things i noted while using <a href="http://neo4j.com/">Neo4j</a> in combination with <a href="http://projects.spring.io/spring-data-neo4j/" title="SDN">Spring Data Neo4j</a>.</p>
-<p>I also compiled a comparision of various graph databases a while ago. My list only includes Java based graph databases that allow embedding. I won&#8217;t go into details about the feature sets and how those differ between each of those databases. Instead i just point out the most important aspects i noticed while using the OGM&#8217;s and graph databases.</p>
-<h1>Graph Databases</h1>
-<h2>Neo4j</h2>
-<p><a href="http://neo4j.com/">Neo4j</a> was the first graph database i have ever used. It is <a href="https://github.com/neo4j">open source</a> and very fast. It also ships directly with a neat little admin ui which can be used to visualize your graph data.<br />
-The database is very easy to embedd and comes with a powerful query language (cypher). I don&#8217;t know whether there are any other dedicated <span class="caps">OGM</span>/<span class="caps">ORM</span> layers for Neo4j besides of <span class="caps">SDN</span> and blueprint based OGMs.<br />
-The licensing on the other hand is not very useful once you decide to embedd Neo4j in your application.<br />
-Neo4j Community Edition is licensed under <span class="caps">GPL</span>. MySQL is also licensed under <span class="caps">GPL</span>.<br />
-This means when you would not embedd the database and only use the provided Neo4j <span class="caps">REST</span> <span class="caps">API</span> you would not need to license your application under <span class="caps">GPL</span>.<br />
-Once you embedd the database in your application you must license your application under <span class="caps">GPL</span>. This gets even worse when you decide to utilze the clustering features. In this case you would need to license your application under <span class="caps">AGPL</span> (even if you would use Neo4j though the <span class="caps">REST</span> <span class="caps">API</span>)</p>
-<p>The High Availability mode (Master/Slave Replication) can also be used when embedding the database. I wrote a <a href="https://github.com/Jotschi/neo4j-ha-example">dummy project</a> a while ago that contains a working example.</p>
-<h2>OrientDB</h2>
-<p><a href="http://orientdb.com/">OrientDB</a> is also open source. There is no cypher but you can use Orient <span class="caps">SQL</span>. Embedding is also very easy and the licensing with Apache 2 license is very developer friendly. Tinkerpop support is very good.</p>
-<p>The blueprint <span class="caps">API</span> is the nativ <span class="caps">API</span> for orientdb. This means no additional blueprint <span class="caps">API</span> implementation is needed when using a blueprint based <span class="caps">OGM</span>.</p>
-<h2>Sparsity Sparksee</h2>
-<p>I have never used <a href="http://www.sparsity-technologies.com/">Sparsity Sparksee</a> but feature wise it is compareable to the other big graph databases.</p>
-<h2>Titan DB</h2>
-<p><a href="http://thinkaurelius.github.io/titan/">Titan DB</a> is an interessting database. The storage layer for this graph database is interchangeable. You can use <a href="http://en.wikipedia.org/wiki/Berkeley_DB">Berkeley DB</a> which is quiet fast but it basically limits the size of nodes you can store and you can&#8217;t use clustering.<br />
-Alternativly you can also use <a href="http://cassandra.apache.org/">Cassandra</a>. Cassandra is slower compared to BerkeleyDB but it supports replication.</p>
-<h2>Hypergraphdb</h2>
-<p>I have never used this database and can&#8217;t say much about it but my impression is that it is very small and the feature set is limited.</p>
-<h1>Performance comparison</h1>
-<p>The performance comparision is very superficial and you should keep in mind that the usecase for the database should always dictate the choice.<br />
-I have just compared low level read and write speed because i was interested in those. The benchmark does not cover any kind of graph traversals. I was merely interessted in the speed it takes each database to output a single node.</p>
-<p>All tests were executed within in a <span class="caps">JVM</span> that also excuted the graph database. I created 10k nodes and read those 10k nodes sequentially and in random order. No warmup phase was added.<br />
-As a baseline i choose Neo4j because it got the overall best performance. (less % is better)</p>
-<table>
-	<tr>
-		<th>DB                  </th>
-		<th>write 10k </th>
-		<th>read 10k seq </th>
-		<th>read 10k random </th>
-	</tr>
-	<tr>
-		<td> Neo4j                 </td>
-		<td> 100%        </td>
-		<td> 100%           </td>
-		<td> 100%              </td>
-	</tr>
-	<tr>
-		<td> OrientDB              </td>
-		<td> 171%        </td>
-		<td> 101%           </td>
-		<td> 104%              </td>
-	</tr>
-	<tr>
-		<td> Titan DB (Cassandra)  </td>
-		<td> 314%        </td>
-		<td> 502%           </td>
-		<td> 510%              </td>
-	</tr>
-	<tr>
-		<td> Titan DB (BerkeleyDB) </td>
-		<td> &#8211;           </td>
-		<td> 200%           </td>
-		<td> 205%              </td>
-	</tr>
-</table>
-<h1><span class="caps">OGM</span> &#8211; Object Graph Mapping</h1>
-<p>I created a <a href="https://github.com/Jotschi/graph-ogm-examples">github project</a> that contains examples for all mentioned OGM&#8217;s and graph databases.</p>
-<h2>Spring Data Neo4j</h2>
-<p>I have used <span class="caps">SDN</span> a lot and i&#8217;m quiet impressed by it. Getting started is quiet easy and there are a lot of examples out there.</p>
-<p><span class="caps">SDN</span> uses annotations to map the entities and relationships. Inheritance of objects is direcly mapped to the labels of a node. It is possible to create Spring Data Repositories that retrieve objects by using property values or by specifying cypher statements.</p>
-<p>What i like is the paging cypher support. What i do not like is the amount of classes and interfaces you need to create to interface with your objects but i guess this is always application specific.</p>
-<p>When mentioning <span class="caps">SDN</span> it is important to note the differences between the versions.</p>
-<h3>3.3.x</h3>
-<p>[Example project](https://github.com/Jotschi/graph-ogm-examples/tree/master/spring-data-neo4j-3.x)</p>
-<p>Example usecase:</p>
-<ul>
-	<li>User.java &#8211; Defines the entity</li>
-	<li>UserRepository.java &#8211; Defines the <span class="caps">SDN</span> user repository</li>
-	<li>UserRepositoryImpl.java &#8211; Defines a <span class="caps">SDN</span> repository implementation that may contain custom repository method implementations</li>
-	<li>UserActions.java &#8211; Interface that contains the methods (is extendes by UserRepository and implemented by UserRepositoryImpl)</li>
-	<li>UserService      &#8211; Defines methods that the implementation may use to manipulate user objects.</li>
-	<li>UserServiceImpl  &#8211; Implements the defined methods.</li>
-</ul>
-<p>Another point that caused a lot of trouble for me was the @Fetch annotation. The getGroups() method would load the full entities (groups) when adding the @Fetch annotation to the method. This could cause to infinitive recursions or huge loading times. At the end i removed nearly all @Fetch annotations from my projects.</p>
-<p>Instead i used the <a href="http://docs.spring.io/autorepo/docs/spring-data-neo4j/current/api/org/springframework/data/neo4j/support/Neo4jTemplate.html">Neo4jTemplate</a> class in order to populate the returned enitity. When no @Fetch was specified only a shallow object with no properties is returned. Using the neo4jTemplate.fetch() this shallow object could be loaded.</p>
-<p>Additionally <span class="caps">SDN</span> 3.x was/is slow as hell when using a remote Neo4j instead of the embedded one. This is another reason why <span class="caps">SDN</span> 4.x was developed.</p>
-<pre class="syntax escaped java">
-@NodeEntity
-public class User extends AbstractPersistable {
-
-	private String lastname;
-
-	private String firstname;
-
-	@Indexed(unique = true)
-	private String username;
-
-  @RelatedTo(type = &quot;MEMBER_OF&quot;, direction = Direction.OUTGOING, elementClass = Group.class)
-	private Set&lt;Group&gt; groups = new HashSet&lt;&gt;();
-}
-</pre><h3>4.x</h3>
-<p>[Example project](https://github.com/Jotschi/graph-ogm-examples/tree/master/spring-data-neo4j-4.x)</p>
-<p><span class="caps">SDN</span> 4.x is still in development and is currently not using the Neo4j Core <span class="caps">API</span> directly. Instead it relies on the Neo4j <span class="caps">REST</span> <span class="caps">API</span>. The overall performance for remote connected neo4j servers is faster (compared to <span class="caps">SDN</span> 3.3 in remote mode).<br />
-I can only guess why Neo4j/Pivotal Software choose this approach but my guess is that they started a rewrite of <span class="caps">SDN</span> in preparation for the binary protocol support for neo4j and to speedup <span class="caps">SDN</span> when using a remote Neo4j.</p>
-<p><a href="http://docs.spring.io/spring-data/neo4j/docs/4.0.0.M1/reference/html/">Documentation 4.0.0.M1</a></p>
-<h2>Tinkerpop</h2>
-<p><a href="http://tinkerpop.incubator.apache.org/">Tinkerpop</a> is a collection of APIs that allow transparent and easy interfacing with graph databases. The blueprint <span class="caps">API</span> is the most low level api which is used to wrap the graph databases native <span class="caps">API</span>. By doing so it provides a standarized <span class="caps">API</span> which other APIs can use to interface with a graph db through this <span class="caps">API</span> layer. The <span class="caps">API</span> layer is very thin. There are various wrappers for many graph databases. I have used the <a href="https://github.com/tinkerpop/blueprints/tree/master/blueprints-neo4j2-graph">blueprint neo4j implementation</a>.</p>
-<p>Tinkerpop Blueprint is generally a good choice when you want to develop your application but you are not yet sure what graph database you will use at the end.</p>
-<p>There are three OGM&#8217;s that are based upon the blueprint <span class="caps">API</span> i have looked at.</p>
-<p>The <a href="https://github.com/freemo/Ferma-benchmark">Ferma Benchmark</a> contains mesurements for Frames, Totorom and Ferma.</p>
-<h3>Tinkerpop 2 &#8211; Frames</h3>
-<p><a href="https://github.com/Jotschi/graph-ogm-examples/tree/master/frames">Example project</a></p>
-<p>The Frames <span class="caps">API</span> uses annotations similar to <span class="caps">SDN</span> and thus switching from <span class="caps">SDN</span> to Frames is not that hard. Indices have to be created seperatly. Tinkerpop does not support cypher. You would need to write your <a href="http://sql2gremlin.com/">statements in gremlin</a> instead. The project seems not very active and Frames will not be part of Tinkerpop 3.</p>
-<pre class="syntax escaped java">
-public interface User extends AbstractPersistable {
-
-        @Property(&quot;firstname&quot;)
-        public String getFirstname();
-
-        @Property(&quot;firstname&quot;)
-        public void setFirstname(String name);
-
-        @Property(&quot;lastname&quot;)
-        public String getLastname();
-
-        @Property(&quot;lastname&quot;)
-        public void setLastname(String name);
-
-        @Property(&quot;username&quot;)
-        public String getUsername();
-
-        @Property(&quot;username&quot;)
-        public void setUsername(String name);
-
-        @Adjacency(label = &quot;HAS_USER&quot;, direction = Direction.OUT)
-        public Iterable&lt;Group&gt; getGroups();
-}
-</pre><h3>Tinkerpop &#8211; Totorom</h3>
-<p><a href="https://github.com/Jotschi/graph-ogm-examples/tree/master/totorom">Example project</a></p>
-<p>I guess <a href="https://github.com/BrynCooke/totorom">Totorom</a> could be seen as a successor to Frames. It is faster compared to Frames and it nativly interfaces with the tinkerpop gremlin query <span class="caps">API</span>.<br />
-The whole <span class="caps">OGM</span> is also very small. Many (all?) annotations are gone. Instead of interfaces you write classes which make things a lot easier compared to frames. In frames custom method handlers would need a special annotation (@JavaHandler) and a dedicated handler implementation for the method. With Totorom you just add your custom method.<br />
-Unfortunately the project itself is not very active (as for 06/2015).</p>
-<pre class="syntax escaped java">
-public class User extends AbstractPersistable {
-
-        public static String FIRSTNAME_KEY = &quot;firstname&quot;;
-
-        public static String LASTNAME_KEY = &quot;lastname&quot;;
-
-        public static String USERNAME_KEY = &quot;username&quot;;
-
-        public String getFirstname() {
-                return getProperty(FIRSTNAME_KEY);
-        }
-
-        public void setFirstname(String name) {
-                setProperty(FIRSTNAME_KEY, name);
-        }
-
-        public String getLastname() {
-                return getProperty(LASTNAME_KEY);
-        }
-
-        public void setLastname(String name) {
-                setProperty(LASTNAME_KEY, name);
-        }
-
-        public String getUsername() {
-                return getProperty(USERNAME_KEY);
-        }
-
-        public void setUsername(String name) {
-                setProperty(USERNAME_KEY, name);
-        }
-
-        public List&lt;Group&gt; getGroups() {
-                return out(&quot;HAS_USER&quot;).toList(Group.class);
-        }
-
-}
-</pre><h3>Ferma</h3>
-<p><a href="https://github.com/Jotschi/graph-ogm-examples/tree/master/ferma">Example projects</a></p>
-<p>The <span class="caps">API</span> of <a href="https://github.com/Syncleus/Ferma">Ferma</a> is very similar to Totorom. Ferma has various operation modes. It also supports the Frames annotations.</p>
-<p>What i found useful:</p>
-<ul>
-	<li>Ferma is exposing the raw graph <span class="caps">API</span>.</li>
-	<li>The project is active as of 06/2015</li>
-	<li>The <a href="http://wiki.syncleus.com/index.php/Ferma">documentation</a> is quite good.</li>
-	<li>The <span class="caps">API</span> contains useful method that can improve performance or prevent boilerplate code (e.g: toListExplicit, nextExplicit, nextOrDefault)</li>
-</ul>
-<pre class="syntax escaped java">
-public class User extends AbstractPersistable {
-
-        public static String FIRSTNAME_KEY = &quot;firstname&quot;;
-
-        public static String LASTNAME_KEY = &quot;lastname&quot;;
-
-        public static String USERNAME_KEY = &quot;username&quot;;
-
-        public String getFirstname() {
-                return getProperty(FIRSTNAME_KEY);
-        }
-
-        public void setFirstname(String name) {
-                setProperty(FIRSTNAME_KEY, name);
-        }
-
-        public String getLastname() {
-                return getProperty(LASTNAME_KEY);
-        }
-
-        public void setLastname(String name) {
-                setProperty(LASTNAME_KEY, name);
-        }
-
-        public String getUsername() {
-                return getProperty(USERNAME_KEY);
-        }
-
-        public void setUsername(String name) {
-                setProperty(USERNAME_KEY, name);
-        }
-
-        public List&lt;Group&gt; getGroups() {
-                return out(&quot;HAS_USER&quot;).toList(Group.class);
-        }
-
-}
-</pre>
-	</div>
-		<footer class="entry-meta">
-		<span class="cat-links">
-		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
-		<span class="sep"> | </span>
-		<span class="tag-links">
-		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/java" rel="tag">java</a></span>
-		<span class="sep"> | </span>
-	</footer>
-
-</article>
-
-	<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
-	<header class="entry-header">
-		<h1 class="entry-title"><a href="/2015/05/27/portforward-to-another-webserver.html" title="Permalink to Temporary Server Portforward" rel="bookmark">Temporary Server Portforward</a></h1>
-		<div class="entry-meta">
-			<span class="sep">Posted on </span>
-			<a href="/2015/05/27/portforward-to-another-webserver.html" title="" rel="bookmark"><time class="entry-date" datetime="2015-05-27 21:30:26 +0000" pubdate>27 May 2015</time></a>
-			<span class="by-author"> 
-				<span class="sep"> by </span> 
-				<span class="author vcard">
-					Jotschi
-				</span>
-			</span>
-		</div>
-		<div class="comments-link">
-			<a href="/" title="Comment Temporary Server Portforward"><span class="leave-reply">Reply</span></a>
-		</div>
-	</header>
-	<div class="entry-content">
-		<p>Sometimes it is useful to redirect all tcp traffic to port 80 from one server to another. This can be important when you decide to change your <span class="caps">DNS</span> entries from one server to another and you don&#8217;t want to leave the old webserver server running.</p>
-<pre class="syntax escaped c">
-  echo 1 &gt; /proc/sys/net/ipv4/ip_forward
-  iptables -F
-  iptables -t nat -F
-  iptables -X
-  iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination SOURCE_IP:80
-  iptables -t nat -A POSTROUTING -p tcp -d SOURCE_IP --dport 80 -j SNAT --to-source DESTINATIONIP
-  iptables -t nat -A POSTROUTING -j MASQUERADE
-</pre>
-	</div>
-		<footer class="entry-meta">
-		<span class="cat-links">
-		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
-		<span class="sep"> | </span>
-		<span class="tag-links">
-		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/debian" rel="tag">debian</a></span>
-		<span class="sep"> | </span>
-	</footer>
-
-</article>
-
-	<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
-	<header class="entry-header">
-		<h1 class="entry-title"><a href="/2015/05/27/glusterfs-async-write.html" title="Permalink to GlusterFS / Async Writes" rel="bookmark">GlusterFS / Async Writes</a></h1>
-		<div class="entry-meta">
-			<span class="sep">Posted on </span>
-			<a href="/2015/05/27/glusterfs-async-write.html" title="" rel="bookmark"><time class="entry-date" datetime="2015-05-27 20:30:26 +0000" pubdate>27 May 2015</time></a>
-			<span class="by-author"> 
-				<span class="sep"> by </span> 
-				<span class="author vcard">
-					Jotschi
-				</span>
-			</span>
-		</div>
-		<div class="comments-link">
-			<a href="/" title="Comment GlusterFS / Async Writes"><span class="leave-reply">Reply</span></a>
-		</div>
-	</header>
-	<div class="entry-content">
-		<p>Over the weekend i decided to experiment and setup a glusterfs between my root server(plexus) and my fileserver at home(hydra).</p>
-<p>I won&#8217;t describe how to setup glustefs. There are various good guides <a href="http://www.gluster.org/community/documentation/index.php/QuickStart">available</a>.</p>
-<pre class="syntax escaped c">
-  gluster volume create gv0 replica 2 hydra:/opt/gfs/brick1/gv0 plexus:/gfs/brick1/gv0
-  gluster volume set gv0 network.ping-timeout 5
-  gluster volume start gv0
-
-  root@plexus:/gfs# mount -t glusterfs localhost:/gv0 gv0/
-  root@hydra:/gfs# mount -t glusterfs localhost:/gv0 gv0/
-</pre><p>At first glance i hoped that small writes would be cached and asynchronously flushed to the filesystem. I tried to increase the performance.cache-size and performance.write-behind-window-size option but did not succeed in increasing the write performance.</p>
-<p>As you can see the write performance is basically predetermined by my max upload speed.</p>
-<pre class="syntax escaped c">
-  # Write 1MB
-  root@hydra:/gfs/gv0# dd if=/dev/zero  of=testfile bs=1K count=1024
-  1024+0 records in
-  1024+0 records out
-  1048576 bytes (1.0 MB) copied, 3.36612 s, 312 kB/s
-</pre><p>But luckily there are branching filesystems like <a href="http://en.wikipedia.org/wiki/UnionFS">unionfs</a> that is for example used for live CDs. Such filesystems work in that way that they overlay multiple filesystems into a single virtual one.</p>
-<p>I created a new gv0-writecache folder which can be written to. The follow command creates a unionfs filesystem that is mounted to the /gv0/union folder.</p>
-<pre class="syntax escaped c">
-  mkdir -p /gfs/union
-  unionfs-fuse  -o default_permissions -o allow_other /gfs/gv0-writecache=RW:/gfs/gv0=RO /gfs/union/
-</pre><p>Succeeding writes to the union folder are now very fast and the files are stored within the /gfs/gv0-writecache folder.</p>
-<pre class="syntax escaped c">
-  root@hydra:/gfs/union# dd if=/dev/zero of=test2 bs=1M count=10
-  10+0 records in
-  10+0 records out
-  10485760 bytes (10 MB) copied, 0.0454509 s, 231 MB/s
-</pre><p>After that step we only need to make sure to sync those files from the writecache to the glusterfs mount.</p>
-<pre class="syntax escaped c">
-  root@hydra:/gfs/gv0-writecache# rsync  --remove-source-files -av /gfs/gv0-writecache/* /gfs/gv0
-</pre><p>I also tried to use aufs instead of unionfs-fuse but i got various strange errors.</p>
-	</div>
-		<footer class="entry-meta">
-		<span class="cat-links">
-		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
-		<span class="sep"> | </span>
-		<span class="tag-links">
-		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/debian" rel="tag">debian</a></span>
-		<span class="sep"> | </span>
-	</footer>
-
-</article>
-
-				</div>
-			</div>
-		</div>
-		<footer id="colophon" role="contentinfo">
-			<div id="supplementary" class="three">
-				<div id="first" class="widget-area" role="complementary">
-					<aside id="tag_cloud-2" class="widget widget_tag_cloud">
-	<h3 class="widget-title">Tags</h3>
-	<div class="tagcloud">
-		<a style='font-size: 19px' href='/tags/ati/'>ati</a>
-<a style='font-size: 19px' href='/tags/GLSL/'>GLSL</a>
-<a style='font-size: 24px' href='/tags/fglrx/'>fglrx</a>
-<a style='font-size: 16px' href='/tags/Shader/'>Shader</a>
-<a style='font-size: 16px' href='/tags/mysql/'>mysql</a>
-<a style='font-size: 16px' href='/tags/landing/'>landing</a>
-<a style='font-size: 24px' href='/tags/nasa/'>nasa</a>
-<a style='font-size: 16px' href='/tags/xorg/'>xorg</a>
-<a style='font-size: 24px' href='/tags/OpenGL/'>OpenGL</a>
-<a style='font-size: 20px' href='/tags/lenny/'>lenny</a>
-<a style='font-size: 24px' href='/tags/mars/'>mars</a>
-<a style='font-size: 16px' href='/tags/dual head/'>dual head</a>
-<a style='font-size: 19px' href='/tags/xorg.conf/'>xorg.conf</a>
-<a style='font-size: 23px' href='/tags/phoenix/'>phoenix</a>
-<a style='font-size: 26px' href='/tags/linux/'>linux</a>
-<a style='font-size: 16px' href='/tags/lxc/'>lxc</a>
-<a style='font-size: 16px' href='/tags/OSG/'>OSG</a>
-<a style='font-size: 19px' href='/tags/nasatv/'>nasatv</a>
-<a style='font-size: 22px' href='/tags/java/'>java</a>
-<a style='font-size: 30px' href='/tags/debian/'>debian</a>
-
-	</div>
-</aside>
-				</div>
-				<div id="second" class="widget-area" role="complementary">
-					<aside id="recent-posts-3" class="widget widget_recent_entries">
-	<h3 class="widget-title">Posts</h3>
-	<ul>
-		
-		<li><a href="/2015/08/12/svp-wine-linux.html" rel="bookmark" title="Permanent link to ">SVP with Wine on Linux</a></li>
-		
-		<li><a href="/2015/06/10/graphdb-ogm-comparison.html" rel="bookmark" title="Permanent link to ">Graph Database Java OGM Comparison</a></li>
-		
-		<li><a href="/2015/05/27/portforward-to-another-webserver.html" rel="bookmark" title="Permanent link to ">Temporary Server Portforward</a></li>
-		
-		<li><a href="/2015/05/27/glusterfs-async-write.html" rel="bookmark" title="Permanent link to ">GlusterFS / Async Writes</a></li>
-		
-		<li><a href="/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html" rel="bookmark" title="Permanent link to ">Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</a></li>
-		
-		<li><a href="/2014/02/07/mysql-5.6-debian-wheezy-installation.html" rel="bookmark" title="Permanent link to ">MySQL 5.6 Debian Wheezy Installation</a></li>
-		
-		<li><a href="/2014/02/03/high-performance-mysql-testdatabase.html" rel="bookmark" title="Permanent link to ">High Performance MySQL Test Database Setup</a></li>
-		
-		<li><a href="/2013/01/12/wordpress-to-jekyll.html" rel="bookmark" title="Permanent link to ">Wordpress to Jekyll Migration</a></li>
-		
-	</ul>
-</aside>
-				</div>
-				<div id="third" class="widget-area" role="complementary">
-									<aside id="categories" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
-						<ul>
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="/categories/gfx/ ">gfx</a></li>
+							<li><a href="http://jotschi.de//categories/"></a></li>
 						
-							<li><a href="/categories/technik/ ">technik</a></li>
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
 						
-							<li><a href="/categories/das kalte nichts/ ">das kalte nichts</a></li>
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
 						
-							<li><a href="/categories/fundgrube/ ">fundgrube</a></li>
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
 						
-							<li><a href="/categories/neuronensturm/ ">neuronensturm</a></li>
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
 						
-							<li><a href="/categories/life/ ">life</a></li>
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
 						
-							<li><a href="/categories/uncategorized/ ">uncategorized</a></li>
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
 						
-							<li><a href="/categories/traumzone/ ">traumzone</a></li>
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
 						
 						</ul>
-				</aside>
-				</div>
+					</li>
+				
+				</ul>
 			</div>
-		</footer>
+		</div>
+	</nav>
+
+<div class="container">
+
+<main role="main">
+
+<div class="row">
+	
+	<div class="jumbotron">
+		<h1>Jotschi&#39;s Blog</h1>
+		<p></p>
 	</div>
+</div>
+
+
+
+
+<hr />
+
+<div class="row doc-main text-center">
+	<a href="http://jotschi.de//post">See posts for Jotschi&#39;s Blog</a>
+</div>
+
+
+</main>
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,1247 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gfx on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/categories/gfx/</link>
+    <description>Recent content in Gfx on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 16 Dec 2009 01:22:24 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/categories/gfx/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>OpenGL Tesselation Techniques Comparison </title>
+      <link>http://jotschi.de/2009/12/16/opengl-tesselation-techniques-comparison/</link>
+      <pubDate>Wed, 16 Dec 2009 01:22:24 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/16/opengl-tesselation-techniques-comparison/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There is a variety of different tesselation techniques you can use within openGL. This post should give a overview over the different techniques currently available:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;{% youtube Bcalc8UoJzo %}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;1. External Library:&lt;/em&gt;
+&amp;lt;a href=&#34;http://www.cs.cmu.edu/~quake/triangle.html&#34;&amp;gt;Triangle&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pro&amp;#8217;s: More flexibel usage&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con&amp;#8217;s: Doesn&amp;#8217;t use GPU computing capabilities&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;2. Static pipeline functionality provided by GLU the GLUtesselator:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/?p=466&#34;&amp;gt;OpenGL GLU Tesselation Method Without DisplayLists&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pro&amp;#8217;s: Simple to use&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con&amp;#8217;s: Doesn&amp;#8217;t use GPU computing capabilities&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;3. Using the GL_AMD_vertex_shader_tessellator extension from AMD / ATI&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://www.opengl.org/registry/specs/AMD/vertex_shader_tessellator.txt&#34;&amp;gt;Spec: vertex_shader_tessellator&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://jotschi.de/?p=460&#34;&amp;gt;OpenGL AMD Tesselation Example (CatmullCark SubDivision) - Linux&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pro&amp;#8217;s: Does use GPU computing features&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con&amp;#8217;s: Does not work with Nvidia cards at all&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;4. Using OpenGL 3.2 Geometry Shader Extensions:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://www.opengl.org/registry/specs/EXT/geometry_shader4.txt&#34;&amp;gt;Spec: geometry_shader4&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://wiki.delphigl.com/index.php/shader_tesselation&#34;&amp;gt;&lt;a href=&#34;http://wiki.delphigl.com/index.php/shader_tesselation&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://wiki.delphigl.com/index.php/shader_tesselation&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pro&amp;#8217;s: Does use GPU computing features&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con&amp;#8217;s: GPU must Shader Model 4&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenGL GLU Tesselation Method Without DisplayLists</title>
+      <link>http://jotschi.de/2009/12/15/opengl-glu-tesselation-method-without-displaylists/</link>
+      <pubDate>Tue, 15 Dec 2009 23:23:32 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/15/opengl-glu-tesselation-method-without-displaylists/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Due to the deprecation of &#39;DisplayLists&#39; within OpenGL 3.2 i wanted to store my tessellated mesh within a structure which i could use later on. Therefor it is possible to use the GLU_TESS_VERTEX_DATA, GLU_TESS_BEGIN_DATA etc gluTessCallback hooks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;When calling the gluTessBeginPolygon method it is possible to pass a address to a own structure along as second argument. This address will be handled to the callback methods and therefor you can access your defined data structure to store the tessellated data within it. My example shows how to deal with that.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I use the &lt;a href=&#34;http://glm.g-truc.net/about.html&#34;&gt;OpenGL Mathematics Library&lt;/a&gt; to handle my points.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/tesselation/tesselation_star.png&#34; alt=&#34;tesselation_star&#34; title=&#34;tesselation_star&#34; width=&#34;240&#34; height=&#34;216&#34; class=&#34;alignnone size-full wp-image-468&#34; /&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/tesselation/tesselation_star_wire.png&#34; alt=&#34;tesselation_star_wire&#34; title=&#34;tesselation_star_wire&#34; width=&#34;232&#34; height=&#34;205&#34; class=&#34;alignnone size-full wp-image-469&#34; /&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;GL_GLUT_TesselationData.cpp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &#34;glm/glm.hpp&#34;
+using namespace std;
+
+//#define USEDISPLAYLIST
+
+GLuint startList;
+GLdouble **dataOutFinal;
+
+#ifndef USEDISPLAYLIST
+struct Mesh {
+	std::vector&amp;lt;glm::vec3&amp;gt; points;
+	GLenum type;
+} mesh;
+#endif
+
+GLdouble rect[4][3] = { 50.0, 50.0, 0.0, 200.0, 50.0, 0.0, 200.0, 140.0, 0.0,
+		50.0, 200.0, 0.0 };
+
+GLdouble star[5][6] = { 250.0, 50.0, 0.0, 1.0, 0.0, 1.0, 325.0, 200.0, 0.0,
+		1.0, 1.0, 0.0, 400.0, 50.0, 0.0, 0.0, 1.0, 1.0, 250.0, 150.0, 0.0, 1.0,
+		0.0, 0.0, 400.0, 150.0, 0.0, 0.0, 1.0, 0.0 };
+
+void display(void) {
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 0.5, 1.0);
+
+	// Enable this to see the wireframe
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+#ifndef USEDISPLAYLIST
+	vector&amp;lt;glm::vec3&amp;gt;::const_iterator cii;
+	glBegin(mesh.type);
+	for (cii = mesh.points.begin(); cii != mesh.points.end(); cii++) {
+		glVertex3f((*cii).x, (*cii).y, (*cii).z);
+		printf(&#34;Result: %f,%f,%f\n&#34;, (*cii).x, (*cii).y, (*cii).z);
+	}
+	glEnd();
+#else
+	glCallList(startList);
+#endif
+
+	glFlush();
+}
+
+void beginCallback(GLenum which, void *resultMesh) {
+	printf(&#34;Type: %i\n&#34;, which);
+#ifdef USEDISPLAYLIST
+	glBegin(which);
+#else
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).type = which;
+#endif
+
+}
+
+void errorCallback(GLenum errorCode) {
+	const GLubyte *estring;
+	estring = gluErrorString(errorCode);
+	fprintf(stderr, &#34;Tessellation Error: %s\n&#34;, estring);
+	exit(0);
+}
+
+void endCallback(void *tessellationSetAddress) {
+#ifdef USEDISPLAYLIST
+	glEnd();
+#endif
+}
+
+void vertexCallback(GLvoid *data, void *resultMesh) {
+	const GLdouble *pointer;
+	pointer = (GLdouble *) data;
+#ifdef USEDISPLAYLIST
+	glColor3dv(pointer + 3);
+	glVertex3dv(pointer);
+#else
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).points.push_back(glm::vec3(pointer[0], pointer[1], pointer[2]));
+#endif
+	printf(&#34;Added new vertex[%f][%f][%f]\n&#34;, pointer[0], pointer[1], pointer[2]);
+
+}
+
+void combineCallback(GLdouble coords[3], GLdouble *vertex_data[4],
+		GLfloat weight[4], GLdouble **dataOut, void *resultMesh) {
+
+	GLdouble *vertex;
+	vertex = (GLdouble *) malloc(6 * sizeof(GLdouble));
+	vertex[0] = coords[0];
+	vertex[1] = coords[1];
+	vertex[2] = coords[2];
+
+#ifndef USEDISPLAYLIST
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).points.push_back(glm::vec3(vertex[0], vertex[1], vertex[2]));
+#endif
+	printf(&#34;Added combine vertex[%f][%f][%f]\n&#34;, vertex[0], vertex[1],
+			vertex[2]);
+
+	*dataOut = vertex;
+
+}
+
+void init(void) {
+	GLUtesselator *tobj;
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+
+	tobj = gluNewTess();
+	gluTessCallback(tobj, GLU_TESS_VERTEX_DATA, (void(*)()) vertexCallback);
+	gluTessCallback(tobj, GLU_TESS_BEGIN_DATA, (void(*)()) beginCallback);
+	gluTessCallback(tobj, GLU_TESS_END_DATA, (void(*)()) endCallback);
+	gluTessCallback(tobj, GLU_TESS_ERROR, (void(*)()) errorCallback);
+	gluTessCallback(tobj, GLU_TESS_COMBINE_DATA, (void(*)()) combineCallback);
+
+#ifdef USEDISPLAYLIST
+	startList = glGenLists(1);
+	glNewList(startList, GL_COMPILE);
+#endif
+
+	glShadeModel(GL_SMOOTH);
+	gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_POSITIVE);
+
+#ifdef USEDISPLAYLIST
+	gluTessBeginPolygon(tobj, NULL);
+#else
+	gluTessBeginPolygon(tobj, &amp;amp;mesh);
+#endif
+
+	/*
+	 gluTessBeginContour(tobj);
+	 gluTessVertex(tobj, rect[0], rect[0]);
+	 gluTessVertex(tobj, rect[1], rect[1]);
+	 gluTessVertex(tobj, rect[2], rect[2]);
+	 gluTessVertex(tobj, rect[3], rect[3]);
+	 gluTessEndContour(tobj);
+	 */
+
+	gluTessBeginContour(tobj);
+	gluTessVertex(tobj, star[0], star[0]);
+	gluTessVertex(tobj, star[1], star[1]);
+	gluTessVertex(tobj, star[2], star[2]);
+	gluTessVertex(tobj, star[3], star[3]);
+	gluTessVertex(tobj, star[4], star[4]);
+	gluTessEndContour(tobj);
+
+	gluTessEndPolygon(tobj);
+
+#ifdef USEDISPLAYLIST
+	glEndList();
+#endif
+	gluDeleteTess(tobj);
+
+	printf(&#34;Done\n&#34;);
+
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
+}
+
+void keyboard(unsigned char key, int x, int y) {
+	switch (key) {
+	case 27:
+		exit(0);
+		break;
+	}
+}
+
+int main(int argc, char** argv) {
+	glutInit(&amp;amp;argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 500);
+	glutCreateWindow(argv[0]);
+	init();
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutKeyboardFunc(keyboard);
+	glutMainLoop();
+	return 0;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Texture Array Example And Clamp to Border Ati Issue Example</title>
+      <link>http://jotschi.de/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/</link>
+      <pubDate>Thu, 08 Oct 2009 22:00:39 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY&amp;#8217;s it might also be interessting for someone who want&amp;#8217;s to know how to set a texture uniform (sampler2d) or (sampler2darray).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The specification for texture arrays can be found here: &amp;lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&#34;&amp;gt;&lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&lt;/a&gt;;. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-396&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;b&amp;gt;Update - Note: &amp;lt;/b&amp;gt;
+Compile with:
+&amp;lt;blockquote&amp;gt;g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp&amp;lt;/blockquote&amp;gt;
+Get sources and libs:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;apt-get install libglut3 libglut3-dev libglew1.5 libglew1.5-dev&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;b&amp;gt;Update:&amp;lt;/b&amp;gt;
+I just developed an workaround for this issue by adding clamp to border by myself to the shader:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#extension GL_EXT_gpu_shader4 : enable
+
+uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+
+		vec4 borderColor =vec4(0.1,0.7,0.2,0.1);
+		if(texCoord.s&amp;lt;1 &amp;amp;&amp;amp; texCoord.s &amp;gt;0 &amp;amp;&amp;amp; texCoord.t &amp;lt;1 &amp;amp;&amp;amp; texCoord.t &amp;gt;0)
+		{
+			borderColor		= texture2DArray(base_texture, vec3(texCoord.st,1));
+		}
+		gl_FragColor = borderColor;
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;NOARRAY - not definied&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:
+&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; width=&#34;412&#34; height=&#34;327&#34; class=&#34;alignnone size-full wp-image-397&#34; /&amp;gt;
+The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;NOARRAY - definied&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:
+&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; width=&#34;392&#34; height=&#34;292&#34; class=&#34;alignnone size-full wp-image-398&#34; /&amp;gt;
+As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the complete example sources: &amp;lt;a href=&#34;http://jotschi.de/downloads/opengl/opengl_texture_array_glsl_example.tgz&#34;&amp;gt;opengl_texture_array_glsl_example.tgz&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader_array.frag:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		vec4 base_color		= texture2DArray(base_texture, vec3(texCoord.st*vec2(0.5,1.5), 0));
+		gl_FragColor = color * base_color;
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader_simple.frag:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		//vec2 texCoord = vec2(1.0,0.5);
+		vec4 base_color = texture2D(base_texture, texCoord);
+		gl_FragColor = color * base_color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader.vert:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec2 texCoord;
+void main()
+{
+    texCoord = vec2(gl_MultiTexCoord0);
+	gl_Position = ftransform();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;GL/glew.h&amp;gt;
+#include &amp;lt;GL/gl.h&amp;gt;
+#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &#34;textfile.h&#34;
+
+#define NOARRAY
+
+#define	checkImageWidth 64
+#define	checkImageHeight 64
+static GLubyte checkImage[checkImageHeight][checkImageWidth][4];
+
+char *VertexShaderSource, *FragmentShaderSource;
+
+int VertexShader, FragmentShader;
+
+int ShaderProgram;
+
+GLfloat angle = 0.0;
+
+GLuint texture;
+
+void makeCheckImage(void) {
+	int i, j, c;
+
+	for (i = 0; i &amp;lt; checkImageHeight; i++) {
+		for (j = 0; j &amp;lt; checkImageWidth; j++) {
+			c = ((((i &amp;amp; 0x8) == 0) ^ ((j &amp;amp; 0x8)) == 0)) * 255;
+			checkImage[i][j][0] = (GLubyte) c;
+			checkImage[i][j][1] = (GLubyte) c;
+			checkImage[i][j][2] = (GLubyte) c;
+			checkImage[i][j][3] = (GLubyte) 255;
+		}
+	}
+}
+
+GLuint LoadTexture() {
+	GLuint texture;
+	makeCheckImage();
+	glGenTextures(1, &amp;amp;texture);
+
+	GLfloat borderColor[4] = { 1.0, 1.0, 1.0, 1.0 };
+#ifdef NOARRAY
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth, checkImageHeight,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+#else
+	glBindTexture(GL_TEXTURE_2D_ARRAY_EXT, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+	glTexImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, GL_RGBA, checkImageWidth,
+			checkImageHeight, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 0, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 1, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+
+#endif
+
+	return texture;
+}
+
+void FreeTexture(GLuint texture) {
+	glDeleteTextures(1, &amp;amp;texture);
+}
+
+void Lighting(void) {
+	GLfloat LightPosition[] = { 0.0, 0.0, 5.0, 1.0 };
+
+	GLfloat DiffuseLight[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientLight[] = { 1.0, 1.0, 1.0 };
+	GLfloat SpecularLight[] = { 1.0, 1.0, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+
+	GLfloat mShininess[] = { 8 };
+
+	GLfloat DiffuseMaterial[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientMaterial[] = { 0.3, 0.3, 0.3 };
+	GLfloat SpecularMaterial[] = { 1.0, 1.0, 1.0 };
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+}
+
+void display(void) {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	Lighting();
+	glTranslatef(0, 0, -5);
+	glRotatef(angle, 1, 1, 1);
+	glRotatef(angle, 0, 1, 1);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	int texture_location = glGetUniformLocationARB(ShaderProgram,
+			&#34;base_texture&#34;);
+	if (texture_location == -1) {
+		printf(&#34;Notfound\n&#34;);
+	}
+	glUniform1iARB(texture_location, 0);
+
+	// Disabled glsl fallback
+	//glEnable(GL_TEXTURE_2D);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(-2.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(-2.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(0.0, -1.0, 0.0);
+
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(1.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(1.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(2.41421, 1.0, -1.41421);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(2.41421, -1.0, -1.41421);
+	glEnd();
+	glFlush();
+
+	glutSolidTeapot(1);
+	glutSwapBuffers();
+	//angle += 0.5;
+}
+
+void InitShader(void) {
+
+	VertexShader = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
+	FragmentShader = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
+	VertexShaderSource = textFileRead(&#34;shader.vert&#34;);
+#ifdef NOARRAY
+	FragmentShaderSource = textFileRead(&#34;shader_simple.frag&#34;);
+#else
+	FragmentShaderSource = textFileRead(&#34;shader_array.frag&#34;);
+#endif
+
+	const char * VS = VertexShaderSource;
+	const char * FS = FragmentShaderSource;
+
+	glShaderSourceARB(VertexShader, 1, &amp;amp;VS, NULL);
+	glShaderSourceARB(FragmentShader, 1, &amp;amp;FS, NULL);
+
+	glCompileShaderARB(VertexShader);
+	glCompileShaderARB(FragmentShader);
+
+	ShaderProgram = glCreateProgramObjectARB();
+
+	glAttachObjectARB(ShaderProgram, VertexShader);
+	glAttachObjectARB(ShaderProgram, FragmentShader);
+
+	glLinkProgramARB(ShaderProgram);
+	glUseProgramObjectARB(ShaderProgram);
+}
+
+void DeInitShader(void) {
+	glDetachObjectARB(ShaderProgram, VertexShader);
+	glDetachObjectARB(ShaderProgram, FragmentShader);
+
+	glDeleteObjectARB(ShaderProgram);
+}
+
+void Init(void) {
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	texture = LoadTexture();
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60, (GLfloat) w / (GLfloat) h, 0.1, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+int main(int argc, char **argv) {
+	glutInit(&amp;amp;argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow(&#34;Ati texture array clamp issue example&#34;);
+	glewInit();
+	InitShader();
+	Init();
+	glutDisplayFunc(display);
+	glutIdleFunc(display);
+	glutReshapeFunc(reshape);
+	glutMainLoop();
+	DeInitShader();
+	return 0;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;textfile.cpp:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;malloc.h&amp;gt;
+#include &amp;lt;fcntl.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+
+
+char *textFileRead(char *fn) {
+
+
+	FILE *fp;
+	char *content = NULL;
+
+	int f,count;
+	f = open(fn, O_RDONLY);
+
+	count = lseek(f, 0, SEEK_END);
+
+	close(f);
+
+	if (fn != NULL) {
+		fp = fopen(fn,&#34;rt&#34;);
+
+		if (fp != NULL) {
+
+
+			if (count &amp;gt; 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = &#39;\0&#39;;
+			}
+			fclose(fp);
+		}
+	}
+	return content;
+}
+
+int textFileWrite(char *fn, char *s) {
+
+	FILE *fp;
+	int status = 0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,&#34;w&#34;);
+
+		if (fp != NULL) {
+
+			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
+				status = 1;
+			fclose(fp);
+		}
+	}
+	return(status);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;textfile.h:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;char *textFileRead(char *fn);
+int textFileWrite(char *fn, char *s);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GLSL shader to handle multiple projections onto the same surface</title>
+      <link>http://jotschi.de/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface/</link>
+      <pubDate>Mon, 17 Aug 2009 23:20:56 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For my project &amp;lt;a href=&#34;http://www.jotschi.de/?page_id=320&#34;&amp;gt;Generating City Models By Using Panorama Images&amp;lt;/a&amp;gt; i have to write a fragment shader that handles multiple projections onto the same surface. The shader must contain condition in which the projection should be handled. In my case i had to decide which projection source should be used to texture the desired model. &amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-363&#34;&amp;gt;&amp;lt;/a&amp;gt;
+I didn&amp;#8217;t want to do alpha blending of each texture. I wanted that only the projection source will be used that would produce the best projection image. For a good projection the angle of which the projection &#39;light&#39; falls onto the surface must be very low. The second parameter is the distance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For example, imagine a scene with 20 projection sources. One source is very near the target surface but the angle in which the &#39;light&#39; falls onto the surface is very big so the texture produced by such a source wouldn&amp;#8217;t be that good. Instead there is another projection source which&amp;#8217;s projections angle is very low but the distance is larger than that of the near source. My shader will now pick the second projection source because the first does not match its condtions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Draft of my target shader:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform int nTextures;
+uniform sampler2DArray textures;
+uniform vec3[] projectPos;
+varying vec3 glPos;
+varying vec3 normalVec;
+void main() {
+  int currentTexture=0;
+  float minAngle = 360.0f;
+  float angleThreshold = 10.0f;
+ // Select the texture with the lowest angle
+  for(int i =0; i &amp;lt;nTextures; i++){
+   float alpha = texture2DArray(textures,vec3(gl_TexCoord[0].xy, i)).a;
+   if(alpha != 1.0f) {
+     //TODO check calculation of projDirection
+      vec3 projDirection =(projectPos-glPos);
+      float angle = dot(normalVec,projDirection*-1);
+      if(angle&amp;lt;minAngle) {
+          minAngle = angle;
+      }
+    }
+  }
+  float minDistance= -1.0f;
+  // Select the texture with the lowest distance among those around the lowest angle
+  for(i=0; i &amp;lt;nTextures; i++){
+   float alpha = texture2DArray(textures,vec3(gl_TexCoord[0].xy, i)).a;
+   // Condition 1: Must be visible
+   if (alpha != 1.0f) {
+     //TODO check calculation of projDirection
+     vec3 projDirection =( projectPos-glPos);
+     float angle = dot(normalVec,projDirection);
+     // Condition 2: The angle must be between +-10.0f of the lowest angle
+     if(angle&amp;lt;(minAngle+angleThreshold) || angle&amp;gt;(minAngle+angleThreshold)) {
+     // TODO check calculation of distance between both points within RÂ³
+    float dx = projectPos[i].x - glPos.x;
+  float dy = projectPos[i].y - glPos.y;
+  float dz = projectPos[i].z - glPos.z;
+  float d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    // select the texture with the lowest distance
+    if(d&amp;lt;minDistance || minDistance  ==-1.0f)  {
+          minDistance = d;
+          currentTexture = i;
+    }
+        }
+   }
+  }
+gl_FragColor = texture2DArray(textures,vec3(gl_TexCoord[0].xy, currentTexture));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Maybe there is a better way to check if the given sample contains a texture value at the given texture coordinate than checking its alpha value.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I use a uniform to handle the size of the sampler2DArray textures array. Maybe you can extract that information within the shader&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I use uniform vec3[] projectPos; to handle over the positions of the projection sources. Maybe this can be stored in the build in gl_LightSource array?&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenPhotoVR</title>
+      <link>http://jotschi.de/2009/06/11/openphotovr/</link>
+      <pubDate>Thu, 11 Jun 2009 10:46:27 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/06/11/openphotovr/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;While searching for a solution to get mono and silverlight and the whole M$ stuff working under my debian installation i just found &amp;lt;a href=&#34;http://openphotovr.org/#a90&#34;&amp;gt;OpenPhotoVR&amp;lt;/a&amp;gt;. OpenPhotoVR is a pseudo-3D photo browser using Flash instead of silverlight. However the matching of the images is not done automatically.&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-294&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;object width=&#34;400&#34; height=&#34;300&#34;&amp;gt;
+&amp;lt;param name=&#34;movie&#34; value=&#34;http://openphotovr.org/main.swf&#34;&amp;gt;&amp;lt;/param&amp;gt;
+&amp;lt;param name=&#34;FlashVars&#34; value=&#34;id=a299&#34;&amp;gt;&amp;lt;/param&amp;gt;
+&amp;lt;embed src=&#34;http://openphotovr.org/main.swf&#34;   FlashVars=&#34;id=a299&#34;   type=&#34;application/x-shockwave-flash&#34;     width=&#34;400&#34; height=&#34;300&#34; &amp;gt;&amp;lt;/embed&amp;gt;
+&amp;lt;/object&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;{% youtube 0f5NuHzGXJA %}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Since the &amp;lt;a href=&#34;http://phototour.cs.washington.edu/bundler/&#34;&amp;gt;bundler code&amp;lt;/a&amp;gt; which is used to match images in images is free it should be possible to create an automatically way of matching the images.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Projective Textures with OpenSceneGraph</title>
+      <link>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</link>
+      <pubDate>Sun, 31 May 2009 21:55:15 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get projective textures working using GLSL shaders rather than fixed pipeline functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;Projective Texturing Example&#34; /&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;osg/Notify&amp;gt;
+#include &amp;lt;osg/MatrixTransform&amp;gt;
+#include &amp;lt;osg/ShapeDrawable&amp;gt;
+#include &amp;lt;osg/PositionAttitudeTransform&amp;gt;
+#include &amp;lt;osg/Geometry&amp;gt;
+#include &amp;lt;osg/Texture2D&amp;gt;
+#include &amp;lt;osg/Geode&amp;gt;
+#include &amp;lt;osg/LightSource&amp;gt;
+#include &amp;lt;osg/TexGenNode&amp;gt;
+#include &amp;lt;osg/TexMat&amp;gt;
+#include &amp;lt;osgDB/WriteFile&amp;gt;
+#include &amp;lt;osgUtil/Optimizer&amp;gt;
+#include &amp;lt;osgDB/Registry&amp;gt;
+#include &amp;lt;osgDB/ReadFile&amp;gt;
+#include &amp;lt;osgViewer/Viewer&amp;gt;
+
+osg::StateSet* createProjectorState() {
+
+	osg::StateSet* stateset = new osg::StateSet;
+
+	/* 1. Load the texture that will be projected */
+	osg::Texture2D* texture = new osg::Texture2D();
+	texture-&amp;gt;setImage(osgDB::readImageFile(&#34;foo.jpg&#34;));
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_BORDER);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texture, osg::StateAttribute::ON);
+
+	// set up tex gens
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_S,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_T,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_R,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_Q,
+	osg::StateAttribute::ON);
+
+	/* 2. Load the Shaders */
+	osg::ref_ptr&amp;lt;osg::Program&amp;gt; projProg(new osg::Program);
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projvertexShader(osg::Shader::readShaderFile(
+			osg::Shader::VERTEX, &#34;VertexShader.glsl&#34;));
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projfragShader(osg::Shader::readShaderFile(
+			osg::Shader::FRAGMENT, &#34;FragmentShader.glsl&#34;));
+	projProg-&amp;gt;addShader(projvertexShader.get());
+	projProg-&amp;gt;addShader(projfragShader.get());
+
+	/* 3. Handover the texture to the fragment shader via uniform */
+	osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,
+			&#34;projectionMap&#34;);
+	texUniform-&amp;gt;set(1);
+	stateset-&amp;gt;addUniform(texUniform);
+
+	/* 4. set Texture matrix*/
+	osg::TexMat* texMat = new osg::TexMat;
+	osg::Matrix mat;
+	osg::Vec3 projectorPos = osg::Vec3(0.0f, 0.0f, 324.0f);
+	osg::Vec3 projectorDirection = osg::Vec3(osg::inDegrees(0.0f),
+			osg::inDegrees(280.0f), osg::inDegrees(-460.0f));
+	float projectorAngle = 110;
+	osg::Vec3 up(0.0f, 0.0f, 1.0f);
+	mat = osg::Matrixd::lookAt(projectorPos, projectorPos + projectorDirection,
+			up) * osg::Matrixd::perspective(projectorAngle, 1.0, 0.1, 100);
+	texMat-&amp;gt;setMatrix(mat);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texMat, osg::StateAttribute::ON);
+
+	stateset-&amp;gt;setAttribute(projProg.get());
+	return stateset;
+}
+osg::Node* createModel() {
+	osg::Group* root = new osg::Group;
+
+	/* Load the terrain which will be the receiver of out projection */
+	osg::Node* terr = osgDB::readNodeFile(&#34;Terrain2.3ds&#34;);
+	osg::Image* shot = new osg::Image();
+
+	/* Scale the terrain and move it. */
+	osg::Matrix m;
+	osg::ref_ptr&amp;lt;osg::MatrixTransform&amp;gt; mt = new osg::MatrixTransform;
+	m.makeTranslate(112.f, 410.f, -2.f);
+	m.makeScale(2.f, 2.f, 2.f);
+	mt-&amp;gt;setMatrix(m);
+	mt-&amp;gt;addChild(terr);
+
+	/* Add the transformed node to our graph */
+	root-&amp;gt;addChild(mt.get());
+
+	/* Enable projective texturing for all objects of this node */
+	root-&amp;gt;setStateSet(createProjectorState());
+	return root;
+}
+int main(int, char **) {
+	osgViewer::Viewer viewer;
+	viewer.setSceneData(createModel());
+	viewer.setUpViewInWindow(0, 0, 1024, 768);
+	return viewer.run();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Fragment Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D projectionMap;
+varying vec4 projCoord;
+void main()
+{
+	vec4 dividedCoord = projCoord / projCoord.w ;
+	vec4 color =  texture2D(projectionMap,dividedCoord.st);
+  	gl_FragColor =	 color * gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Vertex Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec4 projCoord;
+void main()
+{
+     	projCoord = gl_TextureMatrix[1] * gl_Vertex;
+		gl_Position = ftransform();
+		gl_FrontColor = gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Automated, Scalable, Airborne Only, 3D Modeling </title>
+      <link>http://jotschi.de/2009/04/23/automated-scalable-airborne-only-3d-modeling/</link>
+      <pubDate>Thu, 23 Apr 2009 22:58:44 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/04/23/automated-scalable-airborne-only-3d-modeling/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just found this page which describes methods of 3D City Modeling. They use airborn and ground based lasers to get the geometric information that is needed to complete the model. Keep in mind that Google StreetView Cars are also equiped with lidar.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://www-video.eecs.berkeley.edu/~avz/aironly.htm&#34; class=&#34;bare&#34;&gt;http://www-video.eecs.berkeley.edu/~avz/aironly.htm&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Also take a look at this interesting techtalk:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://video.google.com/videoplay?docid=1783762882645705066&amp;amp;ei=P9XwSe2fJJ7e2gL3kJWxDA&amp;amp;q=Avideh+Zakhor&amp;amp;hl=en&amp;amp;client=iceweasel-a&#34; class=&#34;bare&#34;&gt;http://video.google.com/videoplay?docid=1783762882645705066&amp;amp;ei=P9XwSe2fJJ7e2gL3kJWxDA&amp;amp;q=Avideh+Zakhor&amp;amp;hl=en&amp;amp;client=iceweasel-a&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Removal of Humans In Motion Pictures</title>
+      <link>http://jotschi.de/2009/01/04/removal-of-humans-in-motion-pictures/</link>
+      <pubDate>Sun, 04 Jan 2009 00:16:18 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/01/04/removal-of-humans-in-motion-pictures/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;What do we need to remove a person from a video source?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At first we have to identify the person in the video. This could be done by using face tracking.
+{% youtube 5sPh6-J9wOA %}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once the location of a face of a moving person is identified within the video source we can outline the persons body. The outline of the person can be estimated by analyzing the optical flow of the video source. The corresponding pixels of the head that was pinpointed by using face tracking will most likely move with the same direction and speed as the pixels from other body parts. The background of the person can be used as a static plane by analyzing the camera movements. Once the background has been defined an estimation of the persons outline is more reliable because in the most cases the motion and direction of the background pixels and the motion and direction of the persons pixels vary.
+Moreover it is also possible to use depth estimation of the image to extrapolate different layers of the image that could be assigned to the person or the background to support the identification of the persons pixels.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once the person has been identified the person can be removed and the gap can be filled by using texture synthesis.
+{% youtube fWwy2gZuD6E %}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Harry Shum - Microsoft Research Asia&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;In fact is is also possible to fill the gap of the person by using pixel areas from subsequent frames were no person was covering the same area. This approach is illustrated here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.vision.huji.ac.il/demos/removal/removal.html&#34; class=&#34;bare&#34;&gt;http://www.vision.huji.ac.il/demos/removal/removal.html&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Inflatable VR hemisphere</title>
+      <link>http://jotschi.de/2008/01/21/inflatable-vr-hemisphere/</link>
+      <pubDate>Mon, 21 Jan 2008 03:18:58 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/01/21/inflatable-vr-hemisphere/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using an inflatable hemisphere as base for a virtual reality cave is in my mind a very good idea because you don&amp;#8217;t need any structures that stabilize the cave and you might only need one beamer to get a full 360° view shown inside the cave. This is done by projecting the image from above the cave onto its material.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-107&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The movie gives a brief impression of what iam talking:
+{% youtube 3llN2gHXDC4 %}&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Virtual Reality Freedom</title>
+      <link>http://jotschi.de/2008/01/20/virtual-reality-freedom/</link>
+      <pubDate>Sun, 20 Jan 2008 22:29:49 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/01/20/virtual-reality-freedom/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using robotic features and neuronal sensors it should be possible to create a robot that react on movements to simulate movement while realy &#34;standing still&#34; on the ground. Combined with virtual retinal displays or cyber glasses you could realy move inside the virtual reality without controling the movements of your virtual reality avatar by buttons or something else.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;{% youtube 14C2bDrZr4I %}&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lighthouse GDG2 Projekt SS07</title>
+      <link>http://jotschi.de/2007/07/27/lighthouse-gdg2-projekt-ss07/</link>
+      <pubDate>Fri, 27 Jul 2007 02:28:55 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2007/07/27/lighthouse-gdg2-projekt-ss07/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Lighthouse ist eine Anwendung die ich zusammen mit Manuel Deil im Zuge meines Studium als Projektaufgabe entwickeln musste. &amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-83&#34;&amp;gt;&amp;lt;/a&amp;gt;
+Screenshot:
+&amp;lt;a href=&#39;http://jotschi.de/images/lighthouse/bildschirmfoto.png&#39; title=&#39;Screenshot&#39;&amp;gt;&amp;lt;img src=&#39;http://jotschi.de/images/lighthouse/bildschirmfoto.thumbnail.png&#39; alt=&#39;Screenshot&#39; /&amp;gt;&amp;lt;/a&amp;gt;
+Es handelt sich hierbei um eine Anwendung, die die Prinzipien des Schattenwurfs von verschiedenen Objekten und verschiedenen Lichtquellen verdeutlichen soll.
+Wir haben uns hierbei auf drei Lichtquellen beschränkt.
+(Single Light) - punktförmige Lichtquelle
+(Dual Light)  - zwei punktförmige Lichtquellen
+(Area Light) - flächenförmige Lichtquelle&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Als technische Grundlage für dieses Projekt habe ich einen Java OpenGL Wrapper benutzt (JOGL). Hierbei verwendete ich &amp;lt;a href=&#34;http://xith.org/&#34; target=_new&amp;gt;Xith&amp;lt;/a&amp;gt; als Scenengraph und API für Hilfsfunktionen. An dieser Stelle möchte ich ein dickes Lob an die Xith Community los werden denn ohne deren rasche Hilfe wäre ich nicht fertig geworden. Die Funktionen für den Schattenwurf habe ich komplett selber implementiert. Allerdings muss ich dazu sagen das es an einigen Stellen noch Probleme gibt. Aufgrund von bestimmten Aspekten unseres Programms (z.B. zwei überlagernde Schatten) musste ich von der typischen Stencilbuffer-technik abweichen. Daher empfehle ich den jenigen die sich für Shadowcasting in 3D Anwendungen interessieren sich kein Beispiel an meiner Implementierung zunehmen. Allein schon für die Bestimmung der Siluette gibt es wesentlich effizientere Methoden.
+Ich habe eine Methode verwendet die in diesem PDF beschrieben wird: &amp;lt;a href=&#34;http://www.scherfgen-software.net/downloads/book/excerpt.pdf&#34; target=_new&amp;gt;Link&amp;lt;/a&amp;gt;
+Eine effizientere Methode wird von Tom Hall in diesem Paper beschrieben: &amp;lt;a href=&#34;http://www.geocities.com/tom_j_hall/SilhouetteTracking.pdf&#34; target=_new&amp;gt;Link&amp;lt;/a&amp;gt;
+Die dort beschrieben Methode basiert auf &amp;lt;em&amp;gt;Markosian&amp;#8217;s Randomized silhouette&amp;lt;/em&amp;gt; Algorithmus. Wenn mich nicht alles täuscht verwendet die Occluder Klasse von Xith genau diesen Algorithmus. Allerdings funktioniert die dort enthaltene Implementierung im Moment (07/2007) aufgrund von API Changes nicht.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/downloads/lighthouse/lighthouse.7z&#34; target=_new&amp;gt;Download Lighthouse incl. src&amp;lt;/a&amp;gt;
+Das Archiv enthält Lighthouse welches lauffähig unter Linux und Windows ist. Macintosh Support ist vorhanden aber wurde nicht getestet.
+Die verwendete XithAPI ist nicht enthalten. Zur Entwicklung verwendete ich einen SVN Trunk von 07/2007. Ein neuerer Trunk wird wahrscheinlich viele API Changes enthalten. Diese sind in Xith Forum allerdings sehr gut dokumentiert.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phantasinator</title>
+      <link>http://jotschi.de/2007/03/31/phantasinator/</link>
+      <pubDate>Sat, 31 Mar 2007 15:57:54 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2007/03/31/phantasinator/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Der Phantasinator? Was mag das sein? Ein hochmodernes Gerät welches einem die tollsten Dinge vorgaukelt? Oder vielleicht ein neuer Superheld?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Nein, eigentlich ist es nur der Titel für diesen Blogeintrag.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Was soll man machen wenn einem die Ideen ausgehen? Was soll man tun wenn man schon glaubt alle Phantasie und Kreativität verloren zu haben?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Ich habe zwei Methoden gefunden die einem in einem solchen Fall nützlich sein können.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;li&amp;gt;1. Methode&amp;lt;/li&amp;gt;
+Bei dieser Methode verwenden wir 3D Studio Max oder jede andere 3D Software. Mit etwas Arbeit würde es sogar in Photoshop gehen. (ist aber nicht so praktisch)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Zuerst erstellst du einen Quader. Es könnte auch irgendein anderes beliebiges Objekt sein. Wichtig ist hierbei nur das es relativ viel Geometrie enthält, da diese nacher von Bedeutung ist.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/phantasinator/3dsmax_basis.png&#34; title=&#34;3D Studio Max #1&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/phantasinator/3dsmax_basis.thumbnail.png&#34; alt=&#34;3D Studio Max #1&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Jetzt erhält der Quader einen &#34;Noise Modifizer&#34; um die Geometrie zu stören. Hierbei muss man etwas experimentieren bis das gewünschte Ziel (siehe Bild) erreicht worden ist. Wichtig ist hierbei das die Geometrie animiert wird.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/phantasinator/3dsmax_chaos.png&#34; title=&#34;3D Studio Max #3&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/phantasinator/3dsmax_chaos.thumbnail.png&#34; alt=&#34;3D Studio Max #3&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Als nächstes musst du den Blur passend einstellen. Dazu einfach Rechtsklick auf dein Objekt und Eigenschaften auswählen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/phantasinator/3dsmax_blur.png&#34; title=&#34;3D Studio Max #2&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/phantasinator/3dsmax_blur.thumbnail.png&#34; alt=&#34;3D Studio Max #2&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Alles fertig? Dann empfiehlt es sich die komplette Sequenz in Einzelbildern herraus zu rendern. So kannst du später dir alle Bilder nach und nach anschauen und nach Strukturen etc. suchen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/phantasinator/2_m1.png&#34; title=&#34;Blur #2&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/phantasinator/2_m1.thumbnail.png&#34; alt=&#34;Blur #2&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/phantasinator/1_m1.png&#34; title=&#34;Blur #1&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/phantasinator/1_m1.thumbnail.png&#34; alt=&#34;Blur #1&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/phantasinator/3_komplex_m1.png&#34; title=&#34;Blur #4&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/phantasinator/3_komplex_m1.thumbnail.png&#34; alt=&#34;Blur #4&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Es bietet sich auch an das Objekt zu clonen und zu verschieben. Zusätzlich sollte aber auch die Animation angepasst werden.
+&amp;lt;a href=&#34;http://jotschi.de/images/phantasinator/3_komplex_farbe_m1.png&#34; rel=&#34;attachment wp-att-34&#34; title=&#34;Blur #3&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/phantasinator/3_komplex_farbe_m1.thumbnail.png&#34; alt=&#34;Blur #3&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Je nach Farbe erhält man auch etwas düstere Bilder.
+&amp;lt;a href=&#34;http://jotschi.de/images/phantasinator/xarlphibien.jpg&#34; title=&#34;Xarlphibien&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/phantasinator/xarlphibien.thumbnail.jpg&#34; alt=&#34;Xarlphibien&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;li&amp;gt;2. Methode&amp;lt;/li&amp;gt;
+Alles was du bei dieser Methode brauchst sind ein paar Textmarker, etwas Papier, ein Scanner und ein Computer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Zuerst schraffierst du ein wenig mit den Textmarkern auf dem Papier. Hier kannst du die Breite der Schraffur variieren. Wiederhol das ganze bist du ca vier bis fünf 4x4cm große interessante Strukturflächen hast. Diese Strukturen werden eingescannt und in Photoshop als Layer übereinander gelegt. Jetzt varrierst du solange die Überblendungsarten und stärke der Überlagerungen, sowie Kontrast der Layer und deren Position, bis du ein interessantes Bild erhälst. In diesem Bild kannst du nun nach verborgenen Strukturen suchen. Wenn du fündig geworden bist kannst du sie in Photoshop direkt weiter herrausarbeiten oder du druckst dir dein Bild aus und begibst dich mit &#34;per Hand&#34; ans Werk.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Alternativ kann ich euch auch zusätzlich nur noch das in die Wolken schauen ans Herz legen.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Demis Maps Java Tool</title>
+      <link>http://jotschi.de/2007/03/05/demis-maps-java-tool/</link>
+      <pubDate>Mon, 05 Mar 2007 02:35:52 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2007/03/05/demis-maps-java-tool/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Demis_Maps ist ein kleines Java Tool um Demis Maps mithilfe einer KMZ/KML von Google Earth für TTMM aufzubereiten.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;TTMM  (Tom Tom Moving Map) ist ein TomTom Plugin zum darstellen von Rasterkarten. Somit ist es möglich irgendwelche Karten die man selbst erstellt hat innerhalb von TomTom zu verwenden. Es ist sogar möglich Google Earth mittels Tomtom und TTMM auf einem PocketPC zu simulieren. Dies ist jedoch je nach Umfang mit enormem Aufwand verbunden.
+Demis Maps sind jedoch keine Satellitenbilder sondern eher Topografische Karten.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Durch die KMZ/KML aus Google Earth ist es möglich einen Bereich zu definieren dieser Bereich wird in einzelnen Teilkarten herruntergeladen um so eine relativ höhere Auflösung zu erreichen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Unter demis.nl kann man einen Blick auf die möglichen Kartenvarienten werfen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Anleitung:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Zipfile irgendwohin entpacken&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Google Earth starten und dort ein Bildoverlay hinzufügen. (irgendein Bild wählen)
+Das Bildoverlay dient nur dazu das demis_maps weiß welchen Bereich es später herrunterladen soll.
+Dieses Overlay im Ordner wo sich demis_maps befindet abspeichern.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mittels Console in jenes Verzeichnis wechseln.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Befehl ausführen: java -classpath X:\xyz\demis_maps demis_fetch&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;(Pfad bitte anpassen)
+(Java 1.5 oder höher empfolen)
+(Evtl. Einstellungen vornehmen)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;oder&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;java -classpath X:\xyz\demis_maps demis_fetch export.kmz
+(export.kmz ist das exportierte Bildoverlay)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;demis_maps erstellt einen Ordner (default: demis_slice). In diesem Ordner befindet sich nun bei default settings eine kml-Datei. Diese lässt sich per Drag and Drop in Google Earth ziehen bzw. importieren. Das Ergebnis sollte direkt sichtbar sein.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Die einzelnen Teile lassen sich nun je nach bedarf exportieren und für TTMM verwenden.
+Schritt 5 kann auch übersprungen werden wenn man mit &#34;-f false&#34; start.
+Dadurch werden die einzelnen Overlays nicht in einem Ordner gespeichert sondern in einzelnen kml Dateien.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Vielleicht kann jemand es ja gebrauchen. Ich finde es praktisch weil ich so die Bahnwege abspeichern kann.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download: &lt;a href=&#34;http://jotschi.de/downloads/demis/demis_maps.zip&#34;&gt;Demis Maps&lt;/a&gt;
+Link: &lt;a href=&#34;http://forum.pocketnavigation.de/thread.php?threadid=1026055&amp;amp;threadview=0&amp;amp;hilight=&amp;amp;hilightuser=0&amp;amp;sid=482ddaa19c4e1965e94ba18eb6f41169&amp;amp;page=1&#34;&gt;TTMM&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

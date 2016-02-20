@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cpp on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/cpp/</link>
+    <description>Recent content in Cpp on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Dec 2009 18:15:18 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/cpp/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>OpenGL - FreeGlut Multiple Window Callbacks and C&#43;&#43; (OOP) </title>
+      <link>http://jotschi.de/2009/12/12/opengl-freeglut-multiple-window-callbacks-and-c-oop/</link>
+      <pubDate>Sat, 12 Dec 2009 18:15:18 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/12/opengl-freeglut-multiple-window-callbacks-and-c-oop/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using glut with cpp can be difficult in some cases for example because of the glut callback specification.
+You can&amp;#8217;t specify a callback to a object methods due to c limitations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;One workaround is to use singletons as described here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.uni-koblenz.de/~mgoi/?p=56&#34; class=&#34;bare&#34;&gt;http://www.uni-koblenz.de/~mgoi/?p=56&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Another way to cope this issue is to use the glutGetWindow method.
+This method can be used within a static callback target method to determine which window should be updated etc.
+In my example i created a window class which is used to create and handle windows.
+Outside of this class i just created some wrapper callback methods which redirect the desired call to my object methods.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;GL_GLUT_OOP.cpp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;GL/glu.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &#34;window.h&#34;
+
+#define GAP  (200 / 4)
+#define SPACING  (200 / 4 + 200)
+
+window * windows[3];
+
+void display(void) {
+	int winId = glutGetWindow();
+	//printf(&#34;win%i\n&#34;, winId - 1);
+	windows[winId - 1]-&amp;gt;display();
+}
+
+/**
+ * Request redisplay of all three windows.
+ */
+void refresh() {
+	for (int i = 0; i &amp;lt; 3; i++) {
+		windows[i]-&amp;gt;refresh();
+	}
+}
+
+void mouse(int x, int y) {
+	int winId = glutGetWindow();
+	//printf(&#34;mouse in win%i\n&#34;, winId - 1);
+	windows[winId - 1]-&amp;gt;mouse(x, y);
+	windows[winId - 1]-&amp;gt;refresh();
+}
+
+/**
+ *  Keyboard function works for all windows.
+ */
+void keyboard(unsigned char key, int x, int y) {
+	if (key == 27)
+		exit(0);
+}
+
+void idle() {
+	for (int i = 0; i &amp;lt; 3; i++) {
+		windows[i]-&amp;gt;idle();
+	}
+}
+
+int main(int argc, char *argv[]) {
+	glutInit(&amp;amp;argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+
+	windows[0] = new window(&#34;Window 0&#34;, GAP, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	windows[1] = new window(&#34;Window 1&#34;, GAP + SPACING, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	windows[2] = new window(&#34;Window 2&#34;, GAP + 2 * SPACING, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	glutIdleFunc(idle);
+	glutMainLoop();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;window.h&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &#34;window.h&#34;
+#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;GL/glu.h&amp;gt;
+
+#define WIN_SIZE  200
+#define F_SIZE 200
+
+double angle = 0;
+
+window::window(string name, int posX, int posY) {
+	this-&amp;gt;_name = name;
+
+	glutInitWindowSize(WIN_SIZE, WIN_SIZE);
+	glutInitWindowPosition(posX, posY);
+	_id = glutCreateWindow(name.c_str());
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0, 1.0, 1.0, 20.0);
+	glMatrixMode(GL_MODELVIEW);
+
+}
+
+window::~window() {
+
+}
+
+/**
+ *  Display callback function.
+ */
+void window::display() {
+
+	glutSetWindow(_id);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glLoadIdentity();
+
+	if (_id == 1)
+		gluLookAt(5.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	else if (_id == 2)
+		gluLookAt(0.0, 5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	else if (_id == 3)
+		gluLookAt(5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+	// Draw the cube, rotated and scaled.
+	glPushMatrix();
+	glTranslatef(-1.0, 0.0, 0.0);
+	if (_id == 2) {
+		glRotatef(360.0 * _x, 1.0, 0.0, 0.0);
+		glRotatef(360.0 * _y, 0.0, 1.0, 0.0);
+	}
+	glRotatef(angle, 0.0, 0.0, 1.0);
+	//glScalef(x1 + 1.0, y1 + 1.0, 1.0);
+	glColor3f(0.8f, 0.0f, 0.8f);
+	glutWireCube(2.0);
+	glPopMatrix();
+
+	// Draw thre cone, rotated and scaled.
+	glPushMatrix();
+	glTranslatef(1.0, 0.0, 0.0);
+	if (_id == 1) {
+		glRotatef(360.0 * _x, 1.0, 0.0, 0.0);
+		glRotatef(360.0 * _y, 0.0, 1.0, 0.0);
+	}
+	if (_id == 3) {
+		glScalef(this-&amp;gt;_x + 1.0, this-&amp;gt;_y + 1.0, 1.0);
+	}
+	glTranslatef(0.0, 0.0, -1.0);
+	glColor3f(0.0f, 0.8f, 0.8f);
+	glutWireCone(1.0, 3.0, 10, 10);
+	glPopMatrix();
+	glutSwapBuffers();
+
+}
+
+void window::spin() {
+	angle += 1;
+	if (angle &amp;gt; 360)
+		angle -= 360;
+	this-&amp;gt;refresh();
+}
+
+void window::refresh() {
+	glutSetWindow(_id);
+	glutPostRedisplay();
+}
+
+void window::mouse(int x, int y) {
+	this-&amp;gt;_x = (float) x / (float) F_SIZE;
+	this-&amp;gt;_y = (float) y / (float) F_SIZE;
+}
+
+void window::idle() {
+	spin();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;window.cpp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#ifndef WINDOW_H_
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;GL/glut.h&amp;gt;
+#define WINDOW_H_
+
+using namespace std;
+
+class window {
+	int _id;
+	string _name;
+	GLfloat _x, _y;
+
+public:
+	window(string name, int posX, int posY);
+	virtual ~window();
+
+	void display();
+	void refresh();
+	void spin();
+	void mouse(int x, int y);
+	void idle();
+};
+
+#endif /* WINDOW_H_ */&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

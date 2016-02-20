@@ -1,0 +1,1493 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Opengl on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/opengl/</link>
+    <description>Recent content in Opengl on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 26 Sep 2011 23:56:00 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/opengl/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>JOGL2 Maven Examples (Linux i586)</title>
+      <link>http://jotschi.de/2011/09/26/jogl2-maven-example-linux-i586/</link>
+      <pubDate>Mon, 26 Sep 2011 23:56:00 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/26/jogl2-maven-example-linux-i586/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just uploaded a small maven project &amp;lt;a href=&#34;https://github.com/Jotschi/jogl2-example&#34;&amp;gt;to GitHub&amp;lt;/a&amp;gt; that shows how to work with &lt;a href=&#34;http://maven.apache.org&#34;&gt;Maven&lt;/a&gt; and &lt;a href=&#34;http://www.jogamp.org&#34;&gt;JOGL2&lt;/a&gt;.
+The example also make usage of the ClassPathLoader mechanism i described in &amp;lt;a href=&#34;http://www.jotschi.de/?p=660&#34;&amp;gt;my other post&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I added the jogl2 libraries by using the system scope since i could not find a maven repository with those libraries. The example currently works only with i586 linux. But i could be easily modified to handle other architectures as well.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update: I migrated the nehe JOGL examples which i found &amp;lt;a href=&#34;http://www.java-tips.org/other-api-tips/jogl/vertex-buffer-objects-nehe-tutorial-jogl-port-2.html&#34;&amp;gt;here&amp;lt;/a&amp;gt; to make use of jogl2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;image:/images/opengl/JOGLQuadExample.png&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenGL matrix/vector libraries</title>
+      <link>http://jotschi.de/2009/12/14/opengl-matrixvector-libraries/</link>
+      <pubDate>Mon, 14 Dec 2009 00:27:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/14/opengl-matrixvector-libraries/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;While searching for a sufficient c++ library that provides matrix and vector algebra implementations i found those two:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://glm.g-truc.net/about.html&#34;&amp;gt;&lt;a href=&#34;http://glm.g-truc.net/about.html&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://glm.g-truc.net/about.html&amp;lt;/a&amp;gt&lt;/a&gt;;
+GLM contains over 500 useful math functions for OpenGL. Mostly vector, matrix and quaternion math.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://bartipan.net/vmath/&#34;&amp;gt;&lt;a href=&#34;http://bartipan.net/vmath/&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://bartipan.net/vmath/&amp;lt;/a&amp;gt&lt;/a&gt;;
+vmath is set of C++ classes for Vector and Matrix algebra used in computer graphics.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://eigen.tuxfamily.org/index.php?title=Main_Page&#34;&amp;gt;&lt;a href=&#34;http://eigen.tuxfamily.org/&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://eigen.tuxfamily.org/&amp;lt;/a&amp;gt&lt;/a&gt;;
+Eigen is a C++ template library for linear algebra: vectors, matrices, and related algorithms.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I&amp;#8217;ll test GLM since i want to integrate GLSL within my program.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Drawing the perspective view frustum with OpenGL</title>
+      <link>http://jotschi.de/2009/12/13/drawing-the-perspective-view-frustum-with-opengl/</link>
+      <pubDate>Sun, 13 Dec 2009 19:43:38 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/13/drawing-the-perspective-view-frustum-with-opengl/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;A visualization of the current view frustum can be helpful in some cases. &amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-441&#34;&amp;gt;&amp;lt;/a&amp;gt;
+1. Extract the two important matrices you wish to visualize:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;static float proj[16];
+glGetFloatv(GL_PROJECTION_MATRIX, proj);
+
+static float mv[16];
+glGetFloatv(GL_MODELVIEW_MATRIX, mv);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Do some math and draw your frustum:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;void Helper::drawFrustum(float * proj, float *mv) {
+
+	// Get near and far from the Projection matrix.
+	const double near = proj[11] / (proj[10] - 1.0);
+	const double far = proj[11] / (1.0 + proj[10]);
+
+	// Get the sides of the near plane.
+	const double nLeft = near * (proj[2] - 1.0) / proj[0];
+	const double nRight = near * (1.0 + proj[2]) / proj[0];
+	const double nTop = near * (1.0 + proj[6]) / proj[5];
+	const double nBottom = near * (proj[6] - 1.0) / proj[5];
+
+	// Get the sides of the far plane.
+	const double fLeft = far * (proj[2] - 1.0) / proj[0];
+	const double fRight = far * (1.0 + proj[2]) / proj[0];
+	const double fTop = far * (1.0 + proj[6]) / proj[5];
+	const double fBottom = far * (proj[6] - 1.0) / proj[5];
+
+	/*
+	 0	glVertex3f(0.0f, 0.0f, 0.0f);
+	 1	glVertex3f(nLeft, nBottom, -near);
+	 2	glVertex3f(nRight, nBottom, -near);
+	 3	glVertex3f(nRight, nTop, -near);
+	 4	glVertex3f(nLeft, nTop, -near);
+	 5	glVertex3f(fLeft, fBottom, -far);
+	 6	glVertex3f(fRight, fBottom, -far);
+	 7	glVertex3f(fRight, fTop, -far);
+	 8	glVertex3f(fLeft, fTop, -far);
+	 */
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	//glLoadIdentity ();
+
+        // TODO - Update: You need to invert the mv before multiplying it with the current mv!
+
+	glMultMatrixf(mv);
+
+	glLineWidth(2);
+	glBegin(GL_LINES);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fLeft, fBottom, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fRight, fTop, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fLeft, fTop, -far);
+
+	//far
+	glVertex3f(fLeft, fBottom, -far);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(fRight, fTop, -far);
+	glVertex3f(fLeft, fTop, -far);
+
+	glVertex3f(fRight, fTop, -far);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(fLeft, fTop, -far);
+	glVertex3f(fLeft, fBottom, -far);
+
+	//near
+	glVertex3f(nLeft, nBottom, -near);
+	glVertex3f(nRight, nBottom, -near);
+
+	glVertex3f(nRight, nTop, -near);
+	glVertex3f(nLeft, nTop, -near);
+
+	glVertex3f(nLeft, nTop, -near);
+	glVertex3f(nLeft, nBottom, -near);
+
+	glVertex3f(nRight, nTop, -near);
+	glVertex3f(nRight, nBottom, -near);
+
+	glEnd();
+	glLineWidth(1);
+	glPopMatrix();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenGL - FreeGlut Multiple Window Callbacks and C&#43;&#43; (OOP) </title>
+      <link>http://jotschi.de/2009/12/12/opengl-freeglut-multiple-window-callbacks-and-c-oop/</link>
+      <pubDate>Sat, 12 Dec 2009 18:15:18 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/12/opengl-freeglut-multiple-window-callbacks-and-c-oop/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using glut with cpp can be difficult in some cases for example because of the glut callback specification.
+You can&amp;#8217;t specify a callback to a object methods due to c limitations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;One workaround is to use singletons as described here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.uni-koblenz.de/~mgoi/?p=56&#34; class=&#34;bare&#34;&gt;http://www.uni-koblenz.de/~mgoi/?p=56&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Another way to cope this issue is to use the glutGetWindow method.
+This method can be used within a static callback target method to determine which window should be updated etc.
+In my example i created a window class which is used to create and handle windows.
+Outside of this class i just created some wrapper callback methods which redirect the desired call to my object methods.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;GL_GLUT_OOP.cpp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;GL/glu.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &#34;window.h&#34;
+
+#define GAP  (200 / 4)
+#define SPACING  (200 / 4 + 200)
+
+window * windows[3];
+
+void display(void) {
+	int winId = glutGetWindow();
+	//printf(&#34;win%i\n&#34;, winId - 1);
+	windows[winId - 1]-&amp;gt;display();
+}
+
+/**
+ * Request redisplay of all three windows.
+ */
+void refresh() {
+	for (int i = 0; i &amp;lt; 3; i++) {
+		windows[i]-&amp;gt;refresh();
+	}
+}
+
+void mouse(int x, int y) {
+	int winId = glutGetWindow();
+	//printf(&#34;mouse in win%i\n&#34;, winId - 1);
+	windows[winId - 1]-&amp;gt;mouse(x, y);
+	windows[winId - 1]-&amp;gt;refresh();
+}
+
+/**
+ *  Keyboard function works for all windows.
+ */
+void keyboard(unsigned char key, int x, int y) {
+	if (key == 27)
+		exit(0);
+}
+
+void idle() {
+	for (int i = 0; i &amp;lt; 3; i++) {
+		windows[i]-&amp;gt;idle();
+	}
+}
+
+int main(int argc, char *argv[]) {
+	glutInit(&amp;amp;argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+
+	windows[0] = new window(&#34;Window 0&#34;, GAP, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	windows[1] = new window(&#34;Window 1&#34;, GAP + SPACING, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	windows[2] = new window(&#34;Window 2&#34;, GAP + 2 * SPACING, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	glutIdleFunc(idle);
+	glutMainLoop();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;window.h&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &#34;window.h&#34;
+#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;GL/glu.h&amp;gt;
+
+#define WIN_SIZE  200
+#define F_SIZE 200
+
+double angle = 0;
+
+window::window(string name, int posX, int posY) {
+	this-&amp;gt;_name = name;
+
+	glutInitWindowSize(WIN_SIZE, WIN_SIZE);
+	glutInitWindowPosition(posX, posY);
+	_id = glutCreateWindow(name.c_str());
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0, 1.0, 1.0, 20.0);
+	glMatrixMode(GL_MODELVIEW);
+
+}
+
+window::~window() {
+
+}
+
+/**
+ *  Display callback function.
+ */
+void window::display() {
+
+	glutSetWindow(_id);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glLoadIdentity();
+
+	if (_id == 1)
+		gluLookAt(5.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	else if (_id == 2)
+		gluLookAt(0.0, 5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	else if (_id == 3)
+		gluLookAt(5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+	// Draw the cube, rotated and scaled.
+	glPushMatrix();
+	glTranslatef(-1.0, 0.0, 0.0);
+	if (_id == 2) {
+		glRotatef(360.0 * _x, 1.0, 0.0, 0.0);
+		glRotatef(360.0 * _y, 0.0, 1.0, 0.0);
+	}
+	glRotatef(angle, 0.0, 0.0, 1.0);
+	//glScalef(x1 + 1.0, y1 + 1.0, 1.0);
+	glColor3f(0.8f, 0.0f, 0.8f);
+	glutWireCube(2.0);
+	glPopMatrix();
+
+	// Draw thre cone, rotated and scaled.
+	glPushMatrix();
+	glTranslatef(1.0, 0.0, 0.0);
+	if (_id == 1) {
+		glRotatef(360.0 * _x, 1.0, 0.0, 0.0);
+		glRotatef(360.0 * _y, 0.0, 1.0, 0.0);
+	}
+	if (_id == 3) {
+		glScalef(this-&amp;gt;_x + 1.0, this-&amp;gt;_y + 1.0, 1.0);
+	}
+	glTranslatef(0.0, 0.0, -1.0);
+	glColor3f(0.0f, 0.8f, 0.8f);
+	glutWireCone(1.0, 3.0, 10, 10);
+	glPopMatrix();
+	glutSwapBuffers();
+
+}
+
+void window::spin() {
+	angle += 1;
+	if (angle &amp;gt; 360)
+		angle -= 360;
+	this-&amp;gt;refresh();
+}
+
+void window::refresh() {
+	glutSetWindow(_id);
+	glutPostRedisplay();
+}
+
+void window::mouse(int x, int y) {
+	this-&amp;gt;_x = (float) x / (float) F_SIZE;
+	this-&amp;gt;_y = (float) y / (float) F_SIZE;
+}
+
+void window::idle() {
+	spin();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;window.cpp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#ifndef WINDOW_H_
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;GL/glut.h&amp;gt;
+#define WINDOW_H_
+
+using namespace std;
+
+class window {
+	int _id;
+	string _name;
+	GLfloat _x, _y;
+
+public:
+	window(string name, int posX, int posY);
+	virtual ~window();
+
+	void display();
+	void refresh();
+	void spin();
+	void mouse(int x, int y);
+	void idle();
+};
+
+#endif /* WINDOW_H_ */&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenGL UBO&#39;s - Uniform Buffer Objects</title>
+      <link>http://jotschi.de/2009/12/05/opengl-ubos-uniform-buffer-objects/</link>
+      <pubDate>Sat, 05 Dec 2009 20:18:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/05/opengl-ubos-uniform-buffer-objects/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Uniform buffer objects were introduced with OpenGL 3.1. The following example is an adapted form of the UBO example from the UBO spec:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.opengl.org/registry/specs/ARB/uniform_buffer_object.txt&#34; class=&#34;bare&#34;&gt;http://www.opengl.org/registry/specs/ARB/uniform_buffer_object.txt&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example contains workarounds for an fglrx linux driver issue. The libGL.so of ATI (shipped with fglrx) does not export the correct amount of function symbols. Therefor you can&amp;#8217;t use the functions that were defined within the glext.h header files. To workaround this issue i had to use glXGetProcAddress to determine the function address within the libGL.so. The address is used to create a function pointer and therefor use the function as usual.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Uniform Buffer Objects allow fast exchange of uniform values because they were backed up by a buffer object. As far as i know DMA is used to transfer the data directly from your system memory into the GPU memory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example requires &lt;a href=&#34;http://freeglut.sourceforge.net/&#34;&gt;freeglut 2.6.0&lt;/a&gt; to initiate a opengl 3 context via glut. Please note that your driver must support UBO&amp;#8217;s ( GL_ARB_uniform_buffer_object ).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;GL3_UBO_Example.cpp:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#define GL_GLEXT_PROTOTYPES 1
+#define GLX_GLXEXT_PROTOTYPES 1
+#include &amp;lt;GL/gl.h&amp;gt;
+#include &amp;lt;GL/freeglut.h&amp;gt;
+#include &amp;lt;GL/glx.h&amp;gt;
+#include &#34;GL/glext.h&#34;
+#include &#34;textfile.h&#34;
+
+char *VertexShaderSource, *FragmentShaderSource;
+
+#define GLX_CONTEXT_MAJOR_VERSION_ARB       0x2091
+#define GLX_CONTEXT_MINOR_VERSION_ARB       0x2092
+
+typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig,
+		GLXContext, Bool, const int*);
+#define glXGetProcAddress(x) (*glXGetProcAddressARB)((const GLubyte*)x)
+
+// mouse controls
+int mouse_old_x, mouse_old_y;
+int mouse_buttons = 0;
+float rotate_x = 0.0, rotate_y = 0.0;
+float translate_z = -2.0;
+
+PFNGLGETUNIFORMBLOCKINDEXPROC mglGetUniformBlockIndex = NULL;
+PFNGLGETACTIVEUNIFORMBLOCKIVPROC mglGetActiveUniformBlockiv = NULL;
+PFNGLBINDBUFFERBASEPROC mglBindBufferBase = NULL;
+PFNGLGETUNIFORMINDICESPROC mglGetUniformIndices = NULL;
+PFNGLGETACTIVEUNIFORMSIVPROC mglGetActiveUniformsiv = NULL;
+PFNGLUNIFORMBLOCKBINDINGPROC mglUniformBlockBinding = NULL;
+
+#define glError() { \
+    GLenum err = glGetError(); \
+    while (err != GL_NO_ERROR) { \
+    printf(&#34;glError: %s caught at %s:%u&#34;, \
+           (char*)gluErrorString(err), __FILE__, __LINE__); \
+    err = glGetError(); \
+    exit(-1); \
+    } \
+    }
+
+// globals
+int initialized = 0;
+unsigned int window_width = 640;
+unsigned int window_height = 480;
+
+float delta = 0.01;
+GLfloat wf, hf;
+
+//uniform names
+const GLchar* names[] = { &#34;SurfaceColor&#34;, &#34;WarmColor&#34;, &#34;CoolColor&#34;,
+		&#34;DiffuseWarm&#34;, &#34;DiffuseCool&#34; };
+GLuint buffer_id, uniformBlockIndex, uindex, vshad_id, fshad_id, prog_id;
+
+GLsizei uniformBlockSize;
+GLint singleSize;
+GLint offset;
+
+GLfloat colors[] = { 0.45, 0.45, 1, 1, 0.45, 0.45, 1, 1, 0.75, 0.75, 0.75, 1,
+		0.0, 0.0, 1.0, 1, 0.0, 1.0, 0.0, 1, };
+
+void reshape(int w, int h) {
+	window_width = w;
+	window_height = h;
+	wf = (GLfloat) window_width;
+	hf = (GLfloat) window_height;
+	glMatrixMode( GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60.0, wf / hf, 0.1, 100.0);
+}
+
+void init_opengl() {
+	initialized = 1;
+	reshape(window_width, window_height);
+
+	VertexShaderSource = textFileRead(&#34;src/shader.vert&#34;);
+	FragmentShaderSource = textFileRead(&#34;src/shader.frag&#34;);
+
+	const char * VS = VertexShaderSource;
+	const char * FS = FragmentShaderSource;
+
+	vshad_id = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vshad_id, 1, &amp;amp;VS, 0);
+
+	fshad_id = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fshad_id, 1, &amp;amp;FS, NULL);
+
+	glCompileShader(vshad_id);
+	glCompileShader(fshad_id);
+
+	prog_id = glCreateProgram();
+	glAttachShader(prog_id, vshad_id);
+	glAttachShader(prog_id, fshad_id);
+	glLinkProgram(prog_id);
+
+	//Update the uniforms using ARB_uniform_buffer_object
+	glGenBuffers(1, &amp;amp;buffer_id);
+
+	//There&#39;s only one uniform block here, the &#39;colors0&#39; uniform block.
+	//It contains the color info for the gooch shader.
+
+	//REPLACED:
+	//uniformBlockIndex = glGetUniformBlockIndex(prog_id, &#34;colors0&#34;);
+	mglGetUniformBlockIndex
+			= (PFNGLGETUNIFORMBLOCKINDEXPROC) glXGetProcAddress(&#34;glGetUniformBlockIndex&#34;);
+	printf(&#34;mglGetUniformBlockIndex:%016p\n&#34;, mglGetUniformBlockIndex);
+	(*mglGetUniformBlockIndex)(prog_id, &#34;colors0&#34;);
+
+	//We need to get the uniform block&#39;s size in order to back it with the
+	//appropriate buffer
+	//REPLACED:
+	//glGetActiveUniformBlockiv(prog_id, uniformBlockIndex,GL_UNIFORM_BLOCK_DATA_SIZE, &amp;amp;uniformBlockSize);
+	mglGetActiveUniformBlockiv = (PFNGLGETACTIVEUNIFORMBLOCKIVPROC)
+	glXGetProcAddress(&#34;glGetActiveUniformBlockiv&#34;);
+	printf(&#34;mglGetActiveUniformBlockiv:%016p\n&#34;, mglGetActiveUniformBlockiv);
+	(*mglGetActiveUniformBlockiv)(prog_id, uniformBlockIndex,
+			GL_UNIFORM_BLOCK_DATA_SIZE, &amp;amp;uniformBlockSize);
+
+	//glError();
+
+	//Create UBO.
+	glBindBuffer(GL_UNIFORM_BUFFER, buffer_id);
+	glBufferData(GL_UNIFORM_BUFFER, uniformBlockSize, NULL, GL_DYNAMIC_DRAW);
+
+	//Now we attach the buffer to UBO binding point 0...
+	//REPLACED:
+	//glBindBufferBase(GL_UNIFORM_BUFFER, 0, buffer_id);
+	mglBindBufferBase
+			= (PFNGLBINDBUFFERBASEPROC) glXGetProcAddress(&#34;glBindBufferBase&#34;);
+	printf(&#34;mglBindBufferBase:%016p\n&#34;, mglBindBufferBase);
+	(*mglBindBufferBase)(GL_UNIFORM_BUFFER, 0, buffer_id);
+
+	//And associate the uniform block to this binding point.
+	//REPLACED:
+	//glUniformBlockBinding(prog_id, uniformBlockIndex, 0);
+	mglUniformBlockBinding
+			= (PFNGLUNIFORMBLOCKBINDINGPROC) glXGetProcAddress(&#34;glUniformBlockBinding&#34;);
+	printf(&#34;mglUniformBlockBinding:%016p\n&#34;, mglUniformBlockBinding);
+	(*mglUniformBlockBinding)(prog_id, uniformBlockIndex, 0);
+
+	//glError();
+
+	//To update a single uniform in a uniform block, we need to get its
+	//offset into the buffer.
+	//REPLACED:
+	//glGetUniformIndices(prog_id, 1, &amp;amp;names[2], &amp;amp;uindex);
+	mglGetUniformIndices
+			= (PFNGLGETUNIFORMINDICESPROC) glXGetProcAddress(&#34;glGetUniformIndices&#34;);
+	(*mglGetUniformIndices)(prog_id, 1, &amp;amp;names[2], &amp;amp;uindex);
+
+	//REPLACED:
+	//glGetActiveUniformsiv(prog_id, 1, &amp;amp;uindex, GL_UNIFORM_OFFSET, &amp;amp;offset);
+	//glGetActiveUniformsiv(prog_id, 1, &amp;amp;uindex, GL_UNIFORM_SIZE, &amp;amp;singleSize);
+	mglGetActiveUniformsiv = (PFNGLGETACTIVEUNIFORMSIVPROC)
+	glXGetProcAddress(&#34;glGetActiveUniformsiv&#34;);
+	printf(&#34;mglGetActiveUniformsiv:%016p\n&#34;, mglGetActiveUniformsiv);
+	(*mglGetActiveUniformsiv)(prog_id, 1, &amp;amp;uindex, GL_UNIFORM_OFFSET, &amp;amp;offset);
+	(*mglGetActiveUniformsiv)(prog_id, 1, &amp;amp;uindex, GL_UNIFORM_SIZE, &amp;amp;singleSize);
+
+	//glError();
+
+	printf(&#34;GL_VERSION:%s\n&#34;, glGetString(GL_VERSION));
+	glViewport(0, 0, window_width, window_height);
+}
+
+void render() {
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	glUseProgram(prog_id);
+	glEnable( GL_DEPTH_TEST);
+
+	glMatrixMode( GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.0, 0.0, translate_z);
+	glRotatef(rotate_x, 1.0, 0.0, 0.0);
+	glRotatef(rotate_y, 0.0, 1.0, 0.0);
+	glColor3f(1.0, 1.0, 1.0);
+
+	glBindBuffer(GL_UNIFORM_BUFFER, buffer_id);
+	//We can use BufferData to upload our data to the shader,
+	//since we know it&#39;s in the std140 layout
+	glBufferData(GL_UNIFORM_BUFFER, 80, colors, GL_DYNAMIC_DRAW);
+	//With a non-standard layout, we&#39;d use BufferSubData for each uniform.
+	glBufferSubData(GL_UNIFORM_BUFFER_EXT, offset, singleSize, &amp;amp;colors[8]);
+	//the teapot winds backwards
+	glFrontFace( GL_CW);
+	glutSolidTeapot(0.6);
+	glFrontFace( GL_CCW);
+	glutSwapBuffers();
+	glutPostRedisplay();
+
+	int nColor = 8;
+	colors[nColor] += delta;
+
+	if (colors[nColor] &amp;gt; 1.0) {
+		delta = -0.01;
+	}
+
+	if (colors[nColor] &amp;lt; 0.0) {
+		delta = +0.01;
+	}
+
+}
+
+void display() {
+	if (!initialized) {
+		init_opengl();
+		initialized = 1;
+	}
+
+	render();
+}
+
+void mouse(int button, int state, int x, int y) {
+	if (state == GLUT_DOWN) {
+		mouse_buttons |= 1 &amp;lt;&amp;lt; button;
+	} else if (state == GLUT_UP) {
+		mouse_buttons = 0;
+	}
+
+	mouse_old_x = x;
+	mouse_old_y = y;
+	glutPostRedisplay();
+}
+
+void motion(int x, int y) {
+	float dx, dy;
+	dx = x - mouse_old_x;
+	dy = y - mouse_old_y;
+
+	if (mouse_buttons &amp;amp; 1) {
+		rotate_x += dy * 0.2;
+		rotate_y += dx * 0.2;
+	} else if (mouse_buttons &amp;amp; 4) {
+		translate_z += dy * 0.01;
+	}
+
+	mouse_old_x = x;
+	mouse_old_y = y;
+}
+
+void initGlut(int argc, char** argv) {
+
+	// Create GL context
+	glutInit(&amp;amp;argc, argv);
+	glutInitContextVersion(3, 1);
+	//glutInitContextFlags(GLUT_DEBUG);
+
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+	glutInitWindowSize(window_width, window_height);
+	glutCreateWindow(&#34;UBO Example&#34;);
+	init_opengl();
+
+	// register callbacks
+	glutDisplayFunc(display);
+	//glutKeyboardFunc( keyboard);
+	glutMouseFunc(mouse);
+	glutMotionFunc(motion);
+
+	glutMainLoop();
+
+}
+
+int main(int argc, char** argv) {
+	initGlut(argc, argv);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader.frag:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#extension GL_ARB_uniform_buffer_object : enable
+
+
+layout(std140) uniform colors0
+{
+    float DiffuseCool;
+    float DiffuseWarm;
+    vec3  SurfaceColor;
+    vec3  WarmColor;
+    vec3  CoolColor;
+};
+
+varying float NdotL;
+varying vec3  ReflectVec;
+varying vec3  ViewVec;
+
+void main (void)
+{
+
+    vec3 kcool    = min(CoolColor + DiffuseCool * SurfaceColor, 1.0);
+    vec3 kwarm    = min(WarmColor + DiffuseWarm * SurfaceColor, 1.0);
+    vec3 kfinal   = mix(kcool, kwarm, NdotL);
+
+    vec3 nreflect = normalize(ReflectVec);
+    vec3 nview    = normalize(ViewVec);
+
+    float spec    = max(dot(nreflect, nview), 0.0);
+    spec          = pow(spec, 32.0);
+
+    gl_FragColor = vec4 (min(kfinal + spec, 1.0), 1.0);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader.vert:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;vec3 LightPosition = vec3(0.0, 10.0, 4.0);
+
+varying float NdotL;
+varying vec3  ReflectVec;
+varying vec3  ViewVec;
+
+void main(void)
+{
+    vec3 ecPos      = vec3 (gl_ModelViewMatrix * gl_Vertex);
+    vec3 tnorm      = normalize(gl_NormalMatrix * gl_Normal);
+    vec3 lightVec   = normalize(LightPosition - ecPos);
+    ReflectVec      = normalize(reflect(-lightVec, tnorm));
+    ViewVec         = normalize(-ecPos);
+    NdotL           = (dot(lightVec, tnorm) + 1.0) * 0.5;
+    gl_Position     = ftransform();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;textfile.cpp:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;malloc.h&amp;gt;
+#include &amp;lt;fcntl.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+
+
+char *textFileRead(char *fn) {
+
+
+	FILE *fp;
+	char *content = NULL;
+
+	int f,count;
+	f = open(fn, O_RDONLY);
+
+	count = lseek(f, 0, SEEK_END);
+
+	close(f);
+
+	if (fn != NULL) {
+		fp = fopen(fn,&#34;rt&#34;);
+
+		if (fp != NULL) {
+
+
+			if (count &amp;gt; 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = &#39;\0&#39;;
+			}
+			fclose(fp);
+		}
+	}
+	return content;
+}
+
+int textFileWrite(char *fn, char *s) {
+
+	FILE *fp;
+	int status = 0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,&#34;w&#34;);
+
+		if (fp != NULL) {
+
+			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
+				status = 1;
+			fclose(fp);
+		}
+	}
+	return(status);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;textfile.h:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;char *textFileRead(char *fn);
+int textFileWrite(char *fn, char *s);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Texture Array Example And Clamp to Border Ati Issue Example</title>
+      <link>http://jotschi.de/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/</link>
+      <pubDate>Thu, 08 Oct 2009 22:00:39 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY&amp;#8217;s it might also be interessting for someone who want&amp;#8217;s to know how to set a texture uniform (sampler2d) or (sampler2darray).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The specification for texture arrays can be found here: &amp;lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&#34;&amp;gt;&lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&lt;/a&gt;;. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-396&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;b&amp;gt;Update - Note: &amp;lt;/b&amp;gt;
+Compile with:
+&amp;lt;blockquote&amp;gt;g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp&amp;lt;/blockquote&amp;gt;
+Get sources and libs:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;apt-get install libglut3 libglut3-dev libglew1.5 libglew1.5-dev&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;b&amp;gt;Update:&amp;lt;/b&amp;gt;
+I just developed an workaround for this issue by adding clamp to border by myself to the shader:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#extension GL_EXT_gpu_shader4 : enable
+
+uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+
+		vec4 borderColor =vec4(0.1,0.7,0.2,0.1);
+		if(texCoord.s&amp;lt;1 &amp;amp;&amp;amp; texCoord.s &amp;gt;0 &amp;amp;&amp;amp; texCoord.t &amp;lt;1 &amp;amp;&amp;amp; texCoord.t &amp;gt;0)
+		{
+			borderColor		= texture2DArray(base_texture, vec3(texCoord.st,1));
+		}
+		gl_FragColor = borderColor;
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;NOARRAY - not definied&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:
+&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; width=&#34;412&#34; height=&#34;327&#34; class=&#34;alignnone size-full wp-image-397&#34; /&amp;gt;
+The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;NOARRAY - definied&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:
+&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; width=&#34;392&#34; height=&#34;292&#34; class=&#34;alignnone size-full wp-image-398&#34; /&amp;gt;
+As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the complete example sources: &amp;lt;a href=&#34;http://jotschi.de/downloads/opengl/opengl_texture_array_glsl_example.tgz&#34;&amp;gt;opengl_texture_array_glsl_example.tgz&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader_array.frag:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		vec4 base_color		= texture2DArray(base_texture, vec3(texCoord.st*vec2(0.5,1.5), 0));
+		gl_FragColor = color * base_color;
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader_simple.frag:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		//vec2 texCoord = vec2(1.0,0.5);
+		vec4 base_color = texture2D(base_texture, texCoord);
+		gl_FragColor = color * base_color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader.vert:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec2 texCoord;
+void main()
+{
+    texCoord = vec2(gl_MultiTexCoord0);
+	gl_Position = ftransform();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;GL/glew.h&amp;gt;
+#include &amp;lt;GL/gl.h&amp;gt;
+#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &#34;textfile.h&#34;
+
+#define NOARRAY
+
+#define	checkImageWidth 64
+#define	checkImageHeight 64
+static GLubyte checkImage[checkImageHeight][checkImageWidth][4];
+
+char *VertexShaderSource, *FragmentShaderSource;
+
+int VertexShader, FragmentShader;
+
+int ShaderProgram;
+
+GLfloat angle = 0.0;
+
+GLuint texture;
+
+void makeCheckImage(void) {
+	int i, j, c;
+
+	for (i = 0; i &amp;lt; checkImageHeight; i++) {
+		for (j = 0; j &amp;lt; checkImageWidth; j++) {
+			c = ((((i &amp;amp; 0x8) == 0) ^ ((j &amp;amp; 0x8)) == 0)) * 255;
+			checkImage[i][j][0] = (GLubyte) c;
+			checkImage[i][j][1] = (GLubyte) c;
+			checkImage[i][j][2] = (GLubyte) c;
+			checkImage[i][j][3] = (GLubyte) 255;
+		}
+	}
+}
+
+GLuint LoadTexture() {
+	GLuint texture;
+	makeCheckImage();
+	glGenTextures(1, &amp;amp;texture);
+
+	GLfloat borderColor[4] = { 1.0, 1.0, 1.0, 1.0 };
+#ifdef NOARRAY
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth, checkImageHeight,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+#else
+	glBindTexture(GL_TEXTURE_2D_ARRAY_EXT, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+	glTexImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, GL_RGBA, checkImageWidth,
+			checkImageHeight, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 0, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 1, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+
+#endif
+
+	return texture;
+}
+
+void FreeTexture(GLuint texture) {
+	glDeleteTextures(1, &amp;amp;texture);
+}
+
+void Lighting(void) {
+	GLfloat LightPosition[] = { 0.0, 0.0, 5.0, 1.0 };
+
+	GLfloat DiffuseLight[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientLight[] = { 1.0, 1.0, 1.0 };
+	GLfloat SpecularLight[] = { 1.0, 1.0, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+
+	GLfloat mShininess[] = { 8 };
+
+	GLfloat DiffuseMaterial[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientMaterial[] = { 0.3, 0.3, 0.3 };
+	GLfloat SpecularMaterial[] = { 1.0, 1.0, 1.0 };
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+}
+
+void display(void) {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	Lighting();
+	glTranslatef(0, 0, -5);
+	glRotatef(angle, 1, 1, 1);
+	glRotatef(angle, 0, 1, 1);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	int texture_location = glGetUniformLocationARB(ShaderProgram,
+			&#34;base_texture&#34;);
+	if (texture_location == -1) {
+		printf(&#34;Notfound\n&#34;);
+	}
+	glUniform1iARB(texture_location, 0);
+
+	// Disabled glsl fallback
+	//glEnable(GL_TEXTURE_2D);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(-2.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(-2.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(0.0, -1.0, 0.0);
+
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(1.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(1.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(2.41421, 1.0, -1.41421);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(2.41421, -1.0, -1.41421);
+	glEnd();
+	glFlush();
+
+	glutSolidTeapot(1);
+	glutSwapBuffers();
+	//angle += 0.5;
+}
+
+void InitShader(void) {
+
+	VertexShader = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
+	FragmentShader = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
+	VertexShaderSource = textFileRead(&#34;shader.vert&#34;);
+#ifdef NOARRAY
+	FragmentShaderSource = textFileRead(&#34;shader_simple.frag&#34;);
+#else
+	FragmentShaderSource = textFileRead(&#34;shader_array.frag&#34;);
+#endif
+
+	const char * VS = VertexShaderSource;
+	const char * FS = FragmentShaderSource;
+
+	glShaderSourceARB(VertexShader, 1, &amp;amp;VS, NULL);
+	glShaderSourceARB(FragmentShader, 1, &amp;amp;FS, NULL);
+
+	glCompileShaderARB(VertexShader);
+	glCompileShaderARB(FragmentShader);
+
+	ShaderProgram = glCreateProgramObjectARB();
+
+	glAttachObjectARB(ShaderProgram, VertexShader);
+	glAttachObjectARB(ShaderProgram, FragmentShader);
+
+	glLinkProgramARB(ShaderProgram);
+	glUseProgramObjectARB(ShaderProgram);
+}
+
+void DeInitShader(void) {
+	glDetachObjectARB(ShaderProgram, VertexShader);
+	glDetachObjectARB(ShaderProgram, FragmentShader);
+
+	glDeleteObjectARB(ShaderProgram);
+}
+
+void Init(void) {
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	texture = LoadTexture();
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60, (GLfloat) w / (GLfloat) h, 0.1, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+int main(int argc, char **argv) {
+	glutInit(&amp;amp;argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow(&#34;Ati texture array clamp issue example&#34;);
+	glewInit();
+	InitShader();
+	Init();
+	glutDisplayFunc(display);
+	glutIdleFunc(display);
+	glutReshapeFunc(reshape);
+	glutMainLoop();
+	DeInitShader();
+	return 0;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;textfile.cpp:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;malloc.h&amp;gt;
+#include &amp;lt;fcntl.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+
+
+char *textFileRead(char *fn) {
+
+
+	FILE *fp;
+	char *content = NULL;
+
+	int f,count;
+	f = open(fn, O_RDONLY);
+
+	count = lseek(f, 0, SEEK_END);
+
+	close(f);
+
+	if (fn != NULL) {
+		fp = fopen(fn,&#34;rt&#34;);
+
+		if (fp != NULL) {
+
+
+			if (count &amp;gt; 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = &#39;\0&#39;;
+			}
+			fclose(fp);
+		}
+	}
+	return content;
+}
+
+int textFileWrite(char *fn, char *s) {
+
+	FILE *fp;
+	int status = 0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,&#34;w&#34;);
+
+		if (fp != NULL) {
+
+			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
+				status = 1;
+			fclose(fp);
+		}
+	}
+	return(status);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;textfile.h:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;char *textFileRead(char *fn);
+int textFileWrite(char *fn, char *s);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GLSL shader to handle multiple projections onto the same surface</title>
+      <link>http://jotschi.de/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface/</link>
+      <pubDate>Mon, 17 Aug 2009 23:20:56 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For my project &amp;lt;a href=&#34;http://www.jotschi.de/?page_id=320&#34;&amp;gt;Generating City Models By Using Panorama Images&amp;lt;/a&amp;gt; i have to write a fragment shader that handles multiple projections onto the same surface. The shader must contain condition in which the projection should be handled. In my case i had to decide which projection source should be used to texture the desired model. &amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-363&#34;&amp;gt;&amp;lt;/a&amp;gt;
+I didn&amp;#8217;t want to do alpha blending of each texture. I wanted that only the projection source will be used that would produce the best projection image. For a good projection the angle of which the projection &#39;light&#39; falls onto the surface must be very low. The second parameter is the distance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For example, imagine a scene with 20 projection sources. One source is very near the target surface but the angle in which the &#39;light&#39; falls onto the surface is very big so the texture produced by such a source wouldn&amp;#8217;t be that good. Instead there is another projection source which&amp;#8217;s projections angle is very low but the distance is larger than that of the near source. My shader will now pick the second projection source because the first does not match its condtions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Draft of my target shader:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform int nTextures;
+uniform sampler2DArray textures;
+uniform vec3[] projectPos;
+varying vec3 glPos;
+varying vec3 normalVec;
+void main() {
+  int currentTexture=0;
+  float minAngle = 360.0f;
+  float angleThreshold = 10.0f;
+ // Select the texture with the lowest angle
+  for(int i =0; i &amp;lt;nTextures; i++){
+   float alpha = texture2DArray(textures,vec3(gl_TexCoord[0].xy, i)).a;
+   if(alpha != 1.0f) {
+     //TODO check calculation of projDirection
+      vec3 projDirection =(projectPos-glPos);
+      float angle = dot(normalVec,projDirection*-1);
+      if(angle&amp;lt;minAngle) {
+          minAngle = angle;
+      }
+    }
+  }
+  float minDistance= -1.0f;
+  // Select the texture with the lowest distance among those around the lowest angle
+  for(i=0; i &amp;lt;nTextures; i++){
+   float alpha = texture2DArray(textures,vec3(gl_TexCoord[0].xy, i)).a;
+   // Condition 1: Must be visible
+   if (alpha != 1.0f) {
+     //TODO check calculation of projDirection
+     vec3 projDirection =( projectPos-glPos);
+     float angle = dot(normalVec,projDirection);
+     // Condition 2: The angle must be between +-10.0f of the lowest angle
+     if(angle&amp;lt;(minAngle+angleThreshold) || angle&amp;gt;(minAngle+angleThreshold)) {
+     // TODO check calculation of distance between both points within RÂ³
+    float dx = projectPos[i].x - glPos.x;
+  float dy = projectPos[i].y - glPos.y;
+  float dz = projectPos[i].z - glPos.z;
+  float d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    // select the texture with the lowest distance
+    if(d&amp;lt;minDistance || minDistance  ==-1.0f)  {
+          minDistance = d;
+          currentTexture = i;
+    }
+        }
+   }
+  }
+gl_FragColor = texture2DArray(textures,vec3(gl_TexCoord[0].xy, currentTexture));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Maybe there is a better way to check if the given sample contains a texture value at the given texture coordinate than checking its alpha value.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I use a uniform to handle the size of the sampler2DArray textures array. Maybe you can extract that information within the shader&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I use uniform vec3[] projectPos; to handle over the positions of the projection sources. Maybe this can be stored in the build in gl_LightSource array?&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Projective Textures with OpenSceneGraph</title>
+      <link>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</link>
+      <pubDate>Sun, 31 May 2009 21:55:15 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get projective textures working using GLSL shaders rather than fixed pipeline functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;Projective Texturing Example&#34; /&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;osg/Notify&amp;gt;
+#include &amp;lt;osg/MatrixTransform&amp;gt;
+#include &amp;lt;osg/ShapeDrawable&amp;gt;
+#include &amp;lt;osg/PositionAttitudeTransform&amp;gt;
+#include &amp;lt;osg/Geometry&amp;gt;
+#include &amp;lt;osg/Texture2D&amp;gt;
+#include &amp;lt;osg/Geode&amp;gt;
+#include &amp;lt;osg/LightSource&amp;gt;
+#include &amp;lt;osg/TexGenNode&amp;gt;
+#include &amp;lt;osg/TexMat&amp;gt;
+#include &amp;lt;osgDB/WriteFile&amp;gt;
+#include &amp;lt;osgUtil/Optimizer&amp;gt;
+#include &amp;lt;osgDB/Registry&amp;gt;
+#include &amp;lt;osgDB/ReadFile&amp;gt;
+#include &amp;lt;osgViewer/Viewer&amp;gt;
+
+osg::StateSet* createProjectorState() {
+
+	osg::StateSet* stateset = new osg::StateSet;
+
+	/* 1. Load the texture that will be projected */
+	osg::Texture2D* texture = new osg::Texture2D();
+	texture-&amp;gt;setImage(osgDB::readImageFile(&#34;foo.jpg&#34;));
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_BORDER);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texture, osg::StateAttribute::ON);
+
+	// set up tex gens
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_S,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_T,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_R,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_Q,
+	osg::StateAttribute::ON);
+
+	/* 2. Load the Shaders */
+	osg::ref_ptr&amp;lt;osg::Program&amp;gt; projProg(new osg::Program);
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projvertexShader(osg::Shader::readShaderFile(
+			osg::Shader::VERTEX, &#34;VertexShader.glsl&#34;));
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projfragShader(osg::Shader::readShaderFile(
+			osg::Shader::FRAGMENT, &#34;FragmentShader.glsl&#34;));
+	projProg-&amp;gt;addShader(projvertexShader.get());
+	projProg-&amp;gt;addShader(projfragShader.get());
+
+	/* 3. Handover the texture to the fragment shader via uniform */
+	osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,
+			&#34;projectionMap&#34;);
+	texUniform-&amp;gt;set(1);
+	stateset-&amp;gt;addUniform(texUniform);
+
+	/* 4. set Texture matrix*/
+	osg::TexMat* texMat = new osg::TexMat;
+	osg::Matrix mat;
+	osg::Vec3 projectorPos = osg::Vec3(0.0f, 0.0f, 324.0f);
+	osg::Vec3 projectorDirection = osg::Vec3(osg::inDegrees(0.0f),
+			osg::inDegrees(280.0f), osg::inDegrees(-460.0f));
+	float projectorAngle = 110;
+	osg::Vec3 up(0.0f, 0.0f, 1.0f);
+	mat = osg::Matrixd::lookAt(projectorPos, projectorPos + projectorDirection,
+			up) * osg::Matrixd::perspective(projectorAngle, 1.0, 0.1, 100);
+	texMat-&amp;gt;setMatrix(mat);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texMat, osg::StateAttribute::ON);
+
+	stateset-&amp;gt;setAttribute(projProg.get());
+	return stateset;
+}
+osg::Node* createModel() {
+	osg::Group* root = new osg::Group;
+
+	/* Load the terrain which will be the receiver of out projection */
+	osg::Node* terr = osgDB::readNodeFile(&#34;Terrain2.3ds&#34;);
+	osg::Image* shot = new osg::Image();
+
+	/* Scale the terrain and move it. */
+	osg::Matrix m;
+	osg::ref_ptr&amp;lt;osg::MatrixTransform&amp;gt; mt = new osg::MatrixTransform;
+	m.makeTranslate(112.f, 410.f, -2.f);
+	m.makeScale(2.f, 2.f, 2.f);
+	mt-&amp;gt;setMatrix(m);
+	mt-&amp;gt;addChild(terr);
+
+	/* Add the transformed node to our graph */
+	root-&amp;gt;addChild(mt.get());
+
+	/* Enable projective texturing for all objects of this node */
+	root-&amp;gt;setStateSet(createProjectorState());
+	return root;
+}
+int main(int, char **) {
+	osgViewer::Viewer viewer;
+	viewer.setSceneData(createModel());
+	viewer.setUpViewInWindow(0, 0, 1024, 768);
+	return viewer.run();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Fragment Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D projectionMap;
+varying vec4 projCoord;
+void main()
+{
+	vec4 dividedCoord = projCoord / projCoord.w ;
+	vec4 color =  texture2D(projectionMap,dividedCoord.st);
+  	gl_FragColor =	 color * gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Vertex Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec4 projCoord;
+void main()
+{
+     	projCoord = gl_TextureMatrix[1] * gl_Vertex;
+		gl_Position = ftransform();
+		gl_FrontColor = gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

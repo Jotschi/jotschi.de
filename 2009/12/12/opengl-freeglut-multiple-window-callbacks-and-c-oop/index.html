@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>OpenGL - FreeGlut Multiple Window Callbacks and C&#43;&#43; (OOP)  - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">OpenGL - FreeGlut Multiple Window Callbacks and C&#43;&#43; (OOP) </h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2009-12-12">December 12, 2009</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>Using glut with cpp can be difficult in some cases for example because of the glut callback specification.
+You can&#8217;t specify a callback to a object methods due to c limitations.</p>
+</div>
+<div class="paragraph">
+<p>One workaround is to use singletons as described here:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.uni-koblenz.de/~mgoi/?p=56" class="bare">http://www.uni-koblenz.de/~mgoi/?p=56</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Another way to cope this issue is to use the glutGetWindow method.
+This method can be used within a static callback target method to determine which window should be updated etc.
+In my example i created a window class which is used to create and handle windows.
+Outside of this class i just created some wrapper callback methods which redirect the desired call to my object methods.</p>
+</div>
+<div class="paragraph">
+<p><em>GL_GLUT_OOP.cpp</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#include &lt;GL/glut.h&gt;
+#include &lt;GL/glu.h&gt;
+#include &lt;stdio.h&gt;
+#include "window.h"
+
+#define GAP  (200 / 4)
+#define SPACING  (200 / 4 + 200)
+
+window * windows[3];
+
+void display(void) {
+	int winId = glutGetWindow();
+	//printf("win%i\n", winId - 1);
+	windows[winId - 1]-&gt;display();
+}
+
+/**
+ * Request redisplay of all three windows.
+ */
+void refresh() {
+	for (int i = 0; i &lt; 3; i++) {
+		windows[i]-&gt;refresh();
+	}
+}
+
+void mouse(int x, int y) {
+	int winId = glutGetWindow();
+	//printf("mouse in win%i\n", winId - 1);
+	windows[winId - 1]-&gt;mouse(x, y);
+	windows[winId - 1]-&gt;refresh();
+}
+
+/**
+ *  Keyboard function works for all windows.
+ */
+void keyboard(unsigned char key, int x, int y) {
+	if (key == 27)
+		exit(0);
+}
+
+void idle() {
+	for (int i = 0; i &lt; 3; i++) {
+		windows[i]-&gt;idle();
+	}
+}
+
+int main(int argc, char *argv[]) {
+	glutInit(&amp;argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+
+	windows[0] = new window("Window 0", GAP, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	windows[1] = new window("Window 1", GAP + SPACING, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	windows[2] = new window("Window 2", GAP + 2 * SPACING, GAP);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutMotionFunc(mouse);
+
+	glutIdleFunc(idle);
+	glutMainLoop();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>window.h</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#include "window.h"
+#include &lt;GL/glut.h&gt;
+#include &lt;GL/glu.h&gt;
+
+#define WIN_SIZE  200
+#define F_SIZE 200
+
+double angle = 0;
+
+window::window(string name, int posX, int posY) {
+	this-&gt;_name = name;
+
+	glutInitWindowSize(WIN_SIZE, WIN_SIZE);
+	glutInitWindowPosition(posX, posY);
+	_id = glutCreateWindow(name.c_str());
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0, 1.0, 1.0, 20.0);
+	glMatrixMode(GL_MODELVIEW);
+
+}
+
+window::~window() {
+
+}
+
+/**
+ *  Display callback function.
+ */
+void window::display() {
+
+	glutSetWindow(_id);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glLoadIdentity();
+
+	if (_id == 1)
+		gluLookAt(5.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	else if (_id == 2)
+		gluLookAt(0.0, 5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	else if (_id == 3)
+		gluLookAt(5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+	// Draw the cube, rotated and scaled.
+	glPushMatrix();
+	glTranslatef(-1.0, 0.0, 0.0);
+	if (_id == 2) {
+		glRotatef(360.0 * _x, 1.0, 0.0, 0.0);
+		glRotatef(360.0 * _y, 0.0, 1.0, 0.0);
+	}
+	glRotatef(angle, 0.0, 0.0, 1.0);
+	//glScalef(x1 + 1.0, y1 + 1.0, 1.0);
+	glColor3f(0.8f, 0.0f, 0.8f);
+	glutWireCube(2.0);
+	glPopMatrix();
+
+	// Draw thre cone, rotated and scaled.
+	glPushMatrix();
+	glTranslatef(1.0, 0.0, 0.0);
+	if (_id == 1) {
+		glRotatef(360.0 * _x, 1.0, 0.0, 0.0);
+		glRotatef(360.0 * _y, 0.0, 1.0, 0.0);
+	}
+	if (_id == 3) {
+		glScalef(this-&gt;_x + 1.0, this-&gt;_y + 1.0, 1.0);
+	}
+	glTranslatef(0.0, 0.0, -1.0);
+	glColor3f(0.0f, 0.8f, 0.8f);
+	glutWireCone(1.0, 3.0, 10, 10);
+	glPopMatrix();
+	glutSwapBuffers();
+
+}
+
+void window::spin() {
+	angle += 1;
+	if (angle &gt; 360)
+		angle -= 360;
+	this-&gt;refresh();
+}
+
+void window::refresh() {
+	glutSetWindow(_id);
+	glutPostRedisplay();
+}
+
+void window::mouse(int x, int y) {
+	this-&gt;_x = (float) x / (float) F_SIZE;
+	this-&gt;_y = (float) y / (float) F_SIZE;
+}
+
+void window::idle() {
+	spin();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>window.cpp</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#ifndef WINDOW_H_
+#include &lt;string&gt;
+#include &lt;GL/glut.h&gt;
+#define WINDOW_H_
+
+using namespace std;
+
+class window {
+	int _id;
+	string _name;
+	GLfloat _x, _y;
+
+public:
+	window(string name, int posX, int posY);
+	virtual ~window();
+
+	void display();
+	void refresh();
+	void spin();
+	void mouse(int x, int y);
+	void idle();
+};
+
+#endif /* WINDOW_H_ */</code></pre>
+</div>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">OpenGL - FreeGlut Multiple Window Callbacks and C&#43;&#43; (OOP) </a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+        <span class="tag-item"><a href="http://jotschi.de//tags/OpenGL">#OpenGL</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/glut">#glut</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/cpp">#cpp</a></span>
+        
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

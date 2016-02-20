@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>High Performance MySQL Test Database Setup - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">High Performance MySQL Test Database Setup</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2014-02-03">February 03, 2014</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>Sometimes your unit tests have run against a real database server. This post will not discuss the question whether this is avoidable or not. Please take a look at embedded database server (e.g: HSQLDB for Java and mocking techniques e.g: mockito) if you want to remove this dependency from your test environment.</p>
+</div>
+<div class="paragraph">
+<p>Instead this post will show how to setup a blazing fast MySQL Server against which you can run your unit tests.</p>
+</div>
+<div class="paragraph">
+<p>The main performance bonus is gained by the innodb_flush_log_at_trx_commit setting. This setting will change the flush behavior for the mysql server. Additionally linux tmpfs will be used to put the mysql data files directly into ram.</p>
+</div>
+<div class="paragraph">
+<p>The mysql-tmpfs-wrapper.sh script will be used to replace the /etc/init.d/mysql start script. Symlink this file to /etc/init.d/myql-tmpfs.sh and use the sysv-rc-conf tool to remove the autostart/stop of the original /etc/init.d/mysql script. I used insserv /etc/init.d/mysql-tmpfs.sh to enable autostart for my wrapper script.
+{% gist <a href="https://gist.github.com/Jotschi/8792727" class="bare">https://gist.github.com/Jotschi/8792727</a> %}</p>
+</div>
+<div class="paragraph">
+<p>The recreate_mysql_frombarecopy.sh will recreate the tmpfs ramdisk by using a bare copy of the mysql data directory.
+{% gist <a href="https://gist.github.com/Jotschi/8792866" class="bare">https://gist.github.com/Jotschi/8792866</a> %}</p>
+</div>
+<div class="paragraph">
+<p>Add this mountpoint to your /etc/fstab file to define the mysql data tmpfs. You can use the stat tool to check the uid and gid for your mysql data directory (e.g: stat /opt/mysql/server-5.6/data)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">none            /opt/mysql/server-5.6/data  tmpfs   defaults,size=1000M,uid=999,gid=1000,mode=0700          0       0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I suggest to not directly modify the my.cnf file. Instead use the default my.cnf file and add a includedir section to include files in /etc/mysql/conf.d). This step is of course not needed when you use the original debian mysql server.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">[mysqld]
+bind-address             = 0.0.0.0
+
+thread_cache_size        = 8
+query_cache_size         = 32M
+thread_concurrency       = 8
+key_buffer_size          = 256M
+max_allowed_packet       = 500M
+table_open_cache         = 512
+sort_buffer_size         = 256M
+net_buffer_length        = 8K
+read_buffer_size         = 256K
+read_rnd_buffer_size     = 8M
+myisam_sort_buffer_size  = 64M
+
+innodb_use_native_aio          = false
+innodb_data_file_path          = ibdata1:10M:autoextend:max:15360M
+innodb_file_format             = Barracuda
+innodb_flush_method            = O_DIRECT
+innodb_write_io_threads        = 64
+innodb_read_io_threads         = 64
+
+#innodb_additional_mem_pool_size = 20M
+innodb_buffer_pool_size        = 2G
+innodb_log_files_in_group      = 2
+innodb_log_buffer_size         = 8M
+innodb_log_file_size           = 128M
+
+innodb_flush_log_at_trx_commit = 2
+innodb_lock_wait_timeout = 50
+
+max_connect_errors       = 1000000
+max_connections          = 350</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The last important step is to create the bare copy. I suggest that you stripdown your mysql as much as possible.
+Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1. Drop all databases except (mysql, perfomance_schema, information_schema)</p>
+</li>
+<li>
+<p>2. /etc/init.d/mysql stop</p>
+</li>
+<li>
+<p>3. Remove the ibdata and iblogfiles</p>
+</li>
+<li>
+<p>4. /etc/init.d/mysql start</p>
+</li>
+<li>
+<p>5. Mysql should work and should have recreated the ibdata and logfiles</p>
+</li>
+<li>
+<p>6. /etc/init.d/mysql stop</p>
+</li>
+<li>
+<p>7. cp -ra /opt/mysql/server-5.6/data /opt/mysql/server-5.6/databarecopy</p>
+</li>
+<li>
+<p>8. rm -rf /opt/mysql/server-5.6/data/*</p>
+</li>
+<li>
+<p>9. /etc/init.d/mysql-tmpfs.sh start</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When put into lxc container a jenkins job can be created to restart the container on a regular basis and thus keep the mysql data directoy clean.</p>
+</div>
+<div class="paragraph">
+<p>Happy testing!</p>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">High Performance MySQL Test Database Setup</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+        <span class="tag-item"><a href="http://jotschi.de//tags/lxc">#lxc</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/mysql">#mysql</a></span>
+        
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

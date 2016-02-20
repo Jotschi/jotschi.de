@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ati on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/ati/</link>
+    <description>Recent content in Ati on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Oct 2009 22:00:39 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/ati/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Texture Array Example And Clamp to Border Ati Issue Example</title>
+      <link>http://jotschi.de/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/</link>
+      <pubDate>Thu, 08 Oct 2009 22:00:39 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY&amp;#8217;s it might also be interessting for someone who want&amp;#8217;s to know how to set a texture uniform (sampler2d) or (sampler2darray).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The specification for texture arrays can be found here: &amp;lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&#34;&amp;gt;&lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&lt;/a&gt;;. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-396&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;b&amp;gt;Update - Note: &amp;lt;/b&amp;gt;
+Compile with:
+&amp;lt;blockquote&amp;gt;g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp&amp;lt;/blockquote&amp;gt;
+Get sources and libs:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;apt-get install libglut3 libglut3-dev libglew1.5 libglew1.5-dev&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;b&amp;gt;Update:&amp;lt;/b&amp;gt;
+I just developed an workaround for this issue by adding clamp to border by myself to the shader:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#extension GL_EXT_gpu_shader4 : enable
+
+uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+
+		vec4 borderColor =vec4(0.1,0.7,0.2,0.1);
+		if(texCoord.s&amp;lt;1 &amp;amp;&amp;amp; texCoord.s &amp;gt;0 &amp;amp;&amp;amp; texCoord.t &amp;lt;1 &amp;amp;&amp;amp; texCoord.t &amp;gt;0)
+		{
+			borderColor		= texture2DArray(base_texture, vec3(texCoord.st,1));
+		}
+		gl_FragColor = borderColor;
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;NOARRAY - not definied&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:
+&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; width=&#34;412&#34; height=&#34;327&#34; class=&#34;alignnone size-full wp-image-397&#34; /&amp;gt;
+The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;NOARRAY - definied&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:
+&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; width=&#34;392&#34; height=&#34;292&#34; class=&#34;alignnone size-full wp-image-398&#34; /&amp;gt;
+As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the complete example sources: &amp;lt;a href=&#34;http://jotschi.de/downloads/opengl/opengl_texture_array_glsl_example.tgz&#34;&amp;gt;opengl_texture_array_glsl_example.tgz&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader_array.frag:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2DArray base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		vec4 base_color		= texture2DArray(base_texture, vec3(texCoord.st*vec2(0.5,1.5), 0));
+		gl_FragColor = color * base_color;
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader_simple.frag:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D base_texture;
+varying vec2 texCoord;
+void main()
+{
+		vec4 color = vec4(1.0,0.5,0.2,0.1);
+		//vec2 texCoord = vec2(1.0,0.5);
+		vec4 base_color = texture2D(base_texture, texCoord);
+		gl_FragColor = color * base_color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;shader.vert:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec2 texCoord;
+void main()
+{
+    texCoord = vec2(gl_MultiTexCoord0);
+	gl_Position = ftransform();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;GL/glew.h&amp;gt;
+#include &amp;lt;GL/gl.h&amp;gt;
+#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &#34;textfile.h&#34;
+
+#define NOARRAY
+
+#define	checkImageWidth 64
+#define	checkImageHeight 64
+static GLubyte checkImage[checkImageHeight][checkImageWidth][4];
+
+char *VertexShaderSource, *FragmentShaderSource;
+
+int VertexShader, FragmentShader;
+
+int ShaderProgram;
+
+GLfloat angle = 0.0;
+
+GLuint texture;
+
+void makeCheckImage(void) {
+	int i, j, c;
+
+	for (i = 0; i &amp;lt; checkImageHeight; i++) {
+		for (j = 0; j &amp;lt; checkImageWidth; j++) {
+			c = ((((i &amp;amp; 0x8) == 0) ^ ((j &amp;amp; 0x8)) == 0)) * 255;
+			checkImage[i][j][0] = (GLubyte) c;
+			checkImage[i][j][1] = (GLubyte) c;
+			checkImage[i][j][2] = (GLubyte) c;
+			checkImage[i][j][3] = (GLubyte) 255;
+		}
+	}
+}
+
+GLuint LoadTexture() {
+	GLuint texture;
+	makeCheckImage();
+	glGenTextures(1, &amp;amp;texture);
+
+	GLfloat borderColor[4] = { 1.0, 1.0, 1.0, 1.0 };
+#ifdef NOARRAY
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth, checkImageHeight,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+#else
+	glBindTexture(GL_TEXTURE_2D_ARRAY_EXT, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+	glTexImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, GL_RGBA, checkImageWidth,
+			checkImageHeight, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 0, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY_EXT, 0, 0, 0, 1, checkImageWidth,
+			checkImageHeight, 1, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+
+#endif
+
+	return texture;
+}
+
+void FreeTexture(GLuint texture) {
+	glDeleteTextures(1, &amp;amp;texture);
+}
+
+void Lighting(void) {
+	GLfloat LightPosition[] = { 0.0, 0.0, 5.0, 1.0 };
+
+	GLfloat DiffuseLight[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientLight[] = { 1.0, 1.0, 1.0 };
+	GLfloat SpecularLight[] = { 1.0, 1.0, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+
+	GLfloat mShininess[] = { 8 };
+
+	GLfloat DiffuseMaterial[] = { 1.0, 0.0, 0.0 };
+	GLfloat AmbientMaterial[] = { 0.3, 0.3, 0.3 };
+	GLfloat SpecularMaterial[] = { 1.0, 1.0, 1.0 };
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+}
+
+void display(void) {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	Lighting();
+	glTranslatef(0, 0, -5);
+	glRotatef(angle, 1, 1, 1);
+	glRotatef(angle, 0, 1, 1);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	int texture_location = glGetUniformLocationARB(ShaderProgram,
+			&#34;base_texture&#34;);
+	if (texture_location == -1) {
+		printf(&#34;Notfound\n&#34;);
+	}
+	glUniform1iARB(texture_location, 0);
+
+	// Disabled glsl fallback
+	//glEnable(GL_TEXTURE_2D);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(-2.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(-2.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(0.0, -1.0, 0.0);
+
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(1.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(1.0, 1.0, 0.0);
+	glTexCoord2f(3.0, 3.0);
+	glVertex3f(2.41421, 1.0, -1.41421);
+	glTexCoord2f(3.0, 0.0);
+	glVertex3f(2.41421, -1.0, -1.41421);
+	glEnd();
+	glFlush();
+
+	glutSolidTeapot(1);
+	glutSwapBuffers();
+	//angle += 0.5;
+}
+
+void InitShader(void) {
+
+	VertexShader = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
+	FragmentShader = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
+	VertexShaderSource = textFileRead(&#34;shader.vert&#34;);
+#ifdef NOARRAY
+	FragmentShaderSource = textFileRead(&#34;shader_simple.frag&#34;);
+#else
+	FragmentShaderSource = textFileRead(&#34;shader_array.frag&#34;);
+#endif
+
+	const char * VS = VertexShaderSource;
+	const char * FS = FragmentShaderSource;
+
+	glShaderSourceARB(VertexShader, 1, &amp;amp;VS, NULL);
+	glShaderSourceARB(FragmentShader, 1, &amp;amp;FS, NULL);
+
+	glCompileShaderARB(VertexShader);
+	glCompileShaderARB(FragmentShader);
+
+	ShaderProgram = glCreateProgramObjectARB();
+
+	glAttachObjectARB(ShaderProgram, VertexShader);
+	glAttachObjectARB(ShaderProgram, FragmentShader);
+
+	glLinkProgramARB(ShaderProgram);
+	glUseProgramObjectARB(ShaderProgram);
+}
+
+void DeInitShader(void) {
+	glDetachObjectARB(ShaderProgram, VertexShader);
+	glDetachObjectARB(ShaderProgram, FragmentShader);
+
+	glDeleteObjectARB(ShaderProgram);
+}
+
+void Init(void) {
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	texture = LoadTexture();
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60, (GLfloat) w / (GLfloat) h, 0.1, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+int main(int argc, char **argv) {
+	glutInit(&amp;amp;argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow(&#34;Ati texture array clamp issue example&#34;);
+	glewInit();
+	InitShader();
+	Init();
+	glutDisplayFunc(display);
+	glutIdleFunc(display);
+	glutReshapeFunc(reshape);
+	glutMainLoop();
+	DeInitShader();
+	return 0;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;textfile.cpp:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;malloc.h&amp;gt;
+#include &amp;lt;fcntl.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+
+
+char *textFileRead(char *fn) {
+
+
+	FILE *fp;
+	char *content = NULL;
+
+	int f,count;
+	f = open(fn, O_RDONLY);
+
+	count = lseek(f, 0, SEEK_END);
+
+	close(f);
+
+	if (fn != NULL) {
+		fp = fopen(fn,&#34;rt&#34;);
+
+		if (fp != NULL) {
+
+
+			if (count &amp;gt; 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = &#39;\0&#39;;
+			}
+			fclose(fp);
+		}
+	}
+	return content;
+}
+
+int textFileWrite(char *fn, char *s) {
+
+	FILE *fp;
+	int status = 0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,&#34;w&#34;);
+
+		if (fp != NULL) {
+
+			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
+				status = 1;
+			fclose(fp);
+		}
+	}
+	return(status);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;textfile.h:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;char *textFileRead(char *fn);
+int textFileWrite(char *fn, char *s);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fglrx and Debian testing with 2.6.26-2-686-bigmem</title>
+      <link>http://jotschi.de/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem/</link>
+      <pubDate>Sun, 05 Jul 2009 13:17:12 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Wuarg! Again PAIN with fglrx. I just setup a fresh and clean debian installation but fglrx just creates pain.
+Well.. fglrx installed fine (with the known errors) the module compiled and everything looked ok but i wasn&amp;#8217;t able to setup Dual-Head because amdcccle gave me no option to select a Multi-Monitor arragnement. There were only two options: Single (Indipendent Position) and Unknown. I solved the issue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/ati/amdcccle-unknown.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/ati/amdcccle-unknown.png&#34; alt=&#34;&#34; title=&#34;amdcccle-unknown&#34; width=&#34;150&#34; height=&#34;116&#34; class=&#34;alignnone size-thumbnail wp-image-307&#34; /&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;br/&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I had to overwrite the /etc/ati/amdpcsdb file with one i saved from a working installation.&amp;lt;a href=&#39;http://jotschi.de/downloads/ati/amdpcsdb&#39;&amp;gt;Download /etc/ati/amdpcsdb&amp;lt;/a&amp;gt;. I used this &amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorg.conf_workingfine&#39;&amp;gt;/etc/X11/xorg.conf&amp;lt;/a&amp;gt; X11 configuration file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I believe the amdcccle does not create a correct amdpcsdb file from the amdpcsdb.default file.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fglrx and Debian testing on amd64 - 2.6.26-2-amd64</title>
+      <link>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</link>
+      <pubDate>Tue, 19 May 2009 20:33:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get fglrx working with dri and dual head using the latest ati driver:
+ati-driver-installer-9-4-x86.x86_64.run&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;
+works also with:
+ati-driver-installer-9-5-x86.x86_64.run&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-269&#34;&amp;gt;&amp;lt;/a&amp;gt;
+Some Notes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;jotschi@NeXuS:~$ uname -r
+2.6.26-2-amd64
+
+jotschi@NeXuS:~$ fglrxinfo
+display: :0.0  screen: 0
+OpenGL vendor string: ATI Technologies Inc.
+OpenGL renderer string: ATI Radeon HD 4800 Series
+OpenGL version string: 2.1.8591
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep fglrx
+ii  fglrx-amdcccle                     8.602-1                     Catalyst Control Center for the ATI graphics accelerators
+ii  fglrx-driver                            8.602-1                     Video driver for the ATI graphics accelerators
+ii  fglrx-driver-dev                      8.602-1                     Video driver for the ATI graphics accelerators (devel files)
+ii  fglrx-kernel-2.6.26-2-amd64   8.602-1+2.6.26-15           ATI binary kernel module for Linux 2.6.26-2-amd64
+ii  fglrx-kernel-src                     8.602-1                     Kernel module source for the ATI graphics accelerators
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep xorg | head -n 4 | grep -v docs
+ii  xorg                                    1:7.3+18                    X.Org X Window System
+ii  xserver-xorg                         1:7.3+18                    the X.Org X server
+ii  xserver-xorg-core                  2:1.4.2-11                  Xorg X server - core server&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Mainly i used this guide: &amp;lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&#34;&amp;gt;&lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There were some glitches because of missing files and creation of diverations. I belive the uninstallation of fglrx does not revert created diverations of certain libraries. (I dunno if the removeal of created diverations this is the expected behaviour of package removeal)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;My short Howto:
+0. Optional:
+I removed non-free from my source.lst and did an apt-get update and apt-get clean to make sure that the module assistent would not fetch some fglrx packages via network.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Stop X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;unload fglrx module&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;modprobe -r fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install additional packages you might need:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 ia32-libs
+apt-get install kernel-headers-$(uname -r)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.
+&amp;lt;code&amp;gt;dpkg -l | grep fglrx
+dpkg -P  fglrx-amdcccle
+dpkg -P fglrx-driver-dev
+dpkg -P fglrx-kernel-src
+dpkg -P fglrx-kernel-2.6.26-2-amd64
+dpkg -P fglrx-driver&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To restore the files that might have been deleted by the fglrx package removeal routines you can use:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get --reinstall install libgl1-mesa-glx
+apt-get --reinstall install xserver-xorg-core
+apt-get --reinstall install ia32-libs&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Create the fglrx packages:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;./ati-driver-installer-9-4-x86.x86_64.run --extract fglrx_9-4
+cd fglrx_9-4
+cd arch/x86_64/usr/X11R6
+ln -s lib64 lib
+cd ../../..
+./packages/Debian/ati-packager.sh --buildpkg testing
+cd ..&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Remove leftovers of previous installations:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;rm /usr/src/fglrx.tar.bz2
+rm /usr/src/*fglrx*.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the packages. You might have to change the order due to dependencies.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;dpkg -i fglrx-driver_8.602-1_amd64.deb
+dpkg -i fglrx-amdcccle_8.602-1_amd64.deb
+dpkg -i fglrx-driver-dev_8.602-1_amd64.deb
+dpkg -i fglrx-kernel-src_8.602-1_amd64.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Note: diversion problem&lt;/em&gt;
+I got some nasty failure while installing fglrx-driver_8.602-1_amd64.deb
+The package installation script was complaining about a failure while creating a diversion of libGL.so.1.2 because that file was used by the package xserver-xorg-core.
+The installation terminated with:
+&amp;lt;code&amp;gt;dpkg: error processing xorg-driver-fglrx&amp;lt;/code&amp;gt;
+You can get rid of those failures by using the &amp;lt;a href=&#34;http://www.debian.org/distrib/packages&#34;&amp;gt;Debian Package Search&amp;lt;/a&amp;gt;. Use the last form of the page to locate the file (e.g. libGL.so.1.2)
+As you see the file /usr/lib/libGL.so.1.2 is part of fglrx and the package libgl1-mesa-glx. I just reinstalled libgl1-mesa-glx and fixed the bug. &amp;lt;del datetime=&#34;2009-05-19T21:01:33+00:00&#34;&amp;gt;You may also remove the package because you wont need mesa once using hardware acceleration. (Please correct me if this is wrong - I&amp;#8217;m not quite sure about this)
+&amp;lt;/del&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;(Reading database ... 84741 files and directories currently installed.)
+Unpacking fglrx-driver (from fglrx-driver_8.612-1_amd64.deb) ...
+No diversion `diversion of /usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;, none removed
+Adding `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+No diversion `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2_32bit by fglrx-driver&#39;, none removed
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+rmdir: failed to remove `/usr/share/fglrx/diversions&#39;: No such file or directory
+rmdir: failed to remove `/usr/share/fglrx&#39;: No such file or directory
+Leaving `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/xorg/modules/extensions/libdri.so to /usr/lib/fglrx/diversions/libdri.so by fglrx-driver&#39;
+dpkg - warning, overriding problem because --force enabled:
+_ trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.so&#39;, which is also in package xserver-xorg-core_
+dpkg: error processing 1 (--install):
+ cannot access archive: No such file or directory
+Setting up fglrx-driver (8.612-1) ...
+
+Configuration file `/etc/acpi/fglrx-powermode.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-lid-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-ac-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/init.d/atieventsd&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/default/fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo_mask.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/signature&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/control&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/atiogl.xml&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/amdpcsdb.default&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/authatieventsd.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/X11/Xsession.d/70fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+update-rc.d: warning: /etc/init.d/atieventsd missing LSB information
+update-rc.d: see &amp;lt;http://wiki.debian.org/LSBInitScripts&amp;gt;
+Starting atieventsd: /usr/sbin/atieventsd already running.
+done.
+Processing triggers for man-db ...
+Errors were encountered while processing:
+ 1&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once you get only the following error you can proceed with dpkg --force-all:
+&lt;em&gt;trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Finally i had to use the --force-all option to install the package.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;dpkg --force-all -i fglrx-driver_8.602-1_amd64.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;_You should try to use the procedure described above before taking this quite drastic step. _&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Build and install the fglrx kernel module. I had not to modify the sources in any way.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;module-assistant auto-install fglrx-kernel-src&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Load the module:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;modprobe fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure it was loaded. If it wasn&amp;#8217;t loaded use dmesg to check what happed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;lsmod | grep fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;If you want to create a new xorg.conf file which stores your monitor setup etc.:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;mv /etc/X11/xorg.conf /etc/X11/xorg.conf.backup
+dpkg-reconfigure xserver-xorg (just follow the instructions)
+aticonfig --initial&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;You are done. Now start X and run the amdcccle tool and setup your screens. I had to run those steps to get dual head working:&lt;/p&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Enable both displays using amdcccle&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the resolution of both displays to the same one&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling Xinerama&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling Multi-Display Settings (Left of ..)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disabling Xinerama in /etc/X11/xorg.conf&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download my xorg.conf:
+&amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorg.conf&#39;&amp;gt;xorg.conf&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Overall this is a painstaking way of setting up dual head display and drivers. Please AMD / ATI create an Installer that creates valid Deb. packages or even better delete it and create a deb repository that everybody can use.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

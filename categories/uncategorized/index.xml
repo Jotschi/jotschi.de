@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Uncategorized on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/categories/uncategorized/</link>
+    <description>Recent content in Uncategorized on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 May 2012 11:49:47 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/categories/uncategorized/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Forward TCP Connections with Iptables</title>
+      <link>http://jotschi.de/2012/05/01/forward-tcp-connections-with-iptables/</link>
+      <pubDate>Tue, 01 May 2012 11:49:47 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/05/01/forward-tcp-connections-with-iptables/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Sometimes it is useful to forward a tcp connection to another server. For example if you want to switch a web service to another servers with no DNS delay.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You have to enable ip_forward and nat for the given port using iptables.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward
+# iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination someip:80
+# iptables -t nat -A POSTROUTING -j MASQUERADE&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Fail2Ban Debian Cheat Sheet</title>
+      <link>http://jotschi.de/2012/04/29/fail2ban-debian-cheat-sheet/</link>
+      <pubDate>Sun, 29 Apr 2012 11:21:58 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/04/29/fail2ban-debian-cheat-sheet/</guid>
+      <description>&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get install fail2ban&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Set the LogLevel parameter within /etc/ssh/sshd_config from INFO to VERBOSE. This allows fail2ban to read failed login attempts.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;LogLevel VERBOSE&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Restart sshd&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/etc/init.d/ssh restart&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Change the action parameter within the jail.conf to action_mwl. Otherwise you will not get any e-mail notification about banned ips.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;action = %(action_mwl)s&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Finally make sure that your ssh section within jail.conf is enabled and points to the correct logfile.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>rsync to ftp - Operation not supported (95)</title>
+      <link>http://jotschi.de/2012/04/17/rsync-to-ftp-operation-not-supported-95/</link>
+      <pubDate>Tue, 17 Apr 2012 21:58:07 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/04/17/rsync-to-ftp-operation-not-supported-95/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If you try to sync some files to an ftp mount you might get the Operation not supported (95) error.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt; # cd /media/ftpmountpoint/
+ # rsync -rav /tmp/somedata .
+ rsync: mkstemp &#34;/media/ftpmountpoint/.somefile.ext.FbGJUT&#34; failed: Operation not supported (95)
+ sent 526833 bytes  received 119 bytes  1053904.00 bytes/sec
+ total size is 526334  speedup is 1.00
+ rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1060) [sender=3.0.7]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Solution:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# mkdir -p /var/tmp/rsync
+# rsync -rav --temp-dir=/var/tmp/rsync /tmp/somedata .&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Explanation:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The ftp system does not allow creation of temp files. Instead you can direct rsync to create those files locally.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Mouting ftp sites can be done this way:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curlftpfs my.host.tdl /media/ftpmountpoint -o user=username:password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Realtime Webserver Access Monitoring For Linux Users</title>
+      <link>http://jotschi.de/2011/10/23/realtime-webserver-access-monitoring-for-linux-users/</link>
+      <pubDate>Sun, 23 Oct 2011 12:53:05 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/10/23/realtime-webserver-access-monitoring-for-linux-users/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For my arduino project i needed to find a way of monitoring webserver requests in realtime.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_this_is_how_it_works&#34;&gt;This is how it works:&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;On the server side i start a script that monitors the apache access log. The script just pipes useful lines into ncat to send them to connected client. &amp;lt;a href=&#34;http://nmap.org/ncat/&#34;&amp;gt;ncat&amp;lt;/a&amp;gt; is similar to netcat but it allows multiple connections. ncat is included in the nmap package. You can also use netcat but this would limit you to one client connection.
+The stdbuf command is very important since it changes the output buffering. Otherwise you would receive big chucks of data instead of discrete lines.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_on_the_server_side&#34;&gt;On the server side:&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+LOG=/var/log/apache2/blog_access.log
+tail -f -n 20 $LOG | stdbuf -oL awk &#39;{print $7 &#34; &#34;  $9}&#39;  | stdbuf -oL  grep &#34;/?p&#34; |  ncat -l 2222 -m 20 -k&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_on_the_client_side_you_need_the_following_script&#34;&gt;On the client side you need the following script:&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;On the client side a script is used that connects to the ncat server and reads the piped lines. Those lines are then passed to the notify-send command which is a neat small command that displays a notification message on your desktop.
+I don&amp;#8217;t recommend that you open the port 2222 to access it from the internet. Instead you could use openvpn to keep a open connection to your server or use ssh port forward.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+nc yourwebserver 2222 | while read line  ; do
+  echo $line
+  notify-send &#34;Blog: $line&#34;
+done&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AVR Dragon Write Arduino Bootloader On Linux To ATMega328p</title>
+      <link>http://jotschi.de/2011/10/18/avr-dragon-linux-write-arduino-bootloader/</link>
+      <pubDate>Tue, 18 Oct 2011 22:27:35 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/10/18/avr-dragon-linux-write-arduino-bootloader/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This article will contain a small summary on how to write an arduino bootloader to an AVR ATMega328p on Debian linux using the AVR Dragon.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-700&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_get_an_avr_dragon&#34;&gt;Get an AVR Dragon&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I got mine from &amp;lt;a href=&#34;http://www.watterott.com/de/Atmel-AVR-Dragon&#34;&amp;gt;watterott.com&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_solder_a_40pin_zif_socket_to_your_avr_dragon_as_described_a_href_http_www_youtube_com_watch_v_yjo29vmxt90_here_a&#34;&gt;Solder a 40pin ZIF socket to your AVR Dragon as described &amp;lt;a href=&#34;http://www.youtube.com/watch?v=yJo29VMXt90&#34;&amp;gt;here&amp;lt;/a&amp;gt;&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_3_wire_the_pins_using_the_following_diagram&#34;&gt;3. Wire the pins using the following diagram.&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/avr-dragon/pinout_dw.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/avr-dragon/pinout_dw.png&#34; alt=&#34;&#34; title=&#34;pinout_dw&#34; width=&#34;417&#34; height=&#34;365&#34; class=&#34;alignnone size-full wp-image-701&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Provide a external oscillator to your avr chip. Just connect connect pin 9 and 10 (XTAL1,XTAL2) to an 16 MHz crystal.
+&amp;lt;a href=&#34;http://jotschi.de/images/avr-dragon/Avr-atmega328-pins.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/avr-dragon/Avr-atmega328-pins.png&#34; alt=&#34;&#34; title=&#34;Avr-atmega328-pins&#34; width=&#34;322&#34; height=&#34;207&#34; class=&#34;alignnone size-full wp-image-735&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Each of the two pins of the the quartz crystal should be connected to an 22pF capacitor. The capacitor then connects to GND of the a avr dragon Ext_Power connector.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/avr-dragon/avrdragon_arduino.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/avr-dragon/avrdragon_arduino.jpg&#34; alt=&#34;&#34; title=&#34;avrdragon_arduino&#34; width=&#34;320&#34;  class=&#34;alignnone size-full wp-image-733&#34; /&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;br/&amp;gt;
+&amp;lt;a href=&#34;http://jotschi.de/images/avr-dragon/avrdragon_arduino-top.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/avr-dragon/avrdragon_arduino-top.jpg&#34; alt=&#34;&#34; title=&#34;avrdragon_arduino-top&#34; width=&#34;320&#34;  class=&#34;alignnone size-full wp-image-734&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I got the following error when trying to program the chip when using no external oscillator:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$  make atmega328_isp  ISPTOOL=dragon_isp
+avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -e -u -U lock:w:0x3f:m -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m
+avrdude: jtagmkII_setparm(): bad response to set parameter command: RSP_FAILED
+avrdude: jtagmkII_getsync(): ISP activation failed, trying debugWire
+avrdude: jtagmkII_setparm(): bad response to set parameter command: RSP_DEBUGWIRE_SYNC_FAILED
+avrdude: failed to sync with the AVR Dragon in ISP mode
+avrdude: jtagmkII_close(): timeout/error communicating with programmer (status -1)
+
+avrdude done.  Thank you.
+
+make: *** [isp] Error 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_4_create_the_following_udev_file_within_etc_udev_rules_d_to_enable_avr_dragon_detection_and_restart_your_udev_or_force_a_reload&#34;&gt;4. Create the following udev file within /etc/udev/rules.d to enable AVR Dragon detection and restart your udev (or force a reload).&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;z60_avarice.rules:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;SUBSYSTEM!=&#34;usb_device&#34;, ACTION!=&#34;add&#34;, GOTO=&#34;avarice_end&#34;
+
+# Atmel Corp. JTAG ICE mkII
+SYSFS{idVendor}==&#34;03eb&#34;, SYSFS{idProduct}==&#34;2103&#34;, MODE=&#34;660&#34;, GROUP=&#34;dialout&#34;
+
+# Atmel Corp. AVR Dragon
+SYSFS{idVendor}==&#34;03eb&#34;, SYSFS{idProduct}==&#34;2107&#34;, MODE=&#34;660&#34;, GROUP=&#34;dialout&#34;
+
+LABEL=&#34;avarice_end&#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can validate your rule by examining the output of the lsusb command:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;   Bus 007 Device 008: ID 03eb:2107 Atmel Corp. AVR Dragon&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_5_install_avrdude&#34;&gt;5. Install avrdude&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get install avrdude&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_6_get_the_arduino_bootloader_and_use_avrdude_to_write_it&#34;&gt;6. Get the arduino bootloader and use avrdude to write it&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Somehow the bootloaders which i found in the Arduino SDK (0022) (eg. arduino-0022/hardware/arduino/bootloaders/atmega) did not work properly for my Arduino UNO Board. I could not push sketches to the board when using those bootloaders.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The optiboot bootloaders on the otherhand worked for me. They can be found here: arduino-0022/hardware/arduino/bootloaders/optiboot.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You have two options:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;a) Use the build script provided. The buildscript within the optiboot folder is faulty since it contains comments after the fusebit settings. Those comments introduce a whitespace which messes up the avrdude command. You can also get an updated version of &amp;lt;a href=&#34;http://code.google.com/p/optiboot/&#34;&amp;gt;optiboot here&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make atmega328_isp  ISPTOOL=dragon_isp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Possible issues:
+The following error was caused by avrdude since the avr dragon was not directly ready to accept new commands after the fusebits have been set. You can just call the avrdude command manually. Perhaps there is a avrdude setting which fixes this issue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -U flash:w:optiboot_atmega328.hex -U lock:w:0x2f:m
+avrdude: usbdev_open(): did not find any USB device &#34;usb&#34;
+make: *** [isp] Error 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;b) Call the avrdude command manually:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -e -u -U lock:w:0x3f:m -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m
+avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -U flash:w:optiboot_atmega328.hex -U lock:w:0x2f:m&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_7_test_your_arduino_chip&#34;&gt;7. Test your arduino chip&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just removed the ATMega328p from the dragon and placed it in an arduino uno socket to test it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Calculating The ModelView Matrix For OpenGL</title>
+      <link>http://jotschi.de/2011/10/12/calculating-the-modelview-matrix-for-opengl/</link>
+      <pubDate>Wed, 12 Oct 2011 23:37:10 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/10/12/calculating-the-modelview-matrix-for-opengl/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Sometimes its very useful to create a modelview matrix without modifying the OpenGL matrix stack. Methods that will modify the matrix stack are for example gluLookAt or similar methods.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-697&#34;&amp;gt;&amp;lt;/a&amp;gt;
+I wrote my own method that calculates the modelview matrix for java but i guess it can be easily adapted. Calculating a modelview matrix in this way allows one to pass the generated matrix to a glsl shader using a simple matrix uniform. Using vertex processing in a vertex shader is even the preferred way of dealing with modelview transformations in OpenGL 3.1.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;A full example can be found &amp;lt;a href=&#34;https://github.com/Jotschi/jogl2-example&#34;&amp;gt;here&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;	public float[] calculateModelViewMatrix(Vector3f eye, Vector3f center,
+			Vector3f up) {
+
+		// Create a new matrix that will hold the modelview matrix
+		Matrix4fe mv = new Matrix4fe();
+
+		// Set the identity matrix
+		mv.setIdentity();
+
+		// Calculate the forward vector
+		Vector3f forward = new Vector3f();
+		forward.sub(center, eye);
+		forward.normalize();
+
+		// Calculate the side vector by calculating the cross product of the
+		// forward and up vector
+		Vector3f side = new Vector3f();
+		side.cross(forward, up);
+		side.normalize();
+
+		// Recalculate up
+		up.cross(side, forward);
+
+		// Set the matrix fields
+		mv.setElement(0, 0, side.getX());
+		mv.setElement(0, 1, side.getY());
+		mv.setElement(0, 2, side.getZ());
+
+		mv.setElement(1, 0, up.getX());
+		mv.setElement(1, 1, up.getY());
+		mv.setElement(1, 2, up.getZ());
+
+		mv.setElement(2, 0, -forward.getX());
+		mv.setElement(2, 1, -forward.getY());
+		mv.setElement(2, 2, -forward.getZ());
+
+		// Negate the eye vector and create a translation matrix
+		eye.negate();
+		Matrix4f translationMatrix = new Matrix4f();
+		translationMatrix.setIdentity();
+		translationMatrix.setTranslation(eye);
+
+		// Apply the translation
+		mv.mul(translationMatrix);
+
+		return mv.getFloatArray();
+	}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JOGL 2 GLSL Example</title>
+      <link>http://jotschi.de/2011/09/28/jogl-2-glsl-example/</link>
+      <pubDate>Wed, 28 Sep 2011 20:31:06 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/28/jogl-2-glsl-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example shows how to use GLSL in combination with &lt;a href=&#34;http://jogamp.org/wiki/index.php/Main_Page&#34;&gt;JOGL2&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;JOGL2GLSLExample.java&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;package de.jotschi.jogl2.example;
+
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
+
+import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES1;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLCapabilities;
+import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLProfile;
+import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.fixedfunc.GLLightingFunc;
+import javax.media.opengl.fixedfunc.GLMatrixFunc;
+import javax.media.opengl.glu.GLU;
+
+import com.jogamp.common.jvm.JNILibLoaderBase;
+import com.jogamp.gluegen.runtime.NativeLibLoader;
+import com.jogamp.opengl.util.FPSAnimator;
+
+import demos.common.ClassPathLoader;
+
+/*
+ * Simple JOGL 2 - GLSL Example
+ */
+@SuppressWarnings(&#34;serial&#34;)
+public class JOGL2GLSLExample extends Frame implements GLEventListener,
+		KeyListener {
+	private static final int CANVAS_WIDTH = 640; // Width of the drawable
+	private static final int CANVAS_HEIGHT = 480; // Height of the drawable
+	private static final int FPS = 60; // Animator&#39;s target frames per second
+	float rotateT = 0.0f;
+	static GLU glu = new GLU();
+	int timeUniform;
+
+	static {
+		ClassPathLoader loader = new ClassPathLoader();
+		loader.loadLibrary(&#34;gluegen-rt&#34;, true);
+		JNILibLoaderBase.setLoadingAction(loader);
+		NativeLibLoader.disableLoading();
+	}
+
+	// Constructor to create profile, caps, drawable, animator, and initialize
+	// Frame
+	public JOGL2GLSLExample() {
+		// Get the default OpenGL profile that best reflect your running
+		// platform.
+		GLProfile glp = GLProfile.getDefault();
+		// Specifies a set of OpenGL capabilities, based on your profile.
+		GLCapabilities caps = new GLCapabilities(glp);
+		// Allocate a GLDrawable, based on your OpenGL capabilities.
+		GLCanvas canvas = new GLCanvas(caps);
+		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+		canvas.addGLEventListener(this);
+
+		// Create a animator that drives canvas&#39; display() at 60 fps.
+		final FPSAnimator animator = new FPSAnimator(canvas, FPS);
+
+		addWindowListener(new WindowAdapter() { // For the close button
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Use a dedicate thread to run the stop() to ensure that the
+				// animator stops before program exits.
+				new Thread() {
+					@Override
+					public void run() {
+						animator.stop();
+						System.exit(0);
+					}
+				}.start();
+			}
+		});
+		add(canvas);
+		pack();
+		setTitle(&#34;OpenGL 2 GLSL Test&#34;);
+		setVisible(true);
+		animator.start(); // Start the animator
+	}
+
+	public static void main(String[] args) {
+		new JOGL2GLSLExample();
+	}
+
+	@Override
+	public void init(GLAutoDrawable gLDrawable) {
+		GL2 gl = gLDrawable.getGL().getGL2();
+
+		gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
+		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		gl.glClearDepth(1.0f);
+		gl.glEnable(GL.GL_DEPTH_TEST);
+		gl.glDepthFunc(GL.GL_LEQUAL);
+		gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+		((Component) gLDrawable).addKeyListener(this);
+
+		try {
+			initShaders(gl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static String readFromStream(InputStream ins) throws IOException {
+		if (ins == null) {
+			throw new IOException(&#34;Could not read from stream.&#34;);
+		}
+		StringBuffer buffer = new StringBuffer();
+		Scanner scanner = new Scanner(ins);
+		try {
+			while (scanner.hasNextLine()) {
+				buffer.append(scanner.nextLine() + &#34;\n&#34;);
+			}
+		} finally {
+			scanner.close();
+		}
+
+		return buffer.toString();
+	}
+
+	public void initShaders(GL2 gl) throws IOException {
+		int v = gl.glCreateShader(GL2.GL_VERTEX_SHADER);
+		int f = gl.glCreateShader(GL2.GL_FRAGMENT_SHADER);
+
+		String vsrc = readFromStream(JOGL2GLSLExample.class
+				.getResourceAsStream(&#34;/demos/data/shaders/Vertex.glsl&#34;));
+		gl.glShaderSource(v, 1, new String[] { vsrc }, (int[]) null, 0);
+		gl.glCompileShader(v);
+
+		String fsrc = readFromStream(JOGL2GLSLExample.class
+				.getResourceAsStream(&#34;/demos/data/shaders/Fragment.glsl&#34;));
+		gl.glShaderSource(f, 1, new String[] { fsrc }, (int[]) null, 0);
+		gl.glCompileShader(f);
+
+		int shaderprogram = gl.glCreateProgram();
+		gl.glAttachShader(shaderprogram, v);
+		gl.glAttachShader(shaderprogram, f);
+		gl.glLinkProgram(shaderprogram);
+		gl.glValidateProgram(shaderprogram);
+
+		gl.glUseProgram(shaderprogram);
+
+		timeUniform = gl.glGetUniformLocation(shaderprogram, &#34;time&#34;);
+
+	}
+
+	@Override
+	public void display(GLAutoDrawable gLDrawable) {
+		final GL2 gl = gLDrawable.getGL().getGL2();
+
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+		gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
+		gl.glUniform1f(timeUniform, (float) Math.random());
+		gl.glLoadIdentity();
+		gl.glTranslatef(0.0f, 0.0f, -5.0f);
+
+		// rotate on the three axis
+		gl.glRotatef(rotateT, 1.0f, 0.0f, 0.0f);
+		gl.glRotatef(rotateT, 0.0f, 1.0f, 0.0f);
+		gl.glRotatef(rotateT, 0.0f, 0.0f, 1.0f);
+
+		// Draw A Quad
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glColor3f(0.0f, 1.0f, 1.0f); // set the color of the quad
+		gl.glVertex3f(-1.0f, 1.0f, 0.0f); // Top Left
+		gl.glVertex3f(1.0f, 1.0f, 0.0f); // Top Right
+		gl.glVertex3f(1.0f, -1.0f, 0.0f); // Bottom Right
+		gl.glVertex3f(-1.0f, -1.0f, 0.0f); // Bottom Left
+		// Done Drawing The Quad
+		gl.glEnd();
+
+		// increasing rotation for the next iteration
+		rotateT += 0.2f;
+
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void reshape(GLAutoDrawable gLDrawable, int x, int y, int width,
+			int height) {
+		GL2 gl = gLDrawable.getGL().getGL2();
+		if (height &amp;lt;= 0) {
+			height = 1;
+		}
+		float h = (float) width / (float) height;
+		gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
+		gl.glLoadIdentity();
+		glu.gluPerspective(50.0f, h, 1.0, 1000.0);
+		gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+		gl.glLoadIdentity();
+	}
+
+	@Override
+	public void dispose(GLAutoDrawable drawable) {
+		// Hardly used.
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			exit();
+		}
+	}
+
+	public void exit() {
+		System.exit(0);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+	}
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Just a simple fragment shader that uses the time as a seed to generate a random vec2 and to create a random color.
+&lt;em&gt;Fragment.glsl&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#version 120
+
+uniform float time;
+
+float rand(vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453+ time);
+}
+
+void main(void)
+{
+    gl_FragColor = vec4(rand(vec2(1.0,1.0)), rand(vec2(0.0,1.0)), rand(vec2(1.0,0.0)), 1.0);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Vertex.glsl&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;void main(void)
+{
+    gl_Position = ftransform();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenStreetMap libTinyOSM &amp; GeoConvert lon/lat to UTM</title>
+      <link>http://jotschi.de/2011/09/27/openstreetmap-libtinyosm-geoconvert-lonlat-to-utm/</link>
+      <pubDate>Tue, 27 Sep 2011 00:21:25 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/27/openstreetmap-libtinyosm-geoconvert-lonlat-to-utm/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Some time ago i wrote a small library in someway similar to the osmParse library. It has a smaller footprint in comparison to the josm library. The sources can be found &amp;lt;a href=&#34;https://github.com/Jotschi/libTinyOSM&#34;&amp;gt;here&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I also migrated a small ruby file to java which contains useful lon/lat to utm conversion methods. These sources can be found &amp;lt;a href=&#34;https://github.com/Jotschi/geoconvert&#34;&amp;gt;here&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The libTinyOSM contains a small example that shows how both (libTinyOSM and geoconvert) work together to get drawable data from the osm api.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is a screenshot that shows the rendered data:
+&amp;lt;a href=&#34;http://jotschi.de/images/osm/osmUTMGeoconvert.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/osm/osmUTMGeoconvert.png&#34; alt=&#34;&#34; title=&#34;osmUTMGeoconvert&#34; width=&#34;796&#34; height=&#34;510&#34; class=&#34;alignnone size-full wp-image-671&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenStreetMap osmParser Example</title>
+      <link>http://jotschi.de/2011/09/27/openstreetmap-osmparser-example/</link>
+      <pubDate>Tue, 27 Sep 2011 00:05:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/27/openstreetmap-osmparser-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Just a simple OpenStreetMap Example for the &amp;lt;a href=&#34;http://code.google.com/p/osm-parser/&#34;&amp;gt;osmParser Library&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;import br.zuq.osm.parser.OSMParser;
+import br.zuq.osm.parser.model.OSM;
+import br.zuq.osm.parser.model.Way;
+
+public class osmParserTest {
+
+	/**
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception {
+		String left = &#34;16.35428&#34;;
+		String bottom = &#34;48.20161&#34;;
+		String right = &#34;16.36806&#34;;
+		String top = &#34;48.20747&#34;;
+		String url = &#34; http://api.openstreetmap.org/api/0.6/map?bbox=&#34; + left + &#34;,&#34; + bottom + &#34;,&#34; + right
+				+ &#34;,&#34; + top;
+		System.out.println(url);
+		OSM osm = OSMParser.parse(url);
+		for (Way way : osm.getWays()) {
+			System.out.println(way.getName());
+		}
+
+	}
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JOGL2 Maven Examples (Linux i586)</title>
+      <link>http://jotschi.de/2011/09/26/jogl2-maven-example-linux-i586/</link>
+      <pubDate>Mon, 26 Sep 2011 23:56:00 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/26/jogl2-maven-example-linux-i586/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just uploaded a small maven project &amp;lt;a href=&#34;https://github.com/Jotschi/jogl2-example&#34;&amp;gt;to GitHub&amp;lt;/a&amp;gt; that shows how to work with &lt;a href=&#34;http://maven.apache.org&#34;&gt;Maven&lt;/a&gt; and &lt;a href=&#34;http://www.jogamp.org&#34;&gt;JOGL2&lt;/a&gt;.
+The example also make usage of the ClassPathLoader mechanism i described in &amp;lt;a href=&#34;http://www.jotschi.de/?p=660&#34;&amp;gt;my other post&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I added the jogl2 libraries by using the system scope since i could not find a maven repository with those libraries. The example currently works only with i586 linux. But i could be easily modified to handle other architectures as well.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update: I migrated the nehe JOGL examples which i found &amp;lt;a href=&#34;http://www.java-tips.org/other-api-tips/jogl/vertex-buffer-objects-nehe-tutorial-jogl-port-2.html&#34;&amp;gt;here&amp;lt;/a&amp;gt; to make use of jogl2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;image:/images/opengl/JOGLQuadExample.png&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JOGL2 (jogamp) ClassPathLoader For Native Libraries</title>
+      <link>http://jotschi.de/2011/09/26/jogl2-jogamp-classpathloader-for-native-libraries/</link>
+      <pubDate>Mon, 26 Sep 2011 23:17:02 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/26/jogl2-jogamp-classpathloader-for-native-libraries/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The upcoming RC4 of JOGL2 will support loading of native libraries. I&amp;#8217;ll update this post as soon as i get time to take a look the new loading mechanism.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Usually native libraries are loaded by adding the system property java.library.path to the jvm arguments.
+Its also possible to change the java.library.path within a static block at runtime as described &lt;a href=&#34;http://fahdshariff.blogspot.com/2011/08/changing-java-library-path-at-runtime.html&#34;&gt;here&lt;/a&gt;.
+It&amp;#8217;s also possible to dynamically load the native libraries at runtime using the System.load method.
+I just wrote a small ClassPathLoader class that can be handed over to the JNILibLoaderBase class that is dealing with the loading of libraries.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The ClassPathLoader will allow extraction of the the native libraries from jars that contain all libraries.
+For jogl2 these jars are jogl-natives-linux-i586.jar and gluegen-rt-natives-linux-i586.jar for linux-i586.
+This static block can be embedded within your main class. It will disable the default loading mechanism and replace it with the classpath loader.
+Please note that is required that the native lib jars must be added to the classpath.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;static {
+		ClassPathLoader loader = new ClassPathLoader();
+		loader.loadLibrary(&#34;gluegen-rt&#34;, true);
+		JNILibLoaderBase.setLoadingAction(loader);
+		NativeLibLoader.disableLoading();
+	}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is the ClassPathLoader itself. No real magic here as well. Please note that the loader currently only works with linux libraries (&lt;strong&gt;.so). Adaption for windows libraries (&lt;/strong&gt;.dll) shouldn&amp;#8217;t be that hard.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;package de.jotschi.jogl2.example;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import com.jogamp.common.jvm.JNILibLoaderBase.LoaderAction;
+
+public class ClassPathLoader implements LoaderAction {
+
+	/**
+	 * Loads the given library with the libname from the classpath root
+	 */
+	public boolean loadLibrary(String libname, boolean ignoreError) {
+		String filename = &#34;lib&#34; + libname + &#34;.so&#34;;
+		InputStream ins = ClassLoader.getSystemResourceAsStream(filename);
+
+		try {
+			File tmpFile = writeTmpFile(ins, filename);
+			System.load(tmpFile.getAbsolutePath());
+			tmpFile.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Write the content of the inputstream into a tempfile with the given
+	 * filename
+	 *
+	 * @param ins
+	 * @param filename
+	 * @throws IOException
+	 */
+	private File writeTmpFile(InputStream ins, String filename)
+			throws IOException {
+
+		File tmpFile = new File(System.getProperty(&#34;java.io.tmpdir&#34;), filename);
+		tmpFile.delete();
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(tmpFile);
+
+			byte[] buffer = new byte[1024];
+			int len;
+			while ((len = ins.read(buffer)) != -1) {
+
+				fos.write(buffer, 0, len);
+			}
+		} finally {
+			if (ins != null) {
+				ins.close();
+			}
+			if (fos != null) {
+				fos.close();
+			}
+		}
+		return tmpFile;
+	}
+
+	public void loadLibrary(String libname, String[] preload,
+			boolean preloadIgnoreError) {
+		loadLibrary(libname, preloadIgnoreError);
+	}
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>NasaTV HD Linux</title>
+      <link>http://jotschi.de/2011/09/03/nasatv-hd-linux/</link>
+      <pubDate>Sat, 03 Sep 2011 16:07:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/03/nasatv-hd-linux/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just found a very useful script to download the Nasatv HD stream on linux. The script was written by the user Naito. I found it &lt;a href=&#34;http://forum.nasaspaceflight.com/index.php?topic=19846.990;wap2&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+filename=&#34;NASA-TV-HD.`date +%y%m%d-%s`&#34;
+
+httpurl=&#39;http://liveips.nasa.gov.edgesuite.net/msfc/Wifi.m3u8&#39;
+trap &#34;break; echo Finished recording. ; exit 0&#34; SIGINT SIGTERM
+
+echo -n Buffering
+#Get initial set of files
+for nextfile in $(curl -s $httpurl | grep &#39;.ts&#39;); do
+        echo -n .
+        curl -s &#34;$nextfile&#34; &amp;gt;&amp;gt; $filename.ts
+        lastfile=&#34;$nextfile&#34;
+done
+
+echo 100\%
+
+echo Starting continuous recording. Press CTRL-C to quit.
+while true; do
+        nextfile=$(curl -s $httpurl | grep &#39;.ts&#39; | tail -1)
+        if [ &#34;$nextfile&#34; != &#34;$lastfile&#34; ]; then
+                curl -s &#34;$nextfile&#34; &amp;gt;&amp;gt; $filename.ts
+                lastfile=&#34;$nextfile&#34;
+        fi
+ #File list updates every 10 seconds, but don&#39;t want to sleep too long and miss an update!
+        sleep 7
+done&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JNI via JavaCPP on Android</title>
+      <link>http://jotschi.de/2011/08/25/jni-via-javacpp-on-android/</link>
+      <pubDate>Thu, 25 Aug 2011 23:50:55 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/08/25/jni-via-javacpp-on-android/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There are multiple ways to get JNI working with android. You can of course do it the manual way and create header file and includes in your java classes but thats a lot of work and it might be even prone to errors. &amp;lt;a href=&#34;http://www.koushikdutta.com/2009/01/jni-in-android-and-foreword-of-why-jni.html&#34;&amp;gt;Here is a good post&amp;lt;/a&amp;gt; from Koushik Dutta  that summarizes those bad parts in detail. This post will focus on getting started with JavaCPP and Android.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There are some approaches to get rid of all those manual steps. There is for example &lt;a href=&#34;https://github.com/twall/jna&#34;&gt;JNA (Java Native Access)&lt;/a&gt;. &lt;a href=&#34;http://www.ok.ctrl.titech.ac.jp/~saudet/&#34;&gt;Aamuel Audet&lt;/a&gt; the author of JavaCPP wrote a patch for JNA to support Android. But JNA has also some &amp;lt;a href=&#34;http://codeanticode.wordpress.com/2010/12/07/jna-on-android/&#34;&amp;gt;problems&amp;lt;/a&amp;gt; and &amp;lt;a href=&#34;https://github.com/twall/jna/blob/master/www/FrequentlyAskedQuestions.md&#34;&amp;gt; drawbacks&amp;lt;/a&amp;gt; which should be noted.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Another solution is using JavaCPP by Aamuel Audet. This post will describe how to get JavaCPP working with Android.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_create_an_eclipse_android_project&#34;&gt;Create an Eclipse Android project&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Use the wizard and create a new android project with the name NativeTest.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_add_javacpp_to_the_project_libs&#34;&gt;Add JavaCPP to the project libs&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the javacpp binary archive and place the javacpp.jar into the /libs folder of your project. Create the folder if it does not exist. Add the javacpp.jar to your buildpath&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_add_javacpp_example_code_to_your_project&#34;&gt;Add JavaCPP example code to your project&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Replace your default activity class with the content of NativeTestActivity. You need to adapt some package names.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example is very simple and was fetched from the JavaCPP tutorial page but i guess it shows really good how to get started with JavaCPP. If the app does not crash you&amp;#8217;ll know for sure that everything is fine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;package de.jotschi;
+
+import com.googlecode.javacpp.Loader;
+import com.googlecode.javacpp.Pointer;
+import com.googlecode.javacpp.PointerPointer;
+import com.googlecode.javacpp.annotation.ByRef;
+import com.googlecode.javacpp.annotation.Cast;
+import com.googlecode.javacpp.annotation.Name;
+import com.googlecode.javacpp.annotation.Namespace;
+import com.googlecode.javacpp.annotation.Platform;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+@Platform(include = &#34;&amp;lt;vector&amp;gt;&#34;)
+@Namespace(&#34;std&#34;)
+public class NativeTestActivity extends Activity {
+
+	static {
+		Loader.load();
+	}
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		PointerVector v = new PointerVector(42);
+		Pointer p = new Pointer() {
+			{
+				address = 0xDEADBEEFL;
+			}
+		};
+		v.get(0).put(p);
+
+		PointerVector v2 = new PointerVector().copy(v);
+		Pointer p2 = v2.at(0).get();
+		System.out.println(v2.size() + &#34;  &#34; + p2);
+
+	}
+
+	@Name(&#34;vector&amp;lt;void*&amp;gt;&#34;)
+	public static class PointerVector extends Pointer {
+		public PointerVector() {
+			allocate();
+		}
+
+		public PointerVector(long n) {
+			allocate(n);
+		}
+
+		public PointerVector(Pointer p) {
+			super(p);
+		} // this = (vector&amp;lt;void*&amp;gt;*)p
+
+		private native void allocate(); // this = new std::vector&amp;lt;void*&amp;gt;()
+
+		private native void allocate(long n); // this = new
+												// std::vector&amp;lt;void*&amp;gt;(n)
+
+		@Name(&#34;operator=&#34;)
+		public native @ByRef
+		PointerVector copy(@ByRef PointerVector x);
+
+		public native long size();
+
+		public native @Cast(&#34;bool&#34;)
+		boolean empty();
+
+		@Name(&#34;operator[]&#34;)
+		public native @ByRef
+		PointerPointer get(long n);
+
+		public native @ByRef
+		PointerPointer at(long n);
+	}
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_create_the_native_files_using_javacpp&#34;&gt;Create the native files using JavaCPP&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Switch into your workspace directory and execute the following command. Please note that you have to change your paths accordingly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;jotschi@Amilo:~/workspace/NativeTest$ java -jar libs/javacpp.jar -classpath bin/  -d libs/armeabi/ -properties android-arm -Dplatform.root=/opt/ide/android-ndk-r6 -Dcompiler.path=/opt/ide/android-ndk-r6/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++  -classpath /opt/ide/android-sdk-linux_x86/platforms/android-10/android.jar de.jotschi.NativeTestActivity&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can also create an external builder task to execute the generation process automatically. This &amp;lt;a href=&#34;http://mobilepearls.com/labs/ndk-builder-in-eclipse/&#34;&amp;gt;post&amp;lt;/a&amp;gt; describes how to setup a builder for the ndk.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_execute_the_example&#34;&gt;Execute the example&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now you can execute the example on your android device. Please note that enabling &#39;debug&#39; within your android manifest will help debugging. LogCat will only print stacktraces if you have enabled that option.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cross Compile Pandaboard PowerVR OpenGL ES2 Example</title>
+      <link>http://jotschi.de/2011/07/08/pandaboard-powervr-opengl-es2-example/</link>
+      <pubDate>Fri, 08 Jul 2011 14:12:40 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/07/08/pandaboard-powervr-opengl-es2-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This post is about how to cross compile a very simple OpenGL ES2 example for the Pandaboard within a Debian Linux chroot environment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-594&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;What do we need?&lt;/em&gt;
+* Pandaboard running Ubuntu 11 (Natty)
+* x86 (i386) Workstation running Debian
+* &amp;lt;a href=&#34;http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/&#34;&amp;gt;pvr-omap4 orig package&amp;lt;/a&amp;gt; (e.g.: &amp;lt;a href=&#34;http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&#34;&amp;gt;pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&amp;lt;/a&amp;gt;)
+* &lt;a href=&#34;http://jotschi.de/downloads/PandaboardPowerVROGLES2Example.tgz&#34;&gt;Archive&lt;/a&gt; with OpenGL ES2 example for the Pandaboard&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_1_create_a_chroot_environment&#34;&gt;1. Create a chroot environment&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At first we need a chroot environment in which we can compile our code against arm architecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;# use debootstrap to create a chroot environment
+debootstrap --arch=i386 testing rootfs/
+# Switch into the chroot environment
+chroot rootfs
+# Install some basic tools
+apt-get install vim less pdebuild-cross&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_2_update_our_apt_sources&#34;&gt;2. Update our apt sources&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Add the emdebian repository.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;echo &#34;deb http://ftp.at.debian.org/debian/ testing main contrib non-free&#34; &amp;gt; /etc/apt/sources.list
+echo &#34;deb http://www.emdebian.org/debian/ testing main&#34; &amp;gt;&amp;gt; /etc/apt/sources.list
+apt-get install emdebian-archive-keyring
+apt-get update&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_3_install_the_crosscompiler_tools_from_emdebian_repository&#34;&gt;3. Install the crosscompiler tools from emdebian repository&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get install g++-4.4-arm-linux-gnueabi
+apt-get install gcc-4.4-arm-linux-gnueabi&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_4_powervr_libraries_and_headers&#34;&gt;4. PowerVR libraries and headers&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the pvr-omap4 archive which contains a set of libraries for powervr. The files can be found at &amp;lt;a href=&#34;https://launchpad.net/~tiomap-dev&#34;&amp;gt;Launchpad TI Dev&amp;lt;/a&amp;gt;. Those binaries are used to create the omap4 ubuntu packages. I used the pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz archive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;# Extract pvr-omap4 archive
+cd /opt/
+wget http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+tar xvfz pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_5_get_cross_compile_dependencies&#34;&gt;5. Get cross compile dependencies&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;xapt -m -a armel libx11-dev
+xapt -m -a armel libdrm-dev&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_6_extract_the_example_and_compile&#34;&gt;6. Extract the example and compile&lt;/h3&gt;
+
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;__a_href_downloads_pandaboardpowervrogles2example_tgz_download_the_example&#34;&gt;&amp;lt;a href=&#34;http://jotschi.de/downloads/PandaboardPowerVROGLES2Example.tgz[Download] the example&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;cd /opt/
+wget http://www.jotschi.de/downloads/PandaboardPowerVROGLES2Example.tgz
+tar xvfz PandaboardPowerVROGLES2Example.tgz&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect3&#34;&gt;
+&lt;h4 id=&#34;_store_settings&#34;&gt;Store Settings&lt;/h4&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Contents of /opt/settings.inc&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;#!/bin/bash
+export X11ROOT=/usr/arm-linux-gnueabi/
+export PVR_OMAP_FILES=/opt/pvr-omap4-1.7.5.2+git20110610+9696932c.2&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_load_settings_and_compile&#34;&gt;Load settings and compile:&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;cd /opt/OGLES2PowerVRPandaboardExample
+# If . does not work use source to include the settings
+. /opt/settings.inc
+# Invoke the build
+make&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h3&amp;gt;Optional for pandaboard cross platform development&amp;lt;/h3&amp;gt;
+Now i have a build arm ready binary executable within my chroot environment. To execute it straight from eclipse we have to create another script. The script will transfer our executable (in this case OGLES2HelloTriangle) to the Pandaboard OMAP4 platform and execute it there.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;run.sh:&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;#!/bin/bash
+echo &#34;Transfering&#34;
+scp ReleaseX11/OGLES2HelloTriangle  root@panda:/opt/
+
+echo &#34;Executing&#34;
+ssh root@panda DISPLAY=:0 /opt/OGLES2HelloTriangle&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Just create a new C/C++ Application run configuration that uses the following settings:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;C/C++ Application: /bin/bash&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Program arguments: /home/myuser/workspace/MyProject/run.sh&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Pandaboard OpenGL PowerVR CrossCompile On Debian</title>
+      <link>http://jotschi.de/2011/07/07/pandaboard-opengl-powervr-crosscompile-on-debian/</link>
+      <pubDate>Thu, 07 Jul 2011 00:45:28 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/07/07/pandaboard-opengl-powervr-crosscompile-on-debian/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This post is about how to compile the PowerVR SDK Examples within a Debian Linux Chroot environment. Sometimes you may not want to compile your sources on the target platform because of performance reasons.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Notes about environment:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Debian Chroot Environment was using Debian Testing (Wheezy).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pandaboard was running Ubuntu 11 (Natty)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PowerVR Library versions: 1.7.5.2+git20110610+9696932c.2-1&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;What do we need?&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pandaboard running Ubuntu 11 (Natty)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;x86 (i386) Workstation running Debian&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/&#34;&gt;pvr-omap4 orig package&lt;/a&gt; (e.g.: &lt;a href=&#34;http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&#34;&gt;pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&lt;/a&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Imagination PowerVR &amp;lt;a href=&#34;http://www.imgtec.com/powervr/insider/sdkdownloads/index.asp&#34;&amp;gt;Khronos OpenGL ES 2.0 SDK&amp;lt;/a&amp;gt; for Pandaboard&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_1_create_a_chroot_environment&#34;&gt;1. Create a chroot environment&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At first we need a chroot environment in which we can compile our code against arm architecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# use debootstrap to create a chroot environment
+debootstrap --arch=i386 testing rootfs/
+# Switch into the chroot environment
+chroot rootfs
+# Install some basic tools
+apt-get install vim less pdebuild-cross&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_2_update_our_apt_sources&#34;&gt;2. Update our apt sources&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Add the emdebian repository.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &#34;deb http://ftp.at.debian.org/debian/ testing main contrib non-free&#34; &amp;gt; /etc/apt/sources.list
+echo &#34;deb http://www.emdebian.org/debian/ testing main&#34; &amp;gt;&amp;gt; /etc/apt/sources.list
+apt-get install emdebian-archive-keyring
+apt-get update&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_3_install_the_crosscompiler_tools_from_emdebian_repository&#34;&gt;3. Install the crosscompiler tools from emdebian repository&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get install g++-4.4-arm-linux-gnueabi
+apt-get install gcc-4.4-arm-linux-gnueabi&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_4_prepare_the_powervr_sdk&#34;&gt;4. Prepare the PowerVR SDK&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cd /opt/
+# Download the powervr sdk and extract it in /opt
+tar xfvz SDK_OGLES2_LINUX_ARMV7_2.08.28.0634.tar.gz
+# Replace one parameter that does not work with Debian Linux.
+sed -i &#39;s/arm-none-linux/arm-linux/&#39; /opt/SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7/make_platform.mak&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_5_get_cross_compile_dependencies&#34;&gt;5. Get cross compile dependencies&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;xapt -m -a armel libx11-dev
+xapt -m -a armel libdrm-dev&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_6_store_settings&#34;&gt;6. Store Settings&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Contents of /opt/settings.inc&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+export X11BUILD=1
+export PLATFORM=LinuxARMV7
+export X11ROOT=/usr/include/
+export CROSS_COMPILE=arm-linux-gnueabi-&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_7_compile_example&#34;&gt;7. Compile example&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cd /opt/SDKPackage_OGLES2/TrainingCourse/03_Texturing/OGLES2/Build
+# If . does not work use source to include the settings
+. /opt/settings.inc
+# Invoke the build
+make&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_8_problems_and_issues&#34;&gt;8. Problems and issues&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I transfered the binaries onto my pandaboard after i compiled the sources on my workstation. If i tried to execute them i got the following error:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;eglBindAPI failed (40740).&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_9_fixes&#34;&gt;9. Fixes&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I assume that the libraries which are included in the sdk are outdated. The libraries can be found here: &lt;em&gt;SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7/Lib&lt;/em&gt;. I replaced them with a set of libraries which can be found at &amp;lt;a href=&#34;https://launchpad.net/~tiomap-dev&#34;&amp;gt;Launchpad TI Dev&amp;lt;/a&amp;gt;. Those binaries are used to create the omap4 ubuntu packages. I used the pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz archive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Extract pvr-omap4 archive
+cd /opt/
+wget http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+tar xvfz pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+# Replace Libs
+cd /opt/SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7
+mv Lib/ Lib.bak
+ln -s /opt/pvr-omap4-1.7.5.2+git20110610+9696932c.2/usr/lib/ Lib&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;After replacing the libraries and recompiling the examples worked just fine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Pandaboard OpenGL PowerVR CrossCompile On Debian - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Pandaboard OpenGL PowerVR CrossCompile On Debian</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2011-07-07">July 07, 2011</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>This post is about how to compile the PowerVR SDK Examples within a Debian Linux Chroot environment. Sometimes you may not want to compile your sources on the target platform because of performance reasons.</p>
+</div>
+<div class="paragraph">
+<p><em>Notes about environment:</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Debian Chroot Environment was using Debian Testing (Wheezy).</p>
+</li>
+<li>
+<p>Pandaboard was running Ubuntu 11 (Natty)</p>
+</li>
+<li>
+<p>PowerVR Library versions: 1.7.5.2+git20110610+9696932c.2-1</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>What do we need?</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pandaboard running Ubuntu 11 (Natty)</p>
+</li>
+<li>
+<p>x86 (i386) Workstation running Debian</p>
+</li>
+<li>
+<p><a href="http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/">pvr-omap4 orig package</a> (e.g.: <a href="http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz">pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz</a>)</p>
+</li>
+<li>
+<p>Imagination PowerVR &lt;a href="http://www.imgtec.com/powervr/insider/sdkdownloads/index.asp"&gt;Khronos OpenGL ES 2.0 SDK&lt;/a&gt; for Pandaboard</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_1_create_a_chroot_environment">1. Create a chroot environment</h3>
+<div class="paragraph">
+<p>At first we need a chroot environment in which we can compile our code against arm architecture.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># use debootstrap to create a chroot environment
+debootstrap --arch=i386 testing rootfs/
+# Switch into the chroot environment
+chroot rootfs
+# Install some basic tools
+apt-get install vim less pdebuild-cross</code></pre>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_update_our_apt_sources">2. Update our apt sources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Add the emdebian repository.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">echo "deb http://ftp.at.debian.org/debian/ testing main contrib non-free" &gt; /etc/apt/sources.list
+echo "deb http://www.emdebian.org/debian/ testing main" &gt;&gt; /etc/apt/sources.list
+apt-get install emdebian-archive-keyring
+apt-get update</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_install_the_crosscompiler_tools_from_emdebian_repository">3. Install the crosscompiler tools from emdebian repository</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">apt-get install g++-4.4-arm-linux-gnueabi
+apt-get install gcc-4.4-arm-linux-gnueabi</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_prepare_the_powervr_sdk">4. Prepare the PowerVR SDK</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">cd /opt/
+# Download the powervr sdk and extract it in /opt
+tar xfvz SDK_OGLES2_LINUX_ARMV7_2.08.28.0634.tar.gz
+# Replace one parameter that does not work with Debian Linux.
+sed -i 's/arm-none-linux/arm-linux/' /opt/SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7/make_platform.mak</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_get_cross_compile_dependencies">5. Get cross compile dependencies</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">xapt -m -a armel libx11-dev
+xapt -m -a armel libdrm-dev</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_store_settings">6. Store Settings</h3>
+<div class="paragraph">
+<p>Contents of /opt/settings.inc</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">#!/bin/bash
+export X11BUILD=1
+export PLATFORM=LinuxARMV7
+export X11ROOT=/usr/include/
+export CROSS_COMPILE=arm-linux-gnueabi-</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_compile_example">7. Compile example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">cd /opt/SDKPackage_OGLES2/TrainingCourse/03_Texturing/OGLES2/Build
+# If . does not work use source to include the settings
+. /opt/settings.inc
+# Invoke the build
+make</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_problems_and_issues">8. Problems and issues</h3>
+<div class="paragraph">
+<p>I transfered the binaries onto my pandaboard after i compiled the sources on my workstation. If i tried to execute them i got the following error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">eglBindAPI failed (40740).</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_9_fixes">9. Fixes</h3>
+<div class="paragraph">
+<p>I assume that the libraries which are included in the sdk are outdated. The libraries can be found here: <em>SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7/Lib</em>. I replaced them with a set of libraries which can be found at &lt;a href="https://launchpad.net/~tiomap-dev"&gt;Launchpad TI Dev&lt;/a&gt;. Those binaries are used to create the omap4 ubuntu packages. I used the pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz archive.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># Extract pvr-omap4 archive
+cd /opt/
+wget http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+tar xvfz pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+# Replace Libs
+cd /opt/SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7
+mv Lib/ Lib.bak
+ln -s /opt/pvr-omap4-1.7.5.2+git20110610+9696932c.2/usr/lib/ Lib</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After replacing the libraries and recompiling the examples worked just fine.</p>
+</div>
+</div>
+</div>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Pandaboard OpenGL PowerVR CrossCompile On Debian</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

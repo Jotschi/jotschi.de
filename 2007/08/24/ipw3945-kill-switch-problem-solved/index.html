@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Ipw3945 - Kill Switch Problem - Solved - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Ipw3945 - Kill Switch Problem - Solved</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2007-08-24">August 24, 2007</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>Wireless Network Interface verschwunden? Ipw3945 gibt folgenden Hinweis aus?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">[17179602.488000] ipw3945: Radio Frequency Kill Switch is On:
+[17179602.488000] Kill switch must be turned off for wireless networking to work.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dies bedeutet, das der WLan Chip deaktiviert wurde (geschieht normalerweise mittels Taste am Notebook)</p>
+</div>
+<div class="paragraph">
+<p>rf_kill sollte in dem Fall wahrscheinlich 2 liefern:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>amilo:/sys/bus/pci/drivers/ipw3945/0000:04:00.0# cat rf_kill
+2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Um den killswitch unter Linux zum laufen zu bringen benötigt man (beim Amilo Pro 3505 zumindest) die Acer Hotkey Treiber.</p>
+</div>
+<div class="paragraph">
+<p>Diese gibt es unter <a href="http://www.cakey.de/acerhk/" class="bare">http://www.cakey.de/acerhk/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>make
+make install
+modprobe acerhk</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sollte das Modul nicht bauen weil es die config.h nicht findet genügt es in acerhk.c (Line 38) den Include von linux/config.h auf linux/autoconf.h zu ändern.</p>
+</div>
+<div class="paragraph">
+<p>Mit dem folgenden Befehl aktiviert man das WLAN wieder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>echo 1 &gt; /proc/driver/acerhk/wirelessled</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>rf_kill sollte nun 0 zurückliefern:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>amilo:/sys/bus/pci/drivers/ipw3945/0000:04:00.0# cat rf_kill
+0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Getestet mit:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Distro:       Debian Etch</p>
+</li>
+<li>
+<p>Notebook: Amilo Pro 3505</p>
+</li>
+<li>
+<p>Treiber:    Ipw3945-1.2.2 / acerhk-0.5.34</p>
+</li>
+<li>
+<p>Kernel:     2.6.21.5</p>
+</li>
+</ul>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Ipw3945 - Kill Switch Problem - Solved</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+        <span class="tag-item"><a href="http://jotschi.de//tags/debian">#debian</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/ipw3945">#ipw3945</a></span>
+        
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Generating City Models By Using Panorama Images - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Generating City Models By Using Panorama Images</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2009-07-13">July 13, 2009</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>&lt;del datetime="2012-09-26T22:09:41+00:00"&gt;Currently i&#8217;m&lt;/del&gt;Some time ago i was developing methods and software to transform panorama images into 3d models. The panorama image itself should be projected onto a generated 3d mesh.
+This would generate a textured 3d model which could be used as key for the development of different applications. In this article i will describe my approach and show some perspectives for some applications.&lt;a id="more"&gt;&lt;/a&gt;&lt;a id="more-320"&gt;&lt;/a&gt;
+A slightly similar approach is done by &lt;a href="http://interactive.usc.edu/viewfinder/"&gt;viewfinder&lt;/a&gt; which enables the user to position the image into a 3D context.</p>
+</div>
+<div class="paragraph">
+<p>&lt;h1&gt;Project Goals&lt;/h1&gt;
+&lt;h2&gt;Phase I goals:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Automatically creating a textured 3D city model.&lt;/li&gt;
+&lt;/ul&gt;</p>
+</div>
+<div class="sect1">
+<h2 id="_phase_ii_goals">Phase II goals:</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Auto align any image that was taken within the area of the created city model.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_iii_goals">Phase III goals:</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Refine geometric data of the city model by using structure from motion techniques.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_project_description">Project Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By using &lt;a href="http://www.openstreetmap.org/"&gt;openstreetmap - OSM&lt;/a&gt; data and basic computer vision edge detection of panorama images it is possible to find simple corrolating points between the panorama image and the openstreetmap data. The process is described below.</p>
+</div>
+<div class="paragraph">
+<p>Developing a software that is capabel of transforming information gathered from panoramic images and geo location based map data into a world model. Further this world model can be used to extrapolate the position of a viewer by corolating template images from the world model view and the image that was taken from the view.</p>
+</div>
+<div class="paragraph">
+<p>&lt;a href="http://interactive.usc.edu/viewfinder/index.html"&gt;Viewfinder&lt;/a&gt;</p>
+</div>
+<div class="paragraph">
+<p>httpv://www.youtube.com/watch?v=3b8ACCN3wSw
+This video shows the basic principle of projecting a panorama image onto 3d surfaces. This video is just a proof of concept that you can use openstreetmap data as a valid basis for the mesh generation. In my mind the accuracy is quite good.</p>
+</div>
+<div class="paragraph">
+<p><em>Mesh generation:</em></p>
+</div>
+<div class="paragraph">
+<p>&lt;a href="/images/osm3d/unmapped.png"&gt;&lt;img src="/images/osm3d/unmapped.png" alt="" title="Panorama Simple" width="500" class="alignnone size-medium wp-image-336" /&gt;&lt;/a&gt;
+This is the panorama source image.</p>
+</div>
+<div class="paragraph">
+<p>&lt;a href="/images/osm3d/mapped_lines.png"&gt;&lt;img src="/images/osm3d/mapped_lines.png" alt="" title="Panorama Mapped Lines" width="500" class="alignnone size-medium wp-image-335" /&gt;&lt;/a&gt;
+By using the initial camera position and orientation of the panorama image we can align the openstreet map data. The arrows in the image indicates the direction in which the facing surface will be generated.</p>
+</div>
+<div class="paragraph">
+<p>&lt;a href="/images/osm3d/edges.png"&gt;&lt;img src="/images/osm3d/edges.png" alt="" title="Extracted edges" width="500"  class="alignnone size-medium
+wp-image-334" /&gt;&lt;/a&gt;
+The bottom end of the surface is defined by the openstreetmap data and the top end by the extracted contour.</p>
+</div>
+<div class="paragraph">
+<p><em>Map generation:</em>
+To avoid generation of surfaces that can&#8217;t be seen by the viewer we just remove all these lines in the osm map data as described here. At first we generate the normal vectors for each line to determine if the (bottom) line will be part of a facing surface.</p>
+</div>
+<div class="paragraph">
+<p>&lt;a href="/images/osm3d/3.png"&gt;&lt;img src="/images/osm3d/3.png" alt="" title="3" width="500" class="alignnone size-medium wp-image-332" /&gt;&lt;/a&gt;</p>
+</div>
+<div class="paragraph">
+<p>We remove all lines that do not belong to a facing surface by comparing the view vector with the normal vector.</p>
+</div>
+<div class="paragraph">
+<p>&lt;a href="/images/osm3d/2.png"&gt;&lt;img src="/images/osm3d/2.png" alt="" title="2" width="500" class="alignnone size-medium wp-image-331" /&gt;&lt;/a&gt;</p>
+</div>
+<div class="paragraph">
+<p>After removing these lines we also remove the lines which are currently not visible by the viewer. This can be done by defining a 2d view volume. All lines that aren&#8217;t visible will be removed.</p>
+</div>
+<div class="paragraph">
+<p>&lt;a href="/images/osm3d/4.png"&gt;&lt;img src="/images/osm3d/4.png" alt="" title="4" width="500"  class="alignnone size-medium wp-image-333" /&gt;&lt;/a&gt;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_applications">Applications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Aligning any image with some parameters about its location precisely within this scene can open a variety of applications. Such as real time augmented reality applications. You can superimpose any content over an image or a video of the scene. And more specific: You could align your content to any surface the scene provides. Imagine arrows that point a direction along walls of a building.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_development">Development</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Currently i&#8217;m developing the applications in cpp using OpenCV and OpenSceneGraph (OSG).</p>
+</div>
+<div class="paragraph">
+<p>What i have done:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Projective Textures using glsl shaders. 15.07.2009&lt;/li&gt;</p>
+</li>
+<li>
+<p>Extracting horizon contour from images using OpenCV functions. - 19.07.2009</p>
+</li>
+<li>
+<p>Creating a view volume that represents the actual view of the 'projector' within the program. 06.07.2009</p>
+</li>
+<li>
+<p>Align the extracted into the view volume of the program so that the contour will be superimposed over the viewed scene. - 22.07.2009</p>
+</li>
+<li>
+<p>Transforming osm data coordinates to &lt;a href="http://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system"&gt;UTM.&lt;/a&gt; - 01.08.2009</p>
+</li>
+<li>
+<p>Combining mesh creation &amp; osm data &amp; projection of image data within one program. - 03.08.2009</p>
+</li>
+<li>
+<p>Extracting openstreetmap data via xml web api by using a adapted c library. - 03.08.2009</p>
+</li>
+<li>
+<p>Developing a fast algorithm for generating a homogeneous polygon mesh between two lines. - 09.08.2009</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>What needs to be done:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Align a unknown image which was taken within the scene using &lt;a href="http://en.wikipedia.org/wiki/Scale-invariant_feature_transform"&gt;sift template matching&lt;/a&gt; as key technology.</p>
+</li>
+<li>
+<p>Handling multiple projection sources within one scene</p>
+</li>
+<li>
+<p>Useing accelerometer data from wiimote to match the viewer orientation within the scene</p>
+</li>
+<li>
+<p>Using GPS data to match the viewer position within the scene.</p>
+</li>
+<li>
+<p>Refining the viewer attitude (position, field of view, orientation) by examine external image feed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&lt;script src="http://www.gliffy.com/diagramEmbed.js" type="text/javascript"&gt; &lt;/script&gt;
+&lt;script type="text/javascript"&gt; gliffy_did = "1785581"; embedGliffy(); &lt;/script&gt;</p>
+</div>
+<div class="paragraph">
+<p>Screenshots:
+&lt;img src="/images/osm3d/pano1.png" alt="pano1" title="pano1" width="580" height="486" class="alignnone size-full wp-image-416" /&gt;</p>
+</div>
+<div class="paragraph">
+<p>Here you can see the generated mesh of the MQ using openstreetmap data. A projection is applied as texture to the model.</p>
+</div>
+<div class="paragraph">
+<p>&lt;img src="/images/osm3d/pano2.png" alt="pano2" title="pano2" width="783" height="590" class="alignnone size-full wp-image-417" /&gt;</p>
+</div>
+<div class="paragraph">
+<p>Here you can see one projection face. A full projection will consists of four projection planes. One for each direction. As you can see the projection is divided into smaller parts. This must be done to achieve maximum image resolution of the projection since the maximum texture resolution is 2048x2048.</p>
+</div>
+<div class="paragraph">
+<p>&lt;img src="/images/osm3d/pano3.png" alt="pano3" title="pano3" width="770" height="664" class="alignnone size-full wp-image-418" /&gt;</p>
+</div>
+<div class="paragraph">
+<p>This is the projector view.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_credits">Credits</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The panorama image was taken by Jan Zarnikov. &lt;a href="http://www.viewat.org/?i=en&amp;sec=pn&amp;id_pn=3878"&gt;Panorama at www.viewat.org&lt;/a&gt;</p>
+</div>
+</div>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Generating City Models By Using Panorama Images</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>I810 on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/i810/</link>
+    <description>Recent content in I810 on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Jun 2008 16:02:29 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/i810/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Dual Head on i810 - 945GM - Debian Lenny</title>
+      <link>http://jotschi.de/2008/06/15/dual-head-on-i810-945gm-debian-lenny/</link>
+      <pubDate>Sun, 15 Jun 2008 16:02:29 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/06/15/dual-head-on-i810-945gm-debian-lenny/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just did a dist upgrade and broke my old xorg.conf dual head configuration. Here is my new one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using:
+Debian Lenny (12.06.2008) - 2.6.23&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ii  xserver-xorg                         1:7.3+10                        the X.Org X server
+ii  xserver-xorg-core                  2:1.4.1~git20080517-1    Xorg X server - core server
+ii  xserver-xorg-video-i810          2:2.3.1-1                       X.Org X server -- Intel i8xx, i9xx display d
+ii  xserver-xorg-video-intel          2:2.3.1-1                       X.Org X server -- Intel i8xx, i9xx display d&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is the xorg.conf that i used.&amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorgconf.dualheadi810&#39;&amp;gt;xorgconf&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Section &#34;Files&#34;
+	FontPath    &#34;/usr/share/fonts/misc:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/Type1&#34;
+	FontPath    &#34;/usr/share/fonts/TTF&#34;
+	FontPath    &#34;/usr/share/fonts/corefonts&#34;
+	FontPath    &#34;/usr/share/fonts/freefonts&#34;
+	FontPath    &#34;/usr/share/fonts/terminus&#34;
+	FontPath    &#34;/usr/share/fonts/ttf-bitstream-vera&#34;
+	FontPath    &#34;/usr/share/fonts/unifont&#34;
+	FontPath    &#34;/usr/share/fonts/75dpi:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/100dpi:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/artwiz&#34;
+EndSection
+
+Section &#34;Module&#34;
+        Load &#34;i2c&#34;
+        Load &#34;bitmap&#34;
+        Load &#34;ddc&#34;
+        Load &#34;dri&#34;
+        Load &#34;extmod&#34;
+        #Load &#34;freetype&#34;
+        Load &#34;glx&#34;
+        Load &#34;int10&#34;
+        Load &#34;vbe&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Generic Keyboard&#34;
+        Driver          &#34;kbd&#34;
+        Option          &#34;CoreKeyboard&#34;
+        Option          &#34;XkbRules&#34;      &#34;xorg&#34;
+        Option          &#34;XkbModel&#34;      &#34;pc105&#34;
+        Option          &#34;XkbLayout&#34;     &#34;de&#34;
+	Option          &#34;XkbVariant&#34;    &#34;nodeadkeys&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Configured Mouse&#34;
+        Driver          &#34;evdev&#34;
+        #Option          &#34;Name&#34; &#34;Logitech USB-PS/2 Optical Mouse&#34;
+	#Option          &#34;CorePointer&#34;
+        Option          &#34;Device&#34;                &#34;/dev/input/mice&#34;
+        Option          &#34;Protocol&#34;              &#34;ImPS/2&#34;
+        Option          &#34;Emulate3Buttons&#34;       &#34;true&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Synaptics Touchpad&#34;
+        Driver          &#34;synaptics&#34;
+        Option          &#34;SendCoreEvents&#34;        &#34;true&#34;
+        Option          &#34;Device&#34;                &#34;/dev/psaux&#34;
+        #This is useful to let gsynaptics change the behaviour of the touchpad (eg. disable tapping)
+        Option          &#34;SHMConfig&#34;             &#34;true&#34;
+        Option          &#34;Protocol&#34;              &#34;auto-dev&#34;
+        Option          &#34;HorizScrollDelta&#34;      &#34;0&#34;
+EndSection
+
+Section &#34;Device&#34;
+        Identifier      &#34;Intel 945GM&#34;
+        # Both drivers worked for me.
+        #Driver          &#34;intel&#34;
+	Driver 		&#34;i810&#34;
+        # Identify the different Monitors for your Device (Important part for dual head!)
+        Option  &#34;Monitor-TMDS-1&#34;        &#34;TMDS Monitor&#34;
+        Option  &#34;Monitor-LVDS&#34;          &#34;LVDS Monitor&#34;
+EndSection
+
+# LVDS is the laptop display
+Section &#34;Monitor&#34;
+        Identifier      &#34;LVDS Monitor&#34;
+        Option          &#34;DPMS&#34;
+        Option  &#34;LeftOf&#34; &#34;TMDS Monitor&#34;
+        Option &#34;PreferredMode&#34; &#34;1280x800&#34;
+        Option &#34;Position&#34; &#34;1280 0&#34;
+EndSection
+
+# TMDS is the device connected to the VGA port
+Section &#34;Monitor&#34;
+        Identifier      &#34;TMDS Monitor&#34;
+        Option          &#34;DPMS&#34;
+        #HorizSync      65-70
+        #VertRefresh    59-60
+        HorizSync 64-83
+        VertRefresh 56-75
+        Option  &#34;PreferredMode&#34; &#34;1280x1024&#34;
+EndSection
+
+# Define the virtual screen
+Section &#34;Screen&#34;
+        Identifier      &#34;The Screen&#34;
+        Device          &#34;Intel 945GM&#34;
+        SubSection &#34;Display&#34;
+                Virtual 2560 1024
+        EndSubsection
+EndSection
+
+Section &#34;ServerLayout&#34;
+        Identifier      &#34;Default Layout&#34;
+        Screen          &#34;The Screen&#34;
+        InputDevice     &#34;Generic Keyboard&#34;
+        InputDevice     &#34;Configured Mouse&#34;
+        InputDevice     &#34;Synaptics Touchpad&#34;
+EndSection&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;After you start your xserver you might encounter another problem. My external display supports a larger resolution than my laptop display. To set the external display to the desired resolution you can use xrandr. As soon as i know how to automatically workaround this issue i will do a post.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Set external display to highest resolution&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;xrandr --output VGA --mode &#34;1280x1024&#34;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If you get very large windows and texts you might find this command useful:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;startx -- -dpi 96&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Osg on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/osg/</link>
+    <description>Recent content in Osg on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Oct 2009 16:49:03 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/osg/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>OpenSceneGraph osg::Image - getting a subimage from an image.</title>
+      <link>http://jotschi.de/2009/10/18/openscenegraph-osgimage-getting-a-subimage-from-an-image/</link>
+      <pubDate>Sun, 18 Oct 2009 16:49:03 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/10/18/openscenegraph-osgimage-getting-a-subimage-from-an-image/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is my small method in which i create a new osg::image that contains only the pixels that are within my specified area of interest.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;osg::Image* getSubImage(osg::Image* sourceImage, int startX, int startY,int stopX, int stopY) {
+
+
+	int subImageWidth = stopX - startX;
+	int subImageHeight = stopY - startY;
+	if(subImageWidth&amp;lt;=0 || subImageHeight&amp;lt;=0)
+	{
+		osg::notify(osg::ALWAYS) &amp;lt;&amp;lt; &#34;Error the subimage size is not correct. Aborting.&#34;;
+		return NULL;
+	}
+
+	std::cout &amp;lt;&amp;lt; &#34;Size: &#34; &amp;lt;&amp;lt; sourceImage-&amp;gt;s() &amp;lt;&amp;lt; &#34;x&#34; &amp;lt;&amp;lt; sourceImage-&amp;gt;s()
+			&amp;lt;&amp;lt; std::endl;
+	std::cout &amp;lt;&amp;lt; &#34;SubImageSize: &#34; &amp;lt;&amp;lt; subImageWidth &amp;lt;&amp;lt; &#34;x&#34; &amp;lt;&amp;lt; subImageHeight
+			&amp;lt;&amp;lt; std::endl;
+	std::cout &amp;lt;&amp;lt; &#34;Channels: &#34; &amp;lt;&amp;lt; sourceImage-&amp;gt;r() &amp;lt;&amp;lt; std::endl;
+	const unsigned char *sourceData = sourceImage-&amp;gt;data();
+	struct pixelStruct {
+		unsigned char r, g, b;
+	};
+
+	osg::Image* subImage = new osg::Image();
+
+	// allocate memory for image data
+	const unsigned char *targetData = new unsigned char[subImageWidth
+			* subImageHeight * 3];
+
+	struct pixelStruct* pPixelSource = (struct pixelStruct *) (sourceData);
+	struct pixelStruct* pPixelTarget = (struct pixelStruct *) (targetData);
+	struct pixelStruct* pCurrentPixelSource = NULL;
+	struct pixelStruct* pCurrentPixelTarget = NULL;
+
+	int subX = 0;
+	int subY = 0;
+	for (int x = startX; x &amp;lt; stopX; x++) {
+		for (int y = startY; y &amp;lt; stopY; y++) {
+
+			std::cout &amp;lt;&amp;lt; &#34;Source Pixel [&#34; &amp;lt;&amp;lt; x &amp;lt;&amp;lt; &#34;][&#34; &amp;lt;&amp;lt; y &amp;lt;&amp;lt; &#34;]&#34; &amp;lt;&amp;lt; std::endl;
+			std::cout &amp;lt;&amp;lt; &#34;Target Pixel [&#34; &amp;lt;&amp;lt; subX &amp;lt;&amp;lt; &#34;][&#34; &amp;lt;&amp;lt; subY &amp;lt;&amp;lt; &#34;]&#34;
+					&amp;lt;&amp;lt; std::endl;
+			pCurrentPixelSource = &amp;amp;pPixelSource[y * sourceImage-&amp;gt;s() + x];
+			pCurrentPixelTarget = &amp;amp;pPixelTarget[subY * subImageWidth + subX];
+
+			pCurrentPixelTarget-&amp;gt;r = pCurrentPixelSource-&amp;gt;r;
+			pCurrentPixelTarget-&amp;gt;g = pCurrentPixelSource-&amp;gt;g;
+			pCurrentPixelTarget-&amp;gt;b = pCurrentPixelSource-&amp;gt;b;
+
+			subY++;
+		}
+		subY=0;
+		subX++;
+	}
+
+	subImage-&amp;gt;setImage(subImageWidth, subImageHeight, sourceImage-&amp;gt;r(),
+			sourceImage-&amp;gt;getInternalTextureFormat(),
+			sourceImage-&amp;gt;getPixelFormat(), 5121, (unsigned char*) targetData,
+			osg::Image::NO_DELETE);
+
+	return subImage;
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Projective Textures with OpenSceneGraph</title>
+      <link>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</link>
+      <pubDate>Sun, 31 May 2009 21:55:15 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get projective textures working using GLSL shaders rather than fixed pipeline functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;Projective Texturing Example&#34; /&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;osg/Notify&amp;gt;
+#include &amp;lt;osg/MatrixTransform&amp;gt;
+#include &amp;lt;osg/ShapeDrawable&amp;gt;
+#include &amp;lt;osg/PositionAttitudeTransform&amp;gt;
+#include &amp;lt;osg/Geometry&amp;gt;
+#include &amp;lt;osg/Texture2D&amp;gt;
+#include &amp;lt;osg/Geode&amp;gt;
+#include &amp;lt;osg/LightSource&amp;gt;
+#include &amp;lt;osg/TexGenNode&amp;gt;
+#include &amp;lt;osg/TexMat&amp;gt;
+#include &amp;lt;osgDB/WriteFile&amp;gt;
+#include &amp;lt;osgUtil/Optimizer&amp;gt;
+#include &amp;lt;osgDB/Registry&amp;gt;
+#include &amp;lt;osgDB/ReadFile&amp;gt;
+#include &amp;lt;osgViewer/Viewer&amp;gt;
+
+osg::StateSet* createProjectorState() {
+
+	osg::StateSet* stateset = new osg::StateSet;
+
+	/* 1. Load the texture that will be projected */
+	osg::Texture2D* texture = new osg::Texture2D();
+	texture-&amp;gt;setImage(osgDB::readImageFile(&#34;foo.jpg&#34;));
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_BORDER);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texture, osg::StateAttribute::ON);
+
+	// set up tex gens
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_S,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_T,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_R,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_Q,
+	osg::StateAttribute::ON);
+
+	/* 2. Load the Shaders */
+	osg::ref_ptr&amp;lt;osg::Program&amp;gt; projProg(new osg::Program);
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projvertexShader(osg::Shader::readShaderFile(
+			osg::Shader::VERTEX, &#34;VertexShader.glsl&#34;));
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projfragShader(osg::Shader::readShaderFile(
+			osg::Shader::FRAGMENT, &#34;FragmentShader.glsl&#34;));
+	projProg-&amp;gt;addShader(projvertexShader.get());
+	projProg-&amp;gt;addShader(projfragShader.get());
+
+	/* 3. Handover the texture to the fragment shader via uniform */
+	osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,
+			&#34;projectionMap&#34;);
+	texUniform-&amp;gt;set(1);
+	stateset-&amp;gt;addUniform(texUniform);
+
+	/* 4. set Texture matrix*/
+	osg::TexMat* texMat = new osg::TexMat;
+	osg::Matrix mat;
+	osg::Vec3 projectorPos = osg::Vec3(0.0f, 0.0f, 324.0f);
+	osg::Vec3 projectorDirection = osg::Vec3(osg::inDegrees(0.0f),
+			osg::inDegrees(280.0f), osg::inDegrees(-460.0f));
+	float projectorAngle = 110;
+	osg::Vec3 up(0.0f, 0.0f, 1.0f);
+	mat = osg::Matrixd::lookAt(projectorPos, projectorPos + projectorDirection,
+			up) * osg::Matrixd::perspective(projectorAngle, 1.0, 0.1, 100);
+	texMat-&amp;gt;setMatrix(mat);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texMat, osg::StateAttribute::ON);
+
+	stateset-&amp;gt;setAttribute(projProg.get());
+	return stateset;
+}
+osg::Node* createModel() {
+	osg::Group* root = new osg::Group;
+
+	/* Load the terrain which will be the receiver of out projection */
+	osg::Node* terr = osgDB::readNodeFile(&#34;Terrain2.3ds&#34;);
+	osg::Image* shot = new osg::Image();
+
+	/* Scale the terrain and move it. */
+	osg::Matrix m;
+	osg::ref_ptr&amp;lt;osg::MatrixTransform&amp;gt; mt = new osg::MatrixTransform;
+	m.makeTranslate(112.f, 410.f, -2.f);
+	m.makeScale(2.f, 2.f, 2.f);
+	mt-&amp;gt;setMatrix(m);
+	mt-&amp;gt;addChild(terr);
+
+	/* Add the transformed node to our graph */
+	root-&amp;gt;addChild(mt.get());
+
+	/* Enable projective texturing for all objects of this node */
+	root-&amp;gt;setStateSet(createProjectorState());
+	return root;
+}
+int main(int, char **) {
+	osgViewer::Viewer viewer;
+	viewer.setSceneData(createModel());
+	viewer.setUpViewInWindow(0, 0, 1024, 768);
+	return viewer.run();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Fragment Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D projectionMap;
+varying vec4 projCoord;
+void main()
+{
+	vec4 dividedCoord = projCoord / projCoord.w ;
+	vec4 color =  texture2D(projectionMap,dividedCoord.st);
+  	gl_FragColor =	 color * gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Vertex Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec4 projCoord;
+void main()
+{
+     	projCoord = gl_TextureMatrix[1] * gl_Vertex;
+		gl_Position = ftransform();
+		gl_FrontColor = gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

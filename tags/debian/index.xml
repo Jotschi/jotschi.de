@@ -1,0 +1,1465 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debian on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/debian/</link>
+    <description>Recent content in Debian on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 27 May 2015 21:30:26 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Temporary Server Portforward</title>
+      <link>http://jotschi.de/2015/05/27/portforward-to-another-webserver/</link>
+      <pubDate>Wed, 27 May 2015 21:30:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2015/05/27/portforward-to-another-webserver/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Sometimes it is useful to redirect all tcp traffic to port 80 from one server to another. This can be important when you decide to change your DNS entries from one server to another and you don&amp;#8217;t want to leave the old webserver server running.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward
+  iptables -F
+  iptables -t nat -F
+  iptables -X
+  iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination SOURCE_IP:80
+  iptables -t nat -A POSTROUTING -p tcp -d SOURCE_IP --dport 80 -j SNAT --to-source DESTINATIONIP
+  iptables -t nat -A POSTROUTING -j MASQUERADE&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GlusterFS / Async Writes</title>
+      <link>http://jotschi.de/2015/05/27/glusterfs-async-write/</link>
+      <pubDate>Wed, 27 May 2015 20:30:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2015/05/27/glusterfs-async-write/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Over the weekend i decided to experiment and setup a glusterfs between my root server(plexus) and my fileserver at home(hydra).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I won&amp;#8217;t describe how to setup glustefs. There are various good guides &#34;available&#34;:http://www.gluster.org/community/documentation/index.php/QuickStart.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  gluster volume create gv0 replica 2 hydra:/opt/gfs/brick1/gv0 plexus:/gfs/brick1/gv0
+  gluster volume set gv0 network.ping-timeout 5
+  gluster volume start gv0
+
+  root@plexus:/gfs# mount -t glusterfs localhost:/gv0 gv0/
+  root@hydra:/gfs# mount -t glusterfs localhost:/gv0 gv0/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At first glance i hoped that small writes would be cached and asynchronously flushed to the filesystem. I tried to increase the performance.cache-size and performance.write-behind-window-size option but did not succeed in increasing the write performance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;As you can see the write performance is basically predetermined by my max upload speed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  # Write 1MB
+  root@hydra:/gfs/gv0# dd if=/dev/zero  of=testfile bs=1K count=1024
+  1024+0 records in
+  1024+0 records out
+  1048576 bytes (1.0 MB) copied, 3.36612 s, 312 kB/s&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;But luckily there are branching filesystems like &#34;unionfs&#34;:http://en.wikipedia.org/wiki/UnionFS that is for example used for live CDs. Such filesystems work in that way that they overlay multiple filesystems into a single virtual one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I created a new gv0-writecache folder which can be written to. The follow command creates a unionfs filesystem that is mounted to the /gv0/union folder.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  mkdir -p /gfs/union
+  unionfs-fuse  -o default_permissions -o allow_other /gfs/gv0-writecache=RW:/gfs/gv0=RO /gfs/union/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Succeeding writes to the union folder are now very fast and the files are stored within the /gfs/gv0-writecache folder.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  root@hydra:/gfs/union# dd if=/dev/zero of=test2 bs=1M count=10
+  10+0 records in
+  10+0 records out
+  10485760 bytes (10 MB) copied, 0.0454509 s, 231 MB/s&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;After that step we only need to make sure to sync those files from the writecache to the glusterfs mount.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  root@hydra:/gfs/gv0-writecache# rsync  --remove-source-files -av /gfs/gv0-writecache/* /gfs/gv0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I also tried to use aufs instead of unionfs-fuse but i got various strange errors.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</title>
+      <link>http://jotschi.de/2014/02/09/lvm-mdadm-resizing-debian-wheezy/</link>
+      <pubDate>Sun, 09 Feb 2014 15:31:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2014/02/09/lvm-mdadm-resizing-debian-wheezy/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This guide will show you how to setup a simple mdadm, lvm test environment in which you can experiment with changes you want to execute on a real disk system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_setup_the_test_environment&#34;&gt;Setup the test environment&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can of course use your own disks. In my case i did a trial run of the needed steps by using losetup to map a data file to a loop device.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  dd if=/dev/zero of=diska bs=1M count=300
+  dd if=/dev/zero of=diskb bs=1M count=300
+  dd if=/dev/zero of=diskc bs=1M count=300
+  dd if=/dev/zero of=diskd bs=1M count=300
+  losetup /dev/loop0 diska
+  losetup /dev/loop1 diskb
+  losetup /dev/loop2 diskc
+  losetup /dev/loop3 diskd
+
+  # Create raid 5 with one disk missing
+  mdadm -Cv /dev/md2 -l5 -n3 /dev/loop0 /dev/loop1 missing
+
+  # Add luks cryptolayer ontop
+  cryptsetup luksFormat /dev/md2
+  cryptsetup luksOpen /dev/md2 cryptotest
+
+  # Add lvm structure
+  pvcreate /dev/mapper/cryptotest
+  vgcreate testvg /dev/mapper/cryptotest
+  lvcreate -l 100%FREE -n testlv testvg
+
+  # Create filesystem
+  mkfs.ext3  /dev/mapper/testvg-testlv
+  mount /dev/mapper/testvg-testlv test/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can now copy your data onto the raid 5 and when done add the missing disk to the final raid. You can of course use three disks from the start.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_add_missing_disk_to_the_raid_5&#34;&gt;Add missing disk to the raid 5&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  # Add missing device
+  mdadm --add /dev/md2 /dev/loop2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_growing_the_raid_5_by_adding_a_forth_disk&#34;&gt;Growing the raid 5 by adding a forth disk&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once your data has been copied you may want to add the now free disk to the raid of md2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  # Add disk and resize md2
+  mdadm --add /dev/md2 /dev/loop3
+  mdadm --grow --raid-devices=4 /dev/md2
+
+  # Check the sync process and the final result
+  cat /proc/mdstat
+  mdadm --detail /dev/md2
+  umount /tmp/test/test
+
+  # Resize the crypt layer and check the result
+  cryptsetup resize cryptotest
+  fdisk -l /dev/mapper/cryptotest
+
+  # Resize physical volume and check the result
+  pvresize /dev/mapper/cryptotest
+  pvdisplay
+
+  # Resize logical volume and check result
+  lvextend -l +100%FREE /dev/mapper/testvg-testlv
+  lvdisplay
+
+  # Resize filesystem
+  e2fsck -f /dev/mapper/testvg-testlv
+  resize2fs /dev/mapper/testvg-testlv
+  mount /dev/mapper/testvg-testlv test&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_cleanup_of_the_test_environment&#34;&gt;Cleanup of the test environment&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Of course you should not do these steps on the real raid. These steps are just needed when you want to cleanup your testenvironment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  umount /tmp/test/test
+  lvremove testvg testlv
+  vgremove testvg
+  pvremove  /dev/mapper/cryptotest
+  cryptsetup close /dev/mapper/cryptotest
+  mdadm --manage /dev/md2 --stop
+  losetup -d /dev/loop0
+  losetup -d /dev/loop1
+  losetup -d /dev/loop2
+  losetup -d /dev/loop3&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Eclipse CDT Cross Platform Development Within A Chroot Environment</title>
+      <link>http://jotschi.de/2011/07/08/eclipse-cdt-cross-platform-development-within-a-chroot-environment/</link>
+      <pubDate>Fri, 08 Jul 2011 18:36:49 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/07/08/eclipse-cdt-cross-platform-development-within-a-chroot-environment/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This post is about how to configure eclipse to work with a chroot environment that is setup for cross compiling against ARM architecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Please refer to my post &amp;lt;a href=&#34;http://jotschi.de/?p=594&#34;&amp;gt;Cross Compile Pandaboard PowerVR OpenGL ES2 Example&amp;lt;/a&amp;gt; if you want to know how to setup a chroot environment for cross compiling.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-615&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_1_install_sudo_and_configure_sudo&#34;&gt;1. Install sudo and configure sudo&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Install sudo:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get install sudo&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Allow every user that is within the sudo group to execute the chroot command without entering a password by adding the line to /etc/sudoers:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;/etc/sudoers&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;%sudo   ALL= NOPASSWD: /usr/sbin/chroot&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_2_prepare_the_project&#34;&gt;2. Prepare the project&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The project must be located within the within the chroot environment. You could use bind mounts to create a mountpoint that connects your workspace project with a folder inside the chroot enviroment. I just placed the project itself inside the chroot environment and created a symlink that points to my workspace. Keep in mind to close your project or eclipse if you move the project files outside of eclipse.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1. Create your CDT project.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2. Close the project within eclipse.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3. Move the project directory from e.g.: ~/workspace/MyProject/ to ~/mychroot/opt/MyProject&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;4. Create a symlink inside of ~/workspace with the name &amp;lt;i&amp;gt;MyProject&amp;lt;/i&amp;gt; that points to ~/mychroot/opt/MyProject&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;5. Open the project within eclipse&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h3&amp;gt;3. Create a external build script&amp;lt;/h3&amp;gt;
+This example script (e.g: ~/workspace/MyProject/compile.sh) will execute the bash command inside of the chroot environment which is located at $HOME/mychroot. The bash command will switch into the project location inside the chroot environment and execute make. Of course you can optimize the script to make it more generic and so on. But for now i&amp;#8217;ll keep it simple.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+sudo chroot $HOME/mychroot/  bash -c &#39;cd /opt/MyProject/; make clean; make&#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_4_configure_your_eclipse_cdt_project&#34;&gt;4. Configure your eclipse cdt project&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now we have to change the builder for our project. Since we don&amp;#8217;t want to use the host environment to build the project we need to tell eclipse to use our compile.sh script which we created earlier. Go into &amp;lt;i&amp;gt;project properties &amp;#8594; C/C++ Build &amp;#8594; Builder Settings&amp;lt;/i&amp;gt; and select &lt;em&gt;External builder&lt;/em&gt;. Point the Build command to your compile.sh.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;To fix syntax errors within your project you have to add the correct includes of course. Go to &amp;lt;i&amp;gt;project properties &amp;#8594; C/C++ Build &amp;#8594; Setting &amp;#8594; Tool Settings&amp;lt;/i&amp;gt; and add the include directories from your chroot enviroment. If you are using xapt to install cross libraries please note that those files are usually located at &lt;em&gt;/usr/arm-linux-gnueabi/&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Example for libx11-dev&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;root@NeXuS:/# dpkg -L  libx11-dev-armel-cross
+/.
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/libx11-dev-armel-cross
+/usr/share/doc/libx11-dev-armel-cross/README
+/usr/arm-linux-gnueabi
+/usr/arm-linux-gnueabi/include
+/usr/arm-linux-gnueabi/include/X11
+/usr/arm-linux-gnueabi/include/X11/Xregion.h
+/usr/arm-linux-gnueabi/include/X11/Xresource.h
+/usr/arm-linux-gnueabi/include/X11/Xlib.h
+/usr/arm-linux-gnueabi/include/X11/cursorfont.h
+/usr/arm-linux-gnueabi/include/X11/XKBlib.h
+/usr/arm-linux-gnueabi/include/X11/Xlibint.h
+/usr/arm-linux-gnueabi/include/X11/Xutil.h
+/usr/arm-linux-gnueabi/include/X11/XlibConf.h
+/usr/arm-linux-gnueabi/include/X11/ImUtil.h
+/usr/arm-linux-gnueabi/include/X11/Xlocale.h
+/usr/arm-linux-gnueabi/include/X11/Xcms.h
+/usr/arm-linux-gnueabi/lib
+/usr/arm-linux-gnueabi/lib/pkgconfig
+/usr/arm-linux-gnueabi/lib/pkgconfig/x11.pc
+/usr/arm-linux-gnueabi/lib/libX11.a
+/usr/arm-linux-gnueabi/lib/libX11.so&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>FreeNX 3.4 and Debian Testing - Stuck Keys</title>
+      <link>http://jotschi.de/2010/02/27/freenx-3-4-and-debian-testing-stuck-keys/</link>
+      <pubDate>Sat, 27 Feb 2010 18:00:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2010/02/27/freenx-3-4-and-debian-testing-stuck-keys/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;When using FreeNX 3.4 as server version i stumbled uppon an odd problem. My control (ctrl right) and alt gr key got stuck. By using xev i found out that the keyup event was never triggered. If i disabled the powerful freenx compression the event was handled correctly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The solution was rather simple. I just reverted to 3.3 and everything seems to work now properly.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-482&#34;&amp;gt;&amp;lt;/a&amp;gt;
+You can download the previous version here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;wget http://64.34.161.181/download/3.3.0/Linux/nxnode_3.3.0-17_i386.deb
+wget http://64.34.161.181/download/3.3.0/Linux/nxclient_3.3.0-6_i386.deb
+wget http://64.34.161.181/download/3.3.0/Linux/FE/nxserver_3.3.0-15_i386.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Xlib Multiple Window &amp; Events Example</title>
+      <link>http://jotschi.de/2009/12/09/xlib-multiple-window-events-example/</link>
+      <pubDate>Wed, 09 Dec 2009 20:16:43 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/09/xlib-multiple-window-events-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This small example shows how to use events with xlib windows. After you created your windows you can check events of both of them. I tried to use threads for each displayWin* method to show them parallel and check within both the events. That did not work. What will work is shown in the example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;See also &amp;lt;a href=&#34;http://en.wikipedia.org/wiki/Xlib&#34;&amp;gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Xlib&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://en.wikipedia.org/wiki/Xlib&amp;lt;/a&amp;gt&lt;/a&gt;;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;#include &amp;lt;X11/X.h&amp;gt;
+#include &amp;lt;X11/Xlib.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+Display *display;
+Window winA;
+Window winB;
+Window rootwindow;
+
+unsigned long white_pixel, black_pixel;
+
+void checkEvents() {
+
+	XEvent xev;
+	XWindowAttributes gwa;
+
+	while (1) {
+
+		printf(&#34;Next Iteration\n&#34;);
+
+		// alternativly you can get the event of a determined window
+		//XWindowEvent(display, winA, PointerMotionMask, &amp;amp;xev);
+
+		// the next call will lock until an event was received.
+		XNextEvent(display, &amp;amp;xev);
+
+		switch (xev.type) {
+		case Expose: {
+			XGetWindowAttributes(display, winA, &amp;amp;gwa);
+			printf(&#34;Exposed Window\n&#34;);
+			break;
+		}
+		case MotionNotify: {
+
+			int MouseX = xev.xmotion.x;
+			int MouseY = xev.xmotion.y;
+			if (xev.xclient.window == winA) {
+				printf(&#34;MouseA %i , %i\n&#34;, MouseX, MouseY);
+			} else {
+				printf(&#34;MouseB %i , %i\n&#34;, MouseX, MouseY);
+			}
+			break;
+		}
+		case ButtonPressMask: {
+			printf(&#34;ButtonPressed - Destroying window\n&#34;);
+			if (xev.xclient.window == winA) {
+				XDestroyWindow(display, winA);
+
+			} else {
+				XDestroyWindow(display, winB);
+			}
+
+			break;
+		}
+		case KeyPress: {
+			printf(&#34;Stopping event loop\n&#34;);
+			return;
+		}
+
+		}
+
+	}
+
+}
+
+void displayWinA() {
+
+	printf(&#34;Creating window A\n&#34;);
+	winA = XCreateSimpleWindow(display, rootwindow, 220, 220, 200, 200, 5,
+			black_pixel, white_pixel);
+
+	// name the window (titlebar)
+	XStoreName(display, winA, &#34;Window A&#34;);
+
+	// since we used XCreateSimpleWindow we need to enable event listening for this window
+	XSelectInput(display, winA, StructureNotifyMask | ExposureMask
+			| KeyPressMask | ButtonPressMask | PointerMotionMask);
+
+	// map the window (make it visible)
+	XMapWindow(display, winA);
+
+}
+
+void displayWinB() {
+
+	printf(&#34;Creating window B\n&#34;);
+	winB = XCreateSimpleWindow(display, rootwindow, 0, 0, 100, 100, 1, 0, 0);
+	XStoreName(display, winB, &#34;Window B&#34;);
+	XSelectInput(display, winB, StructureNotifyMask | ExposureMask
+			| KeyPressMask | ButtonPressMask | PointerMotionMask);
+
+	XMapWindow(display, winB);
+
+}
+
+int main(void) {
+
+	int screen;
+
+	display = XOpenDisplay(NULL);
+	screen = DefaultScreen(display);
+
+	white_pixel = WhitePixel (display, screen);
+	black_pixel = BlackPixel (display, screen);
+
+	rootwindow = RootWindow(display,screen);
+
+	displayWinA();
+	displayWinB();
+
+	checkEvents();
+	XFlush(display);
+
+	XDestroyWindow(display, winA);
+	XDestroyWindow(display, winB);
+	XCloseDisplay(display);
+	return (0);
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Convert Equirectangular Panorama To Cube Images Under Debian</title>
+      <link>http://jotschi.de/2009/09/19/convert-equirectangular-panorama-to-cube-images-under-debian/</link>
+      <pubDate>Sat, 19 Sep 2009 12:29:32 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/09/19/convert-equirectangular-panorama-to-cube-images-under-debian/</guid>
+      <description>&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install dependencies for Panotools scripts&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get install libimage-size-perl
+apt-get install libimage-exiftool-perl
+apt-get install libgraphviz-perl
+apt-get install hugin-tools&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Download Panotools-Script-0.23 from &amp;lt;a href=&#34;http://search.cpan.org/~bpostle/Panotools-Script-0.23/&#34;&amp;gt;Panotools-Script-0.23&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extract and build:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;perl Makefile.PL
+make
+make test
+make install&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Execute erect2cubic as described here: &lt;a href=&#34;http://search.cpan.org/~bpostle/Panotools-Script-0.23/bin/erect2cubic&#34; class=&#34;bare&#34;&gt;http://search.cpan.org/~bpostle/Panotools-Script-0.23/bin/erect2cubic&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;erect2cubic --erect=panorama.tif --ptofile=cube_project.pto
+nona -o cube_prefix cube_project.pto&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Debian testing and fglrx 8.632-1 ( Ati Driver Package 9.7 ) and linux-image-2.6.30-1-686-bigmem</title>
+      <link>http://jotschi.de/2009/08/16/debian-testing-and-fglrx-8-632-1-ati-driver-package-9-7-and-linux-image-2-6-30-1-686-bigmem/</link>
+      <pubDate>Sun, 16 Aug 2009 14:16:59 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/08/16/debian-testing-and-fglrx-8-632-1-ati-driver-package-9-7-and-linux-image-2-6-30-1-686-bigmem/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using my manual with the driver package ati-driver-installer-9-7-x86.x86_64.run and kernel 2.6.30-1-686-bigmem will not work. The fglrx kernel module won&amp;#8217;t compile.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dh_testroot
+rm -f configure-stamp
+rm -f fglrx.ko fglrx.mod.c *.o libfglrx_ip.a
+rm -f .version .*.o.flags .*.o.d .*.o.cmd .*.ko.cmd
+rm -rf .tmp_versions
+rm -rf patch
+dh_clean
+rm /usr/src/modules/fglrx/debian/control
+rm /usr/src/modules/fglrx/debian/dirs
+if [ -f /usr/src/modules/fglrx/debian/control.template ]; then \
+                cat /usr/src/modules/fglrx/debian/control.template &amp;gt; /usr/src/modules/fglrx/debian/control; \
+        fi
+if [ -f /usr/src/modules/fglrx/debian/postinst ]; then \
+                mv /usr/src/modules/fglrx/debian/postinst /usr/src/modules/fglrx/debian/fglrx-kernel-2.6.30-1-686-bigmem.postinst; \
+        fi
+dh_testdir
+touch configure-stamp
+dh_testdir
+/usr/bin/make -C /lib/modules/2.6.30-1-686-bigmem/build SUBDIRS=/usr/src/modules/fglrx modules
+make[1]: Entering directory `/usr/src/linux-headers-2.6.30-1-686-bigmem&#39;
+  CC [M]  /usr/src/modules/fglrx/firegl_public.o
+In file included from /usr/src/modules/fglrx/drmP.h:86,
+                 from /usr/src/modules/fglrx/drm_proc.h:41,
+                 from /usr/src/modules/fglrx/firegl_public.c:431:
+/usr/src/modules/fglrx/drm_os_linux.h:45: error: conflicting types for â€˜irqreturn_tâ€™
+/usr/src/linux-headers-2.6.30-1-common/include/linux/irqreturn.h:16: error: previous declaration of â€˜irqreturn_tâ€™ was here
+In file included from /usr/src/modules/fglrx/firegl_public.c:431:
+/usr/src/modules/fglrx/drm_proc.h: In function â€˜FGLDRM__vma_infoâ€™:
+/usr/src/modules/fglrx/drm_proc.h:497: warning: format â€˜%08lxâ€™ expects type â€˜long unsigned intâ€™, but argument 5 has type â€˜phys_addr_tâ€™
+/usr/src/modules/fglrx/firegl_public.c: In function â€˜KCL_SetPageCache_Arrayâ€™:
+/usr/src/modules/fglrx/firegl_public.c:1230: warning: unused variable â€˜retâ€™
+/usr/src/modules/fglrx/firegl_public.c:1229: warning: unused variable â€˜iâ€™
+/usr/src/modules/fglrx/firegl_public.c: In function â€˜KCL_GetEffectiveUidâ€™:
+/usr/src/modules/fglrx/firegl_public.c:1451: error: â€˜struct task_structâ€™ has no member named â€˜euidâ€™
+/usr/src/modules/fglrx/firegl_public.c: In function â€˜KCL_PosixSecurityCapSetIPCLockâ€™:
+/usr/src/modules/fglrx/firegl_public.c:1825: error: â€˜struct task_structâ€™ has no member named â€˜cap_effectiveâ€™
+/usr/src/modules/fglrx/firegl_public.c:1829: error: â€˜struct task_structâ€™ has no member named â€˜cap_effectiveâ€™
+/usr/src/modules/fglrx/firegl_public.c: In function â€˜KCL_InstallInterruptHandlerâ€™:
+/usr/src/modules/fglrx/firegl_public.c:2727: warning: passing argument 2 of â€˜request_irqâ€™ from incompatible pointer type
+/usr/src/modules/fglrx/firegl_public.c: In function â€˜KAS_Ih_Executeâ€™:
+/usr/src/modules/fglrx/firegl_public.c:4230: warning: â€˜returnâ€™ with no value, in function returning non-void
+make[4]: *** [/usr/src/modules/fglrx/firegl_public.o] Error 1
+make[3]: *** [_module_/usr/src/modules/fglrx] Error 2
+make[2]: *** [sub-make] Error 2
+make[1]: *** [all] Error 2
+make[1]: Leaving directory `/usr/src/linux-headers-2.6.30-1-686-bigmem&#39;
+make: *** [build] Error 2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Laggy 2D fglrx Performance Debian Testing</title>
+      <link>http://jotschi.de/2009/08/16/laggy-2d-fglrx-performance-debian-testing/</link>
+      <pubDate>Sun, 16 Aug 2009 14:04:22 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/08/16/laggy-2d-fglrx-performance-debian-testing/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just made a dist upgrade and after starting X my 2D performance was awful. I checked /var/log/Xorg.0.log and found out that DRI had not been initialized. &amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-357&#34;&amp;gt;&amp;lt;/a&amp;gt;
+Reason for this was an update of libdrm2 to a newer version.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Preparing to replace libdrm2 2.3.1-2 (using .../libdrm2_2.4.12-1_i386.deb) ...
+Unpacking replacement libdrm2 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;libdrm2_2.4.12-1 will not work with&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;fglrx-driver                         8.62-1                      Video driver for the ATI graphics accelerators&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Solution:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Install the old libdrm2 version and restart X.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://packages.debian.org/lenny/libdrm2&#34; class=&#34;bare&#34;&gt;http://packages.debian.org/lenny/libdrm2&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fglrx 9-6 to 9-11 Installation and Debian testing with 2.6.26-2-686-bigmem </title>
+      <link>http://jotschi.de/2009/07/05/fglrx-installation-and-debian-testing-with-2626-2-686-bigmem/</link>
+      <pubDate>Sun, 05 Jul 2009 14:17:30 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/07/05/fglrx-installation-and-debian-testing-with-2626-2-686-bigmem/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;My fglrx installation guide for Debian testing (squeez) with 2.6.26-2-686-bigmem.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-313&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update: I updated the post to meet fglrx 9-11 requirements.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;Preperations:&amp;lt;/h2&amp;gt;
+1. Stop X&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install additional packages you might need:
+&amp;lt;code&amp;gt;apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 linux-headers-$(uname -r) &amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Download ati-driver-installer-9-11-x86.x86_64.run from &amp;lt;a href=&#34;http://www.amd.com&#34;&amp;gt;www.amd.com&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you are using a source that supplies non-free packages you have to disable package acquisitions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Create the file /etc/apt/preferences with the following content:
+&amp;lt;blockquote&amp;gt;Package: fglrx-amdcccle
+Pin: version 8.62-1*
+Pin-Priority: 1001&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Package: fglrx-driver
+Pin: version 8.62-1*
+Pin-Priority: 1001&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Package: fglrx-driver-dev
+Pin: version 8.62-1*
+Pin-Priority: 1001&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Package: fglrx-kernel-src
+Pin: version 8.62-1*
+Pin-Priority: 1001&amp;lt;/blockquote&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;Upgrade Steps:&amp;lt;/h2&amp;gt;
+ In case you want to upgrade your fglrx driver you need to take care of the following steps:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Unload fglrx module in case you are using it
+&amp;lt;code&amp;gt;modprobe -r fglrx &amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.
+&amp;lt;code&amp;gt;// get a list of all fglrx packages
+sudo dpkg -l | grep fglrx
+sudo dpkg -P  fglrx-driver
+sudo dpkg -P  fglrx-kernel-$(uname -r)
+sudo dpkg -P  fglrx-kernel-src
+sudo dpkg -P  fglrx-amdcccle
+sudo dpkg -P  fglrx-driver-dev
+sudo dpkg -l | grep fglrx&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restore files that might have been messed up by previous fglrx installations
+&amp;lt;code&amp;gt;apt-get --reinstall install libgl1-mesa-glx
+apt-get --reinstall install xserver-xorg-core&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Get rid of old ati configurations
+&amp;lt;code&amp;gt;sudo mv /etc/ati /tmp
+sudo mv /etc/X11/xorg.conf /tmp&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;del datetime=&#34;2009-11-18T17:39:24+00:00&#34;&amp;gt;5. Create new xorg.conf without ati specifications inside &amp;lt;/del&amp;gt;
+&amp;lt;del datetime=&#34;2009-11-18T17:39:24+00:00&#34;&amp;gt;sudo dpkg-reconfigure xserver-xorg&amp;lt;/del&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;del datetime=&#34;2009-11-18T17:39:24+00:00&#34;&amp;gt;6. Remove leftovers of previous installations:&amp;lt;/del&amp;gt;
+&amp;lt;del datetime=&#34;2009-11-18T17:39:24+00:00&#34;&amp;gt;rm /usr/src/fglrx.tar.bz2&amp;lt;/del&amp;gt;
+&amp;lt;del datetime=&#34;2009-11-18T17:39:24+00:00&#34;&amp;gt;rm /usr/src/&lt;strong&gt;fglrx&lt;/strong&gt;.deb&amp;lt;/del&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;Installation Steps:&amp;lt;/h2&amp;gt;
+1. Create the fglrx packages:
+&amp;lt;code&amp;gt;./ati-driver-installer-9-11-x86.x86_64.run --extract fglrx_9-11
+cd fglrx_9-11
+ln -s x740 x710
+./packages/Debian/ati-packager.sh --buildpkg testing
+&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the packages. You may have to change the order due to dependencies.
+&amp;lt;code&amp;gt;dpkg -i fglrx-driver_8.62-1_i386.deb
+dpkg -i fglrx-driver-dev_8.62-1_i386.deb
+dpkg -i fglrx-kernel-src_8.62-1_i386.deb
+dpkg -i fglrx-amdcccle_8.62-1_i386.deb&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once you get the following error you can proceed with dpkg --force-all:
+&lt;em&gt;trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Finally i had to use the --force-all option to install the package.
+&amp;lt;code&amp;gt;dpkg --force-all -i fglrx-driver_8.62-1_i386.deb&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;This is a quite drastic step but otherwise the fglrx driver won&amp;#8217;t install at all.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Build and install the fglrx kernel module. I had not to modify the sources in any way.
+&amp;lt;del datetime=&#34;2009-11-18T17:39:24+00:00&#34;&amp;gt;module-assistant auto-install fglrx-kernel-src&amp;lt;/del&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update: This does not work any more. I do not know why. But here is the workaround:
+&amp;lt;code&amp;gt;module-assistant
+# SELECT &amp;#8594; fglrx-kernel &amp;#8594; BUILD / INSTALL #
+&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;del datetime=&#34;2009-11-18T17:39:24+00:00&#34;&amp;gt;Please note that at this point no download should occure. If it does abort the installation. In that case the module-assistant downloaded the desired module from the non-free package tree. You can avoid this by removing non-free from your source.lst and rebuild the index via apt-get update.
+&amp;lt;/del&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Load the module:
+&amp;lt;code&amp;gt;modprobe fglrx&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure it was loaded. If it wasn&amp;#8217;t loaded use dmesg to check what happed.
+&amp;lt;code&amp;gt;lsmod | grep fglrx&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create the ati configuration.
+&amp;lt;code&amp;gt;aticonfig --initial&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Start X
+&amp;lt;code&amp;gt;startx&amp;lt;/code&amp;gt;
+Note:
+If you have trouble of setup a dual head environment without using Xinerama take a look the related post.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fglrx and Debian testing with 2.6.26-2-686-bigmem</title>
+      <link>http://jotschi.de/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem/</link>
+      <pubDate>Sun, 05 Jul 2009 13:17:12 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Wuarg! Again PAIN with fglrx. I just setup a fresh and clean debian installation but fglrx just creates pain.
+Well.. fglrx installed fine (with the known errors) the module compiled and everything looked ok but i wasn&amp;#8217;t able to setup Dual-Head because amdcccle gave me no option to select a Multi-Monitor arragnement. There were only two options: Single (Indipendent Position) and Unknown. I solved the issue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/ati/amdcccle-unknown.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/ati/amdcccle-unknown.png&#34; alt=&#34;&#34; title=&#34;amdcccle-unknown&#34; width=&#34;150&#34; height=&#34;116&#34; class=&#34;alignnone size-thumbnail wp-image-307&#34; /&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;br/&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I had to overwrite the /etc/ati/amdpcsdb file with one i saved from a working installation.&amp;lt;a href=&#39;http://jotschi.de/downloads/ati/amdpcsdb&#39;&amp;gt;Download /etc/ati/amdpcsdb&amp;lt;/a&amp;gt;. I used this &amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorg.conf_workingfine&#39;&amp;gt;/etc/X11/xorg.conf&amp;lt;/a&amp;gt; X11 configuration file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I believe the amdcccle does not create a correct amdpcsdb file from the amdpcsdb.default file.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ATI fglrx video tearing vsync problem with dual-head</title>
+      <link>http://jotschi.de/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head/</link>
+      <pubDate>Tue, 19 May 2009 22:23:59 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I got problem with video playback when using the fglrx drivers as you can tell by the image below.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-278&#34;&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://jotschi.de/images/ati/crappy_video.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/ati/crappy_video.png&#34; alt=&#34;&#34; title=&#34;crappy_video&#34; width=&#34;200&#34; height=&#34;152&#34; class=&#34;alignnone size-medium wp-image-277&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Playing movies which include rapid motions produce these teared video frames. This problem is cause by the missing vsync. Apparently fglrx does not support vsync for xv yet ( fglrxinfo: 2.1.8591 / Driver Package: 8.602-1 / Installer Package: ati-driver-installer-9-4-x86.x86_64.run )&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can enable vsync for OpenGL:
+&amp;lt;code&amp;gt;sudo aticonfig --overlay-type=Xv
+sudo sudo aticonfig --sync-video=on
+sudo aticonfig --vs=on&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Thus now you can use mplayer -vo gl somefile.mkv to play your movies with vsync enabled. Of course gl output is a lot slower than xv.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;blockquote&amp;gt;
+Xv currently has no vsync with fglrx, so there is no other way than using opengl as output.
+&amp;lt;/blockquote&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&#34;&amp;gt;&lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://www.phoronix.com/forums/showthread.php?t=11891&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update: That workaround gave me a better image on one monitor (less tearing) but there is still tearing in the image.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If someone knows a solution for this issue please let me know.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fglrx and Debian testing on amd64 - 2.6.26-2-amd64</title>
+      <link>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</link>
+      <pubDate>Tue, 19 May 2009 20:33:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get fglrx working with dri and dual head using the latest ati driver:
+ati-driver-installer-9-4-x86.x86_64.run&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;
+works also with:
+ati-driver-installer-9-5-x86.x86_64.run&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-269&#34;&amp;gt;&amp;lt;/a&amp;gt;
+Some Notes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;jotschi@NeXuS:~$ uname -r
+2.6.26-2-amd64
+
+jotschi@NeXuS:~$ fglrxinfo
+display: :0.0  screen: 0
+OpenGL vendor string: ATI Technologies Inc.
+OpenGL renderer string: ATI Radeon HD 4800 Series
+OpenGL version string: 2.1.8591
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep fglrx
+ii  fglrx-amdcccle                     8.602-1                     Catalyst Control Center for the ATI graphics accelerators
+ii  fglrx-driver                            8.602-1                     Video driver for the ATI graphics accelerators
+ii  fglrx-driver-dev                      8.602-1                     Video driver for the ATI graphics accelerators (devel files)
+ii  fglrx-kernel-2.6.26-2-amd64   8.602-1+2.6.26-15           ATI binary kernel module for Linux 2.6.26-2-amd64
+ii  fglrx-kernel-src                     8.602-1                     Kernel module source for the ATI graphics accelerators
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep xorg | head -n 4 | grep -v docs
+ii  xorg                                    1:7.3+18                    X.Org X Window System
+ii  xserver-xorg                         1:7.3+18                    the X.Org X server
+ii  xserver-xorg-core                  2:1.4.2-11                  Xorg X server - core server&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Mainly i used this guide: &amp;lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&#34;&amp;gt;&lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There were some glitches because of missing files and creation of diverations. I belive the uninstallation of fglrx does not revert created diverations of certain libraries. (I dunno if the removeal of created diverations this is the expected behaviour of package removeal)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;My short Howto:
+0. Optional:
+I removed non-free from my source.lst and did an apt-get update and apt-get clean to make sure that the module assistent would not fetch some fglrx packages via network.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Stop X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;unload fglrx module&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;modprobe -r fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install additional packages you might need:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 ia32-libs
+apt-get install kernel-headers-$(uname -r)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.
+&amp;lt;code&amp;gt;dpkg -l | grep fglrx
+dpkg -P  fglrx-amdcccle
+dpkg -P fglrx-driver-dev
+dpkg -P fglrx-kernel-src
+dpkg -P fglrx-kernel-2.6.26-2-amd64
+dpkg -P fglrx-driver&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To restore the files that might have been deleted by the fglrx package removeal routines you can use:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get --reinstall install libgl1-mesa-glx
+apt-get --reinstall install xserver-xorg-core
+apt-get --reinstall install ia32-libs&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Create the fglrx packages:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;./ati-driver-installer-9-4-x86.x86_64.run --extract fglrx_9-4
+cd fglrx_9-4
+cd arch/x86_64/usr/X11R6
+ln -s lib64 lib
+cd ../../..
+./packages/Debian/ati-packager.sh --buildpkg testing
+cd ..&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Remove leftovers of previous installations:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;rm /usr/src/fglrx.tar.bz2
+rm /usr/src/*fglrx*.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the packages. You might have to change the order due to dependencies.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;dpkg -i fglrx-driver_8.602-1_amd64.deb
+dpkg -i fglrx-amdcccle_8.602-1_amd64.deb
+dpkg -i fglrx-driver-dev_8.602-1_amd64.deb
+dpkg -i fglrx-kernel-src_8.602-1_amd64.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Note: diversion problem&lt;/em&gt;
+I got some nasty failure while installing fglrx-driver_8.602-1_amd64.deb
+The package installation script was complaining about a failure while creating a diversion of libGL.so.1.2 because that file was used by the package xserver-xorg-core.
+The installation terminated with:
+&amp;lt;code&amp;gt;dpkg: error processing xorg-driver-fglrx&amp;lt;/code&amp;gt;
+You can get rid of those failures by using the &amp;lt;a href=&#34;http://www.debian.org/distrib/packages&#34;&amp;gt;Debian Package Search&amp;lt;/a&amp;gt;. Use the last form of the page to locate the file (e.g. libGL.so.1.2)
+As you see the file /usr/lib/libGL.so.1.2 is part of fglrx and the package libgl1-mesa-glx. I just reinstalled libgl1-mesa-glx and fixed the bug. &amp;lt;del datetime=&#34;2009-05-19T21:01:33+00:00&#34;&amp;gt;You may also remove the package because you wont need mesa once using hardware acceleration. (Please correct me if this is wrong - I&amp;#8217;m not quite sure about this)
+&amp;lt;/del&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;(Reading database ... 84741 files and directories currently installed.)
+Unpacking fglrx-driver (from fglrx-driver_8.612-1_amd64.deb) ...
+No diversion `diversion of /usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;, none removed
+Adding `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+No diversion `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2_32bit by fglrx-driver&#39;, none removed
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+rmdir: failed to remove `/usr/share/fglrx/diversions&#39;: No such file or directory
+rmdir: failed to remove `/usr/share/fglrx&#39;: No such file or directory
+Leaving `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/xorg/modules/extensions/libdri.so to /usr/lib/fglrx/diversions/libdri.so by fglrx-driver&#39;
+dpkg - warning, overriding problem because --force enabled:
+_ trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.so&#39;, which is also in package xserver-xorg-core_
+dpkg: error processing 1 (--install):
+ cannot access archive: No such file or directory
+Setting up fglrx-driver (8.612-1) ...
+
+Configuration file `/etc/acpi/fglrx-powermode.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-lid-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-ac-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/init.d/atieventsd&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/default/fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo_mask.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/signature&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/control&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/atiogl.xml&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/amdpcsdb.default&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/authatieventsd.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/X11/Xsession.d/70fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+update-rc.d: warning: /etc/init.d/atieventsd missing LSB information
+update-rc.d: see &amp;lt;http://wiki.debian.org/LSBInitScripts&amp;gt;
+Starting atieventsd: /usr/sbin/atieventsd already running.
+done.
+Processing triggers for man-db ...
+Errors were encountered while processing:
+ 1&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once you get only the following error you can proceed with dpkg --force-all:
+&lt;em&gt;trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Finally i had to use the --force-all option to install the package.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;dpkg --force-all -i fglrx-driver_8.602-1_amd64.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;_You should try to use the procedure described above before taking this quite drastic step. _&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Build and install the fglrx kernel module. I had not to modify the sources in any way.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;module-assistant auto-install fglrx-kernel-src&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Load the module:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;modprobe fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure it was loaded. If it wasn&amp;#8217;t loaded use dmesg to check what happed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;lsmod | grep fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;If you want to create a new xorg.conf file which stores your monitor setup etc.:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;mv /etc/X11/xorg.conf /etc/X11/xorg.conf.backup
+dpkg-reconfigure xserver-xorg (just follow the instructions)
+aticonfig --initial&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;You are done. Now start X and run the amdcccle tool and setup your screens. I had to run those steps to get dual head working:&lt;/p&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Enable both displays using amdcccle&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the resolution of both displays to the same one&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling Xinerama&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling Multi-Display Settings (Left of ..)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disabling Xinerama in /etc/X11/xorg.conf&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download my xorg.conf:
+&amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorg.conf&#39;&amp;gt;xorg.conf&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Overall this is a painstaking way of setting up dual head display and drivers. Please AMD / ATI create an Installer that creates valid Deb. packages or even better delete it and create a deb repository that everybody can use.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bandwidth Controlling for Apache2 (Lenny)</title>
+      <link>http://jotschi.de/2008/12/02/bandwidth-controlling-for-apache2-lenny/</link>
+      <pubDate>Tue, 02 Dec 2008 21:41:09 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/12/02/bandwidth-controlling-for-apache2-lenny/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Sometimes its usefull to throttle your bandwith within apache. There are two modules available &lt;em&gt;mod_cband&lt;/em&gt; or &lt;em&gt;mod_bw&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just tested mod_bw which can be downloaded here: &amp;lt;a href=&#34;http://www.ivn.cl/apache/&#34;&amp;gt;&lt;a href=&#34;http://www.ivn.cl/apache/&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://www.ivn.cl/apache/&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Installed Apache Versions:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ii  apache2-mpm-prefork  2.2.9-10     Apache HTTP Server - traditional non-threade
+ii  apache2-prefork-dev    2.2.9-10     Apache development headers - non-threaded MP
+ii  apache2-utils                2.2.9-10     utility programs for webservers&amp;lt;/blockquote&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;apt-get install apache2-prefork-dev&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;download and extract mod_bw-0.8.tgz&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sudo apxs2 -i -a -c mod_bw.c&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the following line to httpd.conf:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;LoadModule bw_module /usr/lib/apache2/modules/mod_bw.so&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Add limitation to VirtualHost (sites-available/default)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&amp;lt;VirtualHost *:80&amp;gt;
+        ServerAdmin webmaster@localhost
+
+        BandwidthModule On
+        ForceBandWidthModule On
+        Bandwidth all 10240
+        MinBandwidth all -1
+
+        DocumentRoot /var/www/
+        &amp;lt;Directory /&amp;gt;
+                Options +ExecCGI +Includes
+                AllowOverride None
+                Allow from all
+        &amp;lt;/Directory&amp;gt;
+        ErrorLog /var/log/apache2/error.log
+        LogLevel warn
+        CustomLog /var/log/apache2/access.log combined
+        ServerSignature On
+&amp;lt;/VirtualHost&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Another blogpost that contains also an how to based on mod_cband &lt;a href=&#34;http://www.uno-code.com/?q=node/64&#34; class=&#34;bare&#34;&gt;http://www.uno-code.com/?q=node/64&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dual Head on i810 - 945GM - Debian Lenny</title>
+      <link>http://jotschi.de/2008/06/15/dual-head-on-i810-945gm-debian-lenny/</link>
+      <pubDate>Sun, 15 Jun 2008 16:02:29 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/06/15/dual-head-on-i810-945gm-debian-lenny/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just did a dist upgrade and broke my old xorg.conf dual head configuration. Here is my new one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using:
+Debian Lenny (12.06.2008) - 2.6.23&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ii  xserver-xorg                         1:7.3+10                        the X.Org X server
+ii  xserver-xorg-core                  2:1.4.1~git20080517-1    Xorg X server - core server
+ii  xserver-xorg-video-i810          2:2.3.1-1                       X.Org X server -- Intel i8xx, i9xx display d
+ii  xserver-xorg-video-intel          2:2.3.1-1                       X.Org X server -- Intel i8xx, i9xx display d&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is the xorg.conf that i used.&amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorgconf.dualheadi810&#39;&amp;gt;xorgconf&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Section &#34;Files&#34;
+	FontPath    &#34;/usr/share/fonts/misc:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/Type1&#34;
+	FontPath    &#34;/usr/share/fonts/TTF&#34;
+	FontPath    &#34;/usr/share/fonts/corefonts&#34;
+	FontPath    &#34;/usr/share/fonts/freefonts&#34;
+	FontPath    &#34;/usr/share/fonts/terminus&#34;
+	FontPath    &#34;/usr/share/fonts/ttf-bitstream-vera&#34;
+	FontPath    &#34;/usr/share/fonts/unifont&#34;
+	FontPath    &#34;/usr/share/fonts/75dpi:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/100dpi:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/artwiz&#34;
+EndSection
+
+Section &#34;Module&#34;
+        Load &#34;i2c&#34;
+        Load &#34;bitmap&#34;
+        Load &#34;ddc&#34;
+        Load &#34;dri&#34;
+        Load &#34;extmod&#34;
+        #Load &#34;freetype&#34;
+        Load &#34;glx&#34;
+        Load &#34;int10&#34;
+        Load &#34;vbe&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Generic Keyboard&#34;
+        Driver          &#34;kbd&#34;
+        Option          &#34;CoreKeyboard&#34;
+        Option          &#34;XkbRules&#34;      &#34;xorg&#34;
+        Option          &#34;XkbModel&#34;      &#34;pc105&#34;
+        Option          &#34;XkbLayout&#34;     &#34;de&#34;
+	Option          &#34;XkbVariant&#34;    &#34;nodeadkeys&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Configured Mouse&#34;
+        Driver          &#34;evdev&#34;
+        #Option          &#34;Name&#34; &#34;Logitech USB-PS/2 Optical Mouse&#34;
+	#Option          &#34;CorePointer&#34;
+        Option          &#34;Device&#34;                &#34;/dev/input/mice&#34;
+        Option          &#34;Protocol&#34;              &#34;ImPS/2&#34;
+        Option          &#34;Emulate3Buttons&#34;       &#34;true&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Synaptics Touchpad&#34;
+        Driver          &#34;synaptics&#34;
+        Option          &#34;SendCoreEvents&#34;        &#34;true&#34;
+        Option          &#34;Device&#34;                &#34;/dev/psaux&#34;
+        #This is useful to let gsynaptics change the behaviour of the touchpad (eg. disable tapping)
+        Option          &#34;SHMConfig&#34;             &#34;true&#34;
+        Option          &#34;Protocol&#34;              &#34;auto-dev&#34;
+        Option          &#34;HorizScrollDelta&#34;      &#34;0&#34;
+EndSection
+
+Section &#34;Device&#34;
+        Identifier      &#34;Intel 945GM&#34;
+        # Both drivers worked for me.
+        #Driver          &#34;intel&#34;
+	Driver 		&#34;i810&#34;
+        # Identify the different Monitors for your Device (Important part for dual head!)
+        Option  &#34;Monitor-TMDS-1&#34;        &#34;TMDS Monitor&#34;
+        Option  &#34;Monitor-LVDS&#34;          &#34;LVDS Monitor&#34;
+EndSection
+
+# LVDS is the laptop display
+Section &#34;Monitor&#34;
+        Identifier      &#34;LVDS Monitor&#34;
+        Option          &#34;DPMS&#34;
+        Option  &#34;LeftOf&#34; &#34;TMDS Monitor&#34;
+        Option &#34;PreferredMode&#34; &#34;1280x800&#34;
+        Option &#34;Position&#34; &#34;1280 0&#34;
+EndSection
+
+# TMDS is the device connected to the VGA port
+Section &#34;Monitor&#34;
+        Identifier      &#34;TMDS Monitor&#34;
+        Option          &#34;DPMS&#34;
+        #HorizSync      65-70
+        #VertRefresh    59-60
+        HorizSync 64-83
+        VertRefresh 56-75
+        Option  &#34;PreferredMode&#34; &#34;1280x1024&#34;
+EndSection
+
+# Define the virtual screen
+Section &#34;Screen&#34;
+        Identifier      &#34;The Screen&#34;
+        Device          &#34;Intel 945GM&#34;
+        SubSection &#34;Display&#34;
+                Virtual 2560 1024
+        EndSubsection
+EndSection
+
+Section &#34;ServerLayout&#34;
+        Identifier      &#34;Default Layout&#34;
+        Screen          &#34;The Screen&#34;
+        InputDevice     &#34;Generic Keyboard&#34;
+        InputDevice     &#34;Configured Mouse&#34;
+        InputDevice     &#34;Synaptics Touchpad&#34;
+EndSection&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;After you start your xserver you might encounter another problem. My external display supports a larger resolution than my laptop display. To set the external display to the desired resolution you can use xrandr. As soon as i know how to automatically workaround this issue i will do a post.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Set external display to highest resolution&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;xrandr --output VGA --mode &#34;1280x1024&#34;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If you get very large windows and texts you might find this command useful:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;startx -- -dpi 96&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

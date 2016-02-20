@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/javascript/</link>
+    <description>Recent content in Javascript on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 21 Feb 2009 23:00:20 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Javascript Frames Without Frames Using Ajax (JQuery)</title>
+      <link>http://jotschi.de/2009/02/21/javascript-website-clipping-using-ajax-jquery/</link>
+      <pubDate>Sat, 21 Feb 2009 23:00:20 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/02/21/javascript-website-clipping-using-ajax-jquery/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Including a page into your own website using frames is no big deal. But what will you do when you don&amp;#8217;t want to use iframes? Well you could use Ajax :)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Of course just fetching the HTML via Ajax and replace the innerHTML of a DIV element will not be enough because for example the anchors inside the faked frame should be usable too and images should be loaded correctly too. And of course you want a valid document. So you have to include only the &amp;lt;body&amp;gt; innerHTML content.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The demo can be found here:
+&amp;lt;a href=&#34;http://jotschi.de/downloads/ajax_clipping/test.html&#34;&amp;gt;JavaScript Ajax Clipping&amp;lt;/a&amp;gt;
+Clicking inside a link of the clipping area will not open a new window with the page&amp;#8217;s content. Instead the page will be loaded inside of clipping area.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The full example can be downloaded here:
+&amp;lt;a href=&#39;http://jotschi.de/downloads/javascript_clipping/javascript_clipping1.tgz&#39;&amp;gt;javascript_clipping1.tgz&amp;lt;/a&amp;gt;
+Note that i just implemented and tested this with Firefox 3.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-254&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Define a div like this one. All links inside this div will be ajaxified. :)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;&amp;lt;div class=&#34;clipping_area&#34; id=&#34;clipping_area_1&#34; style=&#34;background:grey&#34; &amp;gt;
+     This content might be replaced just by a click.&amp;lt;a href=&#34;subfolder/test_frame2.html&#34;&amp;gt;Click&amp;lt;/a&amp;gt;
+ &amp;lt;/div&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;If you need links links outside of the div that are able to change the content of that div you can use such links:
+&amp;lt;pre lang=&#34;HTML&#34;&amp;gt;
+       &amp;lt;a href=&#34;test_frame.html&#34; class=&#34;clipping_link&#34; target=&#34;clipping_area_1&#34;&amp;gt;A Clipping Link 1 Outside Of The Definined ClippingArea&amp;lt;/a&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;What does work:
+Adaption of Image URL.
+Adaption of anchors.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;What will most likely not work?
+JavaScript inside of the loaded websites (untested)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;// Initialise ajax links when dom is ready
+$(document).ready(function(){
+updateLinks();
+});
+
+/*
+ * Transform all anchors within clipping areas and clipping anchors
+ */
+function updateLinks(url) {
+
+   // Enable this to see which links will be transformed to ajax clipping links
+   // $(&#34;#clipping_area a&#34;).css(&#34;border&#34;,&#34;3px solid red&#34;);
+   // $(&#34;clipping_link&#34;).css(&#34;border&#34;,&#34;3px solid red&#34;);
+
+    $(&#34;.clipping_area a&#34;).unbind(&#39;click&#39;);
+    $(&#34;.clipping_area a&#34;).bind(&#39;click&#39;,function(event){
+      event.preventDefault();
+	var node = this;
+        var areaId = null;
+	while(node != null) {
+	   node = node.parentNode;
+	   if(node.getAttribute(&#34;class&#34;)==&#39;clipping_area&#39;) {
+		areaId = node.getAttribute(&#34;id&#34;);
+		break;
+	   }
+   	   alert(node);
+	}
+        loadPage(this.href,areaId);
+    });
+
+    $(&#34;.clipping_link&#34;).unbind(&#39;click&#39;);
+    $(&#34;.clipping_link&#34;).bind(&#39;click&#39;,function(event){
+      event.preventDefault();
+      loadPage(this.href,this.target);
+    });
+
+    // handle images that
+    $(&#34;img&#34;).error(function(){
+
+    var pageURL = url;
+    var imageURL  = this.src;
+
+    var imagePath = imageURL.replace(/(\/[^\/]*$)/,&#34;&#34;);
+    var imageFileName = imageURL.replace(/^.*\//,&#34;&#34;);
+    var pagePath =  pageURL.replace(/(\/[^\/]*$)/,&#34;&#34;);
+    var diffPath = pagePath.replace(imagePath,&#34;&#34;);
+    var newImageURL =  imagePath + diffPath +&#34;/&#34;+ imageFileName;
+    // set the corrected url for the image
+    this.src = newImageURL;
+
+ });
+
+}
+
+/*
+ * Load the given url into the clipping area with the given areaId
+ */
+function loadPage(url,areaId) {
+    $.get(url,
+       function(data) {
+         setPage(data,areaId);
+  	 updateLinks(url);
+    });
+}
+
+/*
+ * Parse the given string and create a dom object
+ */
+function parseXML( xml ) {
+   if( window.ActiveXObject &amp;amp;&amp;amp; window.GetObject ) {
+        var dom = new ActiveXObject( &#39;Microsoft.XMLDOM&#39; );
+        dom.loadXML( xml );
+        return dom;
+    }
+    if( window.DOMParser )
+       return new DOMParser().parseFromString( xml, &#39;text/xml&#39; );
+    throw new Error( &#39;No XML parser available&#39; );
+}
+
+/*
+ * Parse the given html and locate body tag. Insert html into
+ * the given clipping area by using the areaId.
+ */
+function setPage(html,areaId) {
+   var dom = parseXML(html);
+   var $dom = $(dom);
+   var strXML = dom.getElementsByTagName(&#39;body&#39;).item(0).innerHTML;
+   $(&#34;#&#34;+areaId).html(strXML);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update:
+DOM Parsing will fail if you read an invalid html document. Using RegEx can do the same. And i fixed URL handling and #target like anchors. The stylesheet of the page is now usable too but due to hirarchy problems loading it will affect also the rest of the page.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;// Initialise ajax links when dom is ready
+$(document).ready( function() {
+	updateLinks();
+});
+
+/*
+ * Transform all anchors within clipping areas and clipping anchors
+ */
+function updateLinks(url) {
+
+	$(&#34;.clipping_area a&#34;).unbind(&#39;click&#39;);
+	$(&#34;.clipping_area a&#34;).bind(&#39;click&#39;, function(event) {
+		event.preventDefault();
+
+		var node = this;
+		var areaId = null;
+		while (node != null) {
+			node = node.parentNode;
+			if (node.getAttribute(&#34;class&#34;) == &#39;clipping_area&#39;) {
+				areaId = node.getAttribute(&#34;id&#34;);
+				break;
+			}
+			// alert(node);
+		}
+		var urlPart = this.href.replace(/^.*\// , &#34;&#34;);
+		if (urlPart.match(/#.*/)) {
+			window.location.hash = urlPart.replace(/#/, &#34;&#34;);
+		} else {
+			loadPage(this.href, areaId);
+		}
+	});
+
+	$(&#34;.clipping_link&#34;).unbind(&#39;click&#39;);
+	$(&#34;.clipping_link&#34;).bind(&#39;click&#39;, function(event) {
+		event.preventDefault();
+		loadPage(this.href, this.target);
+	});
+
+	// handle images that
+	$(&#34;img&#34;).error( function() {
+
+		var pageURL = url;
+		var imageURL = this.src;
+
+		var imagePath = imageURL.replace(/(\/[^\/]*$)/, &#34;&#34;);
+		var imageFileName = imageURL.replace(/^.*\// , &#34;&#34;);
+		var pagePath = pageURL.replace(/(\/[^\/]*$)/, &#34;&#34;);
+		var diffPath = pagePath.replace(imagePath, &#34;&#34;);
+		var newImageURL = imagePath + diffPath + &#34;/&#34; + imageFileName;
+		// set the corrected url for the image
+			this.src = newImageURL;
+
+		});
+
+}
+
+/*
+ * Load the given url into the clipping area with the given areaId
+ */
+function loadPage(url, areaId) {
+	$.get(url, function(data) {
+		setPage(url, data, areaId);
+		updateLinks(url);
+	});
+}
+
+/*
+ * Parse the given html and locate body tag. Insert html into the given clipping
+ * area by using the areaId.
+ */
+function setPage(url, html, areaId) {
+
+	// remove encoding error while reading iso-8859 into utf-8 document
+	html = html.replace(/ï¿½/g, &#34;&#34;);
+
+	var style = html;
+	style = style.replace(/.*[^\/]STYLE[^\&amp;gt;]*\&amp;gt;/, &#34;&#34;);
+	style = style.replace(/\&amp;lt;\/STYLE\&amp;gt;.*/, &#34;&#34;);
+
+	html = html.replace(/.*[^\/]BODY\&amp;gt;/, &#34;&#34;);
+	// html = html.replace(/.*[^\/]body\&amp;gt;/,&#34;&#34;)
+	html = html.replace(/\&amp;lt;\/BODY\&amp;gt;.*/, &#34;&#34;);
+
+	var pagePath = url.replace(/(\/[^\/]*$)/, &#34;&#34;);
+	Result = html.match(/HREF=\&#34;[^http][^\&#34;]*\&#34;/g);
+	if (Result) {
+		for ( var i = 0; i &amp;lt; Result.length; ++i) {
+
+			var oldPagePath = Result[i].replace(/HREF=\&#34;/, &#34;&#34;);
+			oldPagePath = oldPagePath.replace(/\&#34;/, &#34;&#34;);
+			var newURL = &#34;HREF=\&#34;&#34; + pagePath + &#34;/&#34; + oldPagePath + &#34;\&#34;&#34;;
+			html = html.replace(Result[i], newURL);
+
+		}
+	}
+
+
+	$(&#34;#&#34; + areaId).html(   &#34;&amp;lt;style type=\&#34;text/css\&#34;&amp;gt;&#34; +style+ &#34;&amp;lt;/style&amp;gt;&#34; + html );
+
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

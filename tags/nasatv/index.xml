@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nasatv on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/nasatv/</link>
+    <description>Recent content in Nasatv on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 03 Sep 2011 16:07:26 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/nasatv/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>NasaTV HD Linux</title>
+      <link>http://jotschi.de/2011/09/03/nasatv-hd-linux/</link>
+      <pubDate>Sat, 03 Sep 2011 16:07:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/03/nasatv-hd-linux/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just found a very useful script to download the Nasatv HD stream on linux. The script was written by the user Naito. I found it &lt;a href=&#34;http://forum.nasaspaceflight.com/index.php?topic=19846.990;wap2&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+filename=&#34;NASA-TV-HD.`date +%y%m%d-%s`&#34;
+
+httpurl=&#39;http://liveips.nasa.gov.edgesuite.net/msfc/Wifi.m3u8&#39;
+trap &#34;break; echo Finished recording. ; exit 0&#34; SIGINT SIGTERM
+
+echo -n Buffering
+#Get initial set of files
+for nextfile in $(curl -s $httpurl | grep &#39;.ts&#39;); do
+        echo -n .
+        curl -s &#34;$nextfile&#34; &amp;gt;&amp;gt; $filename.ts
+        lastfile=&#34;$nextfile&#34;
+done
+
+echo 100\%
+
+echo Starting continuous recording. Press CTRL-C to quit.
+while true; do
+        nextfile=$(curl -s $httpurl | grep &#39;.ts&#39; | tail -1)
+        if [ &#34;$nextfile&#34; != &#34;$lastfile&#34; ]; then
+                curl -s &#34;$nextfile&#34; &amp;gt;&amp;gt; $filename.ts
+                lastfile=&#34;$nextfile&#34;
+        fi
+ #File list updates every 10 seconds, but don&#39;t want to sleep too long and miss an update!
+        sleep 7
+done&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>An Engineers Delight</title>
+      <link>http://jotschi.de/2008/11/30/an-engineers-delight/</link>
+      <pubDate>Sun, 30 Nov 2008 23:20:12 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/11/30/an-engineers-delight/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;As an introduction of an press conference about phoenix mars landing Berry Goldstein shows the image below. The image shows the Phoenix Mars Lander in its descent phase within EDL. The parachute is deployed and you even can see the wires that connect the parachute with the lander.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;image:/images/mars/psp_008579_9020_descent_800-600.jpg&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;Phoenix Mars Lander - Press Briefing - May 26. 2008
+Barry Goldstein shows another boring engineering picture&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;httpv://de.youtube.com/watch?v=2nmflvzJBu0&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Credit JPL/Nasa&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://hirise.lpl.arizona.edu/phoenix-descent.php&#34; class=&#34;bare&#34;&gt;http://hirise.lpl.arizona.edu/phoenix-descent.php&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nasa TV - High Quality </title>
+      <link>http://jotschi.de/2008/05/25/nasa-tv-high-quality/</link>
+      <pubDate>Sun, 25 May 2008 11:14:34 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/05/25/nasa-tv-high-quality/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;del datetime=&#34;2011-09-03T14:08:53+00:00&#34;&amp;gt;There is an alternativ source for nasa tv available. (640x480)
+Enjoy :)
+mplayer -playlist &lt;a href=&#34;http://playlist.yahoo.com/makeplaylist.dll?id=1368163&#34; class=&#34;bare&#34;&gt;http://playlist.yahoo.com/makeplaylist.dll?id=1368163&lt;/a&gt;
+&amp;lt;/del&amp;gt;
+Update - 2011-09-03: The stream is no longer active. Please use &amp;lt;a href=&#34;http://www.Jotschi.de/?p=632&#34;&amp;gt;this solution&amp;lt;/a&amp;gt; now.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

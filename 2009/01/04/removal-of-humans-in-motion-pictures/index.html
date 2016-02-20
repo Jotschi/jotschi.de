@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Removal of Humans In Motion Pictures - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Removal of Humans In Motion Pictures</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2009-01-04">January 04, 2009</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>What do we need to remove a person from a video source?</p>
+</div>
+<div class="paragraph">
+<p>At first we have to identify the person in the video. This could be done by using face tracking.
+{% youtube 5sPh6-J9wOA %}</p>
+</div>
+<div class="paragraph">
+<p>Once the location of a face of a moving person is identified within the video source we can outline the persons body. The outline of the person can be estimated by analyzing the optical flow of the video source. The corresponding pixels of the head that was pinpointed by using face tracking will most likely move with the same direction and speed as the pixels from other body parts. The background of the person can be used as a static plane by analyzing the camera movements. Once the background has been defined an estimation of the persons outline is more reliable because in the most cases the motion and direction of the background pixels and the motion and direction of the persons pixels vary.
+Moreover it is also possible to use depth estimation of the image to extrapolate different layers of the image that could be assigned to the person or the background to support the identification of the persons pixels.</p>
+</div>
+<div class="paragraph">
+<p>Once the person has been identified the person can be removed and the gap can be filled by using texture synthesis.
+{% youtube fWwy2gZuD6E %}</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Harry Shum - Microsoft Research Asia</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In fact is is also possible to fill the gap of the person by using pixel areas from subsequent frames were no person was covering the same area. This approach is illustrated here:</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.vision.huji.ac.il/demos/removal/removal.html" class="bare">http://www.vision.huji.ac.il/demos/removal/removal.html</a></p>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Removal of Humans In Motion Pictures</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

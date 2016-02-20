@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>JNI via JavaCPP on Android - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">JNI via JavaCPP on Android</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2011-08-25">August 25, 2011</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>There are multiple ways to get JNI working with android. You can of course do it the manual way and create header file and includes in your java classes but thats a lot of work and it might be even prone to errors. &lt;a href="http://www.koushikdutta.com/2009/01/jni-in-android-and-foreword-of-why-jni.html"&gt;Here is a good post&lt;/a&gt; from Koushik Dutta  that summarizes those bad parts in detail. This post will focus on getting started with JavaCPP and Android.</p>
+</div>
+<div class="paragraph">
+<p>There are some approaches to get rid of all those manual steps. There is for example <a href="https://github.com/twall/jna">JNA (Java Native Access)</a>. <a href="http://www.ok.ctrl.titech.ac.jp/~saudet/">Aamuel Audet</a> the author of JavaCPP wrote a patch for JNA to support Android. But JNA has also some &lt;a href="http://codeanticode.wordpress.com/2010/12/07/jna-on-android/"&gt;problems&lt;/a&gt; and &lt;a href="https://github.com/twall/jna/blob/master/www/FrequentlyAskedQuestions.md"&gt; drawbacks&lt;/a&gt; which should be noted.</p>
+</div>
+<div class="paragraph">
+<p>Another solution is using JavaCPP by Aamuel Audet. This post will describe how to get JavaCPP working with Android.</p>
+</div>
+<div class="sect2">
+<h3 id="_create_an_eclipse_android_project">Create an Eclipse Android project</h3>
+<div class="paragraph">
+<p>Use the wizard and create a new android project with the name NativeTest.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_javacpp_to_the_project_libs">Add JavaCPP to the project libs</h3>
+<div class="paragraph">
+<p>Download the javacpp binary archive and place the javacpp.jar into the /libs folder of your project. Create the folder if it does not exist. Add the javacpp.jar to your buildpath</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_javacpp_example_code_to_your_project">Add JavaCPP example code to your project</h3>
+<div class="paragraph">
+<p>Replace your default activity class with the content of NativeTestActivity. You need to adapt some package names.</p>
+</div>
+<div class="paragraph">
+<p>The example is very simple and was fetched from the JavaCPP tutorial page but i guess it shows really good how to get started with JavaCPP. If the app does not crash you&#8217;ll know for sure that everything is fine.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package de.jotschi;
+
+import com.googlecode.javacpp.Loader;
+import com.googlecode.javacpp.Pointer;
+import com.googlecode.javacpp.PointerPointer;
+import com.googlecode.javacpp.annotation.ByRef;
+import com.googlecode.javacpp.annotation.Cast;
+import com.googlecode.javacpp.annotation.Name;
+import com.googlecode.javacpp.annotation.Namespace;
+import com.googlecode.javacpp.annotation.Platform;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+@Platform(include = "&lt;vector&gt;")
+@Namespace("std")
+public class NativeTestActivity extends Activity {
+
+	static {
+		Loader.load();
+	}
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		PointerVector v = new PointerVector(42);
+		Pointer p = new Pointer() {
+			{
+				address = 0xDEADBEEFL;
+			}
+		};
+		v.get(0).put(p);
+
+		PointerVector v2 = new PointerVector().copy(v);
+		Pointer p2 = v2.at(0).get();
+		System.out.println(v2.size() + "  " + p2);
+
+	}
+
+	@Name("vector&lt;void*&gt;")
+	public static class PointerVector extends Pointer {
+		public PointerVector() {
+			allocate();
+		}
+
+		public PointerVector(long n) {
+			allocate(n);
+		}
+
+		public PointerVector(Pointer p) {
+			super(p);
+		} // this = (vector&lt;void*&gt;*)p
+
+		private native void allocate(); // this = new std::vector&lt;void*&gt;()
+
+		private native void allocate(long n); // this = new
+												// std::vector&lt;void*&gt;(n)
+
+		@Name("operator=")
+		public native @ByRef
+		PointerVector copy(@ByRef PointerVector x);
+
+		public native long size();
+
+		public native @Cast("bool")
+		boolean empty();
+
+		@Name("operator[]")
+		public native @ByRef
+		PointerPointer get(long n);
+
+		public native @ByRef
+		PointerPointer at(long n);
+	}
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_the_native_files_using_javacpp">Create the native files using JavaCPP</h3>
+<div class="paragraph">
+<p>Switch into your workspace directory and execute the following command. Please note that you have to change your paths accordingly.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">jotschi@Amilo:~/workspace/NativeTest$ java -jar libs/javacpp.jar -classpath bin/  -d libs/armeabi/ -properties android-arm -Dplatform.root=/opt/ide/android-ndk-r6 -Dcompiler.path=/opt/ide/android-ndk-r6/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++  -classpath /opt/ide/android-sdk-linux_x86/platforms/android-10/android.jar de.jotschi.NativeTestActivity</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also create an external builder task to execute the generation process automatically. This &lt;a href="http://mobilepearls.com/labs/ndk-builder-in-eclipse/"&gt;post&lt;/a&gt; describes how to setup a builder for the ndk.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_execute_the_example">Execute the example</h3>
+<div class="paragraph">
+<p>Now you can execute the example on your android device. Please note that enabling 'debug' within your android manifest will help debugging. LogCat will only print stacktraces if you have enabled that option.</p>
+</div>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">JNI via JavaCPP on Android</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

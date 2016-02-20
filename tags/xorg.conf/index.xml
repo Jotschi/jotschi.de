@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xorg.Conf on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/xorg/index.conf/</link>
+    <description>Recent content in Xorg.Conf on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 May 2009 20:33:46 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/xorg.conf/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>fglrx and Debian testing on amd64 - 2.6.26-2-amd64</title>
+      <link>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</link>
+      <pubDate>Tue, 19 May 2009 20:33:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get fglrx working with dri and dual head using the latest ati driver:
+ati-driver-installer-9-4-x86.x86_64.run&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;
+works also with:
+ati-driver-installer-9-5-x86.x86_64.run&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-269&#34;&amp;gt;&amp;lt;/a&amp;gt;
+Some Notes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;jotschi@NeXuS:~$ uname -r
+2.6.26-2-amd64
+
+jotschi@NeXuS:~$ fglrxinfo
+display: :0.0  screen: 0
+OpenGL vendor string: ATI Technologies Inc.
+OpenGL renderer string: ATI Radeon HD 4800 Series
+OpenGL version string: 2.1.8591
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep fglrx
+ii  fglrx-amdcccle                     8.602-1                     Catalyst Control Center for the ATI graphics accelerators
+ii  fglrx-driver                            8.602-1                     Video driver for the ATI graphics accelerators
+ii  fglrx-driver-dev                      8.602-1                     Video driver for the ATI graphics accelerators (devel files)
+ii  fglrx-kernel-2.6.26-2-amd64   8.602-1+2.6.26-15           ATI binary kernel module for Linux 2.6.26-2-amd64
+ii  fglrx-kernel-src                     8.602-1                     Kernel module source for the ATI graphics accelerators
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep xorg | head -n 4 | grep -v docs
+ii  xorg                                    1:7.3+18                    X.Org X Window System
+ii  xserver-xorg                         1:7.3+18                    the X.Org X server
+ii  xserver-xorg-core                  2:1.4.2-11                  Xorg X server - core server&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Mainly i used this guide: &amp;lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&#34;&amp;gt;&lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There were some glitches because of missing files and creation of diverations. I belive the uninstallation of fglrx does not revert created diverations of certain libraries. (I dunno if the removeal of created diverations this is the expected behaviour of package removeal)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;My short Howto:
+0. Optional:
+I removed non-free from my source.lst and did an apt-get update and apt-get clean to make sure that the module assistent would not fetch some fglrx packages via network.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Stop X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;unload fglrx module&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;modprobe -r fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install additional packages you might need:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 ia32-libs
+apt-get install kernel-headers-$(uname -r)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.
+&amp;lt;code&amp;gt;dpkg -l | grep fglrx
+dpkg -P  fglrx-amdcccle
+dpkg -P fglrx-driver-dev
+dpkg -P fglrx-kernel-src
+dpkg -P fglrx-kernel-2.6.26-2-amd64
+dpkg -P fglrx-driver&amp;lt;/code&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To restore the files that might have been deleted by the fglrx package removeal routines you can use:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get --reinstall install libgl1-mesa-glx
+apt-get --reinstall install xserver-xorg-core
+apt-get --reinstall install ia32-libs&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Create the fglrx packages:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;./ati-driver-installer-9-4-x86.x86_64.run --extract fglrx_9-4
+cd fglrx_9-4
+cd arch/x86_64/usr/X11R6
+ln -s lib64 lib
+cd ../../..
+./packages/Debian/ati-packager.sh --buildpkg testing
+cd ..&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Remove leftovers of previous installations:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;rm /usr/src/fglrx.tar.bz2
+rm /usr/src/*fglrx*.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the packages. You might have to change the order due to dependencies.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;dpkg -i fglrx-driver_8.602-1_amd64.deb
+dpkg -i fglrx-amdcccle_8.602-1_amd64.deb
+dpkg -i fglrx-driver-dev_8.602-1_amd64.deb
+dpkg -i fglrx-kernel-src_8.602-1_amd64.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Note: diversion problem&lt;/em&gt;
+I got some nasty failure while installing fglrx-driver_8.602-1_amd64.deb
+The package installation script was complaining about a failure while creating a diversion of libGL.so.1.2 because that file was used by the package xserver-xorg-core.
+The installation terminated with:
+&amp;lt;code&amp;gt;dpkg: error processing xorg-driver-fglrx&amp;lt;/code&amp;gt;
+You can get rid of those failures by using the &amp;lt;a href=&#34;http://www.debian.org/distrib/packages&#34;&amp;gt;Debian Package Search&amp;lt;/a&amp;gt;. Use the last form of the page to locate the file (e.g. libGL.so.1.2)
+As you see the file /usr/lib/libGL.so.1.2 is part of fglrx and the package libgl1-mesa-glx. I just reinstalled libgl1-mesa-glx and fixed the bug. &amp;lt;del datetime=&#34;2009-05-19T21:01:33+00:00&#34;&amp;gt;You may also remove the package because you wont need mesa once using hardware acceleration. (Please correct me if this is wrong - I&amp;#8217;m not quite sure about this)
+&amp;lt;/del&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;(Reading database ... 84741 files and directories currently installed.)
+Unpacking fglrx-driver (from fglrx-driver_8.612-1_amd64.deb) ...
+No diversion `diversion of /usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;, none removed
+Adding `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+No diversion `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2_32bit by fglrx-driver&#39;, none removed
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+rmdir: failed to remove `/usr/share/fglrx/diversions&#39;: No such file or directory
+rmdir: failed to remove `/usr/share/fglrx&#39;: No such file or directory
+Leaving `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/xorg/modules/extensions/libdri.so to /usr/lib/fglrx/diversions/libdri.so by fglrx-driver&#39;
+dpkg - warning, overriding problem because --force enabled:
+_ trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.so&#39;, which is also in package xserver-xorg-core_
+dpkg: error processing 1 (--install):
+ cannot access archive: No such file or directory
+Setting up fglrx-driver (8.612-1) ...
+
+Configuration file `/etc/acpi/fglrx-powermode.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-lid-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-ac-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/init.d/atieventsd&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/default/fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo_mask.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/signature&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/control&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/atiogl.xml&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/amdpcsdb.default&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/authatieventsd.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/X11/Xsession.d/70fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+update-rc.d: warning: /etc/init.d/atieventsd missing LSB information
+update-rc.d: see &amp;lt;http://wiki.debian.org/LSBInitScripts&amp;gt;
+Starting atieventsd: /usr/sbin/atieventsd already running.
+done.
+Processing triggers for man-db ...
+Errors were encountered while processing:
+ 1&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once you get only the following error you can proceed with dpkg --force-all:
+&lt;em&gt;trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Finally i had to use the --force-all option to install the package.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;dpkg --force-all -i fglrx-driver_8.602-1_amd64.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;_You should try to use the procedure described above before taking this quite drastic step. _&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Build and install the fglrx kernel module. I had not to modify the sources in any way.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;module-assistant auto-install fglrx-kernel-src&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Load the module:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;modprobe fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure it was loaded. If it wasn&amp;#8217;t loaded use dmesg to check what happed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;lsmod | grep fglrx&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;If you want to create a new xorg.conf file which stores your monitor setup etc.:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;mv /etc/X11/xorg.conf /etc/X11/xorg.conf.backup
+dpkg-reconfigure xserver-xorg (just follow the instructions)
+aticonfig --initial&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;You are done. Now start X and run the amdcccle tool and setup your screens. I had to run those steps to get dual head working:&lt;/p&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Enable both displays using amdcccle&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the resolution of both displays to the same one&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling Xinerama&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling Multi-Display Settings (Left of ..)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disabling Xinerama in /etc/X11/xorg.conf&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart X&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download my xorg.conf:
+&amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorg.conf&#39;&amp;gt;xorg.conf&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Overall this is a painstaking way of setting up dual head display and drivers. Please AMD / ATI create an Installer that creates valid Deb. packages or even better delete it and create a deb repository that everybody can use.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dual Head on i810 - 945GM - Debian Lenny</title>
+      <link>http://jotschi.de/2008/06/15/dual-head-on-i810-945gm-debian-lenny/</link>
+      <pubDate>Sun, 15 Jun 2008 16:02:29 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/06/15/dual-head-on-i810-945gm-debian-lenny/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just did a dist upgrade and broke my old xorg.conf dual head configuration. Here is my new one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using:
+Debian Lenny (12.06.2008) - 2.6.23&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ii  xserver-xorg                         1:7.3+10                        the X.Org X server
+ii  xserver-xorg-core                  2:1.4.1~git20080517-1    Xorg X server - core server
+ii  xserver-xorg-video-i810          2:2.3.1-1                       X.Org X server -- Intel i8xx, i9xx display d
+ii  xserver-xorg-video-intel          2:2.3.1-1                       X.Org X server -- Intel i8xx, i9xx display d&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is the xorg.conf that i used.&amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorgconf.dualheadi810&#39;&amp;gt;xorgconf&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Section &#34;Files&#34;
+	FontPath    &#34;/usr/share/fonts/misc:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/Type1&#34;
+	FontPath    &#34;/usr/share/fonts/TTF&#34;
+	FontPath    &#34;/usr/share/fonts/corefonts&#34;
+	FontPath    &#34;/usr/share/fonts/freefonts&#34;
+	FontPath    &#34;/usr/share/fonts/terminus&#34;
+	FontPath    &#34;/usr/share/fonts/ttf-bitstream-vera&#34;
+	FontPath    &#34;/usr/share/fonts/unifont&#34;
+	FontPath    &#34;/usr/share/fonts/75dpi:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/100dpi:unscaled&#34;
+	FontPath    &#34;/usr/share/fonts/artwiz&#34;
+EndSection
+
+Section &#34;Module&#34;
+        Load &#34;i2c&#34;
+        Load &#34;bitmap&#34;
+        Load &#34;ddc&#34;
+        Load &#34;dri&#34;
+        Load &#34;extmod&#34;
+        #Load &#34;freetype&#34;
+        Load &#34;glx&#34;
+        Load &#34;int10&#34;
+        Load &#34;vbe&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Generic Keyboard&#34;
+        Driver          &#34;kbd&#34;
+        Option          &#34;CoreKeyboard&#34;
+        Option          &#34;XkbRules&#34;      &#34;xorg&#34;
+        Option          &#34;XkbModel&#34;      &#34;pc105&#34;
+        Option          &#34;XkbLayout&#34;     &#34;de&#34;
+	Option          &#34;XkbVariant&#34;    &#34;nodeadkeys&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Configured Mouse&#34;
+        Driver          &#34;evdev&#34;
+        #Option          &#34;Name&#34; &#34;Logitech USB-PS/2 Optical Mouse&#34;
+	#Option          &#34;CorePointer&#34;
+        Option          &#34;Device&#34;                &#34;/dev/input/mice&#34;
+        Option          &#34;Protocol&#34;              &#34;ImPS/2&#34;
+        Option          &#34;Emulate3Buttons&#34;       &#34;true&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+        Identifier      &#34;Synaptics Touchpad&#34;
+        Driver          &#34;synaptics&#34;
+        Option          &#34;SendCoreEvents&#34;        &#34;true&#34;
+        Option          &#34;Device&#34;                &#34;/dev/psaux&#34;
+        #This is useful to let gsynaptics change the behaviour of the touchpad (eg. disable tapping)
+        Option          &#34;SHMConfig&#34;             &#34;true&#34;
+        Option          &#34;Protocol&#34;              &#34;auto-dev&#34;
+        Option          &#34;HorizScrollDelta&#34;      &#34;0&#34;
+EndSection
+
+Section &#34;Device&#34;
+        Identifier      &#34;Intel 945GM&#34;
+        # Both drivers worked for me.
+        #Driver          &#34;intel&#34;
+	Driver 		&#34;i810&#34;
+        # Identify the different Monitors for your Device (Important part for dual head!)
+        Option  &#34;Monitor-TMDS-1&#34;        &#34;TMDS Monitor&#34;
+        Option  &#34;Monitor-LVDS&#34;          &#34;LVDS Monitor&#34;
+EndSection
+
+# LVDS is the laptop display
+Section &#34;Monitor&#34;
+        Identifier      &#34;LVDS Monitor&#34;
+        Option          &#34;DPMS&#34;
+        Option  &#34;LeftOf&#34; &#34;TMDS Monitor&#34;
+        Option &#34;PreferredMode&#34; &#34;1280x800&#34;
+        Option &#34;Position&#34; &#34;1280 0&#34;
+EndSection
+
+# TMDS is the device connected to the VGA port
+Section &#34;Monitor&#34;
+        Identifier      &#34;TMDS Monitor&#34;
+        Option          &#34;DPMS&#34;
+        #HorizSync      65-70
+        #VertRefresh    59-60
+        HorizSync 64-83
+        VertRefresh 56-75
+        Option  &#34;PreferredMode&#34; &#34;1280x1024&#34;
+EndSection
+
+# Define the virtual screen
+Section &#34;Screen&#34;
+        Identifier      &#34;The Screen&#34;
+        Device          &#34;Intel 945GM&#34;
+        SubSection &#34;Display&#34;
+                Virtual 2560 1024
+        EndSubsection
+EndSection
+
+Section &#34;ServerLayout&#34;
+        Identifier      &#34;Default Layout&#34;
+        Screen          &#34;The Screen&#34;
+        InputDevice     &#34;Generic Keyboard&#34;
+        InputDevice     &#34;Configured Mouse&#34;
+        InputDevice     &#34;Synaptics Touchpad&#34;
+EndSection&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;After you start your xserver you might encounter another problem. My external display supports a larger resolution than my laptop display. To set the external display to the desired resolution you can use xrandr. As soon as i know how to automatically workaround this issue i will do a post.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Set external display to highest resolution&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;xrandr --output VGA --mode &#34;1280x1024&#34;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If you get very large windows and texts you might find this command useful:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;startx -- -dpi 96&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dual Head on i810 - 945GM - Amilo Pro </title>
+      <link>http://jotschi.de/2008/02/09/dual-head-on-i810-945gm-amilo-pro/</link>
+      <pubDate>Sat, 09 Feb 2008 13:50:27 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/02/09/dual-head-on-i810-945gm-amilo-pro/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If you want to set up a dual head configuration you might want to take a look at my xorg.conf&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Section &#34;Files&#34;
+	FontPath	&#34;/usr/share/fonts/X11/misc&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/misc&#34;
+	FontPath	&#34;/usr/share/fonts/X11/cyrillic&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/cyrillic&#34;
+	FontPath	&#34;/usr/share/fonts/X11/100dpi/:unscaled&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/100dpi/:unscaled&#34;
+	FontPath	&#34;/usr/share/fonts/X11/75dpi/:unscaled&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/75dpi/:unscaled&#34;
+	FontPath	&#34;/usr/share/fonts/X11/Type1&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/Type1&#34;
+	FontPath	&#34;/usr/share/fonts/X11/100dpi&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/100dpi&#34;
+	FontPath	&#34;/usr/share/fonts/X11/75dpi&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/75dpi&#34;
+	# path to defoma fonts
+	FontPath	&#34;/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType&#34;
+EndSection
+
+Section &#34;Module&#34;
+	Load    &#34;GLcore&#34;
+	Load	&#34;bitmap&#34;
+	Load	&#34;dbe&#34;
+	Load	&#34;ddc&#34;
+	Load	&#34;dri&#34;
+	Load	&#34;extmod&#34;
+	Load	&#34;freetype&#34;
+	Load	&#34;glx&#34;
+	Load	&#34;int10&#34;
+	Load	&#34;record&#34;
+	Load	&#34;type1&#34;
+	Load	&#34;vbe&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Generic Keyboard&#34;
+	Driver		&#34;kbd&#34;
+	Option		&#34;CoreKeyboard&#34;
+	Option		&#34;XkbRules&#34;	&#34;xorg&#34;
+	Option		&#34;XkbModel&#34;	&#34;pc105&#34;
+	Option		&#34;XkbLayout&#34;	&#34;de&#34;
+	Option		&#34;XkbVariant&#34;	&#34;nodeadkeys&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Configured Mouse&#34;
+	Driver		&#34;evdev&#34;
+	Option		&#34;CorePointer&#34;
+	Option          &#34;Name&#34; &#34;Logitech USB-PS/2 Optical Mouse&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Synaptics Touchpad&#34;
+	Driver		&#34;synaptics&#34;
+	Option		&#34;SendCoreEvents&#34;	&#34;true&#34;
+	Option		&#34;Device&#34; 		&#34;/dev/psaux&#34;
+	Option          &#34;SHMConfig&#34;		&#34;true&#34;
+	Option		&#34;Protocol&#34;		&#34;auto-dev&#34;
+	Option		&#34;HorizScrollDelta&#34;	&#34;0&#34;
+EndSection
+
+Section &#34;Device&#34;
+	Identifier	&#34;Device LCD dual&#34;
+	Driver		&#34;i810&#34;
+	BusID		&#34;PCI:0:2:0&#34;
+	Screen		0
+	Option          &#34;MonitorLayout&#34; &#34;CRT,LFP&#34;
+EndSection
+
+Section &#34;Device&#34;
+	Identifier	&#34;Device CRT dual&#34;
+	Driver		&#34;i810&#34;
+	BusID		&#34;PCI:0:2:0&#34;
+	Screen		1
+EndSection
+
+Section &#34;Monitor&#34;
+        Identifier      &#34;Monitor LCD&#34;
+        Option          &#34;DPMS&#34;
+EndSection
+
+Section &#34;Monitor&#34;
+	Identifier	&#34;Monitor CRT&#34;
+	HorizSync     50-80
+	VertRefresh   60
+EndSection
+
+Section &#34;Screen&#34;
+	Identifier	&#34;Screen CRT dual&#34;
+	Device		&#34;Device CRT dual&#34;
+	Monitor		&#34;Monitor CRT&#34;
+	DefaultDepth	24
+	SubSection &#34;Display&#34;
+		Depth	24
+		Modes   &#34;1280x1024&#34;
+	EndSubSection
+EndSection
+
+Section &#34;Screen&#34;
+	Identifier	&#34;Screen LCD dual&#34;
+	Device		&#34;Device LCD dual&#34;
+	Monitor		&#34;Monitor LCD&#34;
+	DefaultDepth	24
+	SubSection &#34;Display&#34;
+		Depth	24
+		Modes	&#34;1280x800&#34;
+	EndSubSection
+EndSection
+
+Section &#34;ServerLayout&#34;
+	Identifier	&#34;Default Layout&#34;
+	Screen		0 &#34;Screen LCD dual&#34;
+	Screen		1 &#34;Screen CRT dual&#34; RightOf &#34;Screen LCD dual&#34;
+	InputDevice	&#34;Generic Keyboard&#34;
+	InputDevice	&#34;Configured Mouse&#34;
+	InputDevice	&#34;Synaptics Touchpad&#34;
+	Option		&#34;Xinerama&#34; &#34;true&#34;
+EndSection
+
+Section &#34;DRI&#34;
+	Mode	0666
+EndSection&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Note: You might need to change the input devices to match your current hardware. The secondary display device does not work with Option &#34;DPMS&#34;. Just fetch the right properties of your display and change the matching values for HorizSync and VertRefresh and you will get a higher resoultion on the device attached to secondary output.&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://jotschi.de/downloads/xorg/xorg.conf.i810&#34;&gt;Dual Head Xorg.conf&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

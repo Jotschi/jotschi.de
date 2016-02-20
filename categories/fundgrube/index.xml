@@ -1,0 +1,1092 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fundgrube on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/categories/fundgrube/</link>
+    <description>Recent content in Fundgrube on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 Sep 2011 02:17:56 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/categories/fundgrube/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Where words are only half the story..</title>
+      <link>http://jotschi.de/2011/09/23/audiobooks-mixed-with-soundtracks/</link>
+      <pubDate>Fri, 23 Sep 2011 02:17:56 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/23/audiobooks-mixed-with-soundtracks/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Classic audiobooks combined with ambient chilling trance soundtracks by &lt;a href=&#34;http://en.wikipedia.org/wiki/Paul_Oakenfold&#34;&gt;Paul Oakenfold&lt;/a&gt; became the &lt;a href=&#34;http://en.wikipedia.org/wiki/Urban_Soundtracks&#34;&gt;Urban Soundtracks&lt;/a&gt; which can be found &lt;a href=&#34;http://www.pauloakenfold.com/forum/genera/51868&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;A similar dubstep track by &lt;a href=&#34;http://erwt.blogspot.com/&#34;&gt;erwtenpeller aka Niels Jansen&lt;/a&gt; can be found &lt;a href=&#34;http://soundcloud.com/erwtenpeller/war-of-the-worlds&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>FreeNX 3.4 and Debian Testing - Stuck Keys</title>
+      <link>http://jotschi.de/2010/02/27/freenx-3-4-and-debian-testing-stuck-keys/</link>
+      <pubDate>Sat, 27 Feb 2010 18:00:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2010/02/27/freenx-3-4-and-debian-testing-stuck-keys/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;When using FreeNX 3.4 as server version i stumbled uppon an odd problem. My control (ctrl right) and alt gr key got stuck. By using xev i found out that the keyup event was never triggered. If i disabled the powerful freenx compression the event was handled correctly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The solution was rather simple. I just reverted to 3.3 and everything seems to work now properly.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-482&#34;&amp;gt;&amp;lt;/a&amp;gt;
+You can download the previous version here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;wget http://64.34.161.181/download/3.3.0/Linux/nxnode_3.3.0-17_i386.deb
+wget http://64.34.161.181/download/3.3.0/Linux/nxclient_3.3.0-6_i386.deb
+wget http://64.34.161.181/download/3.3.0/Linux/FE/nxserver_3.3.0-15_i386.deb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Debian Kernel 2.6.30-1 and JVM Socket Issues</title>
+      <link>http://jotschi.de/2010/01/30/debian-kernel-2-6-30-1-and-jvm-socket-issues/</link>
+      <pubDate>Sat, 30 Jan 2010 11:46:58 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2010/01/30/debian-kernel-2-6-30-1-and-jvm-socket-issues/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Due to an update of my linux kernel i stumbled upon a strange issue. I could not get sockets working properly. After some googling i figured out that it had to be a network configuration issue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;By default (Debian Testing) sockets bind only to ipv6.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The socket binding behaviour can be configured within:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cat /etc/sysctl.d/bindv6only.conf
+Set the parameter from net.ipv6.bindv6only=1 to net.ipv6.bindv6only=0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;To test the setting you can also use the following command:
+&amp;lt;blockquote&amp;gt;sysctl -w net.ipv6.bindv6only=0&amp;lt;/blockquote&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The error messages might be:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Caused by: java.net.SocketException: Network is unreachable
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:333)
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:195)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:182)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366)
+	at java.net.Socket.connect(Socket.java:525)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Or for debugging java:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;FATAL ERROR in native method: JDWP No transports initialized, jvmtiError=AGENT_ERROR_TRANSPORT_INIT(197)
+ERROR: transport error 202: connect failed: Connection refused
+ERROR: JDWP Transport dt_socket failed to initialize, TRANSPORT_INIT(510)
+JDWP exit error AGENT_ERROR_TRANSPORT_INIT(197): No transports initialized [../../../src/share/back/debugInit.c:690]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Mars Society startet &#39;Humans To Mars&#39; Petition</title>
+      <link>http://jotschi.de/2009/12/14/mars-society-startet-humans-to-mars-petition/</link>
+      <pubDate>Mon, 14 Dec 2009 23:06:49 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/14/mars-society-startet-humans-to-mars-petition/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Mit einer globalen &amp;lt;a href=&#34;http://www.HumansToMars.org&#34;&amp;gt;Petition&amp;lt;/a&amp;gt; will die Mars Society auf den diesjährigen Report der Augustine Kommission (&amp;lt;a href=&#34;http://www.nasa.gov/offices/hsf/meetings/10_22_pressconference.html&#34;&amp;gt;Review of United States Human Space Flight Plans Committee&amp;lt;/a&amp;gt;) reagieren und US Präsident Obama auf den Nutzen von einer bemannten Marsmission hinzuweisen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;object width=&#34;400&#34; height=&#34;300&#34;&amp;gt;&amp;lt;param name=&#34;allowfullscreen&#34; value=&#34;true&#34; /&amp;gt;&amp;lt;param name=&#34;allowscriptaccess&#34; value=&#34;always&#34; /&amp;gt;&amp;lt;param name=&#34;movie&#34; value=&#34;http://vimeo.com/moogaloop.swf?clip_id=7270323&amp;amp;server=vimeo.com&amp;amp;show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=0&amp;amp;color=&amp;amp;fullscreen=1&#34; /&amp;gt;&amp;lt;embed src=&#34;http://vimeo.com/moogaloop.swf?clip_id=7270323&amp;amp;server=vimeo.com&amp;amp;show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=0&amp;amp;color=&amp;amp;fullscreen=1&#34; type=&#34;application/x-shockwave-flash&#34; allowfullscreen=&#34;true&#34; allowscriptaccess=&#34;always&#34; width=&#34;400&#34; height=&#34;300&#34;&amp;gt;&amp;lt;/embed&amp;gt;&amp;lt;/object&amp;gt;&amp;lt;p&amp;gt;&amp;lt;a href=&#34;http://vimeo.com/7270323&#34;&amp;gt;HSF Committee-Press Conference&amp;lt;/a&amp;gt; from &amp;lt;a href=&#34;http://vimeo.com/user1955131&#34;&amp;gt;U.S. HSF Committee&amp;lt;/a&amp;gt; on &amp;lt;a href=&#34;http://vimeo.com&#34;&amp;gt;Vimeo&amp;lt;/a&amp;gt;.&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Dies ist meiner Meinung nach gar nicht so verkehrt wenn man bedenkt, dass das Space Shuttle 2010 außer Dienst gestellt werden soll und sich 5 - 8 Jahre lang keine Möglichkeit für die USA bietet die ISS zu erreichen. Mike Griffin, der letzte Nasa Administator, hat zu seiner Zeit alle Weichen gestellt damit das Space Shuttle so früh wie Möglich außer Dienst gestellt werden kann und die Entwicklung im &amp;lt;a href=&#34;http://en.wikipedia.org/wiki/Project_Constellation&#34;&amp;gt;Constellation Programm&amp;lt;/a&amp;gt; so schnell wie Möglich beginnen kann. Nach der Aktuellen Politik und Orientierung des Präsidenten und der NASA Administration ist es jedoch fraglich in wie weit die Realisierung des Constellation Programms überhaupt voranschreiten wird.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Wünschenswert wäre es wenn man die Zeit in der die USA über kein Transportmittel zur ISS verfügen, auch &#39;The Gap&#39; genannt, deutlich verkürzen könnte. Hierzu müsste man nur mehr Mittel für das Constellation Programm bereitstellen.
+Man sollte hier auch beachten das die ISS mindestens bis 2015 - 2020 betrieben werden soll. Nach dem aktuellen Plan hätte man also im Idealfall höchstens 2 Jahre lang die Möglichkeit die ISS mit Orion zu erreichen bevor die Raumstation aufgegeben wird. Wenn hierzu noch eine Ansage gemacht würde, ein Ziel gesetzt würde z.B. den Mars zu erreichen anstatt den Mond würde dies meiner Meinung nach auch die Politik des Präsidenten unterstützen. Er will Bildung fördern wo es nur geht. Aber wo fängt Bildung denn an? Meiner Meinung nach in den Köpfen der Menschen. Ein Ziel wie es früher von Präsident Kennedy gesetzt wurde schafft es zu Inspirieren und zu vereinen. Genau dieser Punkt wurde auch bei der Vorstellung des Reports von der Augustine Kommission als ein wichtiges Argument zur Unterstützung der Bemannten Raumfahrt genannt.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Der Report der Augustine Kommission nennt zudem auch einige alternativen welche &#39;The Gap&#39; überbrücken könnten. Hierzu zählen Entwicklung einer Ares/Orion Light Kombination, Private Entwicklung einer Transportlösung in Auftrag geben, sich auf Russland verlassen. Meiner Meinung nach sind dies jedoch nur Notlösungen welche das Problem verschieben.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Ich bleibe gespannt wie sich NASA / US Pläne durch die Einstellung des Space Shuttles weiterentwickeln.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Es ist somit nicht verkehrt die Petition zu unterzeichne wenn man für die bemannte Raumfahrt ist und Zeichen setzten möchte.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SED - AWK - Replace Section Within File</title>
+      <link>http://jotschi.de/2009/10/10/sed-awk-replace-section-within-file/</link>
+      <pubDate>Sat, 10 Oct 2009 14:01:05 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/10/10/sed-awk-replace-section-within-file/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is how to replace a multiline text between two tags or lines of text with awk or sed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;File: &#39;test&#39;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;###START
+1
+2
+###STOP&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_sed&#34;&gt;SED:&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;sed  -i -e &#34;/&lt;sup&gt;&lt;mark&gt;START\$/,/&lt;/sup&gt;&lt;/mark&gt;STOP\$/c &lt;mark&gt;START\n${REPLACEMENT}\n&lt;/mark&gt;STOP&#34; test&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;AWK:&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;awk &#34;/&lt;mark&gt;START/{p=1;print\&#34;&lt;/mark&gt;#START\n${REPLACEMENT}\n&lt;mark&gt;#STOP\&#34;;next}/&lt;/mark&gt;STOP/{p=0;next}!p&#34; test.tmp &amp;gt; test&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;Note: test must be copied to test.tmp before replacement can be done.&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fglrx and Debian testing with 2.6.26-2-686-bigmem</title>
+      <link>http://jotschi.de/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem/</link>
+      <pubDate>Sun, 05 Jul 2009 13:17:12 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Wuarg! Again PAIN with fglrx. I just setup a fresh and clean debian installation but fglrx just creates pain.
+Well.. fglrx installed fine (with the known errors) the module compiled and everything looked ok but i wasn&amp;#8217;t able to setup Dual-Head because amdcccle gave me no option to select a Multi-Monitor arragnement. There were only two options: Single (Indipendent Position) and Unknown. I solved the issue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/ati/amdcccle-unknown.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/ati/amdcccle-unknown.png&#34; alt=&#34;&#34; title=&#34;amdcccle-unknown&#34; width=&#34;150&#34; height=&#34;116&#34; class=&#34;alignnone size-thumbnail wp-image-307&#34; /&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;br/&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I had to overwrite the /etc/ati/amdpcsdb file with one i saved from a working installation.&amp;lt;a href=&#39;http://jotschi.de/downloads/ati/amdpcsdb&#39;&amp;gt;Download /etc/ati/amdpcsdb&amp;lt;/a&amp;gt;. I used this &amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorg.conf_workingfine&#39;&amp;gt;/etc/X11/xorg.conf&amp;lt;/a&amp;gt; X11 configuration file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I believe the amdcccle does not create a correct amdpcsdb file from the amdpcsdb.default file.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Remove CTRL&#43;Q Firefox Linux Keybinding</title>
+      <link>http://jotschi.de/2009/06/24/remove-ctrlq-firefox-linux-keybinding/</link>
+      <pubDate>Wed, 24 Jun 2009 19:28:29 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/06/24/remove-ctrlq-firefox-linux-keybinding/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using Debian Firefox 3 with fluxbox the default keybinding of CTRL+Q is very fast and anoying quit of firefox.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Just go to &lt;a href=&#34;http://mozilla.dorando.at/&#34;&gt;http://mozilla.dorando.at/&lt;/a&gt; and Install keyconfig.xpi and disable the keybinding for ctrl+q.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenPhotoVR</title>
+      <link>http://jotschi.de/2009/06/11/openphotovr/</link>
+      <pubDate>Thu, 11 Jun 2009 10:46:27 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/06/11/openphotovr/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;While searching for a solution to get mono and silverlight and the whole M$ stuff working under my debian installation i just found &amp;lt;a href=&#34;http://openphotovr.org/#a90&#34;&amp;gt;OpenPhotoVR&amp;lt;/a&amp;gt;. OpenPhotoVR is a pseudo-3D photo browser using Flash instead of silverlight. However the matching of the images is not done automatically.&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-294&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;object width=&#34;400&#34; height=&#34;300&#34;&amp;gt;
+&amp;lt;param name=&#34;movie&#34; value=&#34;http://openphotovr.org/main.swf&#34;&amp;gt;&amp;lt;/param&amp;gt;
+&amp;lt;param name=&#34;FlashVars&#34; value=&#34;id=a299&#34;&amp;gt;&amp;lt;/param&amp;gt;
+&amp;lt;embed src=&#34;http://openphotovr.org/main.swf&#34;   FlashVars=&#34;id=a299&#34;   type=&#34;application/x-shockwave-flash&#34;     width=&#34;400&#34; height=&#34;300&#34; &amp;gt;&amp;lt;/embed&amp;gt;
+&amp;lt;/object&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;{% youtube 0f5NuHzGXJA %}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Since the &amp;lt;a href=&#34;http://phototour.cs.washington.edu/bundler/&#34;&amp;gt;bundler code&amp;lt;/a&amp;gt; which is used to match images in images is free it should be possible to create an automatically way of matching the images.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Projective Textures with OpenSceneGraph</title>
+      <link>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</link>
+      <pubDate>Sun, 31 May 2009 21:55:15 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get projective textures working using GLSL shaders rather than fixed pipeline functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;Projective Texturing Example&#34; /&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;osg/Notify&amp;gt;
+#include &amp;lt;osg/MatrixTransform&amp;gt;
+#include &amp;lt;osg/ShapeDrawable&amp;gt;
+#include &amp;lt;osg/PositionAttitudeTransform&amp;gt;
+#include &amp;lt;osg/Geometry&amp;gt;
+#include &amp;lt;osg/Texture2D&amp;gt;
+#include &amp;lt;osg/Geode&amp;gt;
+#include &amp;lt;osg/LightSource&amp;gt;
+#include &amp;lt;osg/TexGenNode&amp;gt;
+#include &amp;lt;osg/TexMat&amp;gt;
+#include &amp;lt;osgDB/WriteFile&amp;gt;
+#include &amp;lt;osgUtil/Optimizer&amp;gt;
+#include &amp;lt;osgDB/Registry&amp;gt;
+#include &amp;lt;osgDB/ReadFile&amp;gt;
+#include &amp;lt;osgViewer/Viewer&amp;gt;
+
+osg::StateSet* createProjectorState() {
+
+	osg::StateSet* stateset = new osg::StateSet;
+
+	/* 1. Load the texture that will be projected */
+	osg::Texture2D* texture = new osg::Texture2D();
+	texture-&amp;gt;setImage(osgDB::readImageFile(&#34;foo.jpg&#34;));
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_BORDER);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texture, osg::StateAttribute::ON);
+
+	// set up tex gens
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_S,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_T,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_R,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_Q,
+	osg::StateAttribute::ON);
+
+	/* 2. Load the Shaders */
+	osg::ref_ptr&amp;lt;osg::Program&amp;gt; projProg(new osg::Program);
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projvertexShader(osg::Shader::readShaderFile(
+			osg::Shader::VERTEX, &#34;VertexShader.glsl&#34;));
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projfragShader(osg::Shader::readShaderFile(
+			osg::Shader::FRAGMENT, &#34;FragmentShader.glsl&#34;));
+	projProg-&amp;gt;addShader(projvertexShader.get());
+	projProg-&amp;gt;addShader(projfragShader.get());
+
+	/* 3. Handover the texture to the fragment shader via uniform */
+	osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,
+			&#34;projectionMap&#34;);
+	texUniform-&amp;gt;set(1);
+	stateset-&amp;gt;addUniform(texUniform);
+
+	/* 4. set Texture matrix*/
+	osg::TexMat* texMat = new osg::TexMat;
+	osg::Matrix mat;
+	osg::Vec3 projectorPos = osg::Vec3(0.0f, 0.0f, 324.0f);
+	osg::Vec3 projectorDirection = osg::Vec3(osg::inDegrees(0.0f),
+			osg::inDegrees(280.0f), osg::inDegrees(-460.0f));
+	float projectorAngle = 110;
+	osg::Vec3 up(0.0f, 0.0f, 1.0f);
+	mat = osg::Matrixd::lookAt(projectorPos, projectorPos + projectorDirection,
+			up) * osg::Matrixd::perspective(projectorAngle, 1.0, 0.1, 100);
+	texMat-&amp;gt;setMatrix(mat);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texMat, osg::StateAttribute::ON);
+
+	stateset-&amp;gt;setAttribute(projProg.get());
+	return stateset;
+}
+osg::Node* createModel() {
+	osg::Group* root = new osg::Group;
+
+	/* Load the terrain which will be the receiver of out projection */
+	osg::Node* terr = osgDB::readNodeFile(&#34;Terrain2.3ds&#34;);
+	osg::Image* shot = new osg::Image();
+
+	/* Scale the terrain and move it. */
+	osg::Matrix m;
+	osg::ref_ptr&amp;lt;osg::MatrixTransform&amp;gt; mt = new osg::MatrixTransform;
+	m.makeTranslate(112.f, 410.f, -2.f);
+	m.makeScale(2.f, 2.f, 2.f);
+	mt-&amp;gt;setMatrix(m);
+	mt-&amp;gt;addChild(terr);
+
+	/* Add the transformed node to our graph */
+	root-&amp;gt;addChild(mt.get());
+
+	/* Enable projective texturing for all objects of this node */
+	root-&amp;gt;setStateSet(createProjectorState());
+	return root;
+}
+int main(int, char **) {
+	osgViewer::Viewer viewer;
+	viewer.setSceneData(createModel());
+	viewer.setUpViewInWindow(0, 0, 1024, 768);
+	return viewer.run();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Fragment Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D projectionMap;
+varying vec4 projCoord;
+void main()
+{
+	vec4 dividedCoord = projCoord / projCoord.w ;
+	vec4 color =  texture2D(projectionMap,dividedCoord.st);
+  	gl_FragColor =	 color * gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Vertex Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec4 projCoord;
+void main()
+{
+     	projCoord = gl_TextureMatrix[1] * gl_Vertex;
+		gl_Position = ftransform();
+		gl_FrontColor = gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Automated, Scalable, Airborne Only, 3D Modeling </title>
+      <link>http://jotschi.de/2009/04/23/automated-scalable-airborne-only-3d-modeling/</link>
+      <pubDate>Thu, 23 Apr 2009 22:58:44 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/04/23/automated-scalable-airborne-only-3d-modeling/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just found this page which describes methods of 3D City Modeling. They use airborn and ground based lasers to get the geometric information that is needed to complete the model. Keep in mind that Google StreetView Cars are also equiped with lidar.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://www-video.eecs.berkeley.edu/~avz/aironly.htm&#34; class=&#34;bare&#34;&gt;http://www-video.eecs.berkeley.edu/~avz/aironly.htm&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Also take a look at this interesting techtalk:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://video.google.com/videoplay?docid=1783762882645705066&amp;amp;ei=P9XwSe2fJJ7e2gL3kJWxDA&amp;amp;q=Avideh+Zakhor&amp;amp;hl=en&amp;amp;client=iceweasel-a&#34; class=&#34;bare&#34;&gt;http://video.google.com/videoplay?docid=1783762882645705066&amp;amp;ei=P9XwSe2fJJ7e2gL3kJWxDA&amp;amp;q=Avideh+Zakhor&amp;amp;hl=en&amp;amp;client=iceweasel-a&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Javascript Frames Without Frames Using Ajax (JQuery)</title>
+      <link>http://jotschi.de/2009/02/21/javascript-website-clipping-using-ajax-jquery/</link>
+      <pubDate>Sat, 21 Feb 2009 23:00:20 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/02/21/javascript-website-clipping-using-ajax-jquery/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Including a page into your own website using frames is no big deal. But what will you do when you don&amp;#8217;t want to use iframes? Well you could use Ajax :)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Of course just fetching the HTML via Ajax and replace the innerHTML of a DIV element will not be enough because for example the anchors inside the faked frame should be usable too and images should be loaded correctly too. And of course you want a valid document. So you have to include only the &amp;lt;body&amp;gt; innerHTML content.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The demo can be found here:
+&amp;lt;a href=&#34;http://jotschi.de/downloads/ajax_clipping/test.html&#34;&amp;gt;JavaScript Ajax Clipping&amp;lt;/a&amp;gt;
+Clicking inside a link of the clipping area will not open a new window with the page&amp;#8217;s content. Instead the page will be loaded inside of clipping area.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The full example can be downloaded here:
+&amp;lt;a href=&#39;http://jotschi.de/downloads/javascript_clipping/javascript_clipping1.tgz&#39;&amp;gt;javascript_clipping1.tgz&amp;lt;/a&amp;gt;
+Note that i just implemented and tested this with Firefox 3.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-254&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Define a div like this one. All links inside this div will be ajaxified. :)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;&amp;lt;div class=&#34;clipping_area&#34; id=&#34;clipping_area_1&#34; style=&#34;background:grey&#34; &amp;gt;
+     This content might be replaced just by a click.&amp;lt;a href=&#34;subfolder/test_frame2.html&#34;&amp;gt;Click&amp;lt;/a&amp;gt;
+ &amp;lt;/div&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;If you need links links outside of the div that are able to change the content of that div you can use such links:
+&amp;lt;pre lang=&#34;HTML&#34;&amp;gt;
+       &amp;lt;a href=&#34;test_frame.html&#34; class=&#34;clipping_link&#34; target=&#34;clipping_area_1&#34;&amp;gt;A Clipping Link 1 Outside Of The Definined ClippingArea&amp;lt;/a&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;What does work:
+Adaption of Image URL.
+Adaption of anchors.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;What will most likely not work?
+JavaScript inside of the loaded websites (untested)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;// Initialise ajax links when dom is ready
+$(document).ready(function(){
+updateLinks();
+});
+
+/*
+ * Transform all anchors within clipping areas and clipping anchors
+ */
+function updateLinks(url) {
+
+   // Enable this to see which links will be transformed to ajax clipping links
+   // $(&#34;#clipping_area a&#34;).css(&#34;border&#34;,&#34;3px solid red&#34;);
+   // $(&#34;clipping_link&#34;).css(&#34;border&#34;,&#34;3px solid red&#34;);
+
+    $(&#34;.clipping_area a&#34;).unbind(&#39;click&#39;);
+    $(&#34;.clipping_area a&#34;).bind(&#39;click&#39;,function(event){
+      event.preventDefault();
+	var node = this;
+        var areaId = null;
+	while(node != null) {
+	   node = node.parentNode;
+	   if(node.getAttribute(&#34;class&#34;)==&#39;clipping_area&#39;) {
+		areaId = node.getAttribute(&#34;id&#34;);
+		break;
+	   }
+   	   alert(node);
+	}
+        loadPage(this.href,areaId);
+    });
+
+    $(&#34;.clipping_link&#34;).unbind(&#39;click&#39;);
+    $(&#34;.clipping_link&#34;).bind(&#39;click&#39;,function(event){
+      event.preventDefault();
+      loadPage(this.href,this.target);
+    });
+
+    // handle images that
+    $(&#34;img&#34;).error(function(){
+
+    var pageURL = url;
+    var imageURL  = this.src;
+
+    var imagePath = imageURL.replace(/(\/[^\/]*$)/,&#34;&#34;);
+    var imageFileName = imageURL.replace(/^.*\//,&#34;&#34;);
+    var pagePath =  pageURL.replace(/(\/[^\/]*$)/,&#34;&#34;);
+    var diffPath = pagePath.replace(imagePath,&#34;&#34;);
+    var newImageURL =  imagePath + diffPath +&#34;/&#34;+ imageFileName;
+    // set the corrected url for the image
+    this.src = newImageURL;
+
+ });
+
+}
+
+/*
+ * Load the given url into the clipping area with the given areaId
+ */
+function loadPage(url,areaId) {
+    $.get(url,
+       function(data) {
+         setPage(data,areaId);
+  	 updateLinks(url);
+    });
+}
+
+/*
+ * Parse the given string and create a dom object
+ */
+function parseXML( xml ) {
+   if( window.ActiveXObject &amp;amp;&amp;amp; window.GetObject ) {
+        var dom = new ActiveXObject( &#39;Microsoft.XMLDOM&#39; );
+        dom.loadXML( xml );
+        return dom;
+    }
+    if( window.DOMParser )
+       return new DOMParser().parseFromString( xml, &#39;text/xml&#39; );
+    throw new Error( &#39;No XML parser available&#39; );
+}
+
+/*
+ * Parse the given html and locate body tag. Insert html into
+ * the given clipping area by using the areaId.
+ */
+function setPage(html,areaId) {
+   var dom = parseXML(html);
+   var $dom = $(dom);
+   var strXML = dom.getElementsByTagName(&#39;body&#39;).item(0).innerHTML;
+   $(&#34;#&#34;+areaId).html(strXML);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update:
+DOM Parsing will fail if you read an invalid html document. Using RegEx can do the same. And i fixed URL handling and #target like anchors. The stylesheet of the page is now usable too but due to hirarchy problems loading it will affect also the rest of the page.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;// Initialise ajax links when dom is ready
+$(document).ready( function() {
+	updateLinks();
+});
+
+/*
+ * Transform all anchors within clipping areas and clipping anchors
+ */
+function updateLinks(url) {
+
+	$(&#34;.clipping_area a&#34;).unbind(&#39;click&#39;);
+	$(&#34;.clipping_area a&#34;).bind(&#39;click&#39;, function(event) {
+		event.preventDefault();
+
+		var node = this;
+		var areaId = null;
+		while (node != null) {
+			node = node.parentNode;
+			if (node.getAttribute(&#34;class&#34;) == &#39;clipping_area&#39;) {
+				areaId = node.getAttribute(&#34;id&#34;);
+				break;
+			}
+			// alert(node);
+		}
+		var urlPart = this.href.replace(/^.*\// , &#34;&#34;);
+		if (urlPart.match(/#.*/)) {
+			window.location.hash = urlPart.replace(/#/, &#34;&#34;);
+		} else {
+			loadPage(this.href, areaId);
+		}
+	});
+
+	$(&#34;.clipping_link&#34;).unbind(&#39;click&#39;);
+	$(&#34;.clipping_link&#34;).bind(&#39;click&#39;, function(event) {
+		event.preventDefault();
+		loadPage(this.href, this.target);
+	});
+
+	// handle images that
+	$(&#34;img&#34;).error( function() {
+
+		var pageURL = url;
+		var imageURL = this.src;
+
+		var imagePath = imageURL.replace(/(\/[^\/]*$)/, &#34;&#34;);
+		var imageFileName = imageURL.replace(/^.*\// , &#34;&#34;);
+		var pagePath = pageURL.replace(/(\/[^\/]*$)/, &#34;&#34;);
+		var diffPath = pagePath.replace(imagePath, &#34;&#34;);
+		var newImageURL = imagePath + diffPath + &#34;/&#34; + imageFileName;
+		// set the corrected url for the image
+			this.src = newImageURL;
+
+		});
+
+}
+
+/*
+ * Load the given url into the clipping area with the given areaId
+ */
+function loadPage(url, areaId) {
+	$.get(url, function(data) {
+		setPage(url, data, areaId);
+		updateLinks(url);
+	});
+}
+
+/*
+ * Parse the given html and locate body tag. Insert html into the given clipping
+ * area by using the areaId.
+ */
+function setPage(url, html, areaId) {
+
+	// remove encoding error while reading iso-8859 into utf-8 document
+	html = html.replace(/ï¿½/g, &#34;&#34;);
+
+	var style = html;
+	style = style.replace(/.*[^\/]STYLE[^\&amp;gt;]*\&amp;gt;/, &#34;&#34;);
+	style = style.replace(/\&amp;lt;\/STYLE\&amp;gt;.*/, &#34;&#34;);
+
+	html = html.replace(/.*[^\/]BODY\&amp;gt;/, &#34;&#34;);
+	// html = html.replace(/.*[^\/]body\&amp;gt;/,&#34;&#34;)
+	html = html.replace(/\&amp;lt;\/BODY\&amp;gt;.*/, &#34;&#34;);
+
+	var pagePath = url.replace(/(\/[^\/]*$)/, &#34;&#34;);
+	Result = html.match(/HREF=\&#34;[^http][^\&#34;]*\&#34;/g);
+	if (Result) {
+		for ( var i = 0; i &amp;lt; Result.length; ++i) {
+
+			var oldPagePath = Result[i].replace(/HREF=\&#34;/, &#34;&#34;);
+			oldPagePath = oldPagePath.replace(/\&#34;/, &#34;&#34;);
+			var newURL = &#34;HREF=\&#34;&#34; + pagePath + &#34;/&#34; + oldPagePath + &#34;\&#34;&#34;;
+			html = html.replace(Result[i], newURL);
+
+		}
+	}
+
+
+	$(&#34;#&#34; + areaId).html(   &#34;&amp;lt;style type=\&#34;text/css\&#34;&amp;gt;&#34; +style+ &#34;&amp;lt;/style&amp;gt;&#34; + html );
+
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Code Coverage with Emma and CruiseControl</title>
+      <link>http://jotschi.de/2008/12/03/code-coverage-with-emma-and-cruisecontrol/</link>
+      <pubDate>Wed, 03 Dec 2008 22:22:09 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/12/03/code-coverage-with-emma-and-cruisecontrol/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Perhaps you want to display your coverage reports generated by emma within your cruisecontrol installation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There are at least three different ways to get this done. I used cruisecontrol-bin-2.8.1 and the way described here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1. By using the artifactspublisher you can just store your html emma reports within your artifacts and display them inside of cruise control by using an iframe. More information about this way can be found here: &amp;lt;a href=&#34;http://markmail.org/message/oew5ope3jcdds5az&#34;&amp;gt;&lt;a href=&#34;http://markmail.org/message/oew5ope3jcdds5az&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://markmail.org/message/oew5ope3jcdds5az&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2. Using the method i describe within this post. It is similar to the way junit reports are included by using xsl.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3. Using EmmaArtifactWidget that ships with cc. I tried to find more information about this widget and how to use it but found none. Usage of widgets is badly documented within cc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At first we have to add emma code coverage tasks to the default project called &#39;connectfour&#39;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&amp;lt;project name=&#34;connectfour&#34; default=&#34;all&#34;&amp;gt;
+    &amp;lt;target name=&#34;all&#34; depends=&#34;clean, compile, sleep, test,emma.report, jar&#34;/&amp;gt;
+
+    &amp;lt;target name=&#34;clean&#34;&amp;gt;
+        &amp;lt;delete dir=&#34;target&#34; quiet=&#34;true&#34; /&amp;gt;
+    &amp;lt;/target&amp;gt;
+
+    &amp;lt;property name=&#34;emma.dir&#34; location=&#34;bin/emma&#34; /&amp;gt;
+    &amp;lt;property name=&#34;emma.thresholds&#34; value=&#34;class:100,method:100,block:100,line:100&#34; /&amp;gt;
+
+    &amp;lt;path id=&#34;emma.lib&#34;&amp;gt;
+      &amp;lt;pathelement location=&#34;lib/emma.jar&#34; /&amp;gt;
+      &amp;lt;pathelement location=&#34;lib/emma_ant.jar&#34; /&amp;gt;
+    &amp;lt;/path&amp;gt;
+
+    &amp;lt;taskdef resource=&#34;emma_ant.properties&#34; classpathref=&#34;emma.lib&#34; /&amp;gt;
+
+    &amp;lt;target name=&#34;compile&#34;&amp;gt;
+        &amp;lt;mkdir dir=&#34;target/classes&#34;/&amp;gt;
+        &amp;lt;javac srcdir=&#34;src&#34; destdir=&#34;target/classes&#34; debug=&#34;true&#34; /&amp;gt;
+    &amp;lt;/target&amp;gt;
+
+    &amp;lt;target name=&#34;sleep&#34;&amp;gt;
+        &amp;lt;echo message=&#34;Sleeping for a while so you can see the build in the new dashboard&#34; /&amp;gt;
+        &amp;lt;sleep seconds=&#34;0&#34; /&amp;gt;
+    &amp;lt;/target&amp;gt;
+
+
+   &amp;lt;target name=&#34;emma.instrument&#34;&amp;gt;
+      &amp;lt;emma enabled=&#34;true&#34;&amp;gt;
+	  &amp;lt;instr instrpath=&#34;target/classes&#34; destdir=&#34;target/classes&#34; metadatafile=&#34;target/test-results/metadata.emma&#34; merge=&#34;true&#34; mode=&#34;overwrite&#34; /&amp;gt;
+      &amp;lt;/emma&amp;gt;
+   &amp;lt;/target&amp;gt;
+
+    &amp;lt;target name=&#34;emma.report&#34;&amp;gt;
+      &amp;lt;emma enabled=&#34;true&#34;&amp;gt;
+        &amp;lt;report sourcepath=&#34;src&#34; sort=&#34;+name&#34; metrics=&#34;method:83,block:83,line:74,class:88&#34;&amp;gt;
+        &amp;lt;fileset dir=&#34;target/test-results/&#34;&amp;gt;
+          &amp;lt;include name=&#34;*.emma&#34; /&amp;gt;
+          &amp;lt;include name=&#34;*.ec&#34; /&amp;gt;
+        &amp;lt;/fileset&amp;gt;
+
+        &amp;lt;xml outfile=&#34;target/test-results/coverage.xml&#34; depth=&#34;method&#34; /&amp;gt;
+        &amp;lt;html outfile=&#34;target/test-results/index.html&#34; depth=&#34;method&#34; columns=&#34;name,class,method,block,line&#34; /&amp;gt;
+      &amp;lt;/report&amp;gt;
+      &amp;lt;/emma&amp;gt;
+    &amp;lt;/target&amp;gt;
+
+    &amp;lt;target name=&#34;test&#34; depends=&#34;compile,emma.instrument&#34;&amp;gt;
+        &amp;lt;mkdir dir=&#34;target/test-classes&#34;/&amp;gt;
+        &amp;lt;javac srcdir=&#34;test&#34; destdir=&#34;target/test-classes&#34;&amp;gt;
+            &amp;lt;classpath&amp;gt;
+                &amp;lt;pathelement location=&#34;target/classes&#34;/&amp;gt;
+                &amp;lt;pathelement location=&#34;lib/junit.jar&#34;/&amp;gt;
+            &amp;lt;/classpath&amp;gt;
+        &amp;lt;/javac&amp;gt;
+
+        &amp;lt;mkdir dir=&#34;target/test-results&#34;/&amp;gt;
+
+        &amp;lt;junit haltonfailure=&#34;no&#34; fork=&#34;yes&#34; printsummary=&#34;on&#34;&amp;gt;
+            &amp;lt;classpath &amp;gt;
+                &amp;lt;pathelement location=&#34;target/classes&#34;/&amp;gt;
+                &amp;lt;pathelement location=&#34;lib/junit.jar&#34;/&amp;gt;
+                &amp;lt;path refid=&#34;emma.lib&#34; /&amp;gt;
+                &amp;lt;pathelement location=&#34;target/test-classes&#34;/&amp;gt;
+            &amp;lt;/classpath&amp;gt;
+
+            &amp;lt;jvmarg value=&#34;-Demma.coverage.out.file=target/test-results/coverage.emma&#34; /&amp;gt;
+	    &amp;lt;jvmarg value=&#34;-Demma.coverage.out.merge=true&#34; /&amp;gt;
+
+            &amp;lt;formatter type=&#34;brief&#34; usefile=&#34;false&#34;/&amp;gt;
+            &amp;lt;formatter type=&#34;xml&#34; /&amp;gt;
+            &amp;lt;batchtest todir=&#34;target/test-results&#34; &amp;gt;
+                &amp;lt;fileset dir=&#34;target/test-classes&#34; includes=&#34;**/*Test.class&#34;/&amp;gt;
+            &amp;lt;/batchtest&amp;gt;
+        &amp;lt;/junit&amp;gt;
+
+    &amp;lt;/target&amp;gt;
+
+    &amp;lt;target name=&#34;jar&#34; depends=&#34;compile&#34;&amp;gt;
+        &amp;lt;jar jarfile=&#34;target/connectfour.jar&#34; basedir=&#34;target/classes&#34;/&amp;gt;
+    &amp;lt;/target&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You will have to change the CruiseControl project configuration. The schedule section should look like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt; &amp;lt;schedule interval=&#34;300&#34;&amp;gt;
+            &amp;lt;ant anthome=&#34;apache-ant-1.7.0&#34; buildfile=&#34;build.xml&#34; antWorkingDir=&#34;projects/${project.name}&#34;  /&amp;gt;
+ &amp;lt;/schedule&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;My full &lt;em&gt;config.xml&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;&amp;lt;cruisecontrol&amp;gt;
+    &amp;lt;project name=&#34;connectfour&#34;&amp;gt;
+
+        &amp;lt;listeners&amp;gt;
+            &amp;lt;currentbuildstatuslistener file=&#34;logs/${project.name}/status.txt&#34;/&amp;gt;
+        &amp;lt;/listeners&amp;gt;
+
+        &amp;lt;bootstrappers&amp;gt;
+            &amp;lt;antbootstrapper anthome=&#34;apache-ant-1.7.0&#34; buildfile=&#34;projects/${project.name}/build.xml&#34; target=&#34;clean&#34; /&amp;gt;
+        &amp;lt;/bootstrappers&amp;gt;
+
+        &amp;lt;modificationset quietperiod=&#34;30&#34;&amp;gt;
+            &amp;lt;!-- touch any file in connectfour project to trigger a build --&amp;gt;
+            &amp;lt;filesystem folder=&#34;projects/${project.name}&#34;/&amp;gt;
+        &amp;lt;/modificationset&amp;gt;
+
+        &amp;lt;schedule interval=&#34;300&#34;&amp;gt;
+            &amp;lt;ant anthome=&#34;apache-ant-1.7.0&#34; buildfile=&#34;build.xml&#34; antWorkingDir=&#34;projects/${project.name}&#34;  /&amp;gt;
+        &amp;lt;/schedule&amp;gt;
+
+        &amp;lt;log&amp;gt;
+            &amp;lt;merge dir=&#34;projects/${project.name}/target/test-results&#34;/&amp;gt;
+        &amp;lt;/log&amp;gt;
+
+        &amp;lt;publishers&amp;gt;
+            &amp;lt;onsuccess&amp;gt;
+                &amp;lt;artifactspublisher dest=&#34;artifacts/${project.name}&#34; file=&#34;projects/${project.name}/target/${project.name}.jar&#34;/&amp;gt;
+            &amp;lt;/onsuccess&amp;gt;
+        &amp;lt;/publishers&amp;gt;
+
+    &amp;lt;/project&amp;gt;
+&amp;lt;/cruisecontrol&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Add the following section below for example your testresults tab in &lt;em&gt;cruisecontrol-bin-2.8.1/webapps/cruisecontrol/main.jsp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;         &amp;lt;cruisecontrol:tab name=&#34;emmaResults&#34; label=&#34;Emma Results&#34; &amp;gt;
+             &amp;lt;%@ include file=&#34;emmadetails.jsp&#34; %&amp;gt;
+          &amp;lt;/cruisecontrol:tab&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Add a new file called &lt;em&gt;emmadetails.jsp&lt;/em&gt; in &lt;em&gt;cruisecontrol-bin-2.8.1/webapps/cruisecontrol/&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&amp;lt;%@ taglib uri=&#34;/WEB-INF/cruisecontrol-jsp11.tld&#34; prefix=&#34;cruisecontrol&#34;%&amp;gt;
+
+&amp;lt;cruisecontrol:xsl xslFile=&#34;/xsl/emma.xsl&#34;/&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Add a new xsl file that will parse your CruiseControl xml build log called &lt;em&gt;emma.xsl&lt;/em&gt; in &lt;em&gt;cruisecontrol-bin-2.8.1/webapps/cruisecontrol/xsl/&lt;/em&gt; :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&amp;gt;
+&amp;lt;xsl:stylesheet version=&#34;1.0&#34; xmlns:xsl=&#34;http://www.w3.org/1999/XSL/Transform&#34; xmlns:fo=&#34;http://www.w3.org/1999/XSL/Format&#34;&amp;gt;
+	&amp;lt;xsl:output method=&#34;html&#34;/&amp;gt;
+
+	&amp;lt;xsl:template match=&#34;/&#34; mode=&#34;emma&#34;&amp;gt;
+		&amp;lt;xsl:if test=&#34;count(/cruisecontrol/report/data/all/package) &amp;amp;gt; 0&#34;&amp;gt;
+			&amp;lt;table align=&#34;center&#34; cellpadding=&#34;2&#34; cellspacing=&#34;0&#34; border=&#34;0&#34; width=&#34;98%&#34;&amp;gt;
+				&amp;lt;tbody&amp;gt;
+					&amp;lt;tr&amp;gt;
+						&amp;lt;th class=&#34;checkstyle-sectionheader&#34; colspan=&#34;5&#34; align=&#34;left&#34;&amp;gt;Emma Results&amp;lt;/th&amp;gt;
+					&amp;lt;/tr&amp;gt;
+					&amp;lt;tr&amp;gt;
+						&amp;lt;td class=&#34;checkstyle-sectionheader&#34;&amp;gt;Package&amp;lt;/td&amp;gt;
+						&amp;lt;td class=&#34;checkstyle-sectionheader&#34;&amp;gt;Class Coverage&amp;lt;/td&amp;gt;
+						&amp;lt;td class=&#34;checkstyle-sectionheader&#34;&amp;gt;Method Coverage&amp;lt;/td&amp;gt;
+						&amp;lt;td class=&#34;checkstyle-sectionheader&#34;&amp;gt;Block Coverage&amp;lt;/td&amp;gt;
+						&amp;lt;td class=&#34;checkstyle-sectionheader&#34;&amp;gt;Line Coverage&amp;lt;/td&amp;gt;
+					&amp;lt;/tr&amp;gt;
+					&amp;lt;xsl:for-each select=&#34;/cruisecontrol/report/data/all/package&#34;&amp;gt;
+						&amp;lt;xsl:sort select=&#34;@name&#34;/&amp;gt;
+						&amp;lt;tr&amp;gt;
+							&amp;lt;xsl:if test=&#34;position() mod 2 = 1&#34;&amp;gt;
+								&amp;lt;xsl:attribute name=&#34;class&#34;&amp;gt;checkstyle-oddrow&amp;lt;/xsl:attribute&amp;gt;
+							&amp;lt;/xsl:if&amp;gt;
+							&amp;lt;td&amp;gt;&amp;lt;xsl:value-of select=&#34;@name&#34;/&amp;gt;&amp;lt;/td&amp;gt;
+								&amp;lt;xsl:for-each select=&#34;coverage&#34;&amp;gt;
+								&amp;lt;td&amp;gt;
+									&amp;lt;xsl:value-of select=&#34;@value&#34;/&amp;gt;
+								&amp;lt;/td&amp;gt;
+							&amp;lt;/xsl:for-each&amp;gt;
+						&amp;lt;/tr&amp;gt;
+					&amp;lt;/xsl:for-each&amp;gt;
+				&amp;lt;/tbody&amp;gt;
+			&amp;lt;/table&amp;gt;
+		&amp;lt;/xsl:if&amp;gt;
+	&amp;lt;/xsl:template&amp;gt;
+
+	&amp;lt;xsl:template match=&#34;/&#34;&amp;gt;
+        &amp;lt;xsl:apply-templates select=&#34;.&#34; mode=&#34;emma&#34;/&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nasa TV - High Quality </title>
+      <link>http://jotschi.de/2008/05/25/nasa-tv-high-quality/</link>
+      <pubDate>Sun, 25 May 2008 11:14:34 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/05/25/nasa-tv-high-quality/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;del datetime=&#34;2011-09-03T14:08:53+00:00&#34;&amp;gt;There is an alternativ source for nasa tv available. (640x480)
+Enjoy :)
+mplayer -playlist &lt;a href=&#34;http://playlist.yahoo.com/makeplaylist.dll?id=1368163&#34; class=&#34;bare&#34;&gt;http://playlist.yahoo.com/makeplaylist.dll?id=1368163&lt;/a&gt;
+&amp;lt;/del&amp;gt;
+Update - 2011-09-03: The stream is no longer active. Please use &amp;lt;a href=&#34;http://www.Jotschi.de/?p=632&#34;&amp;gt;this solution&amp;lt;/a&amp;gt; now.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>mplayer still picture extraction</title>
+      <link>http://jotschi.de/2008/04/06/mplayer-still-picture-extraction/</link>
+      <pubDate>Sun, 06 Apr 2008 21:09:25 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/04/06/mplayer-still-picture-extraction/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Do you want to extract one specific frame from a movie using mplayer?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mplayer -ss [second] -frames 1 -vo png [moviefile]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mplayer -ss 0.04166666667 -frames 1 -vo png test.mov&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dual Head on i810 - 945GM - Amilo Pro </title>
+      <link>http://jotschi.de/2008/02/09/dual-head-on-i810-945gm-amilo-pro/</link>
+      <pubDate>Sat, 09 Feb 2008 13:50:27 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/02/09/dual-head-on-i810-945gm-amilo-pro/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If you want to set up a dual head configuration you might want to take a look at my xorg.conf&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Section &#34;Files&#34;
+	FontPath	&#34;/usr/share/fonts/X11/misc&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/misc&#34;
+	FontPath	&#34;/usr/share/fonts/X11/cyrillic&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/cyrillic&#34;
+	FontPath	&#34;/usr/share/fonts/X11/100dpi/:unscaled&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/100dpi/:unscaled&#34;
+	FontPath	&#34;/usr/share/fonts/X11/75dpi/:unscaled&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/75dpi/:unscaled&#34;
+	FontPath	&#34;/usr/share/fonts/X11/Type1&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/Type1&#34;
+	FontPath	&#34;/usr/share/fonts/X11/100dpi&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/100dpi&#34;
+	FontPath	&#34;/usr/share/fonts/X11/75dpi&#34;
+	FontPath	&#34;/usr/X11R6/lib/X11/fonts/75dpi&#34;
+	# path to defoma fonts
+	FontPath	&#34;/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType&#34;
+EndSection
+
+Section &#34;Module&#34;
+	Load    &#34;GLcore&#34;
+	Load	&#34;bitmap&#34;
+	Load	&#34;dbe&#34;
+	Load	&#34;ddc&#34;
+	Load	&#34;dri&#34;
+	Load	&#34;extmod&#34;
+	Load	&#34;freetype&#34;
+	Load	&#34;glx&#34;
+	Load	&#34;int10&#34;
+	Load	&#34;record&#34;
+	Load	&#34;type1&#34;
+	Load	&#34;vbe&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Generic Keyboard&#34;
+	Driver		&#34;kbd&#34;
+	Option		&#34;CoreKeyboard&#34;
+	Option		&#34;XkbRules&#34;	&#34;xorg&#34;
+	Option		&#34;XkbModel&#34;	&#34;pc105&#34;
+	Option		&#34;XkbLayout&#34;	&#34;de&#34;
+	Option		&#34;XkbVariant&#34;	&#34;nodeadkeys&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Configured Mouse&#34;
+	Driver		&#34;evdev&#34;
+	Option		&#34;CorePointer&#34;
+	Option          &#34;Name&#34; &#34;Logitech USB-PS/2 Optical Mouse&#34;
+EndSection
+
+Section &#34;InputDevice&#34;
+	Identifier	&#34;Synaptics Touchpad&#34;
+	Driver		&#34;synaptics&#34;
+	Option		&#34;SendCoreEvents&#34;	&#34;true&#34;
+	Option		&#34;Device&#34; 		&#34;/dev/psaux&#34;
+	Option          &#34;SHMConfig&#34;		&#34;true&#34;
+	Option		&#34;Protocol&#34;		&#34;auto-dev&#34;
+	Option		&#34;HorizScrollDelta&#34;	&#34;0&#34;
+EndSection
+
+Section &#34;Device&#34;
+	Identifier	&#34;Device LCD dual&#34;
+	Driver		&#34;i810&#34;
+	BusID		&#34;PCI:0:2:0&#34;
+	Screen		0
+	Option          &#34;MonitorLayout&#34; &#34;CRT,LFP&#34;
+EndSection
+
+Section &#34;Device&#34;
+	Identifier	&#34;Device CRT dual&#34;
+	Driver		&#34;i810&#34;
+	BusID		&#34;PCI:0:2:0&#34;
+	Screen		1
+EndSection
+
+Section &#34;Monitor&#34;
+        Identifier      &#34;Monitor LCD&#34;
+        Option          &#34;DPMS&#34;
+EndSection
+
+Section &#34;Monitor&#34;
+	Identifier	&#34;Monitor CRT&#34;
+	HorizSync     50-80
+	VertRefresh   60
+EndSection
+
+Section &#34;Screen&#34;
+	Identifier	&#34;Screen CRT dual&#34;
+	Device		&#34;Device CRT dual&#34;
+	Monitor		&#34;Monitor CRT&#34;
+	DefaultDepth	24
+	SubSection &#34;Display&#34;
+		Depth	24
+		Modes   &#34;1280x1024&#34;
+	EndSubSection
+EndSection
+
+Section &#34;Screen&#34;
+	Identifier	&#34;Screen LCD dual&#34;
+	Device		&#34;Device LCD dual&#34;
+	Monitor		&#34;Monitor LCD&#34;
+	DefaultDepth	24
+	SubSection &#34;Display&#34;
+		Depth	24
+		Modes	&#34;1280x800&#34;
+	EndSubSection
+EndSection
+
+Section &#34;ServerLayout&#34;
+	Identifier	&#34;Default Layout&#34;
+	Screen		0 &#34;Screen LCD dual&#34;
+	Screen		1 &#34;Screen CRT dual&#34; RightOf &#34;Screen LCD dual&#34;
+	InputDevice	&#34;Generic Keyboard&#34;
+	InputDevice	&#34;Configured Mouse&#34;
+	InputDevice	&#34;Synaptics Touchpad&#34;
+	Option		&#34;Xinerama&#34; &#34;true&#34;
+EndSection
+
+Section &#34;DRI&#34;
+	Mode	0666
+EndSection&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Note: You might need to change the input devices to match your current hardware. The secondary display device does not work with Option &#34;DPMS&#34;. Just fetch the right properties of your display and change the matching values for HorizSync and VertRefresh and you will get a higher resoultion on the device attached to secondary output.&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://jotschi.de/downloads/xorg/xorg.conf.i810&#34;&gt;Dual Head Xorg.conf&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

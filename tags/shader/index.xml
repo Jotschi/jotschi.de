@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shader on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/shader/</link>
+    <description>Recent content in Shader on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Aug 2009 23:20:56 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/shader/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>GLSL shader to handle multiple projections onto the same surface</title>
+      <link>http://jotschi.de/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface/</link>
+      <pubDate>Mon, 17 Aug 2009 23:20:56 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For my project &amp;lt;a href=&#34;http://www.jotschi.de/?page_id=320&#34;&amp;gt;Generating City Models By Using Panorama Images&amp;lt;/a&amp;gt; i have to write a fragment shader that handles multiple projections onto the same surface. The shader must contain condition in which the projection should be handled. In my case i had to decide which projection source should be used to texture the desired model. &amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-363&#34;&amp;gt;&amp;lt;/a&amp;gt;
+I didn&amp;#8217;t want to do alpha blending of each texture. I wanted that only the projection source will be used that would produce the best projection image. For a good projection the angle of which the projection &#39;light&#39; falls onto the surface must be very low. The second parameter is the distance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For example, imagine a scene with 20 projection sources. One source is very near the target surface but the angle in which the &#39;light&#39; falls onto the surface is very big so the texture produced by such a source wouldn&amp;#8217;t be that good. Instead there is another projection source which&amp;#8217;s projections angle is very low but the distance is larger than that of the near source. My shader will now pick the second projection source because the first does not match its condtions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Draft of my target shader:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform int nTextures;
+uniform sampler2DArray textures;
+uniform vec3[] projectPos;
+varying vec3 glPos;
+varying vec3 normalVec;
+void main() {
+  int currentTexture=0;
+  float minAngle = 360.0f;
+  float angleThreshold = 10.0f;
+ // Select the texture with the lowest angle
+  for(int i =0; i &amp;lt;nTextures; i++){
+   float alpha = texture2DArray(textures,vec3(gl_TexCoord[0].xy, i)).a;
+   if(alpha != 1.0f) {
+     //TODO check calculation of projDirection
+      vec3 projDirection =(projectPos-glPos);
+      float angle = dot(normalVec,projDirection*-1);
+      if(angle&amp;lt;minAngle) {
+          minAngle = angle;
+      }
+    }
+  }
+  float minDistance= -1.0f;
+  // Select the texture with the lowest distance among those around the lowest angle
+  for(i=0; i &amp;lt;nTextures; i++){
+   float alpha = texture2DArray(textures,vec3(gl_TexCoord[0].xy, i)).a;
+   // Condition 1: Must be visible
+   if (alpha != 1.0f) {
+     //TODO check calculation of projDirection
+     vec3 projDirection =( projectPos-glPos);
+     float angle = dot(normalVec,projDirection);
+     // Condition 2: The angle must be between +-10.0f of the lowest angle
+     if(angle&amp;lt;(minAngle+angleThreshold) || angle&amp;gt;(minAngle+angleThreshold)) {
+     // TODO check calculation of distance between both points within RÂ³
+    float dx = projectPos[i].x - glPos.x;
+  float dy = projectPos[i].y - glPos.y;
+  float dz = projectPos[i].z - glPos.z;
+  float d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    // select the texture with the lowest distance
+    if(d&amp;lt;minDistance || minDistance  ==-1.0f)  {
+          minDistance = d;
+          currentTexture = i;
+    }
+        }
+   }
+  }
+gl_FragColor = texture2DArray(textures,vec3(gl_TexCoord[0].xy, currentTexture));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Maybe there is a better way to check if the given sample contains a texture value at the given texture coordinate than checking its alpha value.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I use a uniform to handle the size of the sampler2DArray textures array. Maybe you can extract that information within the shader&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I use uniform vec3[] projectPos; to handle over the positions of the projection sources. Maybe this can be stored in the build in gl_LightSource array?&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Projective Textures with OpenSceneGraph</title>
+      <link>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</link>
+      <pubDate>Sun, 31 May 2009 21:55:15 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/05/31/projective-textures-with-openscenegraph/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally managed to get projective textures working using GLSL shaders rather than fixed pipeline functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;Projective Texturing Example&#34; /&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;osg/Notify&amp;gt;
+#include &amp;lt;osg/MatrixTransform&amp;gt;
+#include &amp;lt;osg/ShapeDrawable&amp;gt;
+#include &amp;lt;osg/PositionAttitudeTransform&amp;gt;
+#include &amp;lt;osg/Geometry&amp;gt;
+#include &amp;lt;osg/Texture2D&amp;gt;
+#include &amp;lt;osg/Geode&amp;gt;
+#include &amp;lt;osg/LightSource&amp;gt;
+#include &amp;lt;osg/TexGenNode&amp;gt;
+#include &amp;lt;osg/TexMat&amp;gt;
+#include &amp;lt;osgDB/WriteFile&amp;gt;
+#include &amp;lt;osgUtil/Optimizer&amp;gt;
+#include &amp;lt;osgDB/Registry&amp;gt;
+#include &amp;lt;osgDB/ReadFile&amp;gt;
+#include &amp;lt;osgViewer/Viewer&amp;gt;
+
+osg::StateSet* createProjectorState() {
+
+	osg::StateSet* stateset = new osg::StateSet;
+
+	/* 1. Load the texture that will be projected */
+	osg::Texture2D* texture = new osg::Texture2D();
+	texture-&amp;gt;setImage(osgDB::readImageFile(&#34;foo.jpg&#34;));
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_BORDER);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texture, osg::StateAttribute::ON);
+
+	// set up tex gens
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_S,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_T,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_R,
+	osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_Q,
+	osg::StateAttribute::ON);
+
+	/* 2. Load the Shaders */
+	osg::ref_ptr&amp;lt;osg::Program&amp;gt; projProg(new osg::Program);
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projvertexShader(osg::Shader::readShaderFile(
+			osg::Shader::VERTEX, &#34;VertexShader.glsl&#34;));
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projfragShader(osg::Shader::readShaderFile(
+			osg::Shader::FRAGMENT, &#34;FragmentShader.glsl&#34;));
+	projProg-&amp;gt;addShader(projvertexShader.get());
+	projProg-&amp;gt;addShader(projfragShader.get());
+
+	/* 3. Handover the texture to the fragment shader via uniform */
+	osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,
+			&#34;projectionMap&#34;);
+	texUniform-&amp;gt;set(1);
+	stateset-&amp;gt;addUniform(texUniform);
+
+	/* 4. set Texture matrix*/
+	osg::TexMat* texMat = new osg::TexMat;
+	osg::Matrix mat;
+	osg::Vec3 projectorPos = osg::Vec3(0.0f, 0.0f, 324.0f);
+	osg::Vec3 projectorDirection = osg::Vec3(osg::inDegrees(0.0f),
+			osg::inDegrees(280.0f), osg::inDegrees(-460.0f));
+	float projectorAngle = 110;
+	osg::Vec3 up(0.0f, 0.0f, 1.0f);
+	mat = osg::Matrixd::lookAt(projectorPos, projectorPos + projectorDirection,
+			up) * osg::Matrixd::perspective(projectorAngle, 1.0, 0.1, 100);
+	texMat-&amp;gt;setMatrix(mat);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texMat, osg::StateAttribute::ON);
+
+	stateset-&amp;gt;setAttribute(projProg.get());
+	return stateset;
+}
+osg::Node* createModel() {
+	osg::Group* root = new osg::Group;
+
+	/* Load the terrain which will be the receiver of out projection */
+	osg::Node* terr = osgDB::readNodeFile(&#34;Terrain2.3ds&#34;);
+	osg::Image* shot = new osg::Image();
+
+	/* Scale the terrain and move it. */
+	osg::Matrix m;
+	osg::ref_ptr&amp;lt;osg::MatrixTransform&amp;gt; mt = new osg::MatrixTransform;
+	m.makeTranslate(112.f, 410.f, -2.f);
+	m.makeScale(2.f, 2.f, 2.f);
+	mt-&amp;gt;setMatrix(m);
+	mt-&amp;gt;addChild(terr);
+
+	/* Add the transformed node to our graph */
+	root-&amp;gt;addChild(mt.get());
+
+	/* Enable projective texturing for all objects of this node */
+	root-&amp;gt;setStateSet(createProjectorState());
+	return root;
+}
+int main(int, char **) {
+	osgViewer::Viewer viewer;
+	viewer.setSceneData(createModel());
+	viewer.setUpViewInWindow(0, 0, 1024, 768);
+	return viewer.run();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Fragment Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D projectionMap;
+varying vec4 projCoord;
+void main()
+{
+	vec4 dividedCoord = projCoord / projCoord.w ;
+	vec4 color =  texture2D(projectionMap,dividedCoord.st);
+  	gl_FragColor =	 color * gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Vertex Shader&lt;/em&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec4 projCoord;
+void main()
+{
+     	projCoord = gl_TextureMatrix[1] * gl_Vertex;
+		gl_Position = ftransform();
+		gl_FrontColor = gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

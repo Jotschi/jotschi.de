@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
+		<link rel="icon" href="http://jotschi.de//favicon.ico">
+		<title>Minimal Google Docs Java Client - Jotschi&#39;s Blog</title>
+		
+		<link rel="stylesheet" href="http://jotschi.de//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/theme.css">
+		<link rel="stylesheet" href="http://jotschi.de//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://jotschi.de//">Jotschi&#39;s Blog</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://jotschi.de//">Home</a></li>
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://jotschi.de//categories/"></a></li>
+						
+							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
+						
+							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+						
+							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
+						
+							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+						
+							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+						
+							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
+						
+							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
+						
+							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Minimal Google Docs Java Client</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2009-12-06">December 06, 2009</time></span>
+				</div>
+				<section>
+					<div class="paragraph">
+<p>This code demonstrates how to fetch docs via google docs java api.
+This example is usable with the &lt;a href="http://code.google.com/p/gdata-java-client/"&gt;gdata-java-client&lt;/a&gt;.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+import com.google.gdata.client.GoogleService;
+import com.google.gdata.client.GoogleAuthTokenFactory.UserToken;
+import com.google.gdata.client.docs.DocsService;
+import com.google.gdata.data.MediaContent;
+import com.google.gdata.data.media.MediaSource;
+
+public class MinimalGoogleDocsClient {
+
+	private static final String APPLICATION_NAME = "JavaGDataClientSampleAppV3.0";
+	public static final String SPREADSHEETS_SERVICE_NAME = "wise";
+	public DocsService service;
+	public GoogleService spreadsheetsService;
+
+	public void getSpreadSheet(String id) throws Exception {
+		UserToken docsToken = (UserToken) service.getAuthTokenFactory()
+				.getAuthToken();
+		UserToken spreadsheetsToken = (UserToken) spreadsheetsService
+				.getAuthTokenFactory().getAuthToken();
+		service.setUserToken(spreadsheetsToken.getValue());
+
+		URL url = new URL(
+				"http://spreadsheets.google.com/feeds/download/spreadsheets/Export?gid=0&amp;exportFormat=csv&amp;key="
+						+ id);
+
+		readUrl(url);
+		service.setUserToken(docsToken.getValue());
+	}
+
+	public void getDocument(String id) throws Exception {
+		URL url = new URL(
+				"http://docs.google.com/feeds/download/documents/Export?docID=document:"
+						+ id + "&amp;exportFormat=txt");
+		readUrl(url);
+	}
+
+	public void readUrl(URL url) throws Exception {
+		MediaContent mc = new MediaContent();
+		mc.setUri(url.toString());
+		MediaSource ms = service.getMedia(mc);
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(ms
+				.getInputStream()));
+
+		String inputLine;
+		while ((inputLine = in.readLine()) != null) {
+			System.out.println(inputLine);
+		}
+
+	}
+
+	public void go() throws Exception {
+		String user = "YOURUSERNAME";
+		String pass = "YOURPASS";
+
+		service = new DocsService(APPLICATION_NAME);
+		spreadsheetsService = new GoogleService(SPREADSHEETS_SERVICE_NAME,
+				APPLICATION_NAME);
+
+		service.setUserCredentials(user, pass);
+		spreadsheetsService.setUserCredentials(user, pass);
+
+		getSpreadSheet("0ApGHrBnaasfKdDJSaUc0TSEzcmZXb0Z5MU9JN3ZuUXc");
+
+		getDocument("0AZGHrBnasfsasKZGQ1OXdqbTafsasfWYydHE5OWRk");
+
+	}
+
+	public static void main(String[] args) throws Exception {
+
+		new MinimalGoogleDocsClient().go();
+
+	}
+
+}</code></pre>
+</div>
+</div>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+
+	
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4>Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Minimal Google Docs Java Client</a></strong></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4>Tags</h4>
+		<div class="tag-box">
+		
+        <span class="tag-item"><a href="http://jotschi.de//tags/java">#java</a></span>
+        
+        <span class="tag-item"><a href="http://jotschi.de//tags/google">#google</a></span>
+        
+		</div>
+	</div>
+</div>
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	
+</footer>
+
+
+
+<script src="http://jotschi.de//js/jquery-1.11.2.min.js"></script>
+<script src="http://jotschi.de//js/bootstrap.min.js"></script>
+
+<script src="http://jotschi.de//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://jotschi.de//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>

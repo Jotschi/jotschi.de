@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Canon Mx300 on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/canon-mx300/</link>
+    <description>Recent content in Canon Mx300 on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 May 2008 23:38:46 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/canon-mx300/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Canon MX300 - Debian Lenny</title>
+      <link>http://jotschi.de/2008/05/23/canon-mx300-debian-lenny/</link>
+      <pubDate>Fri, 23 May 2008 23:38:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/05/23/canon-mx300-debian-lenny/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Canon MX300 with Debian Lenny&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using the CVS version of Sane (22.05.2008)&amp;lt;br&amp;gt;
+1. checkout sane, build and install.&amp;lt;br&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;cvs -z3 -d:pserver:anonymous@cvs.alioth.debian.org:/cvsroot/sane co sane-backends
+---
+
+2. Add group &#39;scanner&#39; (if not yet been done already)&amp;lt;br&amp;gt;
+3. The user that scans must be added to the group &#39;scanner&#39;.&amp;lt;br&amp;gt;
+4. Add matching UDev rule.
+5. Connect your scanner.
+6. execute xsane
+
+
+uDev Rule:
+
+[source, bash]&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;_canon_pixma_mx300&#34; class=&#34;sect0&#34;&gt;Canon PIXMA MX300&lt;/h1&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;SYSFS{idVendor}==&#34;04a9&#34;, SYSFS{idProduct}==&#34;1727&#34;, MODE=&#34;0664&#34;, GROUP=&#34;scanner&#34;, ENV{libsane_matched}=&#34;yes&#34;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

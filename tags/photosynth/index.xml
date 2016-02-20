@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Photosynth on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/photosynth/</link>
+    <description>Recent content in Photosynth on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Jun 2009 10:46:27 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/photosynth/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>OpenPhotoVR</title>
+      <link>http://jotschi.de/2009/06/11/openphotovr/</link>
+      <pubDate>Thu, 11 Jun 2009 10:46:27 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/06/11/openphotovr/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;While searching for a solution to get mono and silverlight and the whole M$ stuff working under my debian installation i just found &amp;lt;a href=&#34;http://openphotovr.org/#a90&#34;&amp;gt;OpenPhotoVR&amp;lt;/a&amp;gt;. OpenPhotoVR is a pseudo-3D photo browser using Flash instead of silverlight. However the matching of the images is not done automatically.&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-294&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;object width=&#34;400&#34; height=&#34;300&#34;&amp;gt;
+&amp;lt;param name=&#34;movie&#34; value=&#34;http://openphotovr.org/main.swf&#34;&amp;gt;&amp;lt;/param&amp;gt;
+&amp;lt;param name=&#34;FlashVars&#34; value=&#34;id=a299&#34;&amp;gt;&amp;lt;/param&amp;gt;
+&amp;lt;embed src=&#34;http://openphotovr.org/main.swf&#34;   FlashVars=&#34;id=a299&#34;   type=&#34;application/x-shockwave-flash&#34;     width=&#34;400&#34; height=&#34;300&#34; &amp;gt;&amp;lt;/embed&amp;gt;
+&amp;lt;/object&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;{% youtube 0f5NuHzGXJA %}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Since the &amp;lt;a href=&#34;http://phototour.cs.washington.edu/bundler/&#34;&amp;gt;bundler code&amp;lt;/a&amp;gt; which is used to match images in images is free it should be possible to create an automatically way of matching the images.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Native Library on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/tags/native-library/</link>
+    <description>Recent content in Native Library on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 26 Sep 2011 23:17:02 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/tags/native-library/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>JOGL2 (jogamp) ClassPathLoader For Native Libraries</title>
+      <link>http://jotschi.de/2011/09/26/jogl2-jogamp-classpathloader-for-native-libraries/</link>
+      <pubDate>Mon, 26 Sep 2011 23:17:02 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/26/jogl2-jogamp-classpathloader-for-native-libraries/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The upcoming RC4 of JOGL2 will support loading of native libraries. I&amp;#8217;ll update this post as soon as i get time to take a look the new loading mechanism.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Usually native libraries are loaded by adding the system property java.library.path to the jvm arguments.
+Its also possible to change the java.library.path within a static block at runtime as described &lt;a href=&#34;http://fahdshariff.blogspot.com/2011/08/changing-java-library-path-at-runtime.html&#34;&gt;here&lt;/a&gt;.
+It&amp;#8217;s also possible to dynamically load the native libraries at runtime using the System.load method.
+I just wrote a small ClassPathLoader class that can be handed over to the JNILibLoaderBase class that is dealing with the loading of libraries.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The ClassPathLoader will allow extraction of the the native libraries from jars that contain all libraries.
+For jogl2 these jars are jogl-natives-linux-i586.jar and gluegen-rt-natives-linux-i586.jar for linux-i586.
+This static block can be embedded within your main class. It will disable the default loading mechanism and replace it with the classpath loader.
+Please note that is required that the native lib jars must be added to the classpath.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;static {
+		ClassPathLoader loader = new ClassPathLoader();
+		loader.loadLibrary(&#34;gluegen-rt&#34;, true);
+		JNILibLoaderBase.setLoadingAction(loader);
+		NativeLibLoader.disableLoading();
+	}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is the ClassPathLoader itself. No real magic here as well. Please note that the loader currently only works with linux libraries (&lt;strong&gt;.so). Adaption for windows libraries (&lt;/strong&gt;.dll) shouldn&amp;#8217;t be that hard.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;package de.jotschi.jogl2.example;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import com.jogamp.common.jvm.JNILibLoaderBase.LoaderAction;
+
+public class ClassPathLoader implements LoaderAction {
+
+	/**
+	 * Loads the given library with the libname from the classpath root
+	 */
+	public boolean loadLibrary(String libname, boolean ignoreError) {
+		String filename = &#34;lib&#34; + libname + &#34;.so&#34;;
+		InputStream ins = ClassLoader.getSystemResourceAsStream(filename);
+
+		try {
+			File tmpFile = writeTmpFile(ins, filename);
+			System.load(tmpFile.getAbsolutePath());
+			tmpFile.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Write the content of the inputstream into a tempfile with the given
+	 * filename
+	 *
+	 * @param ins
+	 * @param filename
+	 * @throws IOException
+	 */
+	private File writeTmpFile(InputStream ins, String filename)
+			throws IOException {
+
+		File tmpFile = new File(System.getProperty(&#34;java.io.tmpdir&#34;), filename);
+		tmpFile.delete();
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(tmpFile);
+
+			byte[] buffer = new byte[1024];
+			int len;
+			while ((len = ins.read(buffer)) != -1) {
+
+				fos.write(buffer, 0, len);
+			}
+		} finally {
+			if (ins != null) {
+				ins.close();
+			}
+			if (fos != null) {
+				fos.close();
+			}
+		}
+		return tmpFile;
+	}
+
+	public void loadLibrary(String libname, String[] preload,
+			boolean preloadIgnoreError) {
+		loadLibrary(libname, preloadIgnoreError);
+	}
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
