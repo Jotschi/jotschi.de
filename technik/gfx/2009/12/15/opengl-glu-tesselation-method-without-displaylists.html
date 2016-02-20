@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<head>
+	<title>OpenGL GLU Tesselation Method Without DisplayLists</title>
+		<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="stylesheet" type="text/css" media="all" href="/static/style.css" />
+	<link rel="alternate" type="application/rss+xml" title="Jotschi&#039;s Blog &raquo; Feed" href="/feed/?feed=rss2" />
+	<script type="text/javascript">//<![CDATA[
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-11046117-2']);
+					_gaq.push(['_trackPageview']);
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+	//]]></script>
+	<script type='text/javascript' src='/static/js/jquery-1.8.3.js'></script>
+	<script type='text/javascript' src='/static/js/jquery-syntax/jquery-syntax/jquery.syntax.min.js?ver=3.5'></script>
+	<script type='text/javascript' src='/static/js/jquery.sticky.js?ver=2011-04-28'></script>
+	<script type='text/javascript' src='/static/js/theme.js?ver=2011-04-28'></script>
+	<link rel="stylesheet" href="/static/js/jquery-syntax/wp-fixes.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+		jQuery.noConflict(); jQuery(document).ready(function($) { $.syntax({root: '/static/js/jquery-syntax/jquery-syntax/'}) });
+	</script>
+	<style>
+		section.recent-posts .other-recent-posts .comments-link a:hover {
+			border-color: #222;
+		}
+		article.feature-image.small .entry-summary p a:hover,
+		.entry-header .comments-link a:hover,
+		.entry-header .comments-link a:focus,
+		.entry-header .comments-link a:active,
+		.feature-slider a.active {
+			background-color: #222;
+		}
+	</style>
+	<script>for(x in document.write){document.write(x);}</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css">
+	#a {
+	margin:0 10px 10px;
+	}
+	#b {
+	width:100%;
+	}
+	</style>
+</head>
+
+<body class="home blog one-column content">
+	<header id="branding" role="banner">
+		<hgroup>
+			<h1 id="site-title"><span><a href="/" title="Jotschi&#039;s Blog" rel="home">Jotschi&#039;s Blog</a></span></h1>
+			<h2 id="site-description">NeXuS</h2>
+		</hgroup>
+		
+		<script>
+  (function() {
+    var cx = '005130669722604312790:98xhcvy0efq';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<form method="get" id="searchform" action="/">
+	<gcse:search></gcse:search>
+</form>
+			
+		<nav id="access" role="navigation">
+			<h3 class="assistive-text">Main menu</h3>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to primary content">Skip to primary content</a></div>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to secondary content">Skip to secondary content</a></div>
+			<div class="menu">
+				<ul>
+					<li class="current_page_item">
+						<a href="/" title="Home">Home</a>
+					</li>
+					<li class="page_item page-item-2">
+						<a href="/about.html">About</a>
+					</li>
+					<li class="page_item page-item-143">
+						<a href="/projects.html">Projects</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div id="page" class="hfeed">
+		<div id="main">
+			<div id="primary">
+				<div id="searchResults" title="Search Results">
+					<h2 class="search-title">Search Results:</h2>
+					<ul></ul>
+				</div>
+					
+				<div id="content" role="main">
+					<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
+	<header class="entry-header">
+		<h1 class="entry-title"><a href="/technik/gfx/2009/12/15/opengl-glu-tesselation-method-without-displaylists.html" title="Permalink to OpenGL GLU Tesselation Method Without DisplayLists" rel="bookmark">OpenGL GLU Tesselation Method Without DisplayLists</a></h1>
+		<div class="entry-meta">
+			<span class="sep">Posted on </span>
+			<a href="/technik/gfx/2009/12/15/opengl-glu-tesselation-method-without-displaylists.html" title="" rel="bookmark"><time class="entry-date" datetime="2009-12-15 23:23:32 +0000" pubdate>15 Dec 2009</time></a>
+			<span class="by-author"> 
+				<span class="sep"> by </span> 
+				<span class="author vcard">
+					Jotschi
+				</span>
+			</span>
+		</div>
+		<div class="comments-link">
+			<a href="/" title="Comment OpenGL GLU Tesselation Method Without DisplayLists"><span class="leave-reply">Reply</span></a>
+		</div>
+	</header>
+	<div class="entry-content">
+		<p>Due to the deprecation of &#8216;DisplayLists&#8217; within OpenGL 3.2 i wanted to store my tessellated mesh within a structure which i could use later on. Therefor it is possible to use the GLU_TESS_VERTEX_DATA, GLU_TESS_BEGIN_DATA etc gluTessCallback hooks.</p>
+<p>When calling the gluTessBeginPolygon method it is possible to pass a address to a own structure along as second argument. This address will be handled to the callback methods and therefor you can access your defined data structure to store the tessellated data within it. My example shows how to deal with that. <br />
+<a id="more"></a><a id="more-466"></a><br />
+I use the <a href="http://glm.g-truc.net/about.html">OpenGL Mathematics Library</a> to handle my points.</p>
+<p><img src="/images/tesselation/tesselation_star.png" alt="tesselation_star" title="tesselation_star" width="240" height="216" class="alignnone size-full wp-image-468" /></p>
+<p><img src="/images/tesselation/tesselation_star_wire.png" alt="tesselation_star_wire" title="tesselation_star_wire" width="232" height="205" class="alignnone size-full wp-image-469" /></p>
+<p><strong>GL_GLUT_TesselationData.cpp</strong></p>
+<pre class="syntax escaped c">
+#include &lt;GL/glut.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;vector&gt;
+#include &quot;glm/glm.hpp&quot;
+using namespace std;
+
+//#define USEDISPLAYLIST
+
+GLuint startList;
+GLdouble **dataOutFinal;
+
+#ifndef USEDISPLAYLIST
+struct Mesh {
+	std::vector&lt;glm::vec3&gt; points;
+	GLenum type;
+} mesh;
+#endif
+
+GLdouble rect[4][3] = { 50.0, 50.0, 0.0, 200.0, 50.0, 0.0, 200.0, 140.0, 0.0,
+		50.0, 200.0, 0.0 };
+
+GLdouble star[5][6] = { 250.0, 50.0, 0.0, 1.0, 0.0, 1.0, 325.0, 200.0, 0.0,
+		1.0, 1.0, 0.0, 400.0, 50.0, 0.0, 0.0, 1.0, 1.0, 250.0, 150.0, 0.0, 1.0,
+		0.0, 0.0, 400.0, 150.0, 0.0, 0.0, 1.0, 0.0 };
+
+void display(void) {
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 0.5, 1.0);
+
+	// Enable this to see the wireframe
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+#ifndef USEDISPLAYLIST
+	vector&lt;glm::vec3&gt;::const_iterator cii;
+	glBegin(mesh.type);
+	for (cii = mesh.points.begin(); cii != mesh.points.end(); cii++) {
+		glVertex3f((*cii).x, (*cii).y, (*cii).z);
+		printf(&quot;Result: %f,%f,%f\n&quot;, (*cii).x, (*cii).y, (*cii).z);
+	}
+	glEnd();
+#else
+	glCallList(startList);
+#endif
+
+	glFlush();
+}
+
+void beginCallback(GLenum which, void *resultMesh) {
+	printf(&quot;Type: %i\n&quot;, which);
+#ifdef USEDISPLAYLIST
+	glBegin(which);
+#else
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).type = which;
+#endif
+
+}
+
+void errorCallback(GLenum errorCode) {
+	const GLubyte *estring;
+	estring = gluErrorString(errorCode);
+	fprintf(stderr, &quot;Tessellation Error: %s\n&quot;, estring);
+	exit(0);
+}
+
+void endCallback(void *tessellationSetAddress) {
+#ifdef USEDISPLAYLIST
+	glEnd();
+#endif
+}
+
+void vertexCallback(GLvoid *data, void *resultMesh) {
+	const GLdouble *pointer;
+	pointer = (GLdouble *) data;
+#ifdef USEDISPLAYLIST
+	glColor3dv(pointer + 3);
+	glVertex3dv(pointer);
+#else
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).points.push_back(glm::vec3(pointer[0], pointer[1], pointer[2]));
+#endif
+	printf(&quot;Added new vertex[%f][%f][%f]\n&quot;, pointer[0], pointer[1], pointer[2]);
+
+}
+
+void combineCallback(GLdouble coords[3], GLdouble *vertex_data[4],
+		GLfloat weight[4], GLdouble **dataOut, void *resultMesh) {
+
+	GLdouble *vertex;
+	vertex = (GLdouble *) malloc(6 * sizeof(GLdouble));
+	vertex[0] = coords[0];
+	vertex[1] = coords[1];
+	vertex[2] = coords[2];
+
+#ifndef USEDISPLAYLIST
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).points.push_back(glm::vec3(vertex[0], vertex[1], vertex[2]));
+#endif
+	printf(&quot;Added combine vertex[%f][%f][%f]\n&quot;, vertex[0], vertex[1],
+			vertex[2]);
+
+	*dataOut = vertex;
+
+}
+
+void init(void) {
+	GLUtesselator *tobj;
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+
+	tobj = gluNewTess();
+	gluTessCallback(tobj, GLU_TESS_VERTEX_DATA, (void(*)()) vertexCallback);
+	gluTessCallback(tobj, GLU_TESS_BEGIN_DATA, (void(*)()) beginCallback);
+	gluTessCallback(tobj, GLU_TESS_END_DATA, (void(*)()) endCallback);
+	gluTessCallback(tobj, GLU_TESS_ERROR, (void(*)()) errorCallback);
+	gluTessCallback(tobj, GLU_TESS_COMBINE_DATA, (void(*)()) combineCallback);
+
+#ifdef USEDISPLAYLIST
+	startList = glGenLists(1);
+	glNewList(startList, GL_COMPILE);
+#endif
+
+	glShadeModel(GL_SMOOTH);
+	gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_POSITIVE);
+
+#ifdef USEDISPLAYLIST
+	gluTessBeginPolygon(tobj, NULL);
+#else
+	gluTessBeginPolygon(tobj, &amp;mesh);
+#endif
+
+	/*
+	 gluTessBeginContour(tobj);
+	 gluTessVertex(tobj, rect[0], rect[0]);
+	 gluTessVertex(tobj, rect[1], rect[1]);
+	 gluTessVertex(tobj, rect[2], rect[2]);
+	 gluTessVertex(tobj, rect[3], rect[3]);
+	 gluTessEndContour(tobj);
+	 */
+
+	gluTessBeginContour(tobj);
+	gluTessVertex(tobj, star[0], star[0]);
+	gluTessVertex(tobj, star[1], star[1]);
+	gluTessVertex(tobj, star[2], star[2]);
+	gluTessVertex(tobj, star[3], star[3]);
+	gluTessVertex(tobj, star[4], star[4]);
+	gluTessEndContour(tobj);
+
+	gluTessEndPolygon(tobj);
+
+#ifdef USEDISPLAYLIST
+	glEndList();
+#endif
+	gluDeleteTess(tobj);
+
+	printf(&quot;Done\n&quot;);
+
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
+}
+
+void keyboard(unsigned char key, int x, int y) {
+	switch (key) {
+	case 27:
+		exit(0);
+		break;
+	}
+}
+
+int main(int argc, char** argv) {
+	glutInit(&amp;argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 500);
+	glutCreateWindow(argv[0]);
+	init();
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutKeyboardFunc(keyboard);
+	glutMainLoop();
+	return 0;
+}
+</pre>
+	</div>
+	
+		<footer class="entry-meta">
+		<span class="cat-links">
+		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
+		<span class="sep"> | </span>
+		<span class="tag-links">
+		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/" rel="tag"></a></span>
+		<span class="sep"> | </span>
+	</footer>
+</article>
+
+
+<div class="comments-header toggle-switch">
+	<a href="#" id="comment-form-toggle"><h2>Add a comment</h2></a>
+</div>
+
+<div id="comments" style="display: none">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'jotschi';
+		var disqus_url = "http://www.jotschi.de/technik/gfx/2009/12/15/opengl-glu-tesselation-method-without-displaylists.html";
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="http://disqus.com/?ref_noscript">comments powered by
+			Disqus.</a>
+	</noscript>
+</div>
+
+
+				</div>
+			</div>
+		</div>
+		<footer id="colophon" role="contentinfo">
+			<div id="supplementary" class="three">
+				<div id="first" class="widget-area" role="complementary">
+					<aside id="tag_cloud-2" class="widget widget_tag_cloud">
+	<h3 class="widget-title">Tags</h3>
+	<div class="tagcloud">
+		<a style='font-size: 19px' href='/tags/xorg.conf/'>xorg.conf</a>
+<a style='font-size: 16px' href='/tags/mysql/'>mysql</a>
+<a style='font-size: 22px' href='/tags/java/'>java</a>
+<a style='font-size: 16px' href='/tags/xorg/'>xorg</a>
+<a style='font-size: 16px' href='/tags/OSG/'>OSG</a>
+<a style='font-size: 24px' href='/tags/fglrx/'>fglrx</a>
+<a style='font-size: 19px' href='/tags/ati/'>ati</a>
+<a style='font-size: 16px' href='/tags/lxc/'>lxc</a>
+<a style='font-size: 16px' href='/tags/landing/'>landing</a>
+<a style='font-size: 24px' href='/tags/OpenGL/'>OpenGL</a>
+<a style='font-size: 19px' href='/tags/nasatv/'>nasatv</a>
+<a style='font-size: 23px' href='/tags/phoenix/'>phoenix</a>
+<a style='font-size: 24px' href='/tags/nasa/'>nasa</a>
+<a style='font-size: 20px' href='/tags/lenny/'>lenny</a>
+<a style='font-size: 24px' href='/tags/mars/'>mars</a>
+<a style='font-size: 26px' href='/tags/linux/'>linux</a>
+<a style='font-size: 19px' href='/tags/GLSL/'>GLSL</a>
+<a style='font-size: 16px' href='/tags/Shader/'>Shader</a>
+<a style='font-size: 30px' href='/tags/debian/'>debian</a>
+<a style='font-size: 16px' href='/tags/dual head/'>dual head</a>
+
+	</div>
+</aside>
+				</div>
+				<div id="second" class="widget-area" role="complementary">
+					<aside id="recent-posts-3" class="widget widget_recent_entries">
+	<h3 class="widget-title">Posts</h3>
+	<ul>
+		
+		<li><a href="/2015/08/12/svp-wine-linux.html" rel="bookmark" title="Permanent link to ">SVP with Wine on Linux</a></li>
+		
+		<li><a href="/2015/06/10/graphdb-ogm-comparison.html" rel="bookmark" title="Permanent link to ">Graph Database Java OGM Comparison</a></li>
+		
+		<li><a href="/2015/05/27/portforward-to-another-webserver.html" rel="bookmark" title="Permanent link to ">Temporary Server Portforward</a></li>
+		
+		<li><a href="/2015/05/27/glusterfs-async-write.html" rel="bookmark" title="Permanent link to ">GlusterFS / Async Writes</a></li>
+		
+		<li><a href="/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html" rel="bookmark" title="Permanent link to ">Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</a></li>
+		
+		<li><a href="/2014/02/07/mysql-5.6-debian-wheezy-installation.html" rel="bookmark" title="Permanent link to ">MySQL 5.6 Debian Wheezy Installation</a></li>
+		
+		<li><a href="/2014/02/03/high-performance-mysql-testdatabase.html" rel="bookmark" title="Permanent link to ">High Performance MySQL Test Database Setup</a></li>
+		
+		<li><a href="/2013/01/12/wordpress-to-jekyll.html" rel="bookmark" title="Permanent link to ">Wordpress to Jekyll Migration</a></li>
+		
+	</ul>
+</aside>
+				</div>
+				<div id="third" class="widget-area" role="complementary">
+									<aside id="categories" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+						<ul>
+						
+							<li><a href="/categories/gfx/ ">gfx</a></li>
+						
+							<li><a href="/categories/technik/ ">technik</a></li>
+						
+							<li><a href="/categories/das kalte nichts/ ">das kalte nichts</a></li>
+						
+							<li><a href="/categories/fundgrube/ ">fundgrube</a></li>
+						
+							<li><a href="/categories/neuronensturm/ ">neuronensturm</a></li>
+						
+							<li><a href="/categories/life/ ">life</a></li>
+						
+							<li><a href="/categories/uncategorized/ ">uncategorized</a></li>
+						
+							<li><a href="/categories/traumzone/ ">traumzone</a></li>
+						
+						</ul>
+				</aside>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
