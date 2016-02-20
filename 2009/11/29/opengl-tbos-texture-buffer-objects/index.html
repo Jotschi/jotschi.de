@@ -39,23 +39,17 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://jotschi.de//categories/"></a></li>
+							<li><a href="http://jotschi.de//categories/code">Code</a></li>
 						
-							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
-						
-							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+							<li><a href="http://jotschi.de//categories/electronics">Electronics</a></li>
 						
 							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
 						
-							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+							<li><a href="http://jotschi.de//categories/linux">Linux</a></li>
 						
-							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+							<li><a href="http://jotschi.de//categories/random">Random</a></li>
 						
-							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
-						
-							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
-						
-							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+							<li><a href="http://jotschi.de//categories/space">Space</a></li>
 						
 						</ul>
 					</li>
@@ -391,7 +385,7 @@ void motion(int x, int y) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>#include &lt;stdio.h&gt;
+<pre class="highlight"><code class="language-c" data-lang="c">#include &lt;stdio.h&gt;
 #include &lt;malloc.h&gt;
 #include &lt;fcntl.h&gt;
 #include &lt;string.h&gt;
@@ -445,7 +439,7 @@ int textFileWrite(char *fn, char *s) {
 		}
 	}
 	return(status);
-}</pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -453,8 +447,8 @@ int textFileWrite(char *fn, char *s) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>char *textFileRead(char *fn);
-int textFileWrite(char *fn, char *s);</pre>
+<pre class="highlight"><code class="language-c" data-lang="c">char *textFileRead(char *fn);
+int textFileWrite(char *fn, char *s);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -462,7 +456,7 @@ int textFileWrite(char *fn, char *s);</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>#extension EXT_gpu_shader4 : enable
+<pre class="highlight"><code class="language-c" data-lang="c">#extension EXT_gpu_shader4 : enable
 uniform samplerBuffer tboSampler;
 
 float texelFetch(ivec2 coords)
@@ -489,7 +483,7 @@ void main() {
 
 	vec4 color = vec4(pixel,0.5,0.2,0.1);
 	gl_FragColor = color;
-}</pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">

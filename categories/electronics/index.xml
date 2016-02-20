@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Electronics on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/categories/electronics/</link>
+    <description>Recent content in Electronics on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Dec 2012 00:18:40 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/categories/electronics/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Raspberry PI 433MHz Remote Controlled Power Plugs</title>
+      <link>http://jotschi.de/2012/12/05/raspberry-pi-433mhz-remote-controlled-power-plugs/</link>
+      <pubDate>Wed, 05 Dec 2012 00:18:40 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/12/05/raspberry-pi-433mhz-remote-controlled-power-plugs/</guid>
+      <description>&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_hardware&#34;&gt;Hardware&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;First you&amp;#8217;ll need to buy a set of remote controlled power plugs. I got mine from &lt;a href=&#34;http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html&#34;&gt;pollin.de&lt;/a&gt; for around 10 €.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/hx2262-remote/G550666.jpg&#34; alt=&#34;G550666&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Connect your 5V VCC from the GPIO pins of your Raspberry PI to the positiv terminal of your remote control.
+Connect the GCN GPIO pin to the negativ terminal of your remote control.
+Connect the PIN 17 GPIO pin to a 8k Ohm resistor and the resistor to pin P1 of the remote control.
+I drilled a hole trough the existing via and scrapped away the soldermask to expose the copper for soldering a connection in place.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/hx2262-remote/hx2262-remote.jpg&#34; alt=&#34;hx2262 remote&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_software&#34;&gt;Software&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Install wiringpi&lt;/p&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/&#34; class=&#34;bare&#34;&gt;https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install rcswitch-pi&lt;/p&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/r10r/rcswitch-pi&#34;&amp;gt;https://github.com/r10r/rcswitch-pi&#34; class=&#34;bare&#34;&gt;https://github.com/r10r/rcswitch-pi&#34;&amp;gt;https://github.com/r10r/rcswitch-pi&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Execute test command&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;// Send off command to plug 4 with system id 11111
+./send 11111 4 0
+// Send on command to plug 4 with system id 11111
+./send 11111 4 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>DIY Dual Screen HMD</title>
+      <link>http://jotschi.de/2012/09/23/oculus-rift-diy-dual-screen-clone/</link>
+      <pubDate>Sun, 23 Sep 2012 18:18:01 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/09/23/oculus-rift-diy-dual-screen-clone/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This page will contain images and descriptions of my current DIY HMD project that was inspired by the Oculus Rift. Please note that this rift clone will most likely not be compatible with any &#34;Rift Ready&#34; Game.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Used Parts:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Displays: 2x HV056WX1-100&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Driver Boards: NT68674.5X, Unknown 7+1 Driver Board&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Tracking: The &amp;lt;a href=&#34;https://www.sparkfun.com/products/10736&#34;&amp;gt;9 DoF Razor IMU from Sparkfun&amp;lt;/a&amp;gt; in addition to the WiiMote Pixart sensor (connected via I2C).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Dual Head Setup: &amp;lt;a href=&#34;http://www.matrox.com/graphics/en/products/gxm/dh2go/digital_se/&#34;&amp;gt;Matrox Dual Head 2 Go Digital Edition&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Lenses: &amp;lt;a href=&#34;http://bit.ly/Tyt7sA&#34;&amp;gt;2x 2 inch 5x pocket loupe magnifier with Aspheric Lens&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Hardware TODOs:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;IR LED mounting outside the goggles&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mouting fixture for the LCD Panels inside the goggles&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IMU mounting inside the goggles&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;External Pixart sensor mounting&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Software TODOs:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;OpenGL ES Demo Code&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;WiiMote I2C WiringPi (Example + Code)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Raspberry PI UART &amp;#8594; Razor IMU (Example + Code)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;My rift inpired HMD will use two HV056WX1-100 LCD panels. Each display has an active area of 120.960 mm by 75.600 mm. My setup will utilizes around 75.00 mm by 75.00 mm of each lcd screen per eye.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;Driver Box&amp;lt;/h2&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally put all the pices together for my driver box. It houses two driver board. The 7+1 Board which i bought from &amp;lt;a href=&#34;http://www.ebay.com.au/itm/5-6inch-TFT-LCD-Module-1280-800-HV056WX1-100-/300598400802?pt=LH_DefaultDomain_0&amp;amp;hash=item45fd0f9722#ht_5639wt_1187&#34;&amp;gt;eBay (vitrolight)&amp;lt;/a&amp;gt; and the smaller NT68674.5X.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/driverboard_box-top.jpg&#34;&amp;gt;
+&amp;lt;img src=&#34;http://jotschi.de/images/hmd/driverboard_box-top.jpg&#34; alt=&#34;&#34; title=&#34;driverboard_box-top&#34; width=&#34;600&#34; class=&#34;aligncenter size-full wp-image-842&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/driverboard_box-side.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/driverboard_box-side.jpg&#34; alt=&#34;&#34; title=&#34;driverboard_box-side&#34; width=&#34;600&#34; class=&#34;aligncenter size-full wp-image-843&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;LVDS &amp;lt;&amp;#8594; HDMI Breakout Boards&amp;lt;/h2&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Both boards use a LVDS&amp;#8594;HDMI breakout adapter. The 7+1 board uses a adapter which i build from an spare HDMI cable with an female connector. The smaller NT68674.5X uses a breakout board which i build from an HDMI terminal block.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/hdmi-layout-v9_pcb.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/hdmi-layout-v9_pcb.jpg&#34; alt=&#34;&#34; title=&#34;hdmi-layout-v9_pcb&#34; width=&#34;444&#34; height=&#34;840&#34; class=&#34;aligncenter size-full wp-image-844&#34; /&amp;gt;&amp;lt;/a&amp;gt;
+Note: The &#34;blon&#34; label is not positioned correctly. It should be moved down to the other pin.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The new adapter works better when compared with the adapter that utilizes a hdmi cable. Soldering fine cables to a PCB is never a good idea. I ran into trouble with loose or broken connections. Nevertheless.. the adapter which i use for the 7+1 board works well for the moment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/pcb-breakoutboard-notetched.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/pcb-breakoutboard-notetched.jpg&#34; alt=&#34;&#34; title=&#34;pcb-breakoutboard-notetched&#34; width=&#34;345&#34; height=&#34;514&#34; class=&#34;aligncenter size-full wp-image-845&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/pcb-breakoutboard-etched-cleaned.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/pcb-breakoutboard-etched-cleaned.jpg&#34; alt=&#34;&#34; title=&#34;pcb-breakoutboard-etched-cleaned&#34; width=&#34;347&#34; height=&#34;465&#34; class=&#34;aligncenter size-full wp-image-846&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Failed attempts:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/pinheader_spacer.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/pinheader_spacer.jpg&#34; alt=&#34;&#34; title=&#34;pinheader_spacer&#34; width=&#34;600&#34;  class=&#34;aligncenter wp-image-794&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Display driver board + breakout board:
+&amp;lt;a href=&#34;http://jotschi.de/images/hmd/board_pinheader_spacer.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/board_pinheader_spacer.jpg&#34; alt=&#34;&#34; title=&#34;board_pinheader_spacer&#34; width=&#34;600&#34; class=&#34;aligncenter wp-image-796&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;Notes About Boards And Cables&amp;lt;/h2&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I tried various HDMI cables to connect my LVDS breakout boards. It turns out that Amazon basic cables work very well. I also tried super thin HDMI cables. Those also work but it really depends on the LVDS cable that was shipped with the display. I got two different LVDS cables because i bought two different boards.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The LVDS board which was included with my NT68674.5X has a better quality than the one i got with the 7+1 board.
+&amp;lt;a href=&#34;http://jotschi.de/images/hmd/DriverBoard-NT68674.5X.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/DriverBoard-NT68674.5X.jpg&#34; alt=&#34;&#34; title=&#34;DriverBoard-NT68674.5X&#34; width=&#34;600&#34;  class=&#34;aligncenter size-full wp-image-850&#34; /&amp;gt;&amp;lt;/a&amp;gt;
+The cable that was included with my 7+1 board got some unpopulated pins for VCC and Ground where the other cable was completely populated. Maybe it uses ground from the BLON pin for the backlight connection?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I also got the impression that the 7+1 board provides a better signal to the display in comparison to the NT68674.5X. Overall the 7+1 Board could handle longer cables.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;HMD Unit - Paper Prototype&amp;lt;/h2&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At the first step i build a paper model for the HMD so that i could get an idea how the screens would fit inside the case and what the dimensions would be.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/paper_proto1.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/paper_proto1.jpg&#34; alt=&#34;&#34; title=&#34;paper_proto1&#34; width=&#34;600&#34; class=&#34;aligncenter wp-image-806&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The unpainted paper model:
+&amp;lt;a href=&#34;http://jotschi.de/images/hmd/paper_proto2.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/paper_proto2.jpg&#34; alt=&#34;&#34; title=&#34;paper_proto2&#34; width=&#34;600&#34; class=&#34;aligncenter wp-image-805&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;HMD Lense Mount&amp;lt;/h2&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/skigoggles_painted.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/skigoggles_painted.jpg&#34; alt=&#34;&#34; title=&#34;skigoggles_painted&#34; width=&#34;600&#34;  class=&#34;aligncenter wp-image-802&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/skigoggles_unpainted.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/skigoggles_unpainted.jpg&#34; alt=&#34;&#34; title=&#34;skigoggles_unpainted&#34; width=&#34;600&#34; class=&#34;aligncenter wp-image-795&#34; /&amp;gt;&amp;lt;/a&amp;gt;
+The goggles. Somehow they remind me of the goggles that Abe Sapien wears.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;HMD Renderings&amp;lt;/h2&amp;gt;
+A simple rendering that shows how the screens will be positioned inside the case:
+&amp;lt;a href=&#34;http://jotschi.de/images/hmd/view-wire1.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/view-wire1.jpg&#34; alt=&#34;&#34; title=&#34;view-wire1&#34; width=&#34;600&#34; class=&#34;aligncenter wp-image-797&#34; /&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://jotschi.de/images/hmd/view-bare.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/view-bare.jpg&#34; alt=&#34;&#34; title=&#34;view-bare&#34; width=&#34;600&#34; class=&#34;aligncenter wp-image-816&#34; /&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://jotschi.de/images/hmd/view-inside1.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/view-inside1.jpg&#34; alt=&#34;&#34; title=&#34;view-inside1&#34; width=&#34;600&#34; class=&#34;aligncenter wp-image-815&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h2&amp;gt;HMD Unit - Plastic Model&amp;lt;/h2&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I measured the paper model and cut some plastic sheets that were hot glued + cable tied + scotch taped together.
+&amp;lt;a href=&#34;http://jotschi.de/images/hmd/plastic_proto2.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/plastic_proto2.jpg&#34; alt=&#34;&#34; title=&#34;plastic_proto2&#34; width=&#34;600&#34;  class=&#34;aligncenter wp-image-830&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/hmd/plastic_proto1.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/plastic_proto1.jpg&#34; alt=&#34;&#34; title=&#34;plastic_proto1&#34; width=&#34;600&#34;  class=&#34;aligncenter wp-image-831&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The backside of the HMD can be opened for easy access to displays and other internal wiring. The displays are placed in between two guide rails and affixed using a plastic plate that is connected to a screw that can be fastened.
+&amp;lt;a href=&#34;http://jotschi.de/images/hmd/HMD-open.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hmd/HMD-open.jpg&#34; alt=&#34;&#34; title=&#34;HMD-open&#34; width=&#34;1024&#34; height=&#34;768&#34; class=&#34;aligncenter size-full wp-image-849&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Raspberry PI - 25LC010A EEPROM Howto</title>
+      <link>http://jotschi.de/2012/09/06/raspberry-pi-25lc010a-eeprom-howto/</link>
+      <pubDate>Thu, 06 Sep 2012 22:00:37 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/09/06/raspberry-pi-25lc010a-eeprom-howto/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This article will explain how to get a SPI connection working using the Raspberry PI GPIO pins.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Hardware:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I used the &lt;a href=&#34;http://learn.adafruit.com/adafruit-pi-cobbler-kit/overview&#34;&gt;Adafruit pi cobbler&lt;/a&gt; to connect the GPIO header with my breadboard.
+The 25LC010a eeprom chip is a small eeprom chip. The datasheet: &lt;a href=&#34;http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf&#34; class=&#34;bare&#34;&gt;http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Software:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I used the default raspbian image for the raspberry pi. The &lt;a href=&#34;https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/&#34;&gt;wiringpi toolchain&lt;/a&gt; contains some neat little programs and libraries to get I2C and SPI working with the raspberry pi.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Disable the blacklist by adding a # in front of each line because you will need the SPI kernel module:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/etc/modprobe.d/raspi-blacklist.conf&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Reboot the PI&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install wiringPI as described &lt;a href=&#34;https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install git-core
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Use the build gpio tool to load and setup SPI&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;gpio load spi&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;olist arabic&#34;&gt;
+&lt;ol class=&#34;arabic&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Connect the IC as shown in this &lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;
+&amp;lt;a href=&#34;http://jotschi.de/images/25LC010/raspberry_pi-spi-25LC010a_bb.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/25LC010/raspberry_pi-spi-25LC010a_bb.jpg&#34; alt=&#34;&#34; title=&#34;raspberry_pi-spi-25LC010a_bb&#34; width=&#34;1024&#34; height=&#34;726&#34; class=&#34;aligncenter size-full wp-image-787&#34; /&amp;gt;&amp;lt;/a&amp;gt;
+The two resistors are very important because they are used to pullup the SCK and MOSI pin. The eeprom works with 5V or 3.3V. I used 3.3V because the GPIO pins only tolerate 3.3V input. Higher voltage might damage your board.
+&lt;a href=&#34;http://twitpic.com/arlj3z&#34;&#34; class=&#34;bare&#34;&gt;http://twitpic.com/arlj3z&#34;&lt;/a&gt; alt=&#34;Just got SPI communication with an 25lc010a and my raspberry &amp;#8230;&amp;#8203; on Twitpic&#34;&gt;&lt;/span&gt;
+&amp;lt;img src=&#34;http://twitpic.com/show/thumb/arlj3z.jpg&#34; width=&#34;150&#34; height=&#34;150&#34; alt=&#34;Just got SPI communication with an 25lc010a and my raspberry &amp;#8230;&amp;#8203; on Twitpic&#34;&amp;gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Compile the source file. You can use this make file:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#DEBUG  = -g -O0
+DEBUG   = -O3
+CC      = gcc
+INCLUDE = -I/usr/local/include
+CFLAGS  = $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
+
+LDFLAGS = -L/usr/local/lib
+LIBS    = -lwiringPi
+
+# Should not alter anything below this line
+###############################################################################
+
+SRC     =       rpi_spi_eepromtest.c
+
+OBJ     =       rpi_spi_eepromtest.o
+
+all:            rpi_spi_eepromtest
+
+rpi_spi_eepromtest:        rpi_spi_eepromtest.o
+        @echo [link]
+        $(CC) -o $@ rpi_spi_eepromtest.o $(LDFLAGS) $(LIBS)
+
+.c.o:
+        @echo [CC] $&amp;lt;
+        @$(CC) -c $(CFLAGS) $&amp;lt; -o $@
+
+clean:
+        rm -f $(OBJ) *~ core tags rpi_spi_eepromtest
+
+tags:   $(SRC)
+        @echo [ctags]
+        @ctags $(SRC)
+
+depend:
+        makedepend -Y $(SRC)
+
+# DO NOT DELETE&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Sources: rpi_spi_eepromtest.c&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;{% gist 3659646 %}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg&#34; alt=&#34;raspberry pi spi 25LC010a schem&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>WiiMote PixArt Sensor Testing Via Bus Pirate </title>
+      <link>http://jotschi.de/2012/08/26/wiimote-pixart-sensor-testing-via-bus-pirate/</link>
+      <pubDate>Sun, 26 Aug 2012 15:52:18 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/08/26/wiimote-pixart-sensor-testing-via-bus-pirate/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The WiiMote PixArt sensor can be unsoldered and used as a regular I2C device. Here you can find some information on how to get it working with the buspirate.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Unsoldering tip: Disconnect the two metal clips that are connected to the case of the sensor. You can carefully lift the sensor after that has been done. The connection wires can easily be reinserted into the sensor housing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/pixart/pixart_pinout.jpg&#34; alt=&#34;pixart pinout&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/pixart/pixart_pinout_2.jpg&#34; alt=&#34;pixart pinout 2&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;IR Camera pin configuration:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1: 3.3V &amp;#8594; BusPirate 3.3V &amp;amp; BusPirate VPU&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2: GND &amp;#8594; BusPirate GND&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3: GND &amp;#8594; BusPirate GND&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;4: NC&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;5: SCL &amp;#8594; BusPirate CLK&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;6: SDA &amp;#8594; BusPirate MOSI&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;7: CLK &amp;#8594; Connect to pin 8 of an 25MHz quartz oscillator&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;8: Reset &amp;#8594; Pull Up with 22k Resistor to 3.3V&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Additionally you have to provide voltage and ground for your quartz oscillator. Connect the buspirate VPU pin to VCC 3.3V.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;BusPirate Commands:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;// Reset the bus pirate
+#
+// Switch to I2C mode
+m4
+// Select I2C speed
+3
+// Turn off the voltage
+w
+// Turn on the voltage
+W
+// Turn on the Pulldown resistor
+P
+// Print the voltages
+v
+// Control byte, allows modification of settings / Turn camera on
+[0xB0 0x30 0x01]
+[0xB0 0x30 0x08]
+ // 10 MAXSIZE - Maximum blob size. Wii uses values from 0x62 to 0xc8.
+[0xB0 0x06 0x90]
+// 15 GAIN - Sensor Gain. Smaller values = higher gain. Numerical gain is proportional to 1/2^(n/16) for n&amp;lt;0x40
+[0xB0 0x08 0xC0]
+// 10 GAINLIMIT - Sensor Gain Limit. Must be less than GAIN for camera to function.
+[0xB0 0x1A 0x40]
+[0xB0 0x33 0x33]
+
+// Request data
+[0xB0 0x36]
+// Read 16 bytes of data
+[0xB1 r:16]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Arduino Ethernet Shield Simple REST API Example</title>
+      <link>http://jotschi.de/2012/04/21/arduino-ethernet-shield-simple-rest-api-example/</link>
+      <pubDate>Sat, 21 Apr 2012 12:59:27 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2012/04/21/arduino-ethernet-shield-simple-rest-api-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I&amp;#8217;m currently developing a small home security system. The arduino + ethernet shield will provide the rest api control interface for the system. Later on that interface will be controllable with my android phone. (I&amp;#8217;ll probably write another post about that).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I took the &lt;a href=&#34;http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1284844153&#34;&gt;webserver example&lt;/a&gt; from Hari Wiguna and modified it a little bit. Currently the implementation is not able the handle
+ POST request or query parameters. At the moment only path segments are identified and separated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;SPI.h&amp;gt;
+#include &amp;lt;Ethernet.h&amp;gt;
+
+// Enter a MAC address and IP address for your controller below.
+// The IP address will be dependent on your local network:
+byte mac[] = {
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+IPAddress ip(192,168,10, 177);
+
+char cmd[15];
+char param1[15];
+boolean systemArmed = true;
+
+#define STRING_BUFFER_SIZE 128
+char buffer[STRING_BUFFER_SIZE];
+
+EthernetServer server(80);
+
+void setup() {
+  Serial.begin(9600);
+  // start the Ethernet connection and the server:
+  Ethernet.begin(mac, ip);
+  server.begin();
+  Serial.print(&#34;server is at &#34;);
+  Serial.println(Ethernet.localIP());
+}
+
+void send404(EthernetClient client) {
+     client.println(&#34;HTTP/1.1 404 OK&#34;);
+     client.println(&#34;Content-Type: text/html&#34;);
+     client.println(&#34;Connnection: close&#34;);
+     client.println();
+     client.println(&#34;&amp;lt;!DOCTYPE HTML&amp;gt;&#34;);
+     client.println(&#34;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;404&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&#34;);
+}
+
+void sendStatus(EthernetClient client) {
+
+   // Send a standard http response header
+   client.println(&#34;HTTP/1.1 200 OK&#34;);
+   client.println(&#34;Content-Type: application/json&#34;);
+   client.println(&#34;Connnection: close&#34;);
+   client.println();
+   client.println(&#34;{&#34;);
+
+   // Output the value of each analog input pin
+   for (int analogChannel = 0; analogChannel &amp;lt; 6; analogChannel++) {
+       int sensorReading = analogRead(analogChannel);
+       client.print(&#34;\&#34;analog_in_&#34;);
+       client.print(analogChannel);
+       client.print(&#34;\&#34;: &#34;);
+       client.print(sensorReading);
+
+//       if (analogChannel != 5) {
+           client.println(&#34;,&#34;);
+//       }
+   }
+   client.print(&#34;\&#34;system_armed\&#34;: &#34;);
+   client.print( systemArmed );
+   client.println(&#34;\n}&#34;);
+}
+
+/**
+ * Parse the string and return an array which contains all path segments
+ */
+char** parse(char* str) {
+
+	char ** messages;
+	messages = (char**)malloc(sizeof(char *));
+	char *p;
+	p = strtok(str, &#34; &#34;);
+	unsigned int i = 0;
+	while (p != NULL) {
+	  p = strtok(NULL, &#34;/&#34;);
+	  char *sp;
+	  boolean last = false;
+	  sp = strchr(p, &#39; &#39;);
+	  if (sp != NULL) {
+            *sp++ = &#39;\0&#39;;
+	    last = true;
+	  }
+	  messages[i] = p;
+	  i++;
+	  if (last) {
+	    break;
+	  }
+	  messages = (char**)realloc(messages, sizeof(char *) * i + 1);
+	}
+
+	messages[i] = &#39;\0&#39;;
+	return messages;
+}
+
+void armSystem() {
+  systemArmed = true;
+}
+
+void disarmSystem() {
+  systemArmed = false;
+}
+
+void handleCommand(EthernetClient client, char* cmd, char* param) {
+    if (strcmp(cmd, &#34;status&#34;) == 0) {
+      Serial.println(&#34;status&#34;);
+      sendStatus(client);
+    } else if (strcmp(cmd, &#34;arm&#34;) == 0) {
+      armSystem();
+      sendStatus(client);
+      Serial.println(&#34;arm&#34;);
+    } else if (strcmp(cmd, &#34;disarm&#34;) == 0) {
+      disarmSystem();
+      sendStatus(client);
+      Serial.println(&#34;disarm&#34;);
+    } else {
+      send404(client);
+    }
+}
+
+int countSegments(char* str) {
+  int p = 0;
+  int count = 0;
+  while (str[p] != &#39;\0&#39;) {
+    if (str[p] == &#39;/&#39;) {
+      count++;
+    }
+    p++;
+  }
+  // We don&#39;t want to count the / in &#39;HTTP/1.1&#39;
+  count--;
+  return count;
+}
+
+void loop() {
+  // listen for incoming clients
+  EthernetClient client = server.available();
+  if (client) {
+    // an http request ends with a blank line
+    boolean currentLineIsBlank = true;
+    while (client.connected()) {
+      if (client.available()) {
+
+        char c;
+        int bufindex = 0; // reset buffer
+        buffer[0] = client.read();
+        buffer[1] = client.read();
+        bufindex = 2;
+        // Read the first line to determin the request page
+        while (buffer[bufindex-2] != &#39;\r&#39; &amp;amp;&amp;amp; buffer[bufindex-1] != &#39;\n&#39;) {
+            // read full row and save it in buffer
+            c = client.read();
+            if (bufindex&amp;lt;STRING_BUFFER_SIZE) {
+              buffer[bufindex] = c;
+            }
+            bufindex++;
+        }
+        // Clean buffer for next row
+        bufindex = 0;
+
+        // Parse the query string
+        int nSegments = countSegments(buffer);
+        char **pathsegments = parse(buffer);
+
+        int i = 0;
+        for(i=0; i&amp;lt;nSegments; i++) {
+          Serial.println(pathsegments[i]);
+        }
+
+        if (c == &#39;\n&#39; &amp;amp;&amp;amp; currentLineIsBlank) {
+          handleCommand(client, pathsegments[0], pathsegments[1]);
+          break;
+        }
+
+        if (c == &#39;\n&#39;) {
+          currentLineIsBlank = true;
+        } else if (c != &#39;\r&#39;) {
+          currentLineIsBlank = false;
+        }
+      }
+    }
+    // Give the web browser time to receive the data
+    delay(1);
+    // Close the connection:
+    client.stop();
+    Serial.println(&#34;Client disonnected&#34;);
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AVR Dragon Write Arduino Bootloader On Linux To ATMega328p</title>
+      <link>http://jotschi.de/2011/10/18/avr-dragon-linux-write-arduino-bootloader/</link>
+      <pubDate>Tue, 18 Oct 2011 22:27:35 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/10/18/avr-dragon-linux-write-arduino-bootloader/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This article will contain a small summary on how to write an arduino bootloader to an AVR ATMega328p on Debian linux using the AVR Dragon.
+&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-700&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_get_an_avr_dragon&#34;&gt;Get an AVR Dragon&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I got mine from &lt;a href=&#34;http://www.watterott.com/de/Atmel-AVR-Dragon&#34;&gt;watterott.com&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_solder_a_40pin_zif_socket_to_your_avr_dragon_as_described_a_href_http_www_youtube_com_watch_v_yjo29vmxt90_here_a&#34;&gt;Solder a 40pin ZIF socket to your AVR Dragon as described &lt;a href=&#34;http://www.youtube.com/watch?v=yJo29VMXt90&#34;&gt;here&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_3_wire_the_pins_using_the_following_diagram&#34;&gt;3. Wire the pins using the following diagram.&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/avr-dragon/pinout_dw.png&#34; alt=&#34;pinout dw&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Provide a external oscillator to your avr chip. Just connect connect pin 9 and 10 (XTAL1,XTAL2) to an 16 MHz crystal.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/avr-dragon/Avr-atmega328-pins.png&#34; alt=&#34;Avr atmega328 pins&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Each of the two pins of the the quartz crystal should be connected to an 22pF capacitor. The capacitor then connects to GND of the a avr dragon Ext_Power connector.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/avr-dragon/avrdragon_arduino.jpg&#34; alt=&#34;avrdragon arduino&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/avr-dragon/avrdragon_arduino-top.jpg&#34; alt=&#34;avrdragon arduino top&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I got the following error when trying to program the chip when using no external oscillator:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$  make atmega328_isp  ISPTOOL=dragon_isp
+avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -e -u -U lock:w:0x3f:m -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m
+avrdude: jtagmkII_setparm(): bad response to set parameter command: RSP_FAILED
+avrdude: jtagmkII_getsync(): ISP activation failed, trying debugWire
+avrdude: jtagmkII_setparm(): bad response to set parameter command: RSP_DEBUGWIRE_SYNC_FAILED
+avrdude: failed to sync with the AVR Dragon in ISP mode
+avrdude: jtagmkII_close(): timeout/error communicating with programmer (status -1)
+
+avrdude done.  Thank you.
+
+make: *** [isp] Error 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_4_create_the_following_udev_file_within_etc_udev_rules_d_to_enable_avr_dragon_detection_and_restart_your_udev_or_force_a_reload&#34;&gt;4. Create the following udev file within /etc/udev/rules.d to enable AVR Dragon detection and restart your udev (or force a reload).&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;z60_avarice.rules:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;SUBSYSTEM!=&#34;usb_device&#34;, ACTION!=&#34;add&#34;, GOTO=&#34;avarice_end&#34;
+
+# Atmel Corp. JTAG ICE mkII
+SYSFS{idVendor}==&#34;03eb&#34;, SYSFS{idProduct}==&#34;2103&#34;, MODE=&#34;660&#34;, GROUP=&#34;dialout&#34;
+
+# Atmel Corp. AVR Dragon
+SYSFS{idVendor}==&#34;03eb&#34;, SYSFS{idProduct}==&#34;2107&#34;, MODE=&#34;660&#34;, GROUP=&#34;dialout&#34;
+
+LABEL=&#34;avarice_end&#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can validate your rule by examining the output of the lsusb command:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;   Bus 007 Device 008: ID 03eb:2107 Atmel Corp. AVR Dragon&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_5_install_avrdude&#34;&gt;5. Install avrdude&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get install avrdude&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_6_get_the_arduino_bootloader_and_use_avrdude_to_write_it&#34;&gt;6. Get the arduino bootloader and use avrdude to write it&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Somehow the bootloaders which i found in the Arduino SDK (0022) (eg. arduino-0022/hardware/arduino/bootloaders/atmega) did not work properly for my Arduino UNO Board. I could not push sketches to the board when using those bootloaders.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The optiboot bootloaders on the otherhand worked for me. They can be found here: arduino-0022/hardware/arduino/bootloaders/optiboot.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You have two options:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;a) Use the build script provided. The buildscript within the optiboot folder is faulty since it contains comments after the fusebit settings. Those comments introduce a whitespace which messes up the avrdude command. You can also get an updated version of &amp;lt;a href=&#34;http://code.google.com/p/optiboot/&#34;&amp;gt;optiboot here&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make atmega328_isp  ISPTOOL=dragon_isp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Possible issues:
+The following error was caused by avrdude since the avr dragon was not directly ready to accept new commands after the fusebits have been set. You can just call the avrdude command manually. Perhaps there is a avrdude setting which fixes this issue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -U flash:w:optiboot_atmega328.hex -U lock:w:0x2f:m
+avrdude: usbdev_open(): did not find any USB device &#34;usb&#34;
+make: *** [isp] Error 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;b) Call the avrdude command manually:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -e -u -U lock:w:0x3f:m -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m
+avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -U flash:w:optiboot_atmega328.hex -U lock:w:0x2f:m&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_7_test_your_arduino_chip&#34;&gt;7. Test your arduino chip&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just removed the ATMega328p from the dragon and placed it in an arduino uno socket to test it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Pollin 74er IC Set Contents</title>
+      <link>http://jotschi.de/2011/05/21/polling-74er-ic-set-contents/</link>
+      <pubDate>Sat, 21 May 2011 16:13:13 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/05/21/polling-74er-ic-set-contents/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;ICs within the pollin.de 74er set i got:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;SN74AS373N - OCTAL TRANSPARENT D-TYPE LATCHES WITH 3-STATE OUTPUTS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SN74S163N - SYNCHRONOUS 4-BIT COUNTERS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SN7497N - SYNCHRONOUS 6-BIT BINARY RATE MULTIPLIERS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SN74AS1000AN - QUADRUPLE 2-INPUT POSITIVE-NAND BUFFERS/DRIVERS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SN74AS873NT - DUAL 4-BIT D-TYPE LATCHES WITH 3-STATE OUTPUTS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;74F641N - 16-BIT REGISTERED TRANSCEIVERS WITH 3-STATE OUTPUTS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;M74HCT541B1 - OCTAL BUS BUFFER (3-STATE)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MM74C151N -  PARALLEL-LOAD 8-BIT REGISTERS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SN74ALS165N - SN74ALS165N - PARALLEL-LOAD 8-BIT REGISTERS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MC74ACT374N - OCTAL D-TYPE FLIP-FLOP WITH 3-STATE OUTPUTS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DN74LS163AN - 3-LINE TO 8-LINE DECORDERS/DEMULTIPLEXERS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SN74283N - 4 BIT BINARY FULL ADDERS WITH FAST CARRY&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SN74HCT574N - Octal Edge-Triggered D-Type Flip-Flops With 3-State Outputs&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;M74HCT244B1 - OCTAL BUS BUFFER WITH NONINVERTED 3-STATE OUTPUTS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;74ACT574PC - Octal D-Type Flip-Flop with 3-STATE Output&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Multitouch Userinterface with WiiMote</title>
+      <link>http://jotschi.de/2008/01/28/multitouch-userinterface-with-wiimote/</link>
+      <pubDate>Mon, 28 Jan 2008 02:11:11 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2008/01/28/multitouch-userinterface-with-wiimote/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Using the WiiMote you can create a multitouch userinterface. Johnny Chung Lee, Carnegie Mellon University demonstrate this in one of his videos:&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;embed src=&#34;http://www.youtube.com/v/5s5EvhHy7eQ&amp;amp;rel=1&#34; type=&#34;application/x-shockwave-flash&#34; wmode=&#34;transparent&#34; height=&#34;355&#34; width=&#34;425&#34;&amp;gt;&amp;lt;/embed&amp;gt;&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;He uses a lightpen with a build in infrared LED to get a tracking point for the wiimote infrared camera.I think it is possible to build a touchpad/touchtable where you don&amp;#8217;t need any pen to interact with the userinterface.Touching the upper layer of the touchpad will lower the layer section in this place and cross the directional lightbeams which are arranged underneath the touchpad. Therefor the place where the touchpad was touched is marked with IR light and can be tracked by the wii controler which is placed under the touchpad area. The infrared camera points to the touchpad and &#39;sees&#39; the places where the material crosses the lightbeams. The video illustrates this process.&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;embed src=&#34;http://www.youtube.com/v/YUGGAuENsZA&amp;amp;rel=1&#34; type=&#34;application/x-shockwave-flash&#34; wmode=&#34;transparent&#34; height=&#34;355&#34; width=&#34;425&#34;&amp;gt;&amp;lt;/embed&amp;gt;&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Another way to detect touched areas on the touchpad might work with a special material of the upper layer. The top of the touchpad layer can be anything you like but the bottom layer should be something reflective. When you point an infrared lightsource to this reflective material the light will bounce off to another direction. As we know from school the angle of the incoming light will result to the angle of the reflected light when using a flat surface. We just put our lightsource relative to the reflective layer so that we reach an angle about 45 degree. The incoming light will bounce off and never reache the WiiMote which is placed directly underneath the reflective layer. Touching the layer will cause the surface to be bended so that the light will bounce in nearly every direction. The toucharea is now visible to our WiiMote because some lightrays beeing reflected to the WiiMote.&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/holo/lightbeams.png&#34; alt=&#34;lightbeams&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/holo/lightbeams2.png&#34; alt=&#34;lightbeams2&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Problem mit T19DS</title>
+      <link>http://jotschi.de/2007/04/01/problem-mit-t19ds/</link>
+      <pubDate>Sun, 01 Apr 2007 21:54:26 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2007/04/01/problem-mit-t19ds/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Vor einiger Zeit hatte ich Probleme mit meinem TFT.
+Nach dem Einschalten zündet kurz die Hintergrundbeleuchtung und danach bleibt das Display dunkel. Es handelt sich hierbei um einen Fehler im Netzteil.
+Scheinbar fallen sehr viele Vision Magic T19DS nach ~1 Jahr Betrieb aus weil die eingebauten Kondensatoren minderwertig sind.
+Ich habe zwar alle Elkos ausgetauscht aber ich glaube das der im Bild rot markierte Kondenator bei mir der Hauptübeltäter war. (400V Elko)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/t19ds/t19ds_power.jpg&#34; alt=&#34;t19ds power&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Die Bauteile gibt es bei &lt;a href=&#34;http://www.pollin.de&#34; class=&#34;bare&#34;&gt;http://www.pollin.de&lt;/a&gt; oder &lt;a href=&#34;http://reichelt.de&#34; class=&#34;bare&#34;&gt;http://reichelt.de&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

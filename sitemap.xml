@@ -43,11 +43,6 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2013/01/12/wordpress-to-jekyll/</loc>
-    <lastmod>2013-01-12T00:05:46+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2012/12/05/raspberry-pi-433mhz-remote-controlled-power-plugs/</loc>
     <lastmod>2012-12-05T00:18:40+00:00</lastmod>
   </url>
@@ -133,11 +128,6 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2011/09/26/jogl2-jogamp-classpathloader-for-native-libraries/</loc>
-    <lastmod>2011-09-26T23:17:02+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2011/09/23/javacpp-examples/</loc>
     <lastmod>2011-09-23T21:10:34+00:00</lastmod>
   </url>
@@ -218,18 +208,8 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2010/09/01/aloha-editor-wordpress-plugin/</loc>
-    <lastmod>2010-09-01T22:42:45+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2010/08/10/howto-generate-sambantpassword-ldap-attribute/</loc>
     <lastmod>2010-08-10T10:22:22+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2010/08/05/skype-crash-debian-testing-amd64/</loc>
-    <lastmod>2010-08-05T09:50:57+00:00</lastmod>
   </url>
   
   <url>
@@ -260,11 +240,6 @@
   <url>
     <loc>http://jotschi.de/2009/12/15/opengl-amd-tesselation-example-catmullcark-subdivision-linux/</loc>
     <lastmod>2009-12-15T02:22:53+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2009/12/14/mars-society-startet-humans-to-mars-petition/</loc>
-    <lastmod>2009-12-14T23:06:49+00:00</lastmod>
   </url>
   
   <url>
@@ -343,28 +318,8 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2009/08/16/debian-testing-and-fglrx-8-632-1-ati-driver-package-9-7-and-linux-image-2-6-30-1-686-bigmem/</loc>
-    <lastmod>2009-08-16T14:16:59+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2009/08/16/laggy-2d-fglrx-performance-debian-testing/</loc>
     <lastmod>2009-08-16T14:04:22+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2009/07/13/generating-city-models-by-using-panorama-images/</loc>
-    <lastmod>2009-07-13T00:03:19+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2009/07/05/fglrx-installation-and-debian-testing-with-2626-2-686-bigmem/</loc>
-    <lastmod>2009-07-05T14:17:30+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2009/07/05/fglrx-and-debian-testing-with-2626-2-686-bigmem/</loc>
-    <lastmod>2009-07-05T13:17:12+00:00</lastmod>
   </url>
   
   <url>
@@ -388,18 +343,8 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</loc>
-    <lastmod>2009-05-19T20:33:46+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2009/04/23/automated-scalable-airborne-only-3d-modeling/</loc>
     <lastmod>2009-04-23T22:58:44+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2009/02/21/javascript-website-clipping-using-ajax-jquery/</loc>
-    <lastmod>2009-02-21T23:00:20+00:00</lastmod>
   </url>
   
   <url>
@@ -423,16 +368,6 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2008/12/03/code-coverage-with-emma-and-cruisecontrol/</loc>
-    <lastmod>2008-12-03T22:22:09+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/12/02/startrek-quotes/</loc>
-    <lastmod>2008-12-02T23:06:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2008/12/02/asynchronousbufferedinputstreamwrapper/</loc>
     <lastmod>2008-12-02T21:53:16+00:00</lastmod>
   </url>
@@ -448,16 +383,6 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2008/11/30/snplayer/</loc>
-    <lastmod>2008-11-30T01:50:23+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/11/30/projects/</loc>
-    <lastmod>2008-11-30T01:47:16+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2008/06/15/dual-head-on-i810-945gm-debian-lenny/</loc>
     <lastmod>2008-06-15T16:02:29+00:00</lastmod>
   </url>
@@ -470,11 +395,6 @@
   <url>
     <loc>http://jotschi.de/2008/05/25/mars-phoenix-landing-ellipse-update/</loc>
     <lastmod>2008-05-25T22:04:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/05/25/nasa-tv-high-quality/</loc>
-    <lastmod>2008-05-25T11:14:34+00:00</lastmod>
   </url>
   
   <url>
@@ -518,63 +438,8 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2008/01/21/inflatable-vr-hemisphere/</loc>
-    <lastmod>2008-01-21T03:18:58+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/01/20/virtual-reality-freedom/</loc>
-    <lastmod>2008-01-20T22:29:49+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/01/16/holodeck-20/</loc>
-    <lastmod>2008-01-16T14:27:19+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/01/16/holodeck-v10/</loc>
-    <lastmod>2008-01-16T01:00:08+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/01/12/xhtml-20-vs-html-5/</loc>
-    <lastmod>2008-01-12T01:23:57+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/01/12/auswandern-nach-osterreich-ausbildung-in-wien-mein-erfahrungsbericht/</loc>
-    <lastmod>2008-01-12T00:44:02+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/01/06/java-global-keyboard-hook-jni/</loc>
-    <lastmod>2008-01-06T14:39:01+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2008/01/05/windows-autostart-programm/</loc>
-    <lastmod>2008-01-05T01:16:32+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2007/08/24/ipw3945-kill-switch-problem-solved/</loc>
     <lastmod>2007-08-24T17:27:09+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2007/07/27/lighthouse-gdg2-projekt-ss07/</loc>
-    <lastmod>2007-07-27T02:28:55+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2007/07/27/fast-orientated-desktop-item-transfer/</loc>
-    <lastmod>2007-07-27T01:25:37+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2007/04/13/der-erlenrouter/</loc>
-    <lastmod>2007-04-13T17:28:04+00:00</lastmod>
   </url>
   
   <url>
@@ -583,18 +448,12 @@
   </url>
   
   <url>
-    <loc>http://jotschi.de/2007/03/31/phantasinator/</loc>
-    <lastmod>2007-03-31T15:57:54+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://jotschi.de/2007/03/29/strom-verjungt/</loc>
-    <lastmod>2007-03-29T03:02:19+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://jotschi.de/2007/03/05/demis-maps-java-tool/</loc>
     <lastmod>2007-03-05T02:35:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jotschi.de/2009/07/13/generating-city-models-by-using-panorama-images/</loc>
   </url>
   
 </urlset>

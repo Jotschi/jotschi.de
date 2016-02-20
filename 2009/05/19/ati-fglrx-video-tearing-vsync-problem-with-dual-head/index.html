@@ -39,23 +39,17 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://jotschi.de//categories/"></a></li>
+							<li><a href="http://jotschi.de//categories/code">Code</a></li>
 						
-							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
-						
-							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+							<li><a href="http://jotschi.de//categories/electronics">Electronics</a></li>
 						
 							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
 						
-							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+							<li><a href="http://jotschi.de//categories/linux">Linux</a></li>
 						
-							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+							<li><a href="http://jotschi.de//categories/random">Random</a></li>
 						
-							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
-						
-							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
-						
-							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+							<li><a href="http://jotschi.de//categories/space">Space</a></li>
 						
 						</ul>
 					</li>
@@ -78,29 +72,32 @@
 				</div>
 				<section>
 					<div class="paragraph">
-<p>I got problem with video playback when using the fglrx drivers as you can tell by the image below.
-&lt;a id="more"&gt;&lt;/a&gt;&lt;a id="more-278"&gt;&lt;/a&gt;
-&lt;a href="/images/ati/crappy_video.png"&gt;&lt;img src="/images/ati/crappy_video.png" alt="" title="crappy_video" width="200" height="152" class="alignnone size-medium wp-image-277" /&gt;&lt;/a&gt;</p>
+<p>I got problem with video playback when using the fglrx drivers as you can tell by the image below.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="/images/ati/crappy_video.png" alt="crappy video"></span></p>
 </div>
 <div class="paragraph">
 <p>Playing movies which include rapid motions produce these teared video frames. This problem is cause by the missing vsync. Apparently fglrx does not support vsync for xv yet ( fglrxinfo: 2.1.8591 / Driver Package: 8.602-1 / Installer Package: ati-driver-installer-9-4-x86.x86_64.run )</p>
 </div>
 <div class="paragraph">
-<p>You can enable vsync for OpenGL:
-&lt;code&gt;sudo aticonfig --overlay-type=Xv
+<p>You can enable vsync for OpenGL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo aticonfig --overlay-type=Xv
 sudo sudo aticonfig --sync-video=on
-sudo aticonfig --vs=on&lt;/code&gt;</p>
+sudo aticonfig --vs=on</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Thus now you can use mplayer -vo gl somefile.mkv to play your movies with vsync enabled. Of course gl output is a lot slower than xv.</p>
 </div>
 <div class="paragraph">
-<p>&lt;blockquote&gt;
-Xv currently has no vsync with fglrx, so there is no other way than using opengl as output.
-&lt;/blockquote&gt;</p>
+<p><strong>Xv currently has no vsync with fglrx, so there is no other way than using opengl as output</strong></p>
 </div>
 <div class="paragraph">
-<p>&lt;a href="http://www.phoronix.com/forums/showthread.php?t=11891"&gt;<a href="http://www.phoronix.com/forums/showthread.php?t=11891&lt;/a&gt" class="bare">http://www.phoronix.com/forums/showthread.php?t=11891&lt;/a&gt</a>;</p>
+<p><a href="http://www.phoronix.com/forums/showthread.php?t=11891" class="bare">http://www.phoronix.com/forums/showthread.php?t=11891</a></p>
 </div>
 <div class="paragraph">
 <p>Update: That workaround gave me a better image on one monitor (less tearing) but there is still tearing in the image.</p>

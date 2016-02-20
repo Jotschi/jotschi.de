@@ -19,15 +19,19 @@
 &lt;h2 id=&#34;_hardware&#34;&gt;Hardware&lt;/h2&gt;
 &lt;div class=&#34;sectionbody&#34;&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;First you&amp;#8217;ll need to buy a set of remote controlled power plugs. I got mine from &amp;lt;a href=&#34;http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html&#34;&amp;gt;pollin.de&amp;lt;/a&amp;gt; for around 10 €.
-&amp;lt;a href=&#34;http://jotschi.de/images/hx2262-remote/G550666.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hx2262-remote/G550666.jpg&#34; alt=&#34;&#34; title=&#34;G550666&#34; width=&#34;300&#34; height=&#34;225&#34; class=&#34;aligncenter size-full wp-image-854&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;First you&amp;#8217;ll need to buy a set of remote controlled power plugs. I got mine from &lt;a href=&#34;http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html&#34;&gt;pollin.de&lt;/a&gt; for around 10 €.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/hx2262-remote/G550666.jpg&#34; alt=&#34;G550666&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;Connect your 5V VCC from the GPIO pins of your Raspberry PI to the positiv terminal of your remote control.
 Connect the GCN GPIO pin to the negativ terminal of your remote control.
 Connect the PIN 17 GPIO pin to a 8k Ohm resistor and the resistor to pin P1 of the remote control.
-I drilled a hole trough the existing via and scrapped away the soldermask to expose the copper for soldering a connection in place.
-&amp;lt;a href=&#34;http://jotschi.de/images/hx2262-remote/hx2262-remote.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hx2262-remote/hx2262-remote.jpg&#34; alt=&#34;&#34; title=&#34;hx2262-remote&#34; width=&#34;1024&#34; height=&#34;742&#34; class=&#34;aligncenter size-full wp-image-855&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+I drilled a hole trough the existing via and scrapped away the soldermask to expose the copper for soldering a connection in place.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/hx2262-remote/hx2262-remote.jpg&#34; alt=&#34;hx2262 remote&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

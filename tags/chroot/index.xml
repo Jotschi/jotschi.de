@@ -19,8 +19,7 @@
 &lt;p&gt;This post is about how to configure eclipse to work with a chroot environment that is setup for cross compiling against ARM architecture.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;Please refer to my post &amp;lt;a href=&#34;http://jotschi.de/?p=594&#34;&amp;gt;Cross Compile Pandaboard PowerVR OpenGL ES2 Example&amp;lt;/a&amp;gt; if you want to know how to setup a chroot environment for cross compiling.
-&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-615&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;Please refer to my post &amp;lt;a href=&#34;http://jotschi.de/?p=594&#34;&amp;gt;Cross Compile Pandaboard PowerVR OpenGL ES2 Example&amp;lt;/a&amp;gt; if you want to know how to setup a chroot environment for cross compiling.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;sect2&#34;&gt;
 &lt;h3 id=&#34;_1_install_sudo_and_configure_sudo&#34;&gt;1. Install sudo and configure sudo&lt;/h3&gt;
@@ -68,9 +67,11 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_3_create_a_external_build_script&#34;&gt;3. Create a external build script&lt;/h3&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;h3&amp;gt;3. Create a external build script&amp;lt;/h3&amp;gt;
-This example script (e.g: ~/workspace/MyProject/compile.sh) will execute the bash command inside of the chroot environment which is located at $HOME/mychroot. The bash command will switch into the project location inside the chroot environment and execute make. Of course you can optimize the script to make it more generic and so on. But for now i&amp;#8217;ll keep it simple.&lt;/p&gt;
+&lt;p&gt;This example script (e.g: ~/workspace/MyProject/compile.sh) will execute the bash command inside of the chroot environment which is located at $HOME/mychroot. The bash command will switch into the project location inside the chroot environment and execute make. Of course you can optimize the script to make it more generic and so on. But for now i&amp;#8217;ll keep it simple.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;

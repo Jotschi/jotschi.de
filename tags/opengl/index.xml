@@ -26,7 +26,7 @@ The example also make usage of the ClassPathLoader mechanism i described in &amp
 &lt;p&gt;Update: I migrated the nehe JOGL examples which i found &amp;lt;a href=&#34;http://www.java-tips.org/other-api-tips/jogl/vertex-buffer-objects-nehe-tutorial-jogl-port-2.html&#34;&amp;gt;here&amp;lt;/a&amp;gt; to make use of jogl2.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;image:/images/opengl/JOGLQuadExample.png&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/JOGLQuadExample.png&#34; alt=&#34;JOGLQuadExample&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -855,17 +855,25 @@ int textFileWrite(char *fn, char *s);&lt;/code&gt;&lt;/pre&gt;
       
       <guid>http://jotschi.de/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/</guid>
       <description>&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY&amp;#8217;s it might also be interessting for someone who want&amp;#8217;s to know how to set a texture uniform (sampler2d) or (sampler2darray).&lt;/p&gt;
+&lt;p&gt;This example covers the usage of texture arrays within opengl.
+Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY&amp;#8217;s it might also be interesting for someone who want&amp;#8217;s to know how to set a texture uniform (sampler2d) or (sampler2darray).&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;The specification for texture arrays can be found here: &amp;lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&#34;&amp;gt;&lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&lt;/a&gt;;. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
-&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-396&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;The specification for texture arrays can be found here: &lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&#34; class=&#34;bare&#34;&gt;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&lt;/a&gt;
+This extension is also supported by the newest ati cards.
+Screenshots were taken by using the example with an ati 4850 card and the latest drivers.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;b&amp;gt;Update - Note: &amp;lt;/b&amp;gt;
-Compile with:
-&amp;lt;blockquote&amp;gt;g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp&amp;lt;/blockquote&amp;gt;
-Get sources and libs:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Update - Note:&lt;/em&gt;
+Compile with:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp
+----
+Get sources and libs:&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&#34;ulist&#34;&gt;
 &lt;ul&gt;
@@ -875,8 +883,10 @@ Get sources and libs:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;b&amp;gt;Update:&amp;lt;/b&amp;gt;
-I just developed an workaround for this issue by adding clamp to border by myself to the shader:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just developed an workaround for this issue by adding clamp to border by myself to the shader:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;
@@ -901,20 +911,28 @@ void main()
 &lt;p&gt;&lt;em&gt;NOARRAY - not definied&lt;/em&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:
-&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; width=&#34;412&#34; height=&#34;327&#34; class=&#34;alignnone size-full wp-image-397&#34; /&amp;gt;
-The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set.&lt;/p&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL TEXTURE 2D ARRAY CLAMP TO BORDER ATI&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;&lt;em&gt;NOARRAY - definied&lt;/em&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:
-&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; width=&#34;392&#34; height=&#34;292&#34; class=&#34;alignnone size-full wp-image-398&#34; /&amp;gt;
-As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:&lt;/p&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;Download the complete example sources: &amp;lt;a href=&#34;http://jotschi.de/downloads/opengl/opengl_texture_array_glsl_example.tgz&#34;&amp;gt;opengl_texture_array_glsl_example.tgz&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL TEXTURE 2D CLAMP TO BORDER ATI&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the complete example sources: &lt;a href=&#34;http://jotschi.de/downloads/opengl/opengl_texture_array_glsl_example.tgz&#34;&gt;opengl_texture_array_glsl_example.tgz&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;&lt;em&gt;shader_array.frag:&lt;/em&gt;&lt;/p&gt;
@@ -1261,6 +1279,391 @@ int textFileWrite(char *fn, char *s);&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
+      <title>ProjectiveTextureExample OpenSceneGraph</title>
+      <link>http://jotschi.de/2009/09/10/projectivetextureexample-openscenegraph/</link>
+      <pubDate>Thu, 10 Sep 2009 18:31:37 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/09/10/projectivetextureexample-openscenegraph/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Another OSG ProjectiveTexture Example - I did some code cleanup and added a bounding box test feature. My goal this example was to align the projector so that it would cover 100% of the second cameras field of view. In other words the view volume of the perspector of the scene should always be inside of the view volume of the projector. I solved this task by using some bounding box features and by setting the projector view matrix to align the view.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/BoundingBoxedView.png&#34; alt=&#34;BoundingBoxedView&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;ProjectiveTextureExample.cpp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;osg/Notify&amp;gt;
+#include &amp;lt;osg/MatrixTransform&amp;gt;
+#include &amp;lt;osg/ShapeDrawable&amp;gt;
+#include &amp;lt;osg/PositionAttitudeTransform&amp;gt;
+#include &amp;lt;osg/Geometry&amp;gt;
+#include &amp;lt;osgGA/TrackballManipulator&amp;gt;
+
+#include &amp;lt;osg/Texture2D&amp;gt;
+#include &amp;lt;osg/Geode&amp;gt;
+#include &amp;lt;osg/LightSource&amp;gt;
+#include &amp;lt;osg/TexGenNode&amp;gt;
+#include &amp;lt;osg/TexMat&amp;gt;
+#include &amp;lt;osgDB/WriteFile&amp;gt;
+#include &amp;lt;osgUtil/Optimizer&amp;gt;
+
+#include &amp;lt;osgDB/Registry&amp;gt;
+#include &amp;lt;osgDB/ReadFile&amp;gt;
+
+#include &amp;lt;osgViewer/Viewer&amp;gt;
+#include &amp;lt;osgViewer/CompositeViewer&amp;gt;
+#include &amp;lt;string&amp;gt;
+using namespace std;
+
+osgViewer::View* viewA = new osgViewer::View;
+osg::TexMat* texMat = new osg::TexMat;
+
+/**
+ * This method is used to mark the camera position
+ */
+osg::Node * markCameraPosition(osg::Camera* camera) {
+
+	osg::Group* root = new osg::Group();
+	osg::Matrixd proj;
+	osg::Matrixd mv;
+	if (camera) {
+		proj = camera-&amp;gt;getProjectionMatrix();
+		mv = camera-&amp;gt;getViewMatrix();
+	} else {
+		// Create some kind of reasonable default Projection matrix.
+		proj.makePerspective(30., 1., 1., 10.);
+		// leave mv as identity
+	}
+
+	osg::Vec3f vector = osg::Vec3f(proj(0, 0), proj(0, 0), proj(0, 0));
+	osg::Vec3f posVec = osg::Matrixd::inverse(mv).preMult(vector);
+
+	//	printf(&#34;VectorX: %f\n&#34;, posVec.x());
+	//	printf(&#34;VectorY: %f\n&#34;, posVec.y());
+	//	printf(&#34;VectorZ: %f\n&#34;, posVec.z());
+
+	osg::Sphere* unitSphere = new osg::Sphere(osg::Vec3(0, 0, 0), 2.0);
+	osg::ShapeDrawable* unitSphereDrawable = new osg::ShapeDrawable(unitSphere);
+	osg::Geode* unitSphereGeode = new osg::Geode();
+	unitSphereGeode-&amp;gt;addDrawable(unitSphereDrawable);
+
+	osg::PositionAttitudeTransform* sphereXForm =
+			new osg::PositionAttitudeTransform();
+	sphereXForm-&amp;gt;setPosition(posVec);
+	sphereXForm-&amp;gt;addChild(unitSphereGeode);
+	root-&amp;gt;addChild(sphereXForm);
+
+	return root;
+
+}
+// Given a Camera, create a wireframe representation of its
+// view frustum. Create a default representation if camera==NULL.
+osg::Node*
+makeFrustumFromCamera(osg::Camera* camera) {
+
+	// Projection and ModelView matrices
+	osg::Matrixd proj;
+	osg::Matrixd mv;
+	if (camera) {
+		proj = camera-&amp;gt;getProjectionMatrix();
+		mv = camera-&amp;gt;getViewMatrix();
+	} else {
+		// Create some kind of reasonable default Projection matrix.
+		proj.makePerspective(30., 1., 1., 10.);
+		// leave mv as identity
+	}
+
+	//camera-&amp;gt;setViewMatrix(camera-&amp;gt;getViewMatrix().frustum(100,200,100,100,10,100));
+
+	// Get near and far from the Projection matrix.
+	const double near = proj(3, 2) / (proj(2, 2) - 1.0);
+	const double far = proj(3, 2) / (1.0 + proj(2, 2));
+
+	// Get the sides of the near plane.
+	const double nLeft = near * (proj(2, 0) - 1.0) / proj(0, 0);
+	const double nRight = near * (1.0 + proj(2, 0)) / proj(0, 0);
+	const double nTop = near * (1.0 + proj(2, 1)) / proj(1, 1);
+	const double nBottom = near * (proj(2, 1) - 1.0) / proj(1, 1);
+
+	// Get the sides of the far plane.
+	const double fLeft = far * (proj(2, 0) - 1.0) / proj(0, 0);
+	const double fRight = far * (1.0 + proj(2, 0)) / proj(0, 0);
+	const double fTop = far * (1.0 + proj(2, 1)) / proj(1, 1);
+	const double fBottom = far * (proj(2, 1) - 1.0) / proj(1, 1);
+
+	// Our vertex array needs only 9 vertices: The origin, and the
+	// eight corners of the near and far planes.
+	osg::Vec3Array* v = new osg::Vec3Array;
+	v-&amp;gt;resize(9);
+	(*v)[0].set(0., 0., 0.);
+	(*v)[1].set(nLeft, nBottom, -near);
+	(*v)[2].set(nRight, nBottom, -near);
+	(*v)[3].set(nRight, nTop, -near);
+	(*v)[4].set(nLeft, nTop, -near);
+	(*v)[5].set(fLeft, fBottom, -far);
+	(*v)[6].set(fRight, fBottom, -far);
+	(*v)[7].set(fRight, fTop, -far);
+	(*v)[8].set(fLeft, fTop, -far);
+
+	osg::Geometry* geom = new osg::Geometry;
+	geom-&amp;gt;setUseDisplayList(false);
+	geom-&amp;gt;setVertexArray(v);
+
+	osg::Vec4Array* c = new osg::Vec4Array;
+	c-&amp;gt;push_back(osg::Vec4(1., 1., 1., 1.));
+	geom-&amp;gt;setColorArray(c);
+	geom-&amp;gt;setColorBinding(osg::Geometry::BIND_OVERALL);
+
+	GLushort idxLines[8] = { 0, 5, 0, 6, 0, 7, 0, 8 };
+	GLushort idxLoops0[4] = { 1, 2, 3, 4 };
+	GLushort idxLoops1[4] = { 5, 6, 7, 8 };
+	geom-&amp;gt;addPrimitiveSet(new osg::DrawElementsUShort(osg::PrimitiveSet::LINES,
+			8, idxLines));
+	geom-&amp;gt;addPrimitiveSet(new osg::DrawElementsUShort(
+			osg::PrimitiveSet::LINE_LOOP, 4, idxLoops0));
+	geom-&amp;gt;addPrimitiveSet(new osg::DrawElementsUShort(
+			osg::PrimitiveSet::LINE_LOOP, 4, idxLoops1));
+
+	osg::Geode* geode = new osg::Geode;
+	geode-&amp;gt;addDrawable(geom);
+
+	geode-&amp;gt;getOrCreateStateSet()-&amp;gt;setMode(GL_LIGHTING, osg::StateAttribute::OFF
+			| osg::StateAttribute::PROTECTED);
+
+	// Create parent MatrixTransform to transform the view volume by
+	// the inverse ModelView matrix.
+	osg::MatrixTransform* mt = new osg::MatrixTransform;
+	mt-&amp;gt;setMatrix(osg::Matrixd::inverse(mv));
+	mt-&amp;gt;addChild(geode);
+
+	return mt;
+}
+
+osg::ref_ptr&amp;lt;osg::Program&amp;gt; addShader() {
+	osg::ref_ptr&amp;lt;osg::Program&amp;gt; projProg(new osg::Program);
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projvertexShader(osg::Shader::readShaderFile(
+			osg::Shader::VERTEX, &#34;VertexShader.glsl&#34;));
+	osg::ref_ptr&amp;lt;osg::Shader&amp;gt; projfragShader(osg::Shader::readShaderFile(
+			osg::Shader::FRAGMENT, &#34;FragmentShader.glsl&#34;));
+
+	projProg-&amp;gt;addShader(projvertexShader.get());
+	projProg-&amp;gt;addShader(projfragShader.get());
+	return projProg;
+}
+
+void addProjectionInfoToState(osg::StateSet* stateset, string fn) {
+
+	/* 1. Load the texture that will be projected */
+	osg::Texture2D* texture = new osg::Texture2D();
+	texture-&amp;gt;setImage(osgDB::readImageFile(fn));
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_BORDER);
+	texture-&amp;gt;setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_BORDER);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texture, osg::StateAttribute::ON);
+
+	// set up tex gens
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_S, osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_T, osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_R, osg::StateAttribute::ON);
+	stateset-&amp;gt;setTextureMode(1, GL_TEXTURE_GEN_Q, osg::StateAttribute::ON);
+
+	/* 3. Handover the texture to the fragment shader via uniform */
+	osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,
+			&#34;projectionMap&#34;);
+	texUniform-&amp;gt;set(1);
+	stateset-&amp;gt;addUniform(texUniform);
+
+	/* 4. set Texture matrix*/
+
+	//If you want to create the texture matrix by yourself you can do this like this way:
+	//osg::Vec3 projectorPos = osg::Vec3(0.0f, 0.0f, 324.0f);
+	//osg::Vec3 projectorDirection = osg::Vec3(osg::inDegrees(dirX),osg::inDegrees(dirY), osg::inDegrees(dirZ));
+	//osg::Vec3 up(0.0f, 1.0f, 0.0f);
+	//osg::Vec3 target = osg::Vec3(0.0f, 0.0f,0.0f);
+	//float projectorAngle = 80.f; //FOV
+	//mat = osg::Matrixd::lookAt(projectorPos, projectorPos*target ,up) * osg::Matrixd::perspective(projectorAngle, 1.0, 1.0, 10);
+
+
+	osg::Matrix mat = viewA-&amp;gt;getCamera()-&amp;gt;getViewMatrix()
+			* viewA-&amp;gt;getCamera()-&amp;gt;getProjectionMatrix();
+
+	texMat-&amp;gt;setMatrix(mat);
+	stateset-&amp;gt;setTextureAttributeAndModes(1, texMat, osg::StateAttribute::ON);
+
+}
+
+osg::StateSet* createProjectorState() {
+	osg::StateSet* stateset = new osg::StateSet;
+	osg::ref_ptr&amp;lt;osg::Program&amp;gt; prog = addShader();
+	addProjectionInfoToState(stateset, &#34;foo2.jpg&#34;);
+	stateset-&amp;gt;setAttribute(prog.get());
+	return stateset;
+}
+
+/**
+ * Load some model, scale it and apply the shader
+ */
+osg::Node* createModel() {
+
+	osg::Group* root = new osg::Group;
+
+	/* Load the terrain which will be the receiver of out projection */
+	osg::Node* terr = osgDB::readNodeFile(&#34;Terrain2.3ds&#34;);
+
+	/* Scale the terrain and move it. */
+	osg::Matrix m;
+	osg::ref_ptr&amp;lt;osg::MatrixTransform&amp;gt; mt = new osg::MatrixTransform;
+	m.makeTranslate(0.f, 0.f, 0.f);
+	m.makeScale(2.f, 2.f, 2.f);
+	mt-&amp;gt;setMatrix(m);
+	mt-&amp;gt;addChild(terr);
+
+	/* Add the transformed node to our graph */
+	root-&amp;gt;addChild(mt.get());
+
+	/* Enable projective texturing for all objects of this node */
+	root-&amp;gt;setStateSet(createProjectorState());
+	return root;
+}
+
+/**
+ * Creates a small ball node for the given coords.
+ */
+osg::Node* createBall(osg::Vec3 pos) {
+	osg::Sphere* unitSphere = new osg::Sphere(osg::Vec3(0, 0, 0), 62.0);
+	osg::ShapeDrawable* unitSphereDrawable = new osg::ShapeDrawable(unitSphere);
+	osg::Geode* unitSphereGeode = new osg::Geode();
+	unitSphereGeode-&amp;gt;addDrawable(unitSphereDrawable);
+
+	osg::PositionAttitudeTransform* sphereXForm =
+			new osg::PositionAttitudeTransform();
+	sphereXForm-&amp;gt;setPosition(pos);
+	sphereXForm-&amp;gt;addChild(unitSphereGeode);
+	return sphereXForm;
+}
+
+int main(int argc, char ** argv) {
+
+	osg::ArgumentParser arguments(&amp;amp;argc, argv);
+
+	osg::ref_ptr&amp;lt;osg::Group&amp;gt; sceneA = new osg::Group;
+	osg::ref_ptr&amp;lt;osg::Group&amp;gt; sceneB = new osg::Group;
+	osg::ref_ptr&amp;lt;osg::Group&amp;gt; sceneC = new osg::Group;
+	sceneA-&amp;gt;addChild(createModel());
+	sceneB-&amp;gt;addChild(createModel());
+	sceneC-&amp;gt;addChild(createModel());
+
+	osgViewer::CompositeViewer viewer(arguments);
+
+	// Turn on FSAA, makes the lines look better.
+	//osg::DisplaySettings::instance()-&amp;gt;setNumMultiSamples( 4 );
+
+	viewer.addView(viewA);
+	viewA-&amp;gt;setUpViewInWindow(10, 10, 640, 480);
+	viewA-&amp;gt;setSceneData(sceneA.get());
+	//Add this to move the projector by mouse - you need to disable the set of the viewmatrix in the while loop below.
+	//viewA-&amp;gt;setCameraManipulator(new osgGA::TrackballManipulator);
+
+	osgViewer::View* viewB = new osgViewer::View;
+	viewer.addView(viewB);
+	viewB-&amp;gt;setUpViewInWindow(10, 510, 640, 480);
+	viewB-&amp;gt;setSceneData(sceneB.get());
+	viewB-&amp;gt;setCameraManipulator(new osgGA::TrackballManipulator);
+
+	osgViewer::View* viewC = new osgViewer::View;
+	viewer.addView(viewC);
+	viewC-&amp;gt;setUpViewInWindow(500, 510, 640, 480);
+	viewC-&amp;gt;setSceneData(sceneC.get());
+	viewC-&amp;gt;setCameraManipulator(new osgGA::TrackballManipulator);
+
+	// You can disable the auto computed near far bounds by disabling the osg mode.
+	// viewer.getView(0)-&amp;gt;getCamera()-&amp;gt;setComputeNearFarMode(osg::Camera::DO_NOT_COMPUTE_NEAR_FAR);
+
+
+	while (!viewer.done()) {
+
+		osg::Matrix mat = viewA-&amp;gt;getCamera()-&amp;gt;getViewMatrix()
+				* viewA-&amp;gt;getCamera()-&amp;gt;getProjectionMatrix();
+		texMat-&amp;gt;setMatrix(mat);
+
+		sceneA-&amp;gt;removeChild(1, 1);
+		sceneA-&amp;gt;insertChild(1, makeFrustumFromCamera(viewB-&amp;gt;getCamera()));
+
+		//sceneB-&amp;gt;removeChild(1, 1);
+		//sceneB-&amp;gt;insertChild(1, makeFrustumFromCamera(viewA-&amp;gt;getCamera()));
+
+		sceneC-&amp;gt;removeChild(1, 1);
+		sceneC-&amp;gt;insertChild(1, makeFrustumFromCamera(viewA-&amp;gt;getCamera()));
+
+		sceneC-&amp;gt;removeChild(2, 1);
+		sceneC-&amp;gt;insertChild(2, makeFrustumFromCamera(viewB-&amp;gt;getCamera()));
+
+		// Finnaly set the camera
+		osg::Node* frustum = makeFrustumFromCamera(viewB-&amp;gt;getCamera());
+		const osg::BoundingSphere&amp;amp; boundingSphere = frustum-&amp;gt;getBound();
+		osg::Matrix myviewMatrix;
+		osg::Vec3 boxEye = boundingSphere._center + osg::Vec3(0.0f, -3.5f
+				* boundingSphere._radius, 0.0f);
+		osg::Vec3 boxCenter = boundingSphere._center;
+		osg::Vec3 boxUp = osg::Vec3(0.0f, 0.0f, 1.0f);
+		myviewMatrix.makeLookAt(boxEye, boxCenter, boxUp);
+		viewA-&amp;gt;getCamera()-&amp;gt;setViewMatrix(myviewMatrix);
+
+		viewer.frame();
+	}
+	return 0;
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;As you can see the texture coordinated will be shifted by 0.5/0.5. I had to do this because the projective center was in the middle of the texture. Without correction you get results like this one:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/texture_projection.png&#34; alt=&#34;texture projection&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/texture_projection_2.png&#34; alt=&#34;texture projection 2&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;FragmentShader.glsl&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;uniform sampler2D projectionMap;
+varying vec4 projCoord;
+
+void main()
+{
+	vec4 dividedCoord = projCoord / projCoord.w ;
+	vec4 color =  texture2D(projectionMap,dividedCoord.st+vec2(0.5,0.5)  );
+  	gl_FragColor =	 color * gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;VertexShader.glsl&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;varying vec4 projCoord;
+void main()
+{
+
+		projCoord =  gl_TextureMatrix[1]  *  gl_Vertex;
+		gl_Position = ftransform();
+		gl_FrontColor = gl_Color;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>GLSL shader to handle multiple projections onto the same surface</title>
       <link>http://jotschi.de/2009/08/17/glsl-shader-to-handle-multiple-projections-onto-the-same-surface/</link>
       <pubDate>Mon, 17 Aug 2009 23:20:56 +0000</pubDate>
@@ -1353,7 +1756,7 @@ gl_FragColor = texture2DArray(textures,vec3(gl_TexCoord[0].xy, currentTexture));
 &lt;p&gt;I finally managed to get projective textures working using GLSL shaders rather than fixed pipeline functionality.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;Projective Texturing Example&#34; /&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;projection fixedfunctionality&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;

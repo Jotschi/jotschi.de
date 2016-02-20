@@ -44,9 +44,9 @@
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;make
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make
 make install
-modprobe acerhk&lt;/pre&gt;
+modprobe acerhk&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
@@ -57,7 +57,7 @@ modprobe acerhk&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;echo 1 &amp;gt; /proc/driver/acerhk/wirelessled&lt;/pre&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo 1 &amp;gt; /proc/driver/acerhk/wirelessled&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
@@ -65,8 +65,8 @@ modprobe acerhk&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;amilo:/sys/bus/pci/drivers/ipw3945/0000:04:00.0# cat rf_kill
-0&lt;/pre&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;amilo:/sys/bus/pci/drivers/ipw3945/0000:04:00.0# cat rf_kill
+0&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
@@ -75,10 +75,10 @@ modprobe acerhk&lt;/pre&gt;
 &lt;div class=&#34;ulist&#34;&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Distro:       Debian Etch&lt;/p&gt;
+&lt;p&gt;Distro:     Debian Etch&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Notebook: Amilo Pro 3505&lt;/p&gt;
+&lt;p&gt;Notebook:   Amilo Pro 3505&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Treiber:    Ipw3945-1.2.2 / acerhk-0.5.34&lt;/p&gt;

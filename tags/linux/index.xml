@@ -449,376 +449,38 @@ int main(void) {
       
       <guid>http://jotschi.de/2009/05/19/ati-fglrx-video-tearing-vsync-problem-with-dual-head/</guid>
       <description>&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;I got problem with video playback when using the fglrx drivers as you can tell by the image below.
-&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-278&#34;&amp;gt;&amp;lt;/a&amp;gt;
-&amp;lt;a href=&#34;http://jotschi.de/images/ati/crappy_video.png&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/ati/crappy_video.png&#34; alt=&#34;&#34; title=&#34;crappy_video&#34; width=&#34;200&#34; height=&#34;152&#34; class=&#34;alignnone size-medium wp-image-277&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;I got problem with video playback when using the fglrx drivers as you can tell by the image below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/ati/crappy_video.png&#34; alt=&#34;crappy video&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;Playing movies which include rapid motions produce these teared video frames. This problem is cause by the missing vsync. Apparently fglrx does not support vsync for xv yet ( fglrxinfo: 2.1.8591 / Driver Package: 8.602-1 / Installer Package: ati-driver-installer-9-4-x86.x86_64.run )&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;You can enable vsync for OpenGL:
-&amp;lt;code&amp;gt;sudo aticonfig --overlay-type=Xv
+&lt;p&gt;You can enable vsync for OpenGL:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo aticonfig --overlay-type=Xv
 sudo sudo aticonfig --sync-video=on
-sudo aticonfig --vs=on&amp;lt;/code&amp;gt;&lt;/p&gt;
+sudo aticonfig --vs=on&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;Thus now you can use mplayer -vo gl somefile.mkv to play your movies with vsync enabled. Of course gl output is a lot slower than xv.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;blockquote&amp;gt;
-Xv currently has no vsync with fglrx, so there is no other way than using opengl as output.
-&amp;lt;/blockquote&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Xv currently has no vsync with fglrx, so there is no other way than using opengl as output&lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&#34;&amp;gt;&lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://www.phoronix.com/forums/showthread.php?t=11891&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.phoronix.com/forums/showthread.php?t=11891&#34; class=&#34;bare&#34;&gt;http://www.phoronix.com/forums/showthread.php?t=11891&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;Update: That workaround gave me a better image on one monitor (less tearing) but there is still tearing in the image.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;If someone knows a solution for this issue please let me know.&lt;/p&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>fglrx and Debian testing on amd64 - 2.6.26-2-amd64</title>
-      <link>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</link>
-      <pubDate>Tue, 19 May 2009 20:33:46 +0000</pubDate>
-      
-      <guid>http://jotschi.de/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64/</guid>
-      <description>&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;I finally managed to get fglrx working with dri and dual head using the latest ati driver:
-ati-driver-installer-9-4-x86.x86_64.run&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;
-works also with:
-ati-driver-installer-9-5-x86.x86_64.run&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-269&#34;&amp;gt;&amp;lt;/a&amp;gt;
-Some Notes:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;jotschi@NeXuS:~$ uname -r
-2.6.26-2-amd64
-
-jotschi@NeXuS:~$ fglrxinfo
-display: :0.0  screen: 0
-OpenGL vendor string: ATI Technologies Inc.
-OpenGL renderer string: ATI Radeon HD 4800 Series
-OpenGL version string: 2.1.8591
-
-jotschi@NeXuS:~/Desktop$ dpkg -l | grep fglrx
-ii  fglrx-amdcccle                     8.602-1                     Catalyst Control Center for the ATI graphics accelerators
-ii  fglrx-driver                            8.602-1                     Video driver for the ATI graphics accelerators
-ii  fglrx-driver-dev                      8.602-1                     Video driver for the ATI graphics accelerators (devel files)
-ii  fglrx-kernel-2.6.26-2-amd64   8.602-1+2.6.26-15           ATI binary kernel module for Linux 2.6.26-2-amd64
-ii  fglrx-kernel-src                     8.602-1                     Kernel module source for the ATI graphics accelerators
-
-jotschi@NeXuS:~/Desktop$ dpkg -l | grep xorg | head -n 4 | grep -v docs
-ii  xorg                                    1:7.3+18                    X.Org X Window System
-ii  xserver-xorg                         1:7.3+18                    the X.Org X server
-ii  xserver-xorg-core                  2:1.4.2-11                  Xorg X server - core server&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;Mainly i used this guide: &amp;lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&#34;&amp;gt;&lt;a href=&#34;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://wiki.cchtml.com/index.php/Debian_Installation_Guide&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;There were some glitches because of missing files and creation of diverations. I belive the uninstallation of fglrx does not revert created diverations of certain libraries. (I dunno if the removeal of created diverations this is the expected behaviour of package removeal)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;My short Howto:
-0. Optional:
-I removed non-free from my source.lst and did an apt-get update and apt-get clean to make sure that the module assistent would not fetch some fglrx packages via network.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Stop X&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;unload fglrx module&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;modprobe -r fglrx&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Install additional packages you might need:&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 ia32-libs
-apt-get install kernel-headers-$(uname -r)&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.
-&amp;lt;code&amp;gt;dpkg -l | grep fglrx
-dpkg -P  fglrx-amdcccle
-dpkg -P fglrx-driver-dev
-dpkg -P fglrx-kernel-src
-dpkg -P fglrx-kernel-2.6.26-2-amd64
-dpkg -P fglrx-driver&amp;lt;/code&amp;gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To restore the files that might have been deleted by the fglrx package removeal routines you can use:&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;apt-get --reinstall install libgl1-mesa-glx
-apt-get --reinstall install xserver-xorg-core
-apt-get --reinstall install ia32-libs&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Create the fglrx packages:&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;./ati-driver-installer-9-4-x86.x86_64.run --extract fglrx_9-4
-cd fglrx_9-4
-cd arch/x86_64/usr/X11R6
-ln -s lib64 lib
-cd ../../..
-./packages/Debian/ati-packager.sh --buildpkg testing
-cd ..&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Remove leftovers of previous installations:&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;rm /usr/src/fglrx.tar.bz2
-rm /usr/src/*fglrx*.deb&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Install the packages. You might have to change the order due to dependencies.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;dpkg -i fglrx-driver_8.602-1_amd64.deb
-dpkg -i fglrx-amdcccle_8.602-1_amd64.deb
-dpkg -i fglrx-driver-dev_8.602-1_amd64.deb
-dpkg -i fglrx-kernel-src_8.602-1_amd64.deb&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&lt;em&gt;Note: diversion problem&lt;/em&gt;
-I got some nasty failure while installing fglrx-driver_8.602-1_amd64.deb
-The package installation script was complaining about a failure while creating a diversion of libGL.so.1.2 because that file was used by the package xserver-xorg-core.
-The installation terminated with:
-&amp;lt;code&amp;gt;dpkg: error processing xorg-driver-fglrx&amp;lt;/code&amp;gt;
-You can get rid of those failures by using the &amp;lt;a href=&#34;http://www.debian.org/distrib/packages&#34;&amp;gt;Debian Package Search&amp;lt;/a&amp;gt;. Use the last form of the page to locate the file (e.g. libGL.so.1.2)
-As you see the file /usr/lib/libGL.so.1.2 is part of fglrx and the package libgl1-mesa-glx. I just reinstalled libgl1-mesa-glx and fixed the bug. &amp;lt;del datetime=&#34;2009-05-19T21:01:33+00:00&#34;&amp;gt;You may also remove the package because you wont need mesa once using hardware acceleration. (Please correct me if this is wrong - I&amp;#8217;m not quite sure about this)
-&amp;lt;/del&amp;gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;(Reading database ... 84741 files and directories currently installed.)
-Unpacking fglrx-driver (from fglrx-driver_8.612-1_amd64.deb) ...
-No diversion `diversion of /usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;, none removed
-Adding `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
-Adding `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
-No diversion `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2_32bit by fglrx-driver&#39;, none removed
-Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
-Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
-rmdir: failed to remove `/usr/share/fglrx/diversions&#39;: No such file or directory
-rmdir: failed to remove `/usr/share/fglrx&#39;: No such file or directory
-Leaving `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
-Leaving `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
-Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
-Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
-Adding `diversion of /usr/lib/xorg/modules/extensions/libdri.so to /usr/lib/fglrx/diversions/libdri.so by fglrx-driver&#39;
-dpkg - warning, overriding problem because --force enabled:
-_ trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.so&#39;, which is also in package xserver-xorg-core_
-dpkg: error processing 1 (--install):
- cannot access archive: No such file or directory
-Setting up fglrx-driver (8.612-1) ...
-
-Configuration file `/etc/acpi/fglrx-powermode.sh&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/acpi/events/fglrx-lid-aticonfig&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/acpi/events/fglrx-ac-aticonfig&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/init.d/atieventsd&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/default/fglrx&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/ati/logo_mask.xbm.example&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/ati/signature&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/ati/control&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/ati/atiogl.xml&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/ati/amdpcsdb.default&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/ati/logo.xbm.example&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/ati/authatieventsd.sh&#39;, does not exist on system.
-Installing new config file as you request.
-
-Configuration file `/etc/X11/Xsession.d/70fglrx&#39;, does not exist on system.
-Installing new config file as you request.
-update-rc.d: warning: /etc/init.d/atieventsd missing LSB information
-update-rc.d: see &amp;lt;http://wiki.debian.org/LSBInitScripts&amp;gt;
-Starting atieventsd: /usr/sbin/atieventsd already running.
-done.
-Processing triggers for man-db ...
-Errors were encountered while processing:
- 1&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;Once you get only the following error you can proceed with dpkg --force-all:
-&lt;em&gt;trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core&lt;/em&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;Finally i had to use the --force-all option to install the package.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;dpkg --force-all -i fglrx-driver_8.602-1_amd64.deb&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;_You should try to use the procedure described above before taking this quite drastic step. _&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Build and install the fglrx kernel module. I had not to modify the sources in any way.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;module-assistant auto-install fglrx-kernel-src&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Load the module:&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;modprobe fglrx&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;Make sure it was loaded. If it wasn&amp;#8217;t loaded use dmesg to check what happed.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;lsmod | grep fglrx&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;If you want to create a new xorg.conf file which stores your monitor setup etc.:&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;listingblock&#34;&gt;
-&lt;div class=&#34;content&#34;&gt;
-&lt;pre&gt;mv /etc/X11/xorg.conf /etc/X11/xorg.conf.backup
-dpkg-reconfigure xserver-xorg (just follow the instructions)
-aticonfig --initial&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;olist arabic&#34;&gt;
-&lt;ol class=&#34;arabic&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;You are done. Now start X and run the amdcccle tool and setup your screens. I had to run those steps to get dual head working:&lt;/p&gt;
-&lt;div class=&#34;ulist&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Enable both displays using amdcccle&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set the resolution of both displays to the same one&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enabling Xinerama&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Restart X&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enabling Multi-Display Settings (Left of ..)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Restart X&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Disabling Xinerama in /etc/X11/xorg.conf&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Restart X&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;Download my xorg.conf:
-&amp;lt;a href=&#39;http://jotschi.de/downloads/xorg/xorg.conf&#39;&amp;gt;xorg.conf&amp;lt;/a&amp;gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;Overall this is a painstaking way of setting up dual head display and drivers. Please AMD / ATI create an Installer that creates valid Deb. packages or even better delete it and create a deb repository that everybody can use.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>

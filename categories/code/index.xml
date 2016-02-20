@@ -1,0 +1,1692 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code on Jotschi&#39;s Blog</title>
+    <link>http://jotschi.de/categories/code/</link>
+    <description>Recent content in Code on Jotschi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 12 Oct 2011 23:37:10 +0000</lastBuildDate>
+    <atom:link href="http://jotschi.de/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Calculating The ModelView Matrix For OpenGL</title>
+      <link>http://jotschi.de/2011/10/12/calculating-the-modelview-matrix-for-opengl/</link>
+      <pubDate>Wed, 12 Oct 2011 23:37:10 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/10/12/calculating-the-modelview-matrix-for-opengl/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Sometimes its very useful to create a modelview matrix without modifying the OpenGL matrix stack. Methods that will modify the matrix stack are for example gluLookAt or similar methods.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I wrote my own method that calculates the modelview matrix for java but i guess it can be easily adapted. Calculating a modelview matrix in this way allows one to pass the generated matrix to a glsl shader using a simple matrix uniform. Using vertex processing in a vertex shader is even the preferred way of dealing with modelview transformations in OpenGL 3.1.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;A full example can be found &amp;lt;a href=&#34;https://github.com/Jotschi/jogl2-example&#34;&amp;gt;here&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;	public float[] calculateModelViewMatrix(Vector3f eye, Vector3f center,
+			Vector3f up) {
+
+		// Create a new matrix that will hold the modelview matrix
+		Matrix4fe mv = new Matrix4fe();
+
+		// Set the identity matrix
+		mv.setIdentity();
+
+		// Calculate the forward vector
+		Vector3f forward = new Vector3f();
+		forward.sub(center, eye);
+		forward.normalize();
+
+		// Calculate the side vector by calculating the cross product of the
+		// forward and up vector
+		Vector3f side = new Vector3f();
+		side.cross(forward, up);
+		side.normalize();
+
+		// Recalculate up
+		up.cross(side, forward);
+
+		// Set the matrix fields
+		mv.setElement(0, 0, side.getX());
+		mv.setElement(0, 1, side.getY());
+		mv.setElement(0, 2, side.getZ());
+
+		mv.setElement(1, 0, up.getX());
+		mv.setElement(1, 1, up.getY());
+		mv.setElement(1, 2, up.getZ());
+
+		mv.setElement(2, 0, -forward.getX());
+		mv.setElement(2, 1, -forward.getY());
+		mv.setElement(2, 2, -forward.getZ());
+
+		// Negate the eye vector and create a translation matrix
+		eye.negate();
+		Matrix4f translationMatrix = new Matrix4f();
+		translationMatrix.setIdentity();
+		translationMatrix.setTranslation(eye);
+
+		// Apply the translation
+		mv.mul(translationMatrix);
+
+		return mv.getFloatArray();
+	}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JOGL 2 GLSL Example</title>
+      <link>http://jotschi.de/2011/09/28/jogl-2-glsl-example/</link>
+      <pubDate>Wed, 28 Sep 2011 20:31:06 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/28/jogl-2-glsl-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example shows how to use GLSL in combination with &lt;a href=&#34;http://jogamp.org/wiki/index.php/Main_Page&#34;&gt;JOGL2&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;JOGL2GLSLExample.java&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;package de.jotschi.jogl2.example;
+
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
+
+import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES1;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLCapabilities;
+import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLProfile;
+import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.fixedfunc.GLLightingFunc;
+import javax.media.opengl.fixedfunc.GLMatrixFunc;
+import javax.media.opengl.glu.GLU;
+
+import com.jogamp.common.jvm.JNILibLoaderBase;
+import com.jogamp.gluegen.runtime.NativeLibLoader;
+import com.jogamp.opengl.util.FPSAnimator;
+
+import demos.common.ClassPathLoader;
+
+/*
+ * Simple JOGL 2 - GLSL Example
+ */
+@SuppressWarnings(&#34;serial&#34;)
+public class JOGL2GLSLExample extends Frame implements GLEventListener,
+		KeyListener {
+	private static final int CANVAS_WIDTH = 640; // Width of the drawable
+	private static final int CANVAS_HEIGHT = 480; // Height of the drawable
+	private static final int FPS = 60; // Animator&#39;s target frames per second
+	float rotateT = 0.0f;
+	static GLU glu = new GLU();
+	int timeUniform;
+
+	static {
+		ClassPathLoader loader = new ClassPathLoader();
+		loader.loadLibrary(&#34;gluegen-rt&#34;, true);
+		JNILibLoaderBase.setLoadingAction(loader);
+		NativeLibLoader.disableLoading();
+	}
+
+	// Constructor to create profile, caps, drawable, animator, and initialize
+	// Frame
+	public JOGL2GLSLExample() {
+		// Get the default OpenGL profile that best reflect your running
+		// platform.
+		GLProfile glp = GLProfile.getDefault();
+		// Specifies a set of OpenGL capabilities, based on your profile.
+		GLCapabilities caps = new GLCapabilities(glp);
+		// Allocate a GLDrawable, based on your OpenGL capabilities.
+		GLCanvas canvas = new GLCanvas(caps);
+		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+		canvas.addGLEventListener(this);
+
+		// Create a animator that drives canvas&#39; display() at 60 fps.
+		final FPSAnimator animator = new FPSAnimator(canvas, FPS);
+
+		addWindowListener(new WindowAdapter() { // For the close button
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Use a dedicate thread to run the stop() to ensure that the
+				// animator stops before program exits.
+				new Thread() {
+					@Override
+					public void run() {
+						animator.stop();
+						System.exit(0);
+					}
+				}.start();
+			}
+		});
+		add(canvas);
+		pack();
+		setTitle(&#34;OpenGL 2 GLSL Test&#34;);
+		setVisible(true);
+		animator.start(); // Start the animator
+	}
+
+	public static void main(String[] args) {
+		new JOGL2GLSLExample();
+	}
+
+	@Override
+	public void init(GLAutoDrawable gLDrawable) {
+		GL2 gl = gLDrawable.getGL().getGL2();
+
+		gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
+		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		gl.glClearDepth(1.0f);
+		gl.glEnable(GL.GL_DEPTH_TEST);
+		gl.glDepthFunc(GL.GL_LEQUAL);
+		gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+		((Component) gLDrawable).addKeyListener(this);
+
+		try {
+			initShaders(gl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static String readFromStream(InputStream ins) throws IOException {
+		if (ins == null) {
+			throw new IOException(&#34;Could not read from stream.&#34;);
+		}
+		StringBuffer buffer = new StringBuffer();
+		Scanner scanner = new Scanner(ins);
+		try {
+			while (scanner.hasNextLine()) {
+				buffer.append(scanner.nextLine() + &#34;\n&#34;);
+			}
+		} finally {
+			scanner.close();
+		}
+
+		return buffer.toString();
+	}
+
+	public void initShaders(GL2 gl) throws IOException {
+		int v = gl.glCreateShader(GL2.GL_VERTEX_SHADER);
+		int f = gl.glCreateShader(GL2.GL_FRAGMENT_SHADER);
+
+		String vsrc = readFromStream(JOGL2GLSLExample.class
+				.getResourceAsStream(&#34;/demos/data/shaders/Vertex.glsl&#34;));
+		gl.glShaderSource(v, 1, new String[] { vsrc }, (int[]) null, 0);
+		gl.glCompileShader(v);
+
+		String fsrc = readFromStream(JOGL2GLSLExample.class
+				.getResourceAsStream(&#34;/demos/data/shaders/Fragment.glsl&#34;));
+		gl.glShaderSource(f, 1, new String[] { fsrc }, (int[]) null, 0);
+		gl.glCompileShader(f);
+
+		int shaderprogram = gl.glCreateProgram();
+		gl.glAttachShader(shaderprogram, v);
+		gl.glAttachShader(shaderprogram, f);
+		gl.glLinkProgram(shaderprogram);
+		gl.glValidateProgram(shaderprogram);
+
+		gl.glUseProgram(shaderprogram);
+
+		timeUniform = gl.glGetUniformLocation(shaderprogram, &#34;time&#34;);
+
+	}
+
+	@Override
+	public void display(GLAutoDrawable gLDrawable) {
+		final GL2 gl = gLDrawable.getGL().getGL2();
+
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+		gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
+		gl.glUniform1f(timeUniform, (float) Math.random());
+		gl.glLoadIdentity();
+		gl.glTranslatef(0.0f, 0.0f, -5.0f);
+
+		// rotate on the three axis
+		gl.glRotatef(rotateT, 1.0f, 0.0f, 0.0f);
+		gl.glRotatef(rotateT, 0.0f, 1.0f, 0.0f);
+		gl.glRotatef(rotateT, 0.0f, 0.0f, 1.0f);
+
+		// Draw A Quad
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glColor3f(0.0f, 1.0f, 1.0f); // set the color of the quad
+		gl.glVertex3f(-1.0f, 1.0f, 0.0f); // Top Left
+		gl.glVertex3f(1.0f, 1.0f, 0.0f); // Top Right
+		gl.glVertex3f(1.0f, -1.0f, 0.0f); // Bottom Right
+		gl.glVertex3f(-1.0f, -1.0f, 0.0f); // Bottom Left
+		// Done Drawing The Quad
+		gl.glEnd();
+
+		// increasing rotation for the next iteration
+		rotateT += 0.2f;
+
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void reshape(GLAutoDrawable gLDrawable, int x, int y, int width,
+			int height) {
+		GL2 gl = gLDrawable.getGL().getGL2();
+		if (height &amp;lt;= 0) {
+			height = 1;
+		}
+		float h = (float) width / (float) height;
+		gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
+		gl.glLoadIdentity();
+		glu.gluPerspective(50.0f, h, 1.0, 1000.0);
+		gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+		gl.glLoadIdentity();
+	}
+
+	@Override
+	public void dispose(GLAutoDrawable drawable) {
+		// Hardly used.
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			exit();
+		}
+	}
+
+	public void exit() {
+		System.exit(0);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+	}
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Just a simple fragment shader that uses the time as a seed to generate a random vec2 and to create a random color.
+&lt;em&gt;Fragment.glsl&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#version 120
+
+uniform float time;
+
+float rand(vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453+ time);
+}
+
+void main(void)
+{
+    gl_FragColor = vec4(rand(vec2(1.0,1.0)), rand(vec2(0.0,1.0)), rand(vec2(1.0,0.0)), 1.0);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Vertex.glsl&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;void main(void)
+{
+    gl_Position = ftransform();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenStreetMap libTinyOSM &amp; GeoConvert lon/lat to UTM</title>
+      <link>http://jotschi.de/2011/09/27/openstreetmap-libtinyosm-geoconvert-lonlat-to-utm/</link>
+      <pubDate>Tue, 27 Sep 2011 00:21:25 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/27/openstreetmap-libtinyosm-geoconvert-lonlat-to-utm/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Some time ago i wrote a small library in someway similar to the osmParse library. It has a smaller footprint in comparison to the josm library. The sources can be found &lt;a href=&#34;https://github.com/Jotschi/libTinyOSM&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I also migrated a small ruby file to java which contains useful lon/lat to utm conversion methods. These sources can be found &lt;a href=&#34;https://github.com/Jotschi/geoconvert&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The libTinyOSM contains a small example that shows how both (libTinyOSM and geoconvert) work together to get drawable data from the osm api.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Here is a screenshot that shows the rendered data:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/osm/osmUTMGeoconvert.png&#34; alt=&#34;osmUTMGeoconvert&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenStreetMap osmParser Example</title>
+      <link>http://jotschi.de/2011/09/27/openstreetmap-osmparser-example/</link>
+      <pubDate>Tue, 27 Sep 2011 00:05:46 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/27/openstreetmap-osmparser-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Just a simple OpenStreetMap Example for the &lt;a href=&#34;http://code.google.com/p/osm-parser/&#34;&gt;osmParser Library&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;import br.zuq.osm.parser.OSMParser;
+import br.zuq.osm.parser.model.OSM;
+import br.zuq.osm.parser.model.Way;
+
+public class osmParserTest {
+
+	/**
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception {
+		String left = &#34;16.35428&#34;;
+		String bottom = &#34;48.20161&#34;;
+		String right = &#34;16.36806&#34;;
+		String top = &#34;48.20747&#34;;
+		String url = &#34; http://api.openstreetmap.org/api/0.6/map?bbox=&#34; + left + &#34;,&#34; + bottom + &#34;,&#34; + right
+				+ &#34;,&#34; + top;
+		System.out.println(url);
+		OSM osm = OSMParser.parse(url);
+		for (Way way : osm.getWays()) {
+			System.out.println(way.getName());
+		}
+
+	}
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JOGL2 Maven Examples (Linux i586)</title>
+      <link>http://jotschi.de/2011/09/26/jogl2-maven-example-linux-i586/</link>
+      <pubDate>Mon, 26 Sep 2011 23:56:00 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/26/jogl2-maven-example-linux-i586/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just uploaded a small maven project &amp;lt;a href=&#34;https://github.com/Jotschi/jogl2-example&#34;&amp;gt;to GitHub&amp;lt;/a&amp;gt; that shows how to work with &lt;a href=&#34;http://maven.apache.org&#34;&gt;Maven&lt;/a&gt; and &lt;a href=&#34;http://www.jogamp.org&#34;&gt;JOGL2&lt;/a&gt;.
+The example also make usage of the ClassPathLoader mechanism i described in &amp;lt;a href=&#34;http://www.jotschi.de/?p=660&#34;&amp;gt;my other post&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I added the jogl2 libraries by using the system scope since i could not find a maven repository with those libraries. The example currently works only with i586 linux. But i could be easily modified to handle other architectures as well.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Update: I migrated the nehe JOGL examples which i found &amp;lt;a href=&#34;http://www.java-tips.org/other-api-tips/jogl/vertex-buffer-objects-nehe-tutorial-jogl-port-2.html&#34;&amp;gt;here&amp;lt;/a&amp;gt; to make use of jogl2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/JOGLQuadExample.png&#34; alt=&#34;JOGLQuadExample&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JavaCPP Examples</title>
+      <link>http://jotschi.de/2011/09/23/javacpp-examples/</link>
+      <pubDate>Fri, 23 Sep 2011 21:10:34 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/09/23/javacpp-examples/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I finally found the time to write post about the javacpp &amp;lt;a href=&#34;https://github.com/Jotschi/javacpp-examples&#34;&amp;gt;examples&amp;lt;/a&amp;gt; i created since i wanted to explore the capabilities of the &amp;lt;a href=&#34;http://code.google.com/p/javacpp/&#34;&amp;gt;JavaCPP library&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Please note that the examples are only tested under linux and probably won&amp;#8217;t run on windows/mac.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The examples can be fetched from my &lt;a href=&#34;https://github.com/Jotschi/javacpp-examples&#34;&gt;github repository&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;So far i created four different examples. Each for a specific usecase:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_javacpp_sharedlib_example&#34;&gt;javacpp-sharedlib-example&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example shows how to use a own cpp shared library with the library.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example consists of multiple pieces that finally work together.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;1. Cube.cpp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The shared lib will be created from the Cube cpp class.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &#34;Cube.h&#34;
+
+void Cube::setSide(double s) {
+	side = s &amp;lt;= 0 ? 1 : s;
+}
+
+double Cube::getSide() {
+	return side;
+}
+
+double Cube::getArea() {
+	return 6 * side * side;
+}
+
+double Cube::getVolume() {
+	return side * side * side;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Cube.h&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#ifndef CUBE_H
+#define CUBE_H
+
+class Cube {
+	private:
+		double side;
+	public:
+		Cube() {};
+		~Cube() {};
+
+		// copy constructor
+		Cube(class Cube&amp;amp; cube) {
+			side = cube.side;
+		}
+
+		void setSide(double s);
+		double getSide();
+		double getArea();
+		double getVolume();
+};
+
+#endif&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_2_javacube_java&#34;&gt;2. JavaCube.java&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The JavaCube java class acts as a wrapper/glue that fits between the gap of java and native code. Normally you would here defined your jni hooks which then would be implemented. Since i use JavaCPP this step is radically simplified. The annotations are used to give javacpp all the information it needs to prepare its g++ command that in the final compile step will create the library that can be shipped with the java program.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;package de.jotschi.javacpp.example;
+import static com.googlecode.javacpp.Loader.load;
+
+import com.googlecode.javacpp.Pointer;
+import com.googlecode.javacpp.annotation.Name;
+import com.googlecode.javacpp.annotation.Platform;
+
+@Platform(include = &#34;Cube.h&#34;, link = &#34;Cube&#34;)
+public class JavaCube {
+
+	NativeCube cube;
+	static {
+		load();
+	}
+
+	public JavaCube() {
+		cube = new NativeCube();
+	}
+
+	public void setSide(double s) {
+		cube.setSide(s);
+
+	}
+
+	public double getArea() {
+		return cube.getArea();
+	}
+
+	public double getSide() {
+		return cube.getSide();
+	}
+
+	public double getVolume() {
+		return cube.getVolume();
+	}
+
+	@Name(&#34;Cube&#34;)
+	public static class NativeCube extends Pointer {
+
+		static {
+			load();
+		}
+
+		public NativeCube() {
+			allocate();
+		}
+
+		public NativeCube(Pointer p) {
+			super(p);
+		}
+
+		public native void setSide(double s);
+
+		// this = new Cube()
+		private native void allocate();
+
+		private native double getArea();
+
+		private native double getSide();
+
+		private native double getVolume();
+
+	}
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Once the java files have been compiled the exec-maven-plugin will be executed which itself executes the makefile that builds the shared library.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&amp;lt;execution&amp;gt;
+	&amp;lt;id&amp;gt;build-sharedlib&amp;lt;/id&amp;gt;
+	&amp;lt;phase&amp;gt;process-classes&amp;lt;/phase&amp;gt;
+	&amp;lt;goals&amp;gt;
+		&amp;lt;goal&amp;gt;exec&amp;lt;/goal&amp;gt;
+	&amp;lt;/goals&amp;gt;
+	&amp;lt;configuration&amp;gt;
+		&amp;lt;executable&amp;gt;make&amp;lt;/executable&amp;gt;
+		&amp;lt;commandlineArgs&amp;gt;main&amp;lt;/commandlineArgs&amp;gt;
+		&amp;lt;workingDirectory&amp;gt;${basedir}/src/main/jni&amp;lt;/workingDirectory&amp;gt;
+	&amp;lt;/configuration&amp;gt;
+&amp;lt;/execution&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This library will be used within the next execution of the exec-maven-plugin. This final execution step will invoke the javacpp builder which generated the jni headers from the java class annotations and it also compiles the jni header interface against the previously created library.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&amp;lt;execution&amp;gt;
+	&amp;lt;id&amp;gt;build-jnilib&amp;lt;/id&amp;gt;
+	&amp;lt;phase&amp;gt;process-classes&amp;lt;/phase&amp;gt;
+	&amp;lt;goals&amp;gt;
+		&amp;lt;goal&amp;gt;exec&amp;lt;/goal&amp;gt;
+	&amp;lt;/goals&amp;gt;
+	&amp;lt;configuration&amp;gt;
+		&amp;lt;executable&amp;gt;java&amp;lt;/executable&amp;gt;
+		&amp;lt;commandlineArgs&amp;gt;-jar ../libs/javacpp.jar -Dcompiler.linkpath=${basedir}/target/classes/linux-x86 -Dcompiler.includepath=${basedir}/src/main/jni -classpath target/classes de.jotschi.javacpp.example.JavaCube&amp;lt;/commandlineArgs&amp;gt;
+	&amp;lt;/configuration&amp;gt;
+&amp;lt;/execution&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The CubeTest.java Junit tests shows how the created java class that wraps the native class works.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_javacpp_libc6_example_javacpp_stdlib_example&#34;&gt;javacpp-libc6-example / javacpp-stdlib-example&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;These examples are very similar to the javacpp-sharedlib-example. The libc6 example show how to use JavaCPP with the libc6 library and c code. The stdlib example on the other hand uses the c++ stdlib.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_javacpp_android_example&#34;&gt;javacpp-android-example&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example shows how to use a android maven project in combination with JavaCPP. The example shows how to mix java with native code. The java part creates a opengl surface and the native code is used to execute a opengl function that changed the color of the display.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JNI via JavaCPP on Android</title>
+      <link>http://jotschi.de/2011/08/25/jni-via-javacpp-on-android/</link>
+      <pubDate>Thu, 25 Aug 2011 23:50:55 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/08/25/jni-via-javacpp-on-android/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There are multiple ways to get JNI working with android. You can of course do it the manual way and create header file and includes in your java classes but thats a lot of work and it might be even prone to errors. &amp;lt;a href=&#34;http://www.koushikdutta.com/2009/01/jni-in-android-and-foreword-of-why-jni.html&#34;&amp;gt;Here is a good post&amp;lt;/a&amp;gt; from Koushik Dutta  that summarizes those bad parts in detail. This post will focus on getting started with JavaCPP and Android.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There are some approaches to get rid of all those manual steps. There is for example &lt;a href=&#34;https://github.com/twall/jna&#34;&gt;JNA (Java Native Access)&lt;/a&gt;. &lt;a href=&#34;http://www.ok.ctrl.titech.ac.jp/~saudet/&#34;&gt;Aamuel Audet&lt;/a&gt; the author of JavaCPP wrote a patch for JNA to support Android. But JNA has also some &amp;lt;a href=&#34;http://codeanticode.wordpress.com/2010/12/07/jna-on-android/&#34;&amp;gt;problems&amp;lt;/a&amp;gt; and &amp;lt;a href=&#34;https://github.com/twall/jna/blob/master/www/FrequentlyAskedQuestions.md&#34;&amp;gt; drawbacks&amp;lt;/a&amp;gt; which should be noted.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Another solution is using JavaCPP by Aamuel Audet. This post will describe how to get JavaCPP working with Android.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_create_an_eclipse_android_project&#34;&gt;Create an Eclipse Android project&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Use the wizard and create a new android project with the name NativeTest.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_add_javacpp_to_the_project_libs&#34;&gt;Add JavaCPP to the project libs&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the javacpp binary archive and place the javacpp.jar into the /libs folder of your project. Create the folder if it does not exist. Add the javacpp.jar to your buildpath&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_add_javacpp_example_code_to_your_project&#34;&gt;Add JavaCPP example code to your project&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Replace your default activity class with the content of NativeTestActivity. You need to adapt some package names.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The example is very simple and was fetched from the JavaCPP tutorial page but i guess it shows really good how to get started with JavaCPP. If the app does not crash you&amp;#8217;ll know for sure that everything is fine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;package de.jotschi;
+
+import com.googlecode.javacpp.Loader;
+import com.googlecode.javacpp.Pointer;
+import com.googlecode.javacpp.PointerPointer;
+import com.googlecode.javacpp.annotation.ByRef;
+import com.googlecode.javacpp.annotation.Cast;
+import com.googlecode.javacpp.annotation.Name;
+import com.googlecode.javacpp.annotation.Namespace;
+import com.googlecode.javacpp.annotation.Platform;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+@Platform(include = &#34;&amp;lt;vector&amp;gt;&#34;)
+@Namespace(&#34;std&#34;)
+public class NativeTestActivity extends Activity {
+
+	static {
+		Loader.load();
+	}
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		PointerVector v = new PointerVector(42);
+		Pointer p = new Pointer() {
+			{
+				address = 0xDEADBEEFL;
+			}
+		};
+		v.get(0).put(p);
+
+		PointerVector v2 = new PointerVector().copy(v);
+		Pointer p2 = v2.at(0).get();
+		System.out.println(v2.size() + &#34;  &#34; + p2);
+
+	}
+
+	@Name(&#34;vector&amp;lt;void*&amp;gt;&#34;)
+	public static class PointerVector extends Pointer {
+		public PointerVector() {
+			allocate();
+		}
+
+		public PointerVector(long n) {
+			allocate(n);
+		}
+
+		public PointerVector(Pointer p) {
+			super(p);
+		} // this = (vector&amp;lt;void*&amp;gt;*)p
+
+		private native void allocate(); // this = new std::vector&amp;lt;void*&amp;gt;()
+
+		private native void allocate(long n); // this = new
+												// std::vector&amp;lt;void*&amp;gt;(n)
+
+		@Name(&#34;operator=&#34;)
+		public native @ByRef
+		PointerVector copy(@ByRef PointerVector x);
+
+		public native long size();
+
+		public native @Cast(&#34;bool&#34;)
+		boolean empty();
+
+		@Name(&#34;operator[]&#34;)
+		public native @ByRef
+		PointerPointer get(long n);
+
+		public native @ByRef
+		PointerPointer at(long n);
+	}
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_create_the_native_files_using_javacpp&#34;&gt;Create the native files using JavaCPP&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Switch into your workspace directory and execute the following command. Please note that you have to change your paths accordingly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;jotschi@Amilo:~/workspace/NativeTest$ java -jar libs/javacpp.jar -classpath bin/  -d libs/armeabi/ -properties android-arm -Dplatform.root=/opt/ide/android-ndk-r6 -Dcompiler.path=/opt/ide/android-ndk-r6/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++  -classpath /opt/ide/android-sdk-linux_x86/platforms/android-10/android.jar de.jotschi.NativeTestActivity&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can also create an external builder task to execute the generation process automatically. This &amp;lt;a href=&#34;http://mobilepearls.com/labs/ndk-builder-in-eclipse/&#34;&amp;gt;post&amp;lt;/a&amp;gt; describes how to setup a builder for the ndk.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_execute_the_example&#34;&gt;Execute the example&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now you can execute the example on your android device. Please note that enabling &#39;debug&#39; within your android manifest will help debugging. LogCat will only print stacktraces if you have enabled that option.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Eclipse CDT Cross Platform Development Within A Chroot Environment</title>
+      <link>http://jotschi.de/2011/07/08/eclipse-cdt-cross-platform-development-within-a-chroot-environment/</link>
+      <pubDate>Fri, 08 Jul 2011 18:36:49 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/07/08/eclipse-cdt-cross-platform-development-within-a-chroot-environment/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This post is about how to configure eclipse to work with a chroot environment that is setup for cross compiling against ARM architecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Please refer to my post &amp;lt;a href=&#34;http://jotschi.de/?p=594&#34;&amp;gt;Cross Compile Pandaboard PowerVR OpenGL ES2 Example&amp;lt;/a&amp;gt; if you want to know how to setup a chroot environment for cross compiling.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_1_install_sudo_and_configure_sudo&#34;&gt;1. Install sudo and configure sudo&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Install sudo:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get install sudo&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Allow every user that is within the sudo group to execute the chroot command without entering a password by adding the line to /etc/sudoers:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;/etc/sudoers&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;%sudo   ALL= NOPASSWD: /usr/sbin/chroot&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_2_prepare_the_project&#34;&gt;2. Prepare the project&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The project must be located within the within the chroot environment. You could use bind mounts to create a mountpoint that connects your workspace project with a folder inside the chroot enviroment. I just placed the project itself inside the chroot environment and created a symlink that points to my workspace. Keep in mind to close your project or eclipse if you move the project files outside of eclipse.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1. Create your CDT project.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2. Close the project within eclipse.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3. Move the project directory from e.g.: ~/workspace/MyProject/ to ~/mychroot/opt/MyProject&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;4. Create a symlink inside of ~/workspace with the name &amp;lt;i&amp;gt;MyProject&amp;lt;/i&amp;gt; that points to ~/mychroot/opt/MyProject&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;5. Open the project within eclipse&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_3_create_a_external_build_script&#34;&gt;3. Create a external build script&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This example script (e.g: ~/workspace/MyProject/compile.sh) will execute the bash command inside of the chroot environment which is located at $HOME/mychroot. The bash command will switch into the project location inside the chroot environment and execute make. Of course you can optimize the script to make it more generic and so on. But for now i&amp;#8217;ll keep it simple.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+sudo chroot $HOME/mychroot/  bash -c &#39;cd /opt/MyProject/; make clean; make&#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_4_configure_your_eclipse_cdt_project&#34;&gt;4. Configure your eclipse cdt project&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now we have to change the builder for our project. Since we don&amp;#8217;t want to use the host environment to build the project we need to tell eclipse to use our compile.sh script which we created earlier. Go into &amp;lt;i&amp;gt;project properties &amp;#8594; C/C++ Build &amp;#8594; Builder Settings&amp;lt;/i&amp;gt; and select &lt;em&gt;External builder&lt;/em&gt;. Point the Build command to your compile.sh.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;To fix syntax errors within your project you have to add the correct includes of course. Go to &amp;lt;i&amp;gt;project properties &amp;#8594; C/C++ Build &amp;#8594; Setting &amp;#8594; Tool Settings&amp;lt;/i&amp;gt; and add the include directories from your chroot enviroment. If you are using xapt to install cross libraries please note that those files are usually located at &lt;em&gt;/usr/arm-linux-gnueabi/&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Example for libx11-dev&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;root@NeXuS:/# dpkg -L  libx11-dev-armel-cross
+/.
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/libx11-dev-armel-cross
+/usr/share/doc/libx11-dev-armel-cross/README
+/usr/arm-linux-gnueabi
+/usr/arm-linux-gnueabi/include
+/usr/arm-linux-gnueabi/include/X11
+/usr/arm-linux-gnueabi/include/X11/Xregion.h
+/usr/arm-linux-gnueabi/include/X11/Xresource.h
+/usr/arm-linux-gnueabi/include/X11/Xlib.h
+/usr/arm-linux-gnueabi/include/X11/cursorfont.h
+/usr/arm-linux-gnueabi/include/X11/XKBlib.h
+/usr/arm-linux-gnueabi/include/X11/Xlibint.h
+/usr/arm-linux-gnueabi/include/X11/Xutil.h
+/usr/arm-linux-gnueabi/include/X11/XlibConf.h
+/usr/arm-linux-gnueabi/include/X11/ImUtil.h
+/usr/arm-linux-gnueabi/include/X11/Xlocale.h
+/usr/arm-linux-gnueabi/include/X11/Xcms.h
+/usr/arm-linux-gnueabi/lib
+/usr/arm-linux-gnueabi/lib/pkgconfig
+/usr/arm-linux-gnueabi/lib/pkgconfig/x11.pc
+/usr/arm-linux-gnueabi/lib/libX11.a
+/usr/arm-linux-gnueabi/lib/libX11.so&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cross Compile Pandaboard PowerVR OpenGL ES2 Example</title>
+      <link>http://jotschi.de/2011/07/08/pandaboard-powervr-opengl-es2-example/</link>
+      <pubDate>Fri, 08 Jul 2011 14:12:40 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/07/08/pandaboard-powervr-opengl-es2-example/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This post is about how to cross compile a very simple OpenGL ES2 example for the Pandaboard within a Debian Linux chroot environment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-594&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;What do we need?&lt;/em&gt;
+* Pandaboard running Ubuntu 11 (Natty)
+* x86 (i386) Workstation running Debian
+* &amp;lt;a href=&#34;http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/&#34;&amp;gt;pvr-omap4 orig package&amp;lt;/a&amp;gt; (e.g.: &amp;lt;a href=&#34;http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&#34;&amp;gt;pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&amp;lt;/a&amp;gt;)
+* &lt;a href=&#34;http://jotschi.de/downloads/PandaboardPowerVROGLES2Example.tgz&#34;&gt;Archive&lt;/a&gt; with OpenGL ES2 example for the Pandaboard&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_1_create_a_chroot_environment&#34;&gt;1. Create a chroot environment&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At first we need a chroot environment in which we can compile our code against arm architecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;# use debootstrap to create a chroot environment
+debootstrap --arch=i386 testing rootfs/
+# Switch into the chroot environment
+chroot rootfs
+# Install some basic tools
+apt-get install vim less pdebuild-cross&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_2_update_our_apt_sources&#34;&gt;2. Update our apt sources&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Add the emdebian repository.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;echo &#34;deb http://ftp.at.debian.org/debian/ testing main contrib non-free&#34; &amp;gt; /etc/apt/sources.list
+echo &#34;deb http://www.emdebian.org/debian/ testing main&#34; &amp;gt;&amp;gt; /etc/apt/sources.list
+apt-get install emdebian-archive-keyring
+apt-get update&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_3_install_the_crosscompiler_tools_from_emdebian_repository&#34;&gt;3. Install the crosscompiler tools from emdebian repository&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;apt-get install g++-4.4-arm-linux-gnueabi
+apt-get install gcc-4.4-arm-linux-gnueabi&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_4_powervr_libraries_and_headers&#34;&gt;4. PowerVR libraries and headers&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the pvr-omap4 archive which contains a set of libraries for powervr. The files can be found at &amp;lt;a href=&#34;https://launchpad.net/~tiomap-dev&#34;&amp;gt;Launchpad TI Dev&amp;lt;/a&amp;gt;. Those binaries are used to create the omap4 ubuntu packages. I used the pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz archive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;# Extract pvr-omap4 archive
+cd /opt/
+wget http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+tar xvfz pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_5_get_cross_compile_dependencies&#34;&gt;5. Get cross compile dependencies&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;xapt -m -a armel libx11-dev
+xapt -m -a armel libdrm-dev&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_6_extract_the_example_and_compile&#34;&gt;6. Extract the example and compile&lt;/h3&gt;
+
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;__a_href_downloads_pandaboardpowervrogles2example_tgz_download_the_example&#34;&gt;&amp;lt;a href=&#34;http://jotschi.de/downloads/PandaboardPowerVROGLES2Example.tgz[Download] the example&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;cd /opt/
+wget http://www.jotschi.de/downloads/PandaboardPowerVROGLES2Example.tgz
+tar xvfz PandaboardPowerVROGLES2Example.tgz&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect3&#34;&gt;
+&lt;h4 id=&#34;_store_settings&#34;&gt;Store Settings&lt;/h4&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Contents of /opt/settings.inc&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;#!/bin/bash
+export X11ROOT=/usr/arm-linux-gnueabi/
+export PVR_OMAP_FILES=/opt/pvr-omap4-1.7.5.2+git20110610+9696932c.2&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_load_settings_and_compile&#34;&gt;Load settings and compile:&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;cd /opt/OGLES2PowerVRPandaboardExample
+# If . does not work use source to include the settings
+. /opt/settings.inc
+# Invoke the build
+make&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;h3&amp;gt;Optional for pandaboard cross platform development&amp;lt;/h3&amp;gt;
+Now i have a build arm ready binary executable within my chroot environment. To execute it straight from eclipse we have to create another script. The script will transfer our executable (in this case OGLES2HelloTriangle) to the Pandaboard OMAP4 platform and execute it there.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;run.sh:&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;#!/bin/bash
+echo &#34;Transfering&#34;
+scp ReleaseX11/OGLES2HelloTriangle  root@panda:/opt/
+
+echo &#34;Executing&#34;
+ssh root@panda DISPLAY=:0 /opt/OGLES2HelloTriangle&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Just create a new C/C++ Application run configuration that uses the following settings:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;C/C++ Application: /bin/bash&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Program arguments: /home/myuser/workspace/MyProject/run.sh&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Pandaboard OpenGL PowerVR CrossCompile On Debian</title>
+      <link>http://jotschi.de/2011/07/07/pandaboard-opengl-powervr-crosscompile-on-debian/</link>
+      <pubDate>Thu, 07 Jul 2011 00:45:28 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/07/07/pandaboard-opengl-powervr-crosscompile-on-debian/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This post is about how to compile the PowerVR SDK Examples within a Debian Linux Chroot environment. Sometimes you may not want to compile your sources on the target platform because of performance reasons.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;Notes about environment:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Debian Chroot Environment was using Debian Testing (Wheezy).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pandaboard was running Ubuntu 11 (Natty)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PowerVR Library versions: 1.7.5.2+git20110610+9696932c.2-1&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;What do we need?&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pandaboard running Ubuntu 11 (Natty)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;x86 (i386) Workstation running Debian&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/&#34;&gt;pvr-omap4 orig package&lt;/a&gt; (e.g.: &lt;a href=&#34;http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&#34;&gt;pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz&lt;/a&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Imagination PowerVR &amp;lt;a href=&#34;http://www.imgtec.com/powervr/insider/sdkdownloads/index.asp&#34;&amp;gt;Khronos OpenGL ES 2.0 SDK&amp;lt;/a&amp;gt; for Pandaboard&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_1_create_a_chroot_environment&#34;&gt;1. Create a chroot environment&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;At first we need a chroot environment in which we can compile our code against arm architecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# use debootstrap to create a chroot environment
+debootstrap --arch=i386 testing rootfs/
+# Switch into the chroot environment
+chroot rootfs
+# Install some basic tools
+apt-get install vim less pdebuild-cross&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_2_update_our_apt_sources&#34;&gt;2. Update our apt sources&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Add the emdebian repository.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &#34;deb http://ftp.at.debian.org/debian/ testing main contrib non-free&#34; &amp;gt; /etc/apt/sources.list
+echo &#34;deb http://www.emdebian.org/debian/ testing main&#34; &amp;gt;&amp;gt; /etc/apt/sources.list
+apt-get install emdebian-archive-keyring
+apt-get update&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_3_install_the_crosscompiler_tools_from_emdebian_repository&#34;&gt;3. Install the crosscompiler tools from emdebian repository&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get install g++-4.4-arm-linux-gnueabi
+apt-get install gcc-4.4-arm-linux-gnueabi&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_4_prepare_the_powervr_sdk&#34;&gt;4. Prepare the PowerVR SDK&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cd /opt/
+# Download the powervr sdk and extract it in /opt
+tar xfvz SDK_OGLES2_LINUX_ARMV7_2.08.28.0634.tar.gz
+# Replace one parameter that does not work with Debian Linux.
+sed -i &#39;s/arm-none-linux/arm-linux/&#39; /opt/SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7/make_platform.mak&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_5_get_cross_compile_dependencies&#34;&gt;5. Get cross compile dependencies&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;xapt -m -a armel libx11-dev
+xapt -m -a armel libdrm-dev&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_6_store_settings&#34;&gt;6. Store Settings&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Contents of /opt/settings.inc&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+export X11BUILD=1
+export PLATFORM=LinuxARMV7
+export X11ROOT=/usr/include/
+export CROSS_COMPILE=arm-linux-gnueabi-&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_7_compile_example&#34;&gt;7. Compile example&lt;/h3&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cd /opt/SDKPackage_OGLES2/TrainingCourse/03_Texturing/OGLES2/Build
+# If . does not work use source to include the settings
+. /opt/settings.inc
+# Invoke the build
+make&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_8_problems_and_issues&#34;&gt;8. Problems and issues&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I transfered the binaries onto my pandaboard after i compiled the sources on my workstation. If i tried to execute them i got the following error:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;eglBindAPI failed (40740).&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_9_fixes&#34;&gt;9. Fixes&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I assume that the libraries which are included in the sdk are outdated. The libraries can be found here: &lt;em&gt;SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7/Lib&lt;/em&gt;. I replaced them with a set of libraries which can be found at &amp;lt;a href=&#34;https://launchpad.net/~tiomap-dev&#34;&amp;gt;Launchpad TI Dev&amp;lt;/a&amp;gt;. Those binaries are used to create the omap4 ubuntu packages. I used the pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz archive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Extract pvr-omap4 archive
+cd /opt/
+wget http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+tar xvfz pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+# Replace Libs
+cd /opt/SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7
+mv Lib/ Lib.bak
+ln -s /opt/pvr-omap4-1.7.5.2+git20110610+9696932c.2/usr/lib/ Lib&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;After replacing the libraries and recompiling the examples worked just fine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Java QuadTree Implementation</title>
+      <link>http://jotschi.de/2011/05/07/java-quadtree-implementation/</link>
+      <pubDate>Sat, 07 May 2011 22:45:49 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/05/07/java-quadtree-implementation/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This is a simple QuadTree implementation in Java.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The code can be found at Github:
+&lt;a href=&#34;https://github.com/Jotschi/JavaQuadTree&#34; class=&#34;bare&#34;&gt;https://github.com/Jotschi/JavaQuadTree&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;PointQuadTree&amp;lt;String&amp;gt; tree = new PointQuadTree&amp;lt;String&amp;gt;(new Point(0, 0), new Dimension(600, 600));
+	tree.insert(1, 3, &#34;1&#34;);
+	tree.insert(11, 32, &#34;2&#34;);
+	tree.insert(11, 52, &#34;3&#34;);
+	tree.insert(454, 555, &#34;4&#34;);
+	tree.insert(353, 555, &#34;5&#34;);
+	tree.insert(552, 555, &#34;6&#34;);
+	tree.insert(551, 555, &#34;7&#34;);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This code shows how to create a new QuadTree that holds strings. At the creation of the QuadTree the start coordinates and the bounds of the tree must be specified.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;RenderPointQuadTree.java is an executable application that shows how to work with the QuadTree data. Leftclick will insert a new point. Rightclick will highlight the elements within the identified cell/node.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;image:/images/quadtree/quadtree.png&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;RenderSpatialQuadTree.java is an executable application that show how to use the spatial QuadTree implementation. In this case the quadtree will be used to store some images. The QuadTree has a specific dimension (512x512 in this case). We just add a buch of different images which have different sizes. The tree will try to use the free space as efficent as possible. One usecase for this might be the automatic generation of tilemaps or &lt;a href=&#34;http://www.silverspaceship.com/src/svt/&#34;&gt;Sparse Virtual Textures&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;image:/images/quadtree/spatialquadtree.jpg&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Creating an uberjar webapp using jetty and maven</title>
+      <link>http://jotschi.de/2011/04/23/creating-an-uberjar-webapp-using-jetty-and-maven/</link>
+      <pubDate>Sat, 23 Apr 2011 17:51:59 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2011/04/23/creating-an-uberjar-webapp-using-jetty-and-maven/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This post is about creating an uberjar webapp. uberjar webapps are executable jar archives that start a server that serves the webapp with one single command. Everything is contained within a single jar.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Inspired by &lt;a href=&#34;http://open.bekk.no/2011/01/14/embedded-jetty-7-webapp-executable-with-maven/&#34;&gt;this blogpost&lt;/a&gt; ( &amp;lt;a href=&#34;https://github.com/bekkopen/jetty-pkg&#34;&amp;gt;Code&amp;lt;/a&amp;gt; ) i created a similar example using maven which you can find here: &amp;lt;a href=&#34;https://github.com/Jotschi/Uberjar-Dummy-Webapp&#34;&amp;gt;Example Sources&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;It contains a uberjar webapp that will be served using jetty. The webapp itself just contains a jersey REST resource. So this project also demonstrates how to get started with jersey.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can import all projects using the m2eclipse plugins ( &lt;a href=&#34;http://m2eclipse.sonatype.org/installing-m2eclipse.html&#34; class=&#34;bare&#34;&gt;http://m2eclipse.sonatype.org/installing-m2eclipse.html&lt;/a&gt;)
+Note: You will need &#39;m2eclipse Extras&#39; if you want to deploy the webapp within your eclipse IDE.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can package the project using the following command:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mvn clean package&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You can execute the following command to start the uberjar dummy server:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;java -jar uberjardummy-server/target/uber-uberjardummy-server-0.0.1-SNAPSHOT.jar&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Memory Allocation Test </title>
+      <link>http://jotschi.de/2010/11/11/memory-allocation-test/</link>
+      <pubDate>Thu, 11 Nov 2010 22:08:18 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2010/11/11/memory-allocation-test/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;If you want to test is your vserver/openvz/lxc memory quota settings are working you can just use the following memory allocation test to check it out.
+You have to write fake data into the allocated memory area to trigger the memory checks of the kernel/virtualisation tool of your choice.&amp;lt;/p&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Memory overcommit is a Linux kernel feature that lets applications allocate more memory than is actually available. The idea behind this feature is that some applications allocate large amounts of memory just in case, but never actually use it. Thus, memory overcommit allows you to run more applications than actually fit in your memory, provided the applications don&amp;#8217;t actually use the memory they have allocated. If they do, then the kernel terminates the application.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+
+main() {
+
+   int i;
+   for(i=0;i&amp;lt;9000;i++) {
+        int *ptr = malloc(i*1024*1024);
+        if (ptr == NULL) {
+          printf (&#34;Soft memory allocation failed for %i MB\n&#34;,i );
+          break;
+        } else {
+            free(ptr);
+            ptr = NULL;
+        }
+   }
+
+
+   for(i=0;i&amp;lt;9000;i++) {
+
+        int *ptr = malloc(i*1024*1024);
+        if (ptr == NULL) {
+          printf (&#34;Memory allocation failed for %i MB\n&#34;,i );
+          break;
+        } else {
+            memset(ptr, 0, i*1024*1024);
+            printf(&#34;Wrote %i MB to memory\n&#34;, i);
+            //usleep(1000);
+            free(ptr);
+            ptr = NULL;
+        }
+
+   }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenGL Tesselation Techniques Comparison </title>
+      <link>http://jotschi.de/2009/12/16/opengl-tesselation-techniques-comparison/</link>
+      <pubDate>Wed, 16 Dec 2009 01:22:24 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/16/opengl-tesselation-techniques-comparison/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There is a variety of different tesselation techniques you can use within openGL. This post should give a overview over the different techniques currently available:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;{% youtube Bcalc8UoJzo %}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;1. External Library:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.cs.cmu.edu/~quake/triangle.html&#34;&gt;Triangle&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pro&amp;#8217;s: More flexibel usage&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con&amp;#8217;s: Doesn&amp;#8217;t use GPU computing capabilities&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;2. Static pipeline functionality provided by GLU the GLUtesselator:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/?p=466&#34;&amp;gt;OpenGL GLU Tesselation Method Without DisplayLists&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pro&amp;#8217;s: Simple to use&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con&amp;#8217;s: Doesn&amp;#8217;t use GPU computing capabilities&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;3. Using the GL_AMD_vertex_shader_tessellator extension from AMD / ATI&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://www.opengl.org/registry/specs/AMD/vertex_shader_tessellator.txt&#34;&amp;gt;Spec: vertex_shader_tessellator&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://jotschi.de/?p=460&#34;&amp;gt;OpenGL AMD Tesselation Example (CatmullCark SubDivision) - Linux&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pro&amp;#8217;s: Does use GPU computing features&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con&amp;#8217;s: Does not work with Nvidia cards at all&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;4. Using OpenGL 3.2 Geometry Shader Extensions:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&amp;lt;a href=&#34;http://www.opengl.org/registry/specs/EXT/geometry_shader4.txt&#34;&amp;gt;Spec: geometry_shader4&amp;lt;/a&amp;gt;
+&amp;lt;a href=&#34;http://wiki.delphigl.com/index.php/shader_tesselation&#34;&amp;gt;&lt;a href=&#34;http://wiki.delphigl.com/index.php/shader_tesselation&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://wiki.delphigl.com/index.php/shader_tesselation&amp;lt;/a&amp;gt&lt;/a&gt;;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Pro&amp;#8217;s: Does use GPU computing features&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con&amp;#8217;s: GPU must Shader Model 4&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenGL GLU Tesselation Method Without DisplayLists</title>
+      <link>http://jotschi.de/2009/12/15/opengl-glu-tesselation-method-without-displaylists/</link>
+      <pubDate>Tue, 15 Dec 2009 23:23:32 +0000</pubDate>
+      
+      <guid>http://jotschi.de/2009/12/15/opengl-glu-tesselation-method-without-displaylists/</guid>
+      <description>&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Due to the deprecation of &#39;DisplayLists&#39; within OpenGL 3.2 i wanted to store my tessellated mesh within a structure which i could use later on. Therefor it is possible to use the GLU_TESS_VERTEX_DATA, GLU_TESS_BEGIN_DATA etc gluTessCallback hooks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;When calling the gluTessBeginPolygon method it is possible to pass a address to a own structure along as second argument. This address will be handled to the callback methods and therefor you can access your defined data structure to store the tessellated data within it. My example shows how to deal with that.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I use the &lt;a href=&#34;http://glm.g-truc.net/about.html&#34;&gt;OpenGL Mathematics Library&lt;/a&gt; to handle my points.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/tesselation/tesselation_star.png&#34; alt=&#34;tesselation star&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/tesselation/tesselation_star_wire.png&#34; alt=&#34;tesselation star wire&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;em&gt;GL_GLUT_TesselationData.cpp&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;GL/glut.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &#34;glm/glm.hpp&#34;
+using namespace std;
+
+//#define USEDISPLAYLIST
+
+GLuint startList;
+GLdouble **dataOutFinal;
+
+#ifndef USEDISPLAYLIST
+struct Mesh {
+	std::vector&amp;lt;glm::vec3&amp;gt; points;
+	GLenum type;
+} mesh;
+#endif
+
+GLdouble rect[4][3] = { 50.0, 50.0, 0.0, 200.0, 50.0, 0.0, 200.0, 140.0, 0.0,
+		50.0, 200.0, 0.0 };
+
+GLdouble star[5][6] = { 250.0, 50.0, 0.0, 1.0, 0.0, 1.0, 325.0, 200.0, 0.0,
+		1.0, 1.0, 0.0, 400.0, 50.0, 0.0, 0.0, 1.0, 1.0, 250.0, 150.0, 0.0, 1.0,
+		0.0, 0.0, 400.0, 150.0, 0.0, 0.0, 1.0, 0.0 };
+
+void display(void) {
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 0.5, 1.0);
+
+	// Enable this to see the wireframe
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+#ifndef USEDISPLAYLIST
+	vector&amp;lt;glm::vec3&amp;gt;::const_iterator cii;
+	glBegin(mesh.type);
+	for (cii = mesh.points.begin(); cii != mesh.points.end(); cii++) {
+		glVertex3f((*cii).x, (*cii).y, (*cii).z);
+		printf(&#34;Result: %f,%f,%f\n&#34;, (*cii).x, (*cii).y, (*cii).z);
+	}
+	glEnd();
+#else
+	glCallList(startList);
+#endif
+
+	glFlush();
+}
+
+void beginCallback(GLenum which, void *resultMesh) {
+	printf(&#34;Type: %i\n&#34;, which);
+#ifdef USEDISPLAYLIST
+	glBegin(which);
+#else
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).type = which;
+#endif
+
+}
+
+void errorCallback(GLenum errorCode) {
+	const GLubyte *estring;
+	estring = gluErrorString(errorCode);
+	fprintf(stderr, &#34;Tessellation Error: %s\n&#34;, estring);
+	exit(0);
+}
+
+void endCallback(void *tessellationSetAddress) {
+#ifdef USEDISPLAYLIST
+	glEnd();
+#endif
+}
+
+void vertexCallback(GLvoid *data, void *resultMesh) {
+	const GLdouble *pointer;
+	pointer = (GLdouble *) data;
+#ifdef USEDISPLAYLIST
+	glColor3dv(pointer + 3);
+	glVertex3dv(pointer);
+#else
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).points.push_back(glm::vec3(pointer[0], pointer[1], pointer[2]));
+#endif
+	printf(&#34;Added new vertex[%f][%f][%f]\n&#34;, pointer[0], pointer[1], pointer[2]);
+
+}
+
+void combineCallback(GLdouble coords[3], GLdouble *vertex_data[4],
+		GLfloat weight[4], GLdouble **dataOut, void *resultMesh) {
+
+	GLdouble *vertex;
+	vertex = (GLdouble *) malloc(6 * sizeof(GLdouble));
+	vertex[0] = coords[0];
+	vertex[1] = coords[1];
+	vertex[2] = coords[2];
+
+#ifndef USEDISPLAYLIST
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).points.push_back(glm::vec3(vertex[0], vertex[1], vertex[2]));
+#endif
+	printf(&#34;Added combine vertex[%f][%f][%f]\n&#34;, vertex[0], vertex[1],
+			vertex[2]);
+
+	*dataOut = vertex;
+
+}
+
+void init(void) {
+	GLUtesselator *tobj;
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+
+	tobj = gluNewTess();
+	gluTessCallback(tobj, GLU_TESS_VERTEX_DATA, (void(*)()) vertexCallback);
+	gluTessCallback(tobj, GLU_TESS_BEGIN_DATA, (void(*)()) beginCallback);
+	gluTessCallback(tobj, GLU_TESS_END_DATA, (void(*)()) endCallback);
+	gluTessCallback(tobj, GLU_TESS_ERROR, (void(*)()) errorCallback);
+	gluTessCallback(tobj, GLU_TESS_COMBINE_DATA, (void(*)()) combineCallback);
+
+#ifdef USEDISPLAYLIST
+	startList = glGenLists(1);
+	glNewList(startList, GL_COMPILE);
+#endif
+
+	glShadeModel(GL_SMOOTH);
+	gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_POSITIVE);
+
+#ifdef USEDISPLAYLIST
+	gluTessBeginPolygon(tobj, NULL);
+#else
+	gluTessBeginPolygon(tobj, &amp;amp;mesh);
+#endif
+
+	/*
+	 gluTessBeginContour(tobj);
+	 gluTessVertex(tobj, rect[0], rect[0]);
+	 gluTessVertex(tobj, rect[1], rect[1]);
+	 gluTessVertex(tobj, rect[2], rect[2]);
+	 gluTessVertex(tobj, rect[3], rect[3]);
+	 gluTessEndContour(tobj);
+	 */
+
+	gluTessBeginContour(tobj);
+	gluTessVertex(tobj, star[0], star[0]);
+	gluTessVertex(tobj, star[1], star[1]);
+	gluTessVertex(tobj, star[2], star[2]);
+	gluTessVertex(tobj, star[3], star[3]);
+	gluTessVertex(tobj, star[4], star[4]);
+	gluTessEndContour(tobj);
+
+	gluTessEndPolygon(tobj);
+
+#ifdef USEDISPLAYLIST
+	glEndList();
+#endif
+	gluDeleteTess(tobj);
+
+	printf(&#34;Done\n&#34;);
+
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
+}
+
+void keyboard(unsigned char key, int x, int y) {
+	switch (key) {
+	case 27:
+		exit(0);
+		break;
+	}
+}
+
+int main(int argc, char** argv) {
+	glutInit(&amp;amp;argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 500);
+	glutCreateWindow(argv[0]);
+	init();
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutKeyboardFunc(keyboard);
+	glutMainLoop();
+	return 0;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

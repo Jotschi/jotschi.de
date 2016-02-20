@@ -39,23 +39,17 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://jotschi.de//categories/"></a></li>
+							<li><a href="http://jotschi.de//categories/code">Code</a></li>
 						
-							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
-						
-							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+							<li><a href="http://jotschi.de//categories/electronics">Electronics</a></li>
 						
 							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
 						
-							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+							<li><a href="http://jotschi.de//categories/linux">Linux</a></li>
 						
-							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+							<li><a href="http://jotschi.de//categories/random">Random</a></li>
 						
-							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
-						
-							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
-						
-							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+							<li><a href="http://jotschi.de//categories/space">Space</a></li>
 						
 						</ul>
 					</li>
@@ -81,8 +75,7 @@
 <p>This post is about how to configure eclipse to work with a chroot environment that is setup for cross compiling against ARM architecture.</p>
 </div>
 <div class="paragraph">
-<p>Please refer to my post &lt;a href="/?p=594"&gt;Cross Compile Pandaboard PowerVR OpenGL ES2 Example&lt;/a&gt; if you want to know how to setup a chroot environment for cross compiling.
-&lt;a id="more"&gt;&lt;/a&gt;&lt;a id="more-615"&gt;&lt;/a&gt;</p>
+<p>Please refer to my post &lt;a href="/?p=594"&gt;Cross Compile Pandaboard PowerVR OpenGL ES2 Example&lt;/a&gt; if you want to know how to setup a chroot environment for cross compiling.</p>
 </div>
 <div class="sect2">
 <h3 id="_1_install_sudo_and_configure_sudo">1. Install sudo and configure sudo</h3>
@@ -130,9 +123,11 @@
 </li>
 </ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_3_create_a_external_build_script">3. Create a external build script</h3>
 <div class="paragraph">
-<p>&lt;h3&gt;3. Create a external build script&lt;/h3&gt;
-This example script (e.g: ~/workspace/MyProject/compile.sh) will execute the bash command inside of the chroot environment which is located at $HOME/mychroot. The bash command will switch into the project location inside the chroot environment and execute make. Of course you can optimize the script to make it more generic and so on. But for now i&#8217;ll keep it simple.</p>
+<p>This example script (e.g: ~/workspace/MyProject/compile.sh) will execute the bash command inside of the chroot environment which is located at $HOME/mychroot. The bash command will switch into the project location inside the chroot environment and execute make. Of course you can optimize the script to make it more generic and so on. But for now i&#8217;ll keep it simple.</p>
 </div>
 <div class="listingblock">
 <div class="content">

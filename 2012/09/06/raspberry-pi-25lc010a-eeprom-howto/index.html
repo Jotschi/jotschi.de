@@ -39,23 +39,17 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://jotschi.de//categories/"></a></li>
+							<li><a href="http://jotschi.de//categories/code">Code</a></li>
 						
-							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
-						
-							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+							<li><a href="http://jotschi.de//categories/electronics">Electronics</a></li>
 						
 							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
 						
-							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+							<li><a href="http://jotschi.de//categories/linux">Linux</a></li>
 						
-							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+							<li><a href="http://jotschi.de//categories/random">Random</a></li>
 						
-							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
-						
-							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
-						
-							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+							<li><a href="http://jotschi.de//categories/space">Space</a></li>
 						
 						</ul>
 					</li>
@@ -84,14 +78,14 @@
 <p>Hardware:</p>
 </div>
 <div class="paragraph">
-<p>I used the &lt;a href="http://learn.adafruit.com/adafruit-pi-cobbler-kit/overview"&gt;Adafruit pi cobbler&lt;/a&gt; to connect the GPIO header with my breadboard.
-The 25LC010a eeprom chip is a small eeprom chip. The datasheet can be found &lt;a href="http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf"&gt;here&lt;/a&gt;.</p>
+<p>I used the <a href="http://learn.adafruit.com/adafruit-pi-cobbler-kit/overview">Adafruit pi cobbler</a> to connect the GPIO header with my breadboard.
+The 25LC010a eeprom chip is a small eeprom chip. The datasheet: <a href="http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf" class="bare">http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf</a>.</p>
 </div>
 <div class="paragraph">
 <p>Software:</p>
 </div>
 <div class="paragraph">
-<p>I used the default raspbian image for the raspberry pi. The &lt;a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/"&gt;wiringpi toolchain&lt;/a&gt; contains some neat little programs and libraries to get I2C and SPI working with the raspberry pi.</p>
+<p>I used the default raspbian image for the raspberry pi. The <a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/">wiringpi toolchain</a> contains some neat little programs and libraries to get I2C and SPI working with the raspberry pi.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -111,7 +105,7 @@ The 25LC010a eeprom chip is a small eeprom chip. The datasheet can be found &lt;
 <p>Reboot the PI</p>
 </li>
 <li>
-<p>Install wiringPI as described &lt;a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/"&gt;here&lt;/a&gt;.</p>
+<p>Install wiringPI as described <a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install">here</a>.</p>
 </li>
 </ol>
 </div>
@@ -142,8 +136,7 @@ cd wiringPi
 &lt;a href="/images/25LC010/raspberry_pi-spi-25LC010a_bb.jpg"&gt;&lt;img src="/images/25LC010/raspberry_pi-spi-25LC010a_bb.jpg" alt="" title="raspberry_pi-spi-25LC010a_bb" width="1024" height="726" class="aligncenter size-full wp-image-787" /&gt;&lt;/a&gt;
 The two resistors are very important because they are used to pullup the SCK and MOSI pin. The eeprom works with 5V or 3.3V. I used 3.3V because the GPIO pins only tolerate 3.3V input. Higher voltage might damage your board.
 <a href="http://twitpic.com/arlj3z"" class="bare">http://twitpic.com/arlj3z"</a> alt="Just got SPI communication with an 25lc010a and my raspberry &#8230;&#8203; on Twitpic"></span>
-&lt;img src="http://twitpic.com/show/thumb/arlj3z.jpg" width="150" height="150" alt="Just got SPI communication with an 25lc010a and my raspberry &#8230;&#8203; on Twitpic"&gt;
-&lt;/a&gt;</p>
+&lt;img src="http://twitpic.com/show/thumb/arlj3z.jpg" width="150" height="150" alt="Just got SPI communication with an 25lc010a and my raspberry &#8230;&#8203; on Twitpic"&gt;</p>
 </li>
 <li>
 <p>Compile the source file. You can use this make file:</p>
@@ -198,7 +191,7 @@ depend:
 <p>{% gist 3659646 %}</p>
 </div>
 <div class="paragraph">
-<p>&lt;a href="/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg"&gt;&lt;img src="/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg" alt="" title="raspberry_pi-spi-25LC010a_schem" width="1024" height="548" class="aligncenter size-full wp-image-786" /&gt;&lt;/a&gt;</p>
+<p><span class="image"><img src="/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg" alt="raspberry pi spi 25LC010a schem"></span></p>
 </div>
 
 				</section>

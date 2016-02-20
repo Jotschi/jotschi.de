@@ -39,23 +39,17 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://jotschi.de//categories/"></a></li>
+							<li><a href="http://jotschi.de//categories/code">Code</a></li>
 						
-							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
-						
-							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+							<li><a href="http://jotschi.de//categories/electronics">Electronics</a></li>
 						
 							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
 						
-							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+							<li><a href="http://jotschi.de//categories/linux">Linux</a></li>
 						
-							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+							<li><a href="http://jotschi.de//categories/random">Random</a></li>
 						
-							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
-						
-							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
-						
-							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+							<li><a href="http://jotschi.de//categories/space">Space</a></li>
 						
 						</ul>
 					</li>
@@ -81,7 +75,7 @@
 <p>Another OSG ProjectiveTexture Example - I did some code cleanup and added a bounding box test feature. My goal this example was to align the projector so that it would cover 100% of the second cameras field of view. In other words the view volume of the perspector of the scene should always be inside of the view volume of the projector. I solved this task by using some bounding box features and by setting the projector view matrix to align the view.</p>
 </div>
 <div class="paragraph">
-<p>&lt;a href="/images/opengl/BoundingBoxedView.png"&gt;&lt;img src="/images/opengl/BoundingBoxedView.png" alt="BoundingBoxedView" title="BoundingBoxedView" width="500" class="alignnone size-full wp-image-384" /&gt;&lt;/a&gt;</p>
+<p><span class="image"><img src="/images/opengl/BoundingBoxedView.png" alt="BoundingBoxedView"></span></p>
 </div>
 <div class="paragraph">
 <p><em>ProjectiveTextureExample.cpp</em></p>
@@ -410,55 +404,47 @@ int main(int argc, char ** argv) {
 	}
 	return 0;
 
-}
-&lt;/pre&gt;
-As you can see the texture coordinated will be shifted by 0.5/0.5. I had to do this because the projective center was in the middle of the texture. Without correction you get results like this one:
-
-&lt;img src="/images/opengl/texture_projection.png" alt="1" title="1" width="628" height="475" class="alignnone size-full wp-image-385" /&gt;
-
-&lt;img src="/images/opengl/texture_projection_2.png" alt="2" title="2" width="628" height="470" class="alignnone size-full wp-image-386" /&gt;
-
-
-_FragmentShader.glsl_
-
-[source, c]</code></pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>uniform sampler2D projectionMap;
-varying vec4 projCoord;</p>
+<p>As you can see the texture coordinated will be shifted by 0.5/0.5. I had to do this because the projective center was in the middle of the texture. Without correction you get results like this one:</p>
 </div>
 <div class="paragraph">
-<p>void main()
+<p><span class="image"><img src="/images/opengl/texture_projection.png" alt="texture projection"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="/images/opengl/texture_projection_2.png" alt="texture projection 2"></span></p>
+</div>
+<div class="paragraph">
+<p><em>FragmentShader.glsl</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">uniform sampler2D projectionMap;
+varying vec4 projCoord;
+
+void main()
 {
 	vec4 dividedCoord = projCoord / projCoord.w ;
 	vec4 color =  texture2D(projectionMap,dividedCoord.st+vec2(0.5,0.5)  );
   	gl_FragColor =	 color * gl_Color;
-}</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>_VertexShader.glsl_
-
-[source, c]</pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>varying vec4 projCoord;
-void main()
-{</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>		projCoord =  gl_TextureMatrix[1]  *  gl_Vertex;
-		gl_Position = ftransform();
-		gl_FrontColor = gl_Color;
-}</pre>
-</div>
+<p><em>VertexShader.glsl</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">varying vec4 projCoord;
+void main()
+{
+
+		projCoord =  gl_TextureMatrix[1]  *  gl_Vertex;
+		gl_Position = ftransform();
+		gl_FrontColor = gl_Color;
+}</code></pre>
 </div>
 </div>
 
@@ -482,6 +468,8 @@ void main()
 		<h4>Tags</h4>
 		<div class="tag-box">
 		
+        <span class="tag-item"><a href="http://jotschi.de//tags/opengl">#opengl</a></span>
+        
 		</div>
 	</div>
 </div>

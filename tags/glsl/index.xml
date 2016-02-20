@@ -16,17 +16,25 @@
       
       <guid>http://jotschi.de/2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/</guid>
       <description>&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY&amp;#8217;s it might also be interessting for someone who want&amp;#8217;s to know how to set a texture uniform (sampler2d) or (sampler2darray).&lt;/p&gt;
+&lt;p&gt;This example covers the usage of texture arrays within opengl.
+Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY&amp;#8217;s it might also be interesting for someone who want&amp;#8217;s to know how to set a texture uniform (sampler2d) or (sampler2darray).&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;The specification for texture arrays can be found here: &amp;lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&#34;&amp;gt;&lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&#34; class=&#34;bare&#34;&gt;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&amp;lt;/a&amp;gt&lt;/a&gt;;. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
-&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-396&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;The specification for texture arrays can be found here: &lt;a href=&#34;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&#34; class=&#34;bare&#34;&gt;http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt&lt;/a&gt;
+This extension is also supported by the newest ati cards.
+Screenshots were taken by using the example with an ati 4850 card and the latest drivers.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;b&amp;gt;Update - Note: &amp;lt;/b&amp;gt;
-Compile with:
-&amp;lt;blockquote&amp;gt;g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp&amp;lt;/blockquote&amp;gt;
-Get sources and libs:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Update - Note:&lt;/em&gt;
+Compile with:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp
+----
+Get sources and libs:&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&#34;ulist&#34;&gt;
 &lt;ul&gt;
@@ -36,8 +44,10 @@ Get sources and libs:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;b&amp;gt;Update:&amp;lt;/b&amp;gt;
-I just developed an workaround for this issue by adding clamp to border by myself to the shader:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;I just developed an workaround for this issue by adding clamp to border by myself to the shader:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;
@@ -62,20 +72,28 @@ void main()
 &lt;p&gt;&lt;em&gt;NOARRAY - not definied&lt;/em&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:
-&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI&#34; width=&#34;412&#34; height=&#34;327&#34; class=&#34;alignnone size-full wp-image-397&#34; /&amp;gt;
-The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set.&lt;/p&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL TEXTURE 2D ARRAY CLAMP TO BORDER ATI&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;&lt;em&gt;NOARRAY - definied&lt;/em&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:
-&amp;lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; title=&#34;GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI&#34; width=&#34;392&#34; height=&#34;292&#34; class=&#34;alignnone size-full wp-image-398&#34; /&amp;gt;
-As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:&lt;/p&gt;
+&lt;p&gt;The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;Download the complete example sources: &amp;lt;a href=&#34;http://jotschi.de/downloads/opengl/opengl_texture_array_glsl_example.tgz&#34;&amp;gt;opengl_texture_array_glsl_example.tgz&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png&#34; alt=&#34;GL TEXTURE 2D CLAMP TO BORDER ATI&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Download the complete example sources: &lt;a href=&#34;http://jotschi.de/downloads/opengl/opengl_texture_array_glsl_example.tgz&#34;&gt;opengl_texture_array_glsl_example.tgz&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;&lt;em&gt;shader_array.frag:&lt;/em&gt;&lt;/p&gt;
@@ -514,7 +532,7 @@ gl_FragColor = texture2DArray(textures,vec3(gl_TexCoord[0].xy, currentTexture));
 &lt;p&gt;I finally managed to get projective textures working using GLSL shaders rather than fixed pipeline functionality.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;Projective Texturing Example&#34; /&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/osg/projection_fixedfunctionality.jpg&#34; alt=&#34;projection fixedfunctionality&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;

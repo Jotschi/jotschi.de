@@ -39,23 +39,17 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://jotschi.de//categories/"></a></li>
+							<li><a href="http://jotschi.de//categories/code">Code</a></li>
 						
-							<li><a href="http://jotschi.de//categories/das-kalte-nichts">Das-Kalte-Nichts</a></li>
-						
-							<li><a href="http://jotschi.de//categories/fundgrube">Fundgrube</a></li>
+							<li><a href="http://jotschi.de//categories/electronics">Electronics</a></li>
 						
 							<li><a href="http://jotschi.de//categories/gfx">Gfx</a></li>
 						
-							<li><a href="http://jotschi.de//categories/life">Life</a></li>
+							<li><a href="http://jotschi.de//categories/linux">Linux</a></li>
 						
-							<li><a href="http://jotschi.de//categories/neuronensturm">Neuronensturm</a></li>
+							<li><a href="http://jotschi.de//categories/random">Random</a></li>
 						
-							<li><a href="http://jotschi.de//categories/technik">Technik</a></li>
-						
-							<li><a href="http://jotschi.de//categories/traumzone">Traumzone</a></li>
-						
-							<li><a href="http://jotschi.de//categories/uncategorized">Uncategorized</a></li>
+							<li><a href="http://jotschi.de//categories/space">Space</a></li>
 						
 						</ul>
 					</li>
@@ -78,7 +72,8 @@
 				</div>
 				<section>
 					<div class="paragraph">
-<p>Due to an update of my linux kernel i stumbled upon a strange issue. I could not get sockets working properly. After some googling i figured out that it had to be a network configuration issue.</p>
+<p>Due to an update of my linux kernel i stumbled upon a strange issue. I could not get sockets working properly.
+After some googling i figured out that it had to be a network configuration issue.</p>
 </div>
 <div class="paragraph">
 <p>By default (Debian Testing) sockets bind only to ipv6.</p>
@@ -93,8 +88,14 @@ Set the parameter from net.ipv6.bindv6only=1 to net.ipv6.bindv6only=0</code></pr
 </div>
 </div>
 <div class="paragraph">
-<p>To test the setting you can also use the following command:
-&lt;blockquote&gt;sysctl -w net.ipv6.bindv6only=0&lt;/blockquote&gt;</p>
+<p>To test the setting you can also use the following command:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>sysctl -w net.ipv6.bindv6only=0</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The error messages might be:</p>

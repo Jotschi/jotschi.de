@@ -917,15 +917,19 @@ Example:&lt;/p&gt;
 &lt;h2 id=&#34;_hardware&#34;&gt;Hardware&lt;/h2&gt;
 &lt;div class=&#34;sectionbody&#34;&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;First you&amp;#8217;ll need to buy a set of remote controlled power plugs. I got mine from &amp;lt;a href=&#34;http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html&#34;&amp;gt;pollin.de&amp;lt;/a&amp;gt; for around 10 €.
-&amp;lt;a href=&#34;http://jotschi.de/images/hx2262-remote/G550666.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hx2262-remote/G550666.jpg&#34; alt=&#34;&#34; title=&#34;G550666&#34; width=&#34;300&#34; height=&#34;225&#34; class=&#34;aligncenter size-full wp-image-854&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;First you&amp;#8217;ll need to buy a set of remote controlled power plugs. I got mine from &lt;a href=&#34;http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html&#34;&gt;pollin.de&lt;/a&gt; for around 10 €.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/hx2262-remote/G550666.jpg&#34; alt=&#34;G550666&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;Connect your 5V VCC from the GPIO pins of your Raspberry PI to the positiv terminal of your remote control.
 Connect the GCN GPIO pin to the negativ terminal of your remote control.
 Connect the PIN 17 GPIO pin to a 8k Ohm resistor and the resistor to pin P1 of the remote control.
-I drilled a hole trough the existing via and scrapped away the soldermask to expose the copper for soldering a connection in place.
-&amp;lt;a href=&#34;http://jotschi.de/images/hx2262-remote/hx2262-remote.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/hx2262-remote/hx2262-remote.jpg&#34; alt=&#34;&#34; title=&#34;hx2262-remote&#34; width=&#34;1024&#34; height=&#34;742&#34; class=&#34;aligncenter size-full wp-image-855&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+I drilled a hole trough the existing via and scrapped away the soldermask to expose the copper for soldering a connection in place.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/hx2262-remote/hx2262-remote.jpg&#34; alt=&#34;hx2262 remote&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1241,14 +1245,14 @@ A simple rendering that shows how the screens will be positioned inside the case
 &lt;p&gt;Hardware:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;I used the &amp;lt;a href=&#34;http://learn.adafruit.com/adafruit-pi-cobbler-kit/overview&#34;&amp;gt;Adafruit pi cobbler&amp;lt;/a&amp;gt; to connect the GPIO header with my breadboard.
-The 25LC010a eeprom chip is a small eeprom chip. The datasheet can be found &amp;lt;a href=&#34;http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf&#34;&amp;gt;here&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;p&gt;I used the &lt;a href=&#34;http://learn.adafruit.com/adafruit-pi-cobbler-kit/overview&#34;&gt;Adafruit pi cobbler&lt;/a&gt; to connect the GPIO header with my breadboard.
+The 25LC010a eeprom chip is a small eeprom chip. The datasheet: &lt;a href=&#34;http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf&#34; class=&#34;bare&#34;&gt;http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;Software:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;I used the default raspbian image for the raspberry pi. The &amp;lt;a href=&#34;https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/&#34;&amp;gt;wiringpi toolchain&amp;lt;/a&amp;gt; contains some neat little programs and libraries to get I2C and SPI working with the raspberry pi.&lt;/p&gt;
+&lt;p&gt;I used the default raspbian image for the raspberry pi. The &lt;a href=&#34;https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/&#34;&gt;wiringpi toolchain&lt;/a&gt; contains some neat little programs and libraries to get I2C and SPI working with the raspberry pi.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;olist arabic&#34;&gt;
 &lt;ol class=&#34;arabic&#34;&gt;
@@ -1268,7 +1272,7 @@ The 25LC010a eeprom chip is a small eeprom chip. The datasheet can be found &amp
 &lt;p&gt;Reboot the PI&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Install wiringPI as described &amp;lt;a href=&#34;https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/&#34;&amp;gt;here&amp;lt;/a&amp;gt;.&lt;/p&gt;
+&lt;p&gt;Install wiringPI as described &lt;a href=&#34;https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
@@ -1299,8 +1303,7 @@ cd wiringPi
 &amp;lt;a href=&#34;http://jotschi.de/images/25LC010/raspberry_pi-spi-25LC010a_bb.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/25LC010/raspberry_pi-spi-25LC010a_bb.jpg&#34; alt=&#34;&#34; title=&#34;raspberry_pi-spi-25LC010a_bb&#34; width=&#34;1024&#34; height=&#34;726&#34; class=&#34;aligncenter size-full wp-image-787&#34; /&amp;gt;&amp;lt;/a&amp;gt;
 The two resistors are very important because they are used to pullup the SCK and MOSI pin. The eeprom works with 5V or 3.3V. I used 3.3V because the GPIO pins only tolerate 3.3V input. Higher voltage might damage your board.
 &lt;a href=&#34;http://twitpic.com/arlj3z&#34;&#34; class=&#34;bare&#34;&gt;http://twitpic.com/arlj3z&#34;&lt;/a&gt; alt=&#34;Just got SPI communication with an 25lc010a and my raspberry &amp;#8230;&amp;#8203; on Twitpic&#34;&gt;&lt;/span&gt;
-&amp;lt;img src=&#34;http://twitpic.com/show/thumb/arlj3z.jpg&#34; width=&#34;150&#34; height=&#34;150&#34; alt=&#34;Just got SPI communication with an 25lc010a and my raspberry &amp;#8230;&amp;#8203; on Twitpic&#34;&amp;gt;
-&amp;lt;/a&amp;gt;&lt;/p&gt;
+&amp;lt;img src=&#34;http://twitpic.com/show/thumb/arlj3z.jpg&#34; width=&#34;150&#34; height=&#34;150&#34; alt=&#34;Just got SPI communication with an 25lc010a and my raspberry &amp;#8230;&amp;#8203; on Twitpic&#34;&amp;gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Compile the source file. You can use this make file:&lt;/p&gt;
@@ -1355,7 +1358,7 @@ depend:
 &lt;p&gt;{% gist 3659646 %}&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;a href=&#34;http://jotschi.de/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg&#34;&amp;gt;&amp;lt;img src=&#34;http://jotschi.de/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg&#34; alt=&#34;&#34; title=&#34;raspberry_pi-spi-25LC010a_schem&#34; width=&#34;1024&#34; height=&#34;548&#34; class=&#34;aligncenter size-full wp-image-786&#34; /&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg&#34; alt=&#34;raspberry pi spi 25LC010a schem&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -1373,13 +1376,10 @@ depend:
 &lt;p&gt;Unsoldering tip: Disconnect the two metal clips that are connected to the case of the sensor. You can carefully lift the sensor after that has been done. The connection wires can easily be reinserted into the sensor housing.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;a id=&#34;more&#34;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a id=&#34;more-780&#34;&amp;gt;&amp;lt;/a&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/pixart/pixart_pinout.jpg&#34; alt=&#34;pixart pinout&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/pixart/pixart_pinout.jpg&#34;/&amp;gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;paragraph&#34;&gt;
-&lt;p&gt;&amp;lt;img src=&#34;http://jotschi.de/images/pixart/pixart_pinout_2.jpg&#34;/&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;image&#34;&gt;&lt;img src=&#34;http://jotschi.de/images/pixart/pixart_pinout_2.jpg&#34; alt=&#34;pixart pinout 2&#34;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;IR Camera pin configuration:&lt;/p&gt;

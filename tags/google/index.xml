@@ -17,7 +17,7 @@
       <guid>http://jotschi.de/2009/12/06/minimal-google-docs-java-client/</guid>
       <description>&lt;div class=&#34;paragraph&#34;&gt;
 &lt;p&gt;This code demonstrates how to fetch docs via google docs java api.
-This example is usable with the &amp;lt;a href=&#34;http://code.google.com/p/gdata-java-client/&#34;&amp;gt;gdata-java-client&amp;lt;/a&amp;gt;.&lt;/p&gt;
+This example is usable with the &lt;a href=&#34;http://code.google.com/p/gdata-java-client/&#34;&gt;gdata-java-client&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;listingblock&#34;&gt;
 &lt;div class=&#34;content&#34;&gt;
