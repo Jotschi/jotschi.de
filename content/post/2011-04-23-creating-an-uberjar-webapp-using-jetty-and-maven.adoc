@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Code
 comments: []
 date: 2011-04-23T17:51:59Z
 excerpt: "This post is about creating an uberjar webapp. uberjar webapps are executable

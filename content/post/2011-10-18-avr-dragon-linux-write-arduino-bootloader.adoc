@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Electronics
 comments: []
 date: 2011-10-18T22:27:35Z
 excerpt: |
@@ -22,23 +22,23 @@ This article will contain a small summary on how to write an arduino bootloader 
 <a id="more"></a><a id="more-700"></a>
 
 ==  Get an AVR Dragon
-I got mine from <a href="http://www.watterott.com/de/Atmel-AVR-Dragon">watterott.com</a>.
+I got mine from http://www.watterott.com/de/Atmel-AVR-Dragon[watterott.com].
 
-==  Solder a 40pin ZIF socket to your AVR Dragon as described <a href="http://www.youtube.com/watch?v=yJo29VMXt90">here</a>
-
+==  Solder a 40pin ZIF socket to your AVR Dragon as described http://www.youtube.com/watch?v=yJo29VMXt90[here]
 
 ==  3. Wire the pins using the following diagram. 
 
-<a href="/images/avr-dragon/pinout_dw.png"><img src="/images/avr-dragon/pinout_dw.png" alt="" title="pinout_dw" width="417" height="365" class="alignnone size-full wp-image-701" /></a>
+image:/images/avr-dragon/pinout_dw.png[]
 
-Provide a external oscillator to your avr chip. Just connect connect pin 9 and 10 (XTAL1,XTAL2) to an 16 MHz crystal. 
-<a href="/images/avr-dragon/Avr-atmega328-pins.png"><img src="/images/avr-dragon/Avr-atmega328-pins.png" alt="" title="Avr-atmega328-pins" width="322" height="207" class="alignnone size-full wp-image-735" /></a>
+Provide a external oscillator to your avr chip. Just connect connect pin 9 and 10 (XTAL1,XTAL2) to an 16 MHz crystal.
+ 
+image:/images/avr-dragon/Avr-atmega328-pins.png[]
 
 Each of the two pins of the the quartz crystal should be connected to an 22pF capacitor. The capacitor then connects to GND of the a avr dragon Ext_Power connector.
 
-<a href="/images/avr-dragon/avrdragon_arduino.jpg"><img src="/images/avr-dragon/avrdragon_arduino.jpg" alt="" title="avrdragon_arduino" width="320"  class="alignnone size-full wp-image-733" /></a>
-<br/>
-<a href="/images/avr-dragon/avrdragon_arduino-top.jpg"><img src="/images/avr-dragon/avrdragon_arduino-top.jpg" alt="" title="avrdragon_arduino-top" width="320"  class="alignnone size-full wp-image-734" /></a>
+image:/images/avr-dragon/avrdragon_arduino.jpg[]
+
+image:/images/avr-dragon/avrdragon_arduino-top.jpg[]
 
 
 I got the following error when trying to program the chip when using no external oscillator:
@@ -57,7 +57,6 @@ avrdude done.  Thank you.
 
 make: *** [isp] Error 1
 ----
-
 
 ==  4. Create the following udev file within /etc/udev/rules.d to enable AVR Dragon detection and restart your udev (or force a reload).
 
@@ -127,4 +126,5 @@ avrdude  -c dragon_isp -p atmega328p -P usb -b 115200 -U flash:w:optiboot_atmega
 
 ==  7. Test your arduino chip
 
-I just removed the ATMega328p from the dragon and placed it in an arduino uno socket to test it. 
+I just removed the ATMega328p from the dragon and placed it in an arduino uno socket to test it.
+ 

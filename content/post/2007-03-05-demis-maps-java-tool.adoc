@@ -4,8 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
-- GFX
+- Code
 comments: []
 date: 2007-03-05T02:35:52Z
 excerpt: "Demis_Maps ist ein kleines Java Tool um Demis Maps mithilfe einer KMZ/KML

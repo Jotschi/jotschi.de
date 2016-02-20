@@ -3,7 +3,8 @@ author: Jotschi
 author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
-categories: []
+categories: 
+- Electronics
 comments:
 - author: dorian
   author_email: doriangino@gmail.com

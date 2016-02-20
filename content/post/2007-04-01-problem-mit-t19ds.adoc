@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Electronics
 date: 2007-04-01T21:54:26Z
 excerpt: Vor einiger Zeit hatte ich Probleme mit meinem TFT.
 published: true
@@ -22,7 +22,7 @@ Nach dem Einschalten zündet kurz die Hintergrundbeleuchtung und danach bleibt d
 Scheinbar fallen sehr viele Vision Magic T19DS nach ~1 Jahr Betrieb aus weil die eingebauten Kondensatoren minderwertig sind. 
 Ich habe zwar alle Elkos ausgetauscht aber ich glaube das der im Bild rot markierte Kondenator bei mir der Hauptübeltäter war. (400V Elko)
 
-image:/images/t19ds/t19ds_power.jpg
+image:/images/t19ds/t19ds_power.jpg[]
 
 Die Bauteile gibt es bei http://www.pollin.de oder http://reichelt.de
 

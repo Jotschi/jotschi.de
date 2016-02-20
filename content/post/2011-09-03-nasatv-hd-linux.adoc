@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Space
 comments:
 - author: Kinux
   author_email: rainbowcastel@gmail.com

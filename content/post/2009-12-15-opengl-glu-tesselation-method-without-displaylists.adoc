@@ -4,8 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
-- GFX
+- Code
 comments: []
 date: 2009-12-15T23:23:32Z
 excerpt: "Due to the deprecation of 'DisplayLists' within OpenGL 3.2 i wanted to store
@@ -30,9 +29,9 @@ When calling the gluTessBeginPolygon method it is possible to pass a address to 
 
 I use the http://glm.g-truc.net/about.html[OpenGL Mathematics Library] to handle my points. 
 
-<img src="/images/tesselation/tesselation_star.png" alt="tesselation_star" title="tesselation_star" width="240" height="216" class="alignnone size-full wp-image-468" />
+image:/images/tesselation/tesselation_star.png[]
 
-<img src="/images/tesselation/tesselation_star_wire.png" alt="tesselation_star_wire" title="tesselation_star_wire" width="232" height="205" class="alignnone size-full wp-image-469" />
+image:/images/tesselation/tesselation_star_wire.png[]
 
 _GL_GLUT_TesselationData.cpp_
 

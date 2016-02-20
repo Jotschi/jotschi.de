@@ -4,7 +4,6 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Fundgrube
 - GFX
 comments: []
 date: 2009-04-23T22:58:44Z

@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Linux
 comments: []
 date: 2007-08-24T17:27:09Z
 excerpt: 'Wireless Network Interface verschwunden? '
@@ -40,6 +40,7 @@ Um den killswitch unter Linux zum laufen zu bringen benötigt man (beim Amilo Pr
 
 Diese gibt es unter http://www.cakey.de/acerhk/
 
+[source, bash]
 ----
 make
 make install
@@ -50,11 +51,15 @@ modprobe acerhk
 Sollte das Modul nicht bauen weil es die config.h nicht findet genügt es in acerhk.c (Line 38) den Include von linux/config.h auf linux/autoconf.h zu ändern.
 
 Mit dem folgenden Befehl aktiviert man das WLAN wieder:
+
+[source, bash]
 ----
 echo 1 > /proc/driver/acerhk/wirelessled 
 ----
 
 rf_kill sollte nun 0 zurückliefern:
+
+[source, bash]
 ----
 amilo:/sys/bus/pci/drivers/ipw3945/0000:04:00.0# cat rf_kill
 0
@@ -62,7 +67,7 @@ amilo:/sys/bus/pci/drivers/ipw3945/0000:04:00.0# cat rf_kill
 
 Getestet mit:
 
-* Distro:       Debian Etch
-* Notebook: Amilo Pro 3505
+* Distro:     Debian Etch
+* Notebook:   Amilo Pro 3505
 * Treiber:    Ipw3945-1.2.2 / acerhk-0.5.34
 * Kernel:     2.6.21.5

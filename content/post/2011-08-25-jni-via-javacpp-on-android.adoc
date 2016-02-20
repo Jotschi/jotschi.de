@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Uncategorized
+- Code
 comments: []
 date: 2011-08-25T23:50:55Z
 excerpt: |

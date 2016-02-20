@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Linux
 comments: []
 date: 2009-07-05T14:17:30Z
 excerpt: |
@@ -25,11 +25,12 @@ My fglrx installation guide for Debian testing (squeez) with 2.6.26-2-686-bigmem
 
 Update: I updated the post to meet fglrx 9-11 requirements.
 
-<h2>Preperations:</h2>
+== Preperations:
+
 1. Stop X
 
 2. Install additional packages you might need:
-<code>apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 linux-headers-$(uname -r) </code>
+```apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 linux-headers-$(uname -r) ```
 
 3. Download ati-driver-installer-9-11-x86.x86_64.run from <a href="http://www.amd.com">www.amd.com</a>
 
@@ -58,10 +59,10 @@ Pin-Priority: 1001</blockquote>
  In case you want to upgrade your fglrx driver you need to take care of the following steps:
 
 1. Unload fglrx module in case you are using it
-<code>modprobe -r fglrx </code>
+```modprobe -r fglrx ```
 
 2. Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.
-<code>// get a list of all fglrx packages
+```// get a list of all fglrx packages
 sudo dpkg -l | grep fglrx
 sudo dpkg -P  fglrx-driver
 sudo dpkg -P  fglrx-kernel-$(uname -r)
@@ -69,15 +70,15 @@ sudo dpkg -P  fglrx-kernel-src
 sudo dpkg -P  fglrx-amdcccle
 sudo dpkg -P  fglrx-driver-dev
 // make sure everything is gone
-sudo dpkg -l | grep fglrx</code>
+sudo dpkg -l | grep fglrx```
 
 3. Restore files that might have been messed up by previous fglrx installations
-<code>apt-get --reinstall install libgl1-mesa-glx
-apt-get --reinstall install xserver-xorg-core</code>
+```apt-get --reinstall install libgl1-mesa-glx
+apt-get --reinstall install xserver-xorg-core```
 
 4. Get rid of old ati configurations
-<code>sudo mv /etc/ati /tmp
-sudo mv /etc/X11/xorg.conf /tmp</code>
+```sudo mv /etc/ati /tmp
+sudo mv /etc/X11/xorg.conf /tmp```
 
 <del datetime="2009-11-18T17:39:24+00:00">5. Create new xorg.conf without ati specifications inside </del>
 <del datetime="2009-11-18T17:39:24+00:00">sudo dpkg-reconfigure xserver-xorg</del>
@@ -90,23 +91,23 @@ sudo mv /etc/X11/xorg.conf /tmp</code>
 
 <h2>Installation Steps:</h2>
 1. Create the fglrx packages:
-<code>./ati-driver-installer-9-11-x86.x86_64.run --extract fglrx_9-11
+```./ati-driver-installer-9-11-x86.x86_64.run --extract fglrx_9-11
 cd fglrx_9-11
 ln -s x740 x710
 ./packages/Debian/ati-packager.sh --buildpkg testing
-</code>
+```
 
 2. Install the packages. You may have to change the order due to dependencies.
-<code>dpkg -i fglrx-driver_8.62-1_i386.deb
+```dpkg -i fglrx-driver_8.62-1_i386.deb
 dpkg -i fglrx-driver-dev_8.62-1_i386.deb
 dpkg -i fglrx-kernel-src_8.62-1_i386.deb
-dpkg -i fglrx-amdcccle_8.62-1_i386.deb</code>
+dpkg -i fglrx-amdcccle_8.62-1_i386.deb```
 
 Once you get the following error you can proceed with dpkg --force-all:
 _trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core_
 
 Finally i had to use the --force-all option to install the package. 
-<code>dpkg --force-all -i fglrx-driver_8.62-1_i386.deb</code>
+```dpkg --force-all -i fglrx-driver_8.62-1_i386.deb```
 
 _This is a quite drastic step but otherwise the fglrx driver won't install at all._
 
@@ -114,23 +115,25 @@ _This is a quite drastic step but otherwise the fglrx driver won't install at al
 <del datetime="2009-11-18T17:39:24+00:00">module-assistant auto-install fglrx-kernel-src</del>
 
 Update: This does not work any more. I do not know why. But here is the workaround:
-<code>module-assistant
+
+----
+module-assistant
 # SELECT -> fglrx-kernel -> BUILD / INSTALL #
-</code>
+----
 
 <del datetime="2009-11-18T17:39:24+00:00">Please note that at this point no download should occure. If it does abort the installation. In that case the module-assistant downloaded the desired module from the non-free package tree. You can avoid this by removing non-free from your source.lst and rebuild the index via apt-get update.
 </del>
 
 4. Load the module:
-<code>modprobe fglrx</code>
+```modprobe fglrx```
 
 5. Make sure it was loaded. If it wasn't loaded use dmesg to check what happed.
-<code>lsmod | grep fglrx</code>
+```lsmod | grep fglrx```
 
 6. Create the ati configuration.
-<code>aticonfig --initial</code>
+```aticonfig --initial```
 
 7. Start X
-<code>startx</code>
+```startx```
 Note:
 If you have trouble of setup a dual head environment without using Xinerama take a look the related post.

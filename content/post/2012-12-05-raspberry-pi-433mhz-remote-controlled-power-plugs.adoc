@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Electronics
 comments: []
 date: 2012-12-05T00:18:40Z
 published: true
@@ -19,14 +19,16 @@ wordpress_url: /?p=853
 
 == Hardware
 
-First you'll need to buy a set of remote controlled power plugs. I got mine from <a href="http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html">pollin.de</a> for around 10 €.
-<a href="/images/hx2262-remote/G550666.jpg"><img src="/images/hx2262-remote/G550666.jpg" alt="" title="G550666" width="300" height="225" class="aligncenter size-full wp-image-854" /></a>
+First you'll need to buy a set of remote controlled power plugs. I got mine from http://www.pollin.de/shop/dt/MzMzOTQ0OTk-/Haustechnik/Installationsmaterial/Schalter_Steckdosen/Funk_Steckdosen_Set_2605.html[pollin.de] for around 10 €.
+
+image:/images/hx2262-remote/G550666.jpg[]
 
 Connect your 5V VCC from the GPIO pins of your Raspberry PI to the positiv terminal of your remote control. 
 Connect the GCN GPIO pin to the negativ terminal of your remote control.
 Connect the PIN 17 GPIO pin to a 8k Ohm resistor and the resistor to pin P1 of the remote control.
 I drilled a hole trough the existing via and scrapped away the soldermask to expose the copper for soldering a connection in place.
-<a href="/images/hx2262-remote/hx2262-remote.jpg"><img src="/images/hx2262-remote/hx2262-remote.jpg" alt="" title="hx2262-remote" width="1024" height="742" class="aligncenter size-full wp-image-855" /></a>
+
+image:/images/hx2262-remote/hx2262-remote.jpg[]
 
 == Software
 

@@ -4,8 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Fundgrube
-- GFX
+- Code
 comments: []
 date: 2009-05-31T21:55:15Z
 excerpt: "I finally managed to get projective textures working using GLSL shaders
@@ -23,7 +22,7 @@ url: /2009/05/31/projective-textures-with-openscenegraph/
 
 I finally managed to get projective textures working using GLSL shaders rather than fixed pipeline functionality. 
 
-<img src="/images/osg/projection_fixedfunctionality.jpg" alt="Projective Texturing Example" />
+image:/images/osg/projection_fixedfunctionality.jpg[]
 
 [source, c]
 ----

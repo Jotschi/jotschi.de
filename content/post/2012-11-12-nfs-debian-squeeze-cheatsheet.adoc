@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Linux
 comments: []
 date: 2012-11-12T23:20:35Z
 published: true

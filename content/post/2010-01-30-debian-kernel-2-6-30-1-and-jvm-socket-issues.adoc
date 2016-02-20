@@ -4,8 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Fundgrube
-- Technik
+- Linux
 comments: []
 date: 2010-01-30T11:46:58Z
 excerpt: |
@@ -19,7 +18,8 @@ wordpress_id: 480
 wordpress_url: /?p=480
 ---
 
-Due to an update of my linux kernel i stumbled upon a strange issue. I could not get sockets working properly. After some googling i figured out that it had to be a network configuration issue.
+Due to an update of my linux kernel i stumbled upon a strange issue. I could not get sockets working properly. 
+After some googling i figured out that it had to be a network configuration issue.
 
 By default (Debian Testing) sockets bind only to ipv6. 
 
@@ -32,7 +32,8 @@ Set the parameter from net.ipv6.bindv6only=1 to net.ipv6.bindv6only=0
 ----
 
 To test the setting you can also use the following command:
-<blockquote>sysctl -w net.ipv6.bindv6only=0</blockquote>
+
+* sysctl -w net.ipv6.bindv6only=0
 
 The error messages might be:
 

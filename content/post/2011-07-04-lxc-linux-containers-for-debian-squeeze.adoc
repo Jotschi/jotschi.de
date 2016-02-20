@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Linux
 comments:
 - author: "Dariel SubirÃ\x83Â³s"
   author_email: dsubiros@gmail.com

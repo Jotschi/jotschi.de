@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Electronics
 date: 2012-04-21T12:59:27Z
 excerpt: |
   I'm currently developing a small home security system. The arduino + ethernet shield will provide the rest api control interface for the system. Later on that interface will be controllable with my android phone. (I'll probably write another post about that).

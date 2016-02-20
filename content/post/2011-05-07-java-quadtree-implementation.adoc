@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Code
 comments: []
 date: 2011-05-07T22:45:49Z
 excerpt: "This is a simple QuadTree implementation in Java. \n\nThe code can be found

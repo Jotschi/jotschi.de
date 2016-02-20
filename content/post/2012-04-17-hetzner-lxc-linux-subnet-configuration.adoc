@@ -4,10 +4,9 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Linux
 comments:
 - author: Sebastian
-  author_email: sebastian@vonconrad.com
   author_url: ""
   content: |-
     Thanks, you are a lifesaver! Been bashing my head against the wall for a few days, then came across this and managed to get it all working.

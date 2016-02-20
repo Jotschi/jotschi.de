@@ -4,14 +4,14 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Code
 comments: []
 date: 2009-09-10T18:31:37Z
 excerpt: |
   Another OSG ProjectiveTexture Example - I did some code cleanup and added a bounding box test feature. My goal this example was to align the projector so that it would cover 100% of the second cameras field of view. In other words the view volume of the perspector of the scene should always be inside of the view volume of the projector. I solved this task by using some bounding box features and by setting the projector view matrix to align the view.
 published: true
 status: publish
-tags: []
+tags: [ opengl ]
 title: ProjectiveTextureExample OpenSceneGraph
 url: /2009/09/10/projectivetextureexample-openscenegraph/
 wordpress_id: 378
@@ -20,7 +20,7 @@ wordpress_url: /?p=378
 
 Another OSG ProjectiveTexture Example - I did some code cleanup and added a bounding box test feature. My goal this example was to align the projector so that it would cover 100% of the second cameras field of view. In other words the view volume of the perspector of the scene should always be inside of the view volume of the projector. I solved this task by using some bounding box features and by setting the projector view matrix to align the view.
 
-<a href="/images/opengl/BoundingBoxedView.png"><img src="/images/opengl/BoundingBoxedView.png" alt="BoundingBoxedView" title="BoundingBoxedView" width="500" class="alignnone size-full wp-image-384" /></a>
+image:/images/opengl/BoundingBoxedView.png[]
 
 _ProjectiveTextureExample.cpp_
 
@@ -349,12 +349,13 @@ int main(int argc, char ** argv) {
 	return 0;
 
 }
-</pre>
+----
+
 As you can see the texture coordinated will be shifted by 0.5/0.5. I had to do this because the projective center was in the middle of the texture. Without correction you get results like this one:
 
-<img src="/images/opengl/texture_projection.png" alt="1" title="1" width="628" height="475" class="alignnone size-full wp-image-385" />
+image:/images/opengl/texture_projection.png[]
 
-<img src="/images/opengl/texture_projection_2.png" alt="2" title="2" width="628" height="470" class="alignnone size-full wp-image-386" />
+image:/images/opengl/texture_projection_2.png[]
 
 
 _FragmentShader.glsl_
@@ -370,8 +371,6 @@ void main()
 	vec4 color =  texture2D(projectionMap,dividedCoord.st+vec2(0.5,0.5)  );
   	gl_FragColor =	 color * gl_Color;
 }
-
-
 ----
 
 _VertexShader.glsl_

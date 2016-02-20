@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Das kalte Nichts
+- Space
 comments: []
 date: 2008-05-26T02:23:18Z
 excerpt: "Touchdown hieÃ\x83Å¸ es im JPL Control Room um ca. 01:53 (GMT+2h). Ohne
@@ -24,15 +24,18 @@ wordpress_id: 138
 wordpress_url: /?p=138
 ---
 
-Touchdown hieß es im JPL Control Room um ca. 01:53 (GMT+2h). Ohne jegliche Probleme landete Phoenix im Zielgebiet. Die EDL verlief sogar besser als erwartet, denn der erwartete Kontaktabbruch in der Atmosphären Eintrittsphase blieb aus. Der Lander weißt nahezu keinerlei Neigungen auf was auf einen sehr flachen Untergrund hindeutet.
-<a id="more"></a><a id="more-138"></a>
+Touchdown hieß es im JPL Control Room um ca. 01:53 (GMT+2h). Ohne jegliche Probleme landete Phoenix im Zielgebiet. 
+Die EDL verlief sogar besser als erwartet, denn der erwartete Kontaktabbruch in der Atmosphären Eintrittsphase blieb aus. 
+Der Lander weißt nahezu keinerlei Neigungen auf was auf einen sehr flachen Untergrund hindeutet.
 
-<a href='/images/mars/230077main_ss000eff896228288_10c96l1m1_8820_516-387.jpg'><img src="/images/mars/230077main_ss000eff896228288_10c96l1m1_8820_516-387.jpg" alt="" title="230077main_ss000eff896228288_10c96l1m1_8820_516-387" width="500" height="500" class="alignnone size-full wp-image-139" /></a>
-Photo credit: NASA/JPL-Caltech/University of Arizona
-Phoenix Footpad
+image:/images/mars/230077main_ss000eff896228288_10c96l1m1_8820_516-387.jpg[]
+
+*Photo credit: NASA/JPL-Caltech/University of Arizona*
+*Phoenix Footpad*
 
 
 
-<a href='/images/mars/230070main_phoenixlandingfirstestimatenogridsmall.jpg'><img src="/images/mars/230070main_phoenixlandingfirstestimatenogridsmall.jpg" alt="" title="230070main_phoenixlandingfirstestimatenogridsmall" width="500" height="399" class="alignnone size-full wp-image-140" /></a>
-Photo credit: NASA/JPL-Caltech/University of Arizona
-Estimated landing ellipse
+image:/images/mars/230070main_phoenixlandingfirstestimatenogridsmall.jpg[]
+
+*Photo credit: NASA/JPL-Caltech/University of Arizona*
+*Estimated landing ellipse*

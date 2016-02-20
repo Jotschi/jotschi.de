@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Das kalte Nichts
+- Space
 comments: []
 date: 2008-05-24T13:16:47Z
 excerpt: "Zeitplan fÃ\x83Â¼r die Landung: (26.05.08)\r\nDie Sonde wird voraussichtlich

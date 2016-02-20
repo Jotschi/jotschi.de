@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Code
 comments:
 - author: Enrique G. Paredes
   author_email: egparedes+www@gmail.com
@@ -375,6 +375,7 @@ void motion(int x, int y) {
 
 _textfile.cpp:_
 
+[source, c]
 ----
 #include <stdio.h>
 #include <malloc.h>
@@ -435,6 +436,7 @@ int textFileWrite(char *fn, char *s) {
 
 _textfile.h:_
 
+[source, c]
 ----
 char *textFileRead(char *fn);
 int textFileWrite(char *fn, char *s);
@@ -442,6 +444,7 @@ int textFileWrite(char *fn, char *s);
 
 _shader.frag:_
 
+[source, c]
 ----
 #extension EXT_gpu_shader4 : enable
 uniform samplerBuffer tboSampler;

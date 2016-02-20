@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Electronics
 comments: []
 date: 2012-09-06T22:00:37Z
 excerpt: |
@@ -22,12 +22,12 @@ This article will explain how to get a SPI connection working using the Raspberr
 
 Hardware:
 
-I used the <a href="http://learn.adafruit.com/adafruit-pi-cobbler-kit/overview">Adafruit pi cobbler</a> to connect the GPIO header with my breadboard.
-The 25LC010a eeprom chip is a small eeprom chip. The datasheet can be found <a href="http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf">here</a>.
+I used the http://learn.adafruit.com/adafruit-pi-cobbler-kit/overview[Adafruit pi cobbler] to connect the GPIO header with my breadboard.
+The 25LC010a eeprom chip is a small eeprom chip. The datasheet: http://ww1.microchip.com/downloads/en/devicedoc/21832c.pdf.
 
 Software:
 
-I used the default raspbian image for the raspberry pi. The <a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/">wiringpi toolchain</a> contains some neat little programs and libraries to get I2C and SPI working with the raspberry pi.
+I used the default raspbian image for the raspberry pi. The https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/[wiringpi toolchain] contains some neat little programs and libraries to get I2C and SPI working with the raspberry pi.
 
 
 1. Disable the blacklist by adding a # in front of each line because you will need the SPI kernel module:
@@ -39,7 +39,7 @@ I used the default raspbian image for the raspberry pi. The <a href="https://pro
 
 2. Reboot the PI
 
-3. Install wiringPI as described <a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/">here</a>. 
+3. Install wiringPI as described https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install[here]. 
 
 [source, bash]
 ----
@@ -61,7 +61,6 @@ gpio load spi
 The two resistors are very important because they are used to pullup the SCK and MOSI pin. The eeprom works with 5V or 3.3V. I used 3.3V because the GPIO pins only tolerate 3.3V input. Higher voltage might damage your board.
 http://twitpic.com/arlj3z[Just got SPI communication with an 25lc010a and my raspberry ... on Twitpic]
 <img src="http://twitpic.com/show/thumb/arlj3z.jpg" width="150" height="150" alt="Just got SPI communication with an 25lc010a and my raspberry ... on Twitpic">
-</a>
 
 6. Compile the source file. You can use this make file:
 
@@ -110,4 +109,5 @@ Sources: rpi_spi_eepromtest.c
 
 {% gist 3659646 %}
 
-<a href="/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg"><img src="/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg" alt="" title="raspberry_pi-spi-25LC010a_schem" width="1024" height="548" class="aligncenter size-full wp-image-786" /></a>
+image:/images/25LC010/raspberry_pi-spi-25LC010a_schem.jpg[]
+

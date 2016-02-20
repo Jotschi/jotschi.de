@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Electronics
 comments: []
 date: 2012-08-26T15:52:18Z
 excerpt: "The WiiMote PixArt sensor can be unsoldered and used as a regular I2C device.
@@ -25,11 +25,9 @@ The WiiMote PixArt sensor can be unsoldered and used as a regular I2C device. He
 
 Unsoldering tip: Disconnect the two metal clips that are connected to the case of the sensor. You can carefully lift the sensor after that has been done. The connection wires can easily be reinserted into the sensor housing. 
 
-<a id="more"></a><a id="more-780"></a>
+image:/images/pixart/pixart_pinout.jpg[]
 
-<img src="/images/pixart/pixart_pinout.jpg"/>
-
-<img src="/images/pixart/pixart_pinout_2.jpg"/>
+image:/images/pixart/pixart_pinout_2.jpg[]
 
 IR Camera pin configuration:
 

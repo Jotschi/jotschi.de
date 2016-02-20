@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Code
 comments: []
 date: 2009-12-12T18:15:18Z
 excerpt: "Using glut with cpp can be difficult in some cases for example because of

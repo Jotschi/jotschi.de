@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Code
 comments:
 - author: Heinz
   author_email: unix1982@gmail.com
@@ -36,7 +36,7 @@ wordpress_url: /?p=429
 ---
 
 This code demonstrates how to fetch docs via google docs java api.
-This example is usable with the <a href="http://code.google.com/p/gdata-java-client/">gdata-java-client</a>.
+This example is usable with the http://code.google.com/p/gdata-java-client/[gdata-java-client]
 
 [source, java]
 ----

@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Das kalte Nichts
+- Space
 comments: []
 date: 2008-05-24T21:47:09Z
 excerpt: |
@@ -23,7 +23,6 @@ wordpress_url: /?p=131
 ---
 
 View the different trajectories of mars phoenix polar lander.
-<a id="more"></a><a id="more-131"></a>
 
 <script type="text/javascript">  
 var now = new Date();  
@@ -42,10 +41,10 @@ document.write('<img width="700" src="http://space.jpl.nasa.gov/cgi-bin/wspace?t
 
 25.05.08 - 15:00
 
-image:http://space.jpl.nasa.gov/cgi-bin/wspace?tbody=-84&vbody=1001&month=05&day=25&year=2008&hour=15&minute=00&rfov=2&fovmul=-1&bfov=80&porbs=1&showsc=1
+image:http://space.jpl.nasa.gov/cgi-bin/wspace?tbody=-84&vbody=1001&month=05&day=25&year=2008&hour=15&minute=00&rfov=2&fovmul=-1&bfov=80&porbs=1&showsc=1[]
 
 25.05.08 - 22:00
-image:http://space.jpl.nasa.gov/cgi-bin/wspace?tbody=-84&vbody=1001&month=05&day=25&year=2008&hour=22&minute=00&rfov=2&fovmul=-1&bfov=80&porbs=1&showsc=1
+image:http://space.jpl.nasa.gov/cgi-bin/wspace?tbody=-84&vbody=1001&month=05&day=25&year=2008&hour=22&minute=00&rfov=2&fovmul=-1&bfov=80&porbs=1&showsc=1[]
 
 25.05.08 - 23:26
-image:http://space.jpl.nasa.gov/cgi-bin/wspace?tbody=-84&vbody=1001&month=05&day=25&year=2008&hour=23&minute=26&rfov=2&fovmul=-1&bfov=90&porbs=1&showsc=1
+image:http://space.jpl.nasa.gov/cgi-bin/wspace?tbody=-84&vbody=1001&month=05&day=25&year=2008&hour=23&minute=26&rfov=2&fovmul=-1&bfov=90&porbs=1&showsc=1[]

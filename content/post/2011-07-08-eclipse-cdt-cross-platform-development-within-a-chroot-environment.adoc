@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
+- Code
 comments: []
 date: 2011-07-08T18:36:49Z
 excerpt: "This post is about how to configure eclipse to work with a chroot environment
@@ -26,7 +26,6 @@ wordpress_url: /?p=615
 This post is about how to configure eclipse to work with a chroot environment that is setup for cross compiling against ARM architecture.
 
 Please refer to my post <a href="/?p=594">Cross Compile Pandaboard PowerVR OpenGL ES2 Example</a> if you want to know how to setup a chroot environment for cross compiling. 
-<a id="more"></a><a id="more-615"></a>
 
 ===  1. Install sudo and configure sudo
 
@@ -58,7 +57,8 @@ The project must be located within the within the chroot environment. You could 
 * 5. Open the project within eclipse
 
 
-<h3>3. Create a external build script</h3>
+=== 3. Create a external build script
+
 This example script (e.g: ~/workspace/MyProject/compile.sh) will execute the bash command inside of the chroot environment which is located at $HOME/mychroot. The bash command will switch into the project location inside the chroot environment and execute make. Of course you can optimize the script to make it more generic and so on. But for now i'll keep it simple.
 
 [source, bash]

@@ -4,8 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Neuronensturm
-- Technik
+- Electronics
 comments: []
 date: 2008-01-28T02:11:11Z
 excerpt: |-
@@ -24,7 +23,6 @@ wordpress_url: /?p=108
 ---
 
 Using the WiiMote you can create a multitouch userinterface. Johnny Chung Lee, Carnegie Mellon University demonstrate this in one of his videos:</p>
-<p><a id="more"></a><a id="more-108"></a>
 
 <embed src="http://www.youtube.com/v/5s5EvhHy7eQ&rel=1" type="application/x-shockwave-flash" wmode="transparent" height="355" width="425"></embed></p>
 
@@ -35,5 +33,5 @@ He uses a lightpen with a build in infrared LED to get a tracking point for the 
 
 Another way to detect touched areas on the touchpad might work with a special material of the upper layer. The top of the touchpad layer can be anything you like but the bottom layer should be something reflective. When you point an infrared lightsource to this reflective material the light will bounce off to another direction. As we know from school the angle of the incoming light will result to the angle of the reflected light when using a flat surface. We just put our lightsource relative to the reflective layer so that we reach an angle about 45 degree. The incoming light will bounce off and never reache the WiiMote which is placed directly underneath the reflective layer. Touching the layer will cause the surface to be bended so that the light will bounce in nearly every direction. The toucharea is now visible to our WiiMote because some lightrays beeing reflected to the WiiMote.</p>
 
-<p><img src="/images/holo/lightbeams.png" alt="Lightbeams" /><br />
-<img src="/images/holo/lightbeams2.png" alt="Lightbeams2" /></p>
+image:/images/holo/lightbeams.png[]
+image:/images/holo/lightbeams2.png[]

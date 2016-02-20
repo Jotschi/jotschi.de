@@ -4,8 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Technik
-- GFX
+- Code
 comments: []
 date: 2009-12-16T01:22:24Z
 excerpt: |
@@ -25,7 +24,8 @@ There is a variety of different tesselation techniques you can use within openGL
 
 
 _1. External Library:_
-<a href="http://www.cs.cmu.edu/~quake/triangle.html">Triangle</a>
+
+http://www.cs.cmu.edu/~quake/triangle.html[Triangle]
 
 * Pro's: More flexibel usage
 * Con's: Doesn't use GPU computing capabilities

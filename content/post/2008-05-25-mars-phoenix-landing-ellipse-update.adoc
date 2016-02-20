@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Das kalte Nichts
+- Space
 comments: []
 date: 2008-05-25T22:04:00Z
 excerpt: "The last pre EDL mission briefing revealed that the latest OD (orbit determination
@@ -25,6 +25,6 @@ The last pre EDL mission briefing revealed that the latest OD (orbit determinati
 
 I did a overlapping image of both images to show the difference. As you can see the new landing ellipse (blue) is not that far extended than the previous predicted landing ellipse (red). My calculations based on these images reveal that the new landing ellipse extends about 66km in length compared to the old one with about 70km.
 
-<a href='/images/mars/250508phoenix-landingelipse.png'><img src="/images/mars/250508phoenix-landingelipse.png" alt="" title="250508phoenix-landingelipse" width="500" height="375" class="alignnone size-full wp-image-134" /></a>
+images:/images/mars/250508phoenix-landingelipse.png[]
 
-Image Credit: NASA/JPL-Caltech
+*Image Credit: NASA/JPL-Caltech*

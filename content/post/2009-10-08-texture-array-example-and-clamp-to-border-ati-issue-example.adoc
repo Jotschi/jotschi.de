@@ -4,8 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Technik
-- GFX
+- Code
 comments:
 - author: Catalin
   author_email: catalinfest@gmail.com
@@ -15,36 +14,39 @@ comments:
   date_gmt: 2012-12-07 10:55:59 +0000
   id: 10310
 date: 2009-10-08T22:00:39Z
-excerpt: |
-  This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY's it might also be interessting for someone who want's to know how to set a texture uniform (sampler2d) or (sampler2darray).
-
-  The specification for texture arrays can be found here: <a href="http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt">http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt</a>. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
 published: true
 status: publish
 tags:
 - ati
 - fglrx
-- GLSL
-- OpenGL
+- glsl
+- opengl
 title: Texture Array Example And Clamp to Border Ati Issue Example
 url: /2009/10/08/texture-array-example-and-clamp-to-border-ati-issue-example/
 wordpress_id: 396
 wordpress_url: /?p=396
 ---
 
-This example covers the usage of texture arrays within opengl. Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY's it might also be interessting for someone who want's to know how to set a texture uniform (sampler2d) or (sampler2darray).
+This example covers the usage of texture arrays within opengl. 
+Although the main purpose of this example is to show that ati cards do not support CLAMP_TO_BORDER when using TEXTURE_2D_ARRAY's it might also be interesting for someone who want's to know how to set a texture uniform (sampler2d) or (sampler2darray).
 
-The specification for texture arrays can be found here: <a href="http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt">http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt</a>. This extension is also supported by the newest ati cards. Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
-<a id="more"></a><a id="more-396"></a>
+The specification for texture arrays can be found here: http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_array.txt 
+This extension is also supported by the newest ati cards. 
+Screenshots were taken by using the example with an ati 4850 card and the latest drivers.
 
-<b>Update - Note: </b> 
+_Update - Note:_ 
 Compile with:
-<blockquote>g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp</blockquote>
+
+[source, bash]
+---
+g++ -Wall -lglut -lGL -lGLUW -o ExampleProg Simple_ATI_TEXTURE_2D_ARRAY_Example.cpp
+----
 Get sources and libs:
 
 * apt-get install libglut3 libglut3-dev libglew1.5 libglew1.5-dev
 
-<b>Update:</b>
+_Update:_
+
 I just developed an workaround for this issue by adding clamp to border by myself to the shader:
 
 [source, c]
@@ -70,16 +72,20 @@ void main()
 _NOARRAY - not definied_
 
 The example will use GL_TEXTURE_2D_ARRAY as source for texturing and a fragment shader that defines a sampler2DArray uniform:
-<img src="/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png" alt="GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI" title="GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI" width="412" height="327" class="alignnone size-full wp-image-397" />
+
+image:/images/opengl/GL_TEXTURE_2D_ARRAY_CLAMP_TO_BORDER-ATI.png[]
+
 The texture is not clamped to the border even if the CLAMP_TO_BORDER attribute has been set. 
 
 _NOARRAY - definied_
 
 The example will use GL_TEXTURE_2D as source for texturing and a fragment shader that defines a sampler2D uniform:
-<img src="/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png" alt="GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI" title="GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI" width="392" height="292" class="alignnone size-full wp-image-398" />
+
+image:/images/opengl/GL_TEXTURE_2D_CLAMP_TO_BORDER-ATI.png[]
+
 As you can see clamp to border works like a charm. I changed the border color to make the clamp effect clearly visible:
 
-Download the complete example sources: <a href="/downloads/opengl/opengl_texture_array_glsl_example.tgz">opengl_texture_array_glsl_example.tgz</a>
+Download the complete example sources: link:/downloads/opengl/opengl_texture_array_glsl_example.tgz[opengl_texture_array_glsl_example.tgz]
 
 _shader_array.frag:_
 

@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Code
 comments: []
 date: 2011-07-07T00:45:28Z
 excerpt: 'This post is about how to compile the PowerVR SDK Examples within a Debian

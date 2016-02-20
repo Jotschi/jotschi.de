@@ -9,7 +9,6 @@ title: Graph Database Java OGM Comparison
 url: /2015/06/10/graphdb-ogm-comparison/
 ---
 
-
 I have been using graph databases for a while (mostly Neo4j) and i thought it might be a good idea to write down some of the things i noted while using http://neo4j.com/[Neo4j] in combination with http://projects.spring.io/spring-data-neo4j/[Spring Data Neo4j (SDN)]. 
 
 I also compiled a comparison of various graph databases a while ago. My list only includes Java based graph databases that allow embedding. I won't go into details about the feature sets and how those differ between each of those databases. Instead i just point out the most important aspects i noticed while using the OGM's and graph databases.

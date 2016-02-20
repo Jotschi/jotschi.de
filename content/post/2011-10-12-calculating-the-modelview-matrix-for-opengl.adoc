@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Code
 comments: []
 date: 2011-10-12T23:37:10Z
 excerpt: |
@@ -19,7 +19,7 @@ wordpress_url: /?p=697
 ---
 
 Sometimes its very useful to create a modelview matrix without modifying the OpenGL matrix stack. Methods that will modify the matrix stack are for example gluLookAt or similar methods.
-<a id="more"></a><a id="more-697"></a>
+
 I wrote my own method that calculates the modelview matrix for java but i guess it can be easily adapted. Calculating a modelview matrix in this way allows one to pass the generated matrix to a glsl shader using a simple matrix uniform. Using vertex processing in a vertex shader is even the preferred way of dealing with modelview transformations in OpenGL 3.1.
 
 A full example can be found <a href="https://github.com/Jotschi/jogl2-example">here</a>.

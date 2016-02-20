@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Das kalte Nichts
+- Space
 comments: []
 date: 2008-11-30T23:20:12Z
 excerpt: "<p lang=\"en\">\r\nAs an introduction of an press conference about phoenix
@@ -29,7 +29,7 @@ url: /2008/11/30/an-engineers-delight/
 
 As an introduction of an press conference about phoenix mars landing Berry Goldstein shows the image below. The image shows the Phoenix Mars Lander in its descent phase within EDL. The parachute is deployed and you even can see the wires that connect the parachute with the lander.
 
-image:/images/mars/psp_008579_9020_descent_800-600.jpg
+image:/images/mars/psp_008579_9020_descent_800-600.jpg[]
 
 ----
 Phoenix Mars Lander - Press Briefing - May 26. 2008

@@ -4,8 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Neuronensturm
-- Technik
+- Code
 comments:
 - author: fer
   author_email: fer.cisneros.e@gmail.com

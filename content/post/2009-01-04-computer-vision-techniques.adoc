@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: admin
 author_url: http://www.Jotschi.de
 categories:
-- Uncategorized
+- Code
 comments: []
 date: 2009-01-04T00:45:45Z
 excerpt: |
@@ -19,8 +19,8 @@ wordpress_url: /?p=246
 ---
 
 This post contains a list of some computer vision techniques.
-<a id="more"></a><a id="more-246"></a>
-See also <a href="http://en.wikipedia.org/wiki/Category:Computer_vision">Wikipedia: Computer Vision</a>
+
+See also http://en.wikipedia.org/wiki/Category:Computer_vision[Wikipedia: Computer Vision]
 
 * Depth Estimation
 * Structure from Motion

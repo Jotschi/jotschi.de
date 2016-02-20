@@ -4,7 +4,7 @@ author_email: webmaster@jotschi.de
 author_login: Jotschi
 author_url: http://www.jotschi.de
 categories:
-- Uncategorized
+- Code
 comments: []
 date: 2009-10-09T09:32:38Z
 excerpt: |
@@ -21,16 +21,16 @@ wordpress_url: /?p=372
 Shadow Maps have one big disadvantage. Using low resolution shadow maps can result in pixelated shadows.
 
 1024x1024 Shadow Map:
-<img src="/images/shadowmaps/1024_shadowmap.png" alt="1024_shadowmap" title="1024_shadowmap" width="640" height="480" class="alignleft size-full wp-image-371" />
+image:/images/shadowmaps/1024_shadowmap.png[]
 
 512x512 Shadow Map:
-<img src="/images/shadowmaps/512_shadowmap.png" alt="512_shadowmap" title="512_shadowmap" width="640" height="480" class="alignleft size-full wp-image-369" />
+image:/images/shadowmaps/512_shadowmap.png[]
 
 512x512 Shadow Map with an narrow view angle of the shadow map view:
-<img src="/images/shadowmaps/512_shadowmap_narrow.png" alt="512_shadowmap_narrow" title="512_shadowmap_narrow" width="640" height="480" class="alignleft size-full wp-image-370" />
+image:/images/shadowmaps/512_shadowmap_narrow.png[]
 
 You can also mix two shadow maps. Here i mixed a 512x512 shadow map with a 1024x1024 shadow map:
-<img src="/images/shadowmaps/512_1024_split_shadowmap.png" alt="512_1024_split_shadowmap" title="512_1024_split_shadowmap" width="640" height="480" class="alignleft size-full wp-image-368" />
+image:/images/shadowmaps/512_1024_split_shadowmap.png[]
 
 The scene contained two light sources which casted two shadows - the left one and the right one.
-<img src="/images/shadowmaps/shadow_scene.png" alt="shadow_scene" title="shadow_scene" width="640" height="399" class="alignleft size-full wp-image-376" />
+image:/images/shadowmaps/shadow_scene.png[]
