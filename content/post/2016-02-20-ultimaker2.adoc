@@ -1,0 +1,45 @@
+---
+date: 2016-02-20T18:00:00Z
+tags:
+- 3d printing
+- um2
+title: Ultimaker 2+ Impressions
+---
+
+A few weeks ago i got myself an https://ultimaker.com/[Ultimaker 2+]. I got mine from www.reichelt.at for about 2300€. 
+
+== What i like 
+
+* Build quality
+* Print speed
+* Print accuracy
+* Exchangeable Nozzle
+* Initial Printer Packaging
+
+== Issues
+
+* LCD
+
+I noticed that the LCD is occasionally flickering. Thats just a super tiny detail but i would not expect something like that in a tool of that price. It may even be fixable with a firmware upgrade. 
+
+* Knob 
+
+The default Ultimaker 2/2+ knob is super anoying (at least for me). I accidentally selected a menu point while scrolling through the menu.
+A friend of mine also owns a ultimaker 2 and he accidentally aborted a print this way.
+
+I printed myself a https://www.youmagine.com/designs/ultimaker-2-knob--2[replacement knob] which helps a lot.
+You can carefully push out the original knob via a small hole from within the printer.
+
+* USB / Arduino reset
+
+Afaik the arduino will reset itself when the serial usb connection is started. I assume this aborted a long duration print when i did turn on my computer.
+
+ 
+== What i miss
+
+I would love to use an _ethernet connection_ in order to upload new *.gcode* files without swapping the SD Card. I'm not 100% sure but it may be possible that http://octoprint.org/[octoprint] supports this feature which can be used in combination with the UM2.
+
+Currently only a small status bargraph and the ETA is being displayed while printing an object. Verbose status information. (XYZ Position) would be super helpful.
+
+I also noticed that only the first few characters of gcode filenames are displayed on the LCD. It would be really good to just move the filename back and forward on the LCD in order to show the full name of the selected file.
+
