@@ -1,0 +1,14 @@
+div.fixed.syntax {
+	color: #aaaaaa !important;
+  background-color: #232323 !important;
+  border: 1px solid #444444 !important; }
+  div.fixed.syntax .numbers-column {
+    color: #979797 !important;
+    background-color: #232323 !important; }
+  div.fixed.syntax .code-column {
+    border-left: 1px solid #444444 !important;
+    background-color: #101010 !important; }
+    div.fixed.syntax .code-column .source {
+      color: #aaaaaa !important; }
+    div.fixed.syntax .code-column .source.alt {
+      background-color: #151515 !important; }

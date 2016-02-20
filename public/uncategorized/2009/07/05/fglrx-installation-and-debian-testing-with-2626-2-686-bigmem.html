@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<head>
+	<title>fglrx 9-6 to 9-11 Installation and Debian testing with 2.6.26-2-686-bigmem </title>
+		<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="stylesheet" type="text/css" media="all" href="/static/style.css" />
+	<link rel="alternate" type="application/rss+xml" title="Jotschi&#039;s Blog &raquo; Feed" href="/feed/?feed=rss2" />
+	<script type="text/javascript">//<![CDATA[
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-11046117-2']);
+					_gaq.push(['_trackPageview']);
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+	//]]></script>
+	<script type='text/javascript' src='/static/js/jquery-1.8.3.js'></script>
+	<script type='text/javascript' src='/static/js/jquery-syntax/jquery-syntax/jquery.syntax.min.js?ver=3.5'></script>
+	<script type='text/javascript' src='/static/js/jquery.sticky.js?ver=2011-04-28'></script>
+	<script type='text/javascript' src='/static/js/theme.js?ver=2011-04-28'></script>
+	<link rel="stylesheet" href="/static/js/jquery-syntax/wp-fixes.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+		jQuery.noConflict(); jQuery(document).ready(function($) { $.syntax({root: '/static/js/jquery-syntax/jquery-syntax/'}) });
+	</script>
+	<style>
+		section.recent-posts .other-recent-posts .comments-link a:hover {
+			border-color: #222;
+		}
+		article.feature-image.small .entry-summary p a:hover,
+		.entry-header .comments-link a:hover,
+		.entry-header .comments-link a:focus,
+		.entry-header .comments-link a:active,
+		.feature-slider a.active {
+			background-color: #222;
+		}
+	</style>
+	<script>for(x in document.write){document.write(x);}</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css">
+	#a {
+	margin:0 10px 10px;
+	}
+	#b {
+	width:100%;
+	}
+	</style>
+</head>
+
+<body class="home blog one-column content">
+	<header id="branding" role="banner">
+		<hgroup>
+			<h1 id="site-title"><span><a href="/" title="Jotschi&#039;s Blog" rel="home">Jotschi&#039;s Blog</a></span></h1>
+			<h2 id="site-description">NeXuS</h2>
+		</hgroup>
+		
+		<script>
+  (function() {
+    var cx = '005130669722604312790:98xhcvy0efq';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<form method="get" id="searchform" action="/">
+	<gcse:search></gcse:search>
+</form>
+			
+		<nav id="access" role="navigation">
+			<h3 class="assistive-text">Main menu</h3>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to primary content">Skip to primary content</a></div>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to secondary content">Skip to secondary content</a></div>
+			<div class="menu">
+				<ul>
+					<li class="current_page_item">
+						<a href="/" title="Home">Home</a>
+					</li>
+					<li class="page_item page-item-2">
+						<a href="/about.html">About</a>
+					</li>
+					<li class="page_item page-item-143">
+						<a href="/projects.html">Projects</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div id="page" class="hfeed">
+		<div id="main">
+			<div id="primary">
+				<div id="searchResults" title="Search Results">
+					<h2 class="search-title">Search Results:</h2>
+					<ul></ul>
+				</div>
+					
+				<div id="content" role="main">
+					<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
+	<header class="entry-header">
+		<h1 class="entry-title"><a href="/uncategorized/2009/07/05/fglrx-installation-and-debian-testing-with-2626-2-686-bigmem.html" title="Permalink to fglrx 9-6 to 9-11 Installation and Debian testing with 2.6.26-2-686-bigmem " rel="bookmark">fglrx 9-6 to 9-11 Installation and Debian testing with 2.6.26-2-686-bigmem </a></h1>
+		<div class="entry-meta">
+			<span class="sep">Posted on </span>
+			<a href="/uncategorized/2009/07/05/fglrx-installation-and-debian-testing-with-2626-2-686-bigmem.html" title="" rel="bookmark"><time class="entry-date" datetime="2009-07-05 14:17:30 +0000" pubdate>05 Jul 2009</time></a>
+			<span class="by-author"> 
+				<span class="sep"> by </span> 
+				<span class="author vcard">
+					Jotschi
+				</span>
+			</span>
+		</div>
+		<div class="comments-link">
+			<a href="/" title="Comment fglrx 9-6 to 9-11 Installation and Debian testing with 2.6.26-2-686-bigmem "><span class="leave-reply">Reply</span></a>
+		</div>
+	</header>
+	<div class="entry-content">
+		<p>My fglrx installation guide for Debian testing (squeez) with 2.6.26-2-686-bigmem.<br />
+<a id="more"></a><a id="more-313"></a></p>
+<p>Update: I updated the post to meet fglrx 9-11 requirements.</p>
+<h2>Preperations:</h2>
+<p>1. Stop X</p>
+<p>2. Install additional packages you might need:<br />
+<code>apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 linux-headers-$(uname -r) </code></p>
+<p>3. Download ati-driver-installer-9-11-x86.&#215;86_64.run from <a href="http://www.amd.com">www.amd.com</a></p>
+<p>5. If you are using a source that supplies non-free packages you have to disable package acquisitions.</p>
+<p>Create the file /etc/apt/preferences with the following content:<br />
+<blockquote>Package: fglrx-amdcccle <br />
+Pin: version 8.62-1*<br />
+Pin-Priority: 1001</p>
+<p>Package: fglrx-driver<br />
+Pin: version 8.62-1*<br />
+Pin-Priority: 1001</p>
+<p>Package: fglrx-driver-dev <br />
+Pin: version 8.62-1*<br />
+Pin-Priority: 1001</p>
+<p>Package: fglrx-kernel-src<br />
+Pin: version 8.62-1*<br />
+Pin-Priority: 1001</blockquote></p>
+<h2>Upgrade Steps:</h2>
+In case you want to upgrade your fglrx driver you need to take care of the following steps:
+<p>1. Unload fglrx module in case you are using it<br />
+<code>modprobe -r fglrx </code></p>
+<p>2. Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.<br />
+<code>// get a list of all fglrx packages
+sudo dpkg -l | grep fglrx
+sudo dpkg -P  fglrx-driver
+sudo dpkg -P  fglrx-kernel-$(uname -r)
+sudo dpkg -P  fglrx-kernel-src
+sudo dpkg -P  fglrx-amdcccle
+sudo dpkg -P  fglrx-driver-dev
+// make sure everything is gone
+sudo dpkg -l | grep fglrx</code></p>
+<p>3. Restore files that might have been messed up by previous fglrx installations<br />
+<code>apt-get --reinstall install libgl1-mesa-glx
+apt-get --reinstall install xserver-xorg-core</code></p>
+<p>4. Get rid of old ati configurations<br />
+<code>sudo mv /etc/ati /tmp
+sudo mv /etc/X11/xorg.conf /tmp</code></p>
+<p><del datetime="2009-11-18T17:39:24+00:00">5. Create new xorg.conf without ati specifications inside </del><br />
+<del datetime="2009-11-18T17:39:24+00:00">sudo dpkg-reconfigure xserver-xorg</del></p>
+<p><del datetime="2009-11-18T17:39:24+00:00">6. Remove leftovers of previous installations:</del><br />
+<del datetime="2009-11-18T17:39:24+00:00">rm /usr/src/fglrx.tar.bz2</del><br />
+<del datetime="2009-11-18T17:39:24+00:00">rm /usr/src/<strong>fglrx</strong>.deb</del></p>
+<h2>Installation Steps:</h2>
+<p>1. Create the fglrx packages:<br />
+<code>./ati-driver-installer-9-11-x86.x86_64.run --extract fglrx_9-11
+cd fglrx_9-11
+ln -s x740 x710
+./packages/Debian/ati-packager.sh --buildpkg testing
+</code></p>
+<p>2. Install the packages. You may have to change the order due to dependencies.<br />
+<code>dpkg -i fglrx-driver_8.62-1_i386.deb
+dpkg -i fglrx-driver-dev_8.62-1_i386.deb
+dpkg -i fglrx-kernel-src_8.62-1_i386.deb
+dpkg -i fglrx-amdcccle_8.62-1_i386.deb</code></p>
+<p>Once you get the following error you can proceed with dpkg &#8212;force-all:<br />
+<strong>trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core</strong></p>
+<p>Finally i had to use the &#8212;force-all option to install the package. <br />
+<code>dpkg --force-all -i fglrx-driver_8.62-1_i386.deb</code></p>
+<p><strong>This is a quite drastic step but otherwise the fglrx driver won&#8217;t install at all.</strong></p>
+<p>3. Build and install the fglrx kernel module. I had not to modify the sources in any way.<br />
+<del datetime="2009-11-18T17:39:24+00:00">module-assistant auto-install fglrx-kernel-src</del></p>
+<p>Update: This does not work any more. I do not know why. But here is the workaround:<br />
+<code>module-assistant</p>
+<ol>
+	<li><span class="caps">SELECT</span> &#8594; fglrx-kernel &#8594; <span class="caps">BUILD</span> / <span class="caps">INSTALL</span> #<br />
+</code></li>
+</ol>
+<p><del datetime="2009-11-18T17:39:24+00:00">Please note that at this point no download should occure. If it does abort the installation. In that case the module-assistant downloaded the desired module from the non-free package tree. You can avoid this by removing non-free from your source.lst and rebuild the index via apt-get update.<br />
+</del></p>
+<p>4. Load the module:<br />
+<code>modprobe fglrx</code></p>
+<p>5. Make sure it was loaded. If it wasn&#8217;t loaded use dmesg to check what happed.<br />
+<code>lsmod | grep fglrx</code></p>
+<p>6. Create the ati configuration.<br />
+<code>aticonfig --initial</code></p>
+<p>7. Start X<br />
+<code>startx</code><br />
+Note:<br />
+If you have trouble of setup a dual head environment without using Xinerama take a look the related post.</p>
+	</div>
+	
+		<footer class="entry-meta">
+		<span class="cat-links">
+		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
+		<span class="sep"> | </span>
+		<span class="tag-links">
+		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/debian" rel="tag">debian</a></span>
+		<span class="sep"> | </span>
+	</footer>
+</article>
+
+
+<div class="comments-header toggle-switch">
+	<a href="#" id="comment-form-toggle"><h2>Add a comment</h2></a>
+</div>
+
+<div id="comments" style="display: none">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'jotschi';
+		var disqus_url = "http://www.jotschi.de/uncategorized/2009/07/05/fglrx-installation-and-debian-testing-with-2626-2-686-bigmem.html";
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="http://disqus.com/?ref_noscript">comments powered by
+			Disqus.</a>
+	</noscript>
+</div>
+
+
+				</div>
+			</div>
+		</div>
+		<footer id="colophon" role="contentinfo">
+			<div id="supplementary" class="three">
+				<div id="first" class="widget-area" role="complementary">
+					<aside id="tag_cloud-2" class="widget widget_tag_cloud">
+	<h3 class="widget-title">Tags</h3>
+	<div class="tagcloud">
+		<a style='font-size: 19px' href='/tags/xorg.conf/'>xorg.conf</a>
+<a style='font-size: 30px' href='/tags/debian/'>debian</a>
+<a style='font-size: 24px' href='/tags/mars/'>mars</a>
+<a style='font-size: 24px' href='/tags/fglrx/'>fglrx</a>
+<a style='font-size: 26px' href='/tags/linux/'>linux</a>
+<a style='font-size: 24px' href='/tags/nasa/'>nasa</a>
+<a style='font-size: 16px' href='/tags/dual head/'>dual head</a>
+<a style='font-size: 19px' href='/tags/nasatv/'>nasatv</a>
+<a style='font-size: 16px' href='/tags/landing/'>landing</a>
+<a style='font-size: 16px' href='/tags/OSG/'>OSG</a>
+<a style='font-size: 22px' href='/tags/java/'>java</a>
+<a style='font-size: 16px' href='/tags/xorg/'>xorg</a>
+<a style='font-size: 19px' href='/tags/ati/'>ati</a>
+<a style='font-size: 16px' href='/tags/Shader/'>Shader</a>
+<a style='font-size: 16px' href='/tags/mysql/'>mysql</a>
+<a style='font-size: 20px' href='/tags/lenny/'>lenny</a>
+<a style='font-size: 23px' href='/tags/phoenix/'>phoenix</a>
+<a style='font-size: 24px' href='/tags/OpenGL/'>OpenGL</a>
+<a style='font-size: 19px' href='/tags/GLSL/'>GLSL</a>
+<a style='font-size: 16px' href='/tags/lxc/'>lxc</a>
+
+	</div>
+</aside>
+				</div>
+				<div id="second" class="widget-area" role="complementary">
+					<aside id="recent-posts-3" class="widget widget_recent_entries">
+	<h3 class="widget-title">Posts</h3>
+	<ul>
+		
+		<li><a href="/2015/08/12/svp-wine-linux.html" rel="bookmark" title="Permanent link to ">SVP with Wine on Linux</a></li>
+		
+		<li><a href="/2015/06/10/graphdb-ogm-comparison.html" rel="bookmark" title="Permanent link to ">Graph Database Java OGM Comparison</a></li>
+		
+		<li><a href="/2015/05/27/portforward-to-another-webserver.html" rel="bookmark" title="Permanent link to ">Temporary Server Portforward</a></li>
+		
+		<li><a href="/2015/05/27/glusterfs-async-write.html" rel="bookmark" title="Permanent link to ">GlusterFS / Async Writes</a></li>
+		
+		<li><a href="/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html" rel="bookmark" title="Permanent link to ">Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</a></li>
+		
+		<li><a href="/2014/02/07/mysql-5.6-debian-wheezy-installation.html" rel="bookmark" title="Permanent link to ">MySQL 5.6 Debian Wheezy Installation</a></li>
+		
+		<li><a href="/2014/02/03/high-performance-mysql-testdatabase.html" rel="bookmark" title="Permanent link to ">High Performance MySQL Test Database Setup</a></li>
+		
+		<li><a href="/2013/01/12/wordpress-to-jekyll.html" rel="bookmark" title="Permanent link to ">Wordpress to Jekyll Migration</a></li>
+		
+	</ul>
+</aside>
+				</div>
+				<div id="third" class="widget-area" role="complementary">
+									<aside id="categories" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+						<ul>
+						
+							<li><a href="/categories/gfx/ ">gfx</a></li>
+						
+							<li><a href="/categories/technik/ ">technik</a></li>
+						
+							<li><a href="/categories/das kalte nichts/ ">das kalte nichts</a></li>
+						
+							<li><a href="/categories/fundgrube/ ">fundgrube</a></li>
+						
+							<li><a href="/categories/neuronensturm/ ">neuronensturm</a></li>
+						
+							<li><a href="/categories/life/ ">life</a></li>
+						
+							<li><a href="/categories/uncategorized/ ">uncategorized</a></li>
+						
+							<li><a href="/categories/traumzone/ ">traumzone</a></li>
+						
+						</ul>
+				</aside>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

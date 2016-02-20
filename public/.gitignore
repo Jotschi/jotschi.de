@@ -1,0 +1,9 @@
+_drafts/
+_site/
+.DS_Store
+*.swp
+.project
+_gist_cache
+/target/
+.classpath
+.settings

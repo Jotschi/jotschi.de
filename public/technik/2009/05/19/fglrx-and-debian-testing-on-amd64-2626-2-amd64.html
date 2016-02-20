@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<head>
+	<title>fglrx and Debian testing on amd64 - 2.6.26-2-amd64</title>
+		<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="stylesheet" type="text/css" media="all" href="/static/style.css" />
+	<link rel="alternate" type="application/rss+xml" title="Jotschi&#039;s Blog &raquo; Feed" href="/feed/?feed=rss2" />
+	<script type="text/javascript">//<![CDATA[
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-11046117-2']);
+					_gaq.push(['_trackPageview']);
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+	//]]></script>
+	<script type='text/javascript' src='/static/js/jquery-1.8.3.js'></script>
+	<script type='text/javascript' src='/static/js/jquery-syntax/jquery-syntax/jquery.syntax.min.js?ver=3.5'></script>
+	<script type='text/javascript' src='/static/js/jquery.sticky.js?ver=2011-04-28'></script>
+	<script type='text/javascript' src='/static/js/theme.js?ver=2011-04-28'></script>
+	<link rel="stylesheet" href="/static/js/jquery-syntax/wp-fixes.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+		jQuery.noConflict(); jQuery(document).ready(function($) { $.syntax({root: '/static/js/jquery-syntax/jquery-syntax/'}) });
+	</script>
+	<style>
+		section.recent-posts .other-recent-posts .comments-link a:hover {
+			border-color: #222;
+		}
+		article.feature-image.small .entry-summary p a:hover,
+		.entry-header .comments-link a:hover,
+		.entry-header .comments-link a:focus,
+		.entry-header .comments-link a:active,
+		.feature-slider a.active {
+			background-color: #222;
+		}
+	</style>
+	<script>for(x in document.write){document.write(x);}</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css">
+	#a {
+	margin:0 10px 10px;
+	}
+	#b {
+	width:100%;
+	}
+	</style>
+</head>
+
+<body class="home blog one-column content">
+	<header id="branding" role="banner">
+		<hgroup>
+			<h1 id="site-title"><span><a href="/" title="Jotschi&#039;s Blog" rel="home">Jotschi&#039;s Blog</a></span></h1>
+			<h2 id="site-description">NeXuS</h2>
+		</hgroup>
+		
+		<script>
+  (function() {
+    var cx = '005130669722604312790:98xhcvy0efq';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<form method="get" id="searchform" action="/">
+	<gcse:search></gcse:search>
+</form>
+			
+		<nav id="access" role="navigation">
+			<h3 class="assistive-text">Main menu</h3>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to primary content">Skip to primary content</a></div>
+			<div class="skip-link"><a class="assistive-text" href="/" title="Skip to secondary content">Skip to secondary content</a></div>
+			<div class="menu">
+				<ul>
+					<li class="current_page_item">
+						<a href="/" title="Home">Home</a>
+					</li>
+					<li class="page_item page-item-2">
+						<a href="/about.html">About</a>
+					</li>
+					<li class="page_item page-item-143">
+						<a href="/projects.html">Projects</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div id="page" class="hfeed">
+		<div id="main">
+			<div id="primary">
+				<div id="searchResults" title="Search Results">
+					<h2 class="search-title">Search Results:</h2>
+					<ul></ul>
+				</div>
+					
+				<div id="content" role="main">
+					<article id="post-853" class="post-853 post type-post status-publish format-standard hentry">
+	<header class="entry-header">
+		<h1 class="entry-title"><a href="/technik/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64.html" title="Permalink to fglrx and Debian testing on amd64 - 2.6.26-2-amd64" rel="bookmark">fglrx and Debian testing on amd64 - 2.6.26-2-amd64</a></h1>
+		<div class="entry-meta">
+			<span class="sep">Posted on </span>
+			<a href="/technik/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64.html" title="" rel="bookmark"><time class="entry-date" datetime="2009-05-19 20:33:46 +0000" pubdate>19 May 2009</time></a>
+			<span class="by-author"> 
+				<span class="sep"> by </span> 
+				<span class="author vcard">
+					Jotschi
+				</span>
+			</span>
+		</div>
+		<div class="comments-link">
+			<a href="/" title="Comment fglrx and Debian testing on amd64 - 2.6.26-2-amd64"><span class="leave-reply">Reply</span></a>
+		</div>
+	</header>
+	<div class="entry-content">
+		<p>I finally managed to get fglrx working with dri and dual head using the latest ati driver: <br />
+ati-driver-installer-9-4-x86.&#215;86_64.run</p>
+<p><strong>Update:</strong><br />
+works also with:<br />
+ati-driver-installer-9-5-x86.&#215;86_64.run</p>
+<p><a id="more"></a><a id="more-269"></a><br />
+Some Notes:</p>
+<pre class="syntax escaped c">
+jotschi@NeXuS:~$ uname -r
+2.6.26-2-amd64
+
+jotschi@NeXuS:~$ fglrxinfo 
+display: :0.0  screen: 0
+OpenGL vendor string: ATI Technologies Inc.
+OpenGL renderer string: ATI Radeon HD 4800 Series
+OpenGL version string: 2.1.8591
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep fglrx
+ii  fglrx-amdcccle                     8.602-1                     Catalyst Control Center for the ATI graphics accelerators
+ii  fglrx-driver                            8.602-1                     Video driver for the ATI graphics accelerators
+ii  fglrx-driver-dev                      8.602-1                     Video driver for the ATI graphics accelerators (devel files)
+ii  fglrx-kernel-2.6.26-2-amd64   8.602-1+2.6.26-15           ATI binary kernel module for Linux 2.6.26-2-amd64
+ii  fglrx-kernel-src                     8.602-1                     Kernel module source for the ATI graphics accelerators
+
+jotschi@NeXuS:~/Desktop$ dpkg -l | grep xorg | head -n 4 | grep -v docs
+ii  xorg                                    1:7.3+18                    X.Org X Window System
+ii  xserver-xorg                         1:7.3+18                    the X.Org X server
+ii  xserver-xorg-core                  2:1.4.2-11                  Xorg X server - core server
+</pre><p>Mainly i used this guide: <a href="http://wiki.cchtml.com/index.php/Debian_Installation_Guide">http://wiki.cchtml.com/index.php/Debian_Installation_Guide</a></p>
+<p>There were some glitches because of missing files and creation of diverations. I belive the uninstallation of fglrx does not revert created diverations of certain libraries. (I dunno if the removeal of created diverations this is the expected behaviour of package removeal)</p>
+<p>My short Howto:<br />
+0. Optional: <br />
+I removed non-free from my source.lst and did an apt-get update and apt-get clean to make sure that the module assistent would not fetch some fglrx packages via network.</p>
+<p>1. Stop X</p>
+<p>2. unload fglrx module<br />
+<pre class="syntax escaped c">
+modprobe -r fglrx 
+</pre></p>
+<p>3. Install additional packages you might need:<br />
+<pre class="syntax escaped c">
+apt-get install module-assistant build-essential fakeroot dh-make debconf bzip2 wget libstdc++5 ia32-libs
+apt-get install kernel-headers-$(uname -r)
+</pre></p>
+<p>4. Remove all fglrx packages. You might have to change the order of command due to dependencies between the packages.<br />
+<code>dpkg -l | grep fglrx
+dpkg -P  fglrx-amdcccle 
+dpkg -P fglrx-driver-dev 
+dpkg -P fglrx-kernel-src
+dpkg -P fglrx-kernel-2.6.26-2-amd64
+dpkg -P fglrx-driver</code></p>
+<p>5. To restore the files that might have been deleted by the fglrx package removeal routines you can use:<br />
+<pre class="syntax escaped c">
+apt-get --reinstall install libgl1-mesa-glx
+apt-get --reinstall install xserver-xorg-core
+apt-get --reinstall install ia32-libs
+</pre></p>
+<p>6. Create the fglrx packages:<br />
+<pre class="syntax escaped c">
+./ati-driver-installer-9-4-x86.x86_64.run --extract fglrx_9-4
+cd fglrx_9-4
+cd arch/x86_64/usr/X11R6
+ln -s lib64 lib
+cd ../../..
+./packages/Debian/ati-packager.sh --buildpkg testing
+cd ..
+</pre></p>
+<p>7. Remove leftovers of previous installations:<br />
+<pre class="syntax escaped c">
+rm /usr/src/fglrx.tar.bz2
+rm /usr/src/*fglrx*.deb
+</pre></p>
+<p>8. Install the packages. You might have to change the order due to dependencies.<br />
+<pre class="syntax escaped c">
+dpkg -i fglrx-driver_8.602-1_amd64.deb
+dpkg -i fglrx-amdcccle_8.602-1_amd64.deb
+dpkg -i fglrx-driver-dev_8.602-1_amd64.deb
+dpkg -i fglrx-kernel-src_8.602-1_amd64.deb
+</pre></p>
+<p><strong>Note: diversion problem</strong><br />
+I got some nasty failure while installing fglrx-driver_8.602-1_amd64.deb<br />
+The package installation script was complaining about a failure while creating a diversion of libGL.so.1.2 because that file was used by the package xserver-xorg-core.<br />
+The installation terminated with:<br />
+<code>dpkg: error processing xorg-driver-fglrx</code><br />
+You can get rid of those failures by using the <a href="http://www.debian.org/distrib/packages">Debian Package Search</a>. Use the last form of the page to locate the file (e.g. libGL.so.1.2)<br />
+As you see the file /usr/lib/libGL.so.1.2 is part of fglrx and the package libgl1-mesa-glx. I just reinstalled libgl1-mesa-glx and fixed the bug. <del datetime="2009-05-19T21:01:33+00:00">You may also remove the package because you wont need mesa once using hardware acceleration. (Please correct me if this is wrong &#8211; I&#8217;m not quite sure about this)<br />
+</del></p>
+<pre class="syntax escaped c">
+(Reading database ... 84741 files and directories currently installed.)
+Unpacking fglrx-driver (from fglrx-driver_8.612-1_amd64.deb) ...
+No diversion `diversion of /usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;, none removed
+Adding `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+No diversion `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /usr/share/fglrx/diversions/libGL.so.1.2_32bit by fglrx-driver&#39;, none removed
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Adding `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+rmdir: failed to remove `/usr/share/fglrx/diversions&#39;: No such file or directory
+rmdir: failed to remove `/usr/share/fglrx&#39;: No such file or directory
+Leaving `diversion of /usr/lib/libGL.so.1.2 to /usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /usr/lib/libGL.so.1 to /usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1.2 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1.2 by fglrx-driver&#39;
+Leaving `diversion of /emul/ia32-linux/usr/lib/libGL.so.1 to /emul/ia32-linux/usr/lib/fglrx/diversions/libGL.so.1 by fglrx-driver&#39;
+Adding `diversion of /usr/lib/xorg/modules/extensions/libdri.so to /usr/lib/fglrx/diversions/libdri.so by fglrx-driver&#39;
+dpkg - warning, overriding problem because --force enabled:
+&lt;strong&gt; trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.so&#39;, which is also in package xserver-xorg-core&lt;/strong&gt;
+dpkg: error processing 1 (--install):
+ cannot access archive: No such file or directory
+Setting up fglrx-driver (8.612-1) ...
+
+Configuration file `/etc/acpi/fglrx-powermode.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-lid-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/acpi/events/fglrx-ac-aticonfig&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/init.d/atieventsd&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/default/fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo_mask.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/signature&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/control&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/atiogl.xml&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/amdpcsdb.default&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/logo.xbm.example&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/ati/authatieventsd.sh&#39;, does not exist on system.
+Installing new config file as you request.
+
+Configuration file `/etc/X11/Xsession.d/70fglrx&#39;, does not exist on system.
+Installing new config file as you request.
+update-rc.d: warning: /etc/init.d/atieventsd missing LSB information
+update-rc.d: see &lt;http://wiki.debian.org/LSBInitScripts&gt;
+Starting atieventsd: /usr/sbin/atieventsd already running.
+done.
+Processing triggers for man-db ...
+Errors were encountered while processing:
+ 1
+</pre><p>Once you get only the following error you can proceed with dpkg &#8212;force-all:<br />
+<strong>trying to overwrite `/usr/lib/xorg/modules/extensions/libglx.soâ€™, which is also in package xserver-xorg-core</strong></p>
+<p>Finally i had to use the &#8212;force-all option to install the package. <br />
+<pre class="syntax escaped c">
+dpkg --force-all -i fglrx-driver_8.602-1_amd64.deb
+</pre></p>
+<p><strong>You should try to use the procedure described above before taking this quite drastic step. </strong></p>
+<p>9. Build and install the fglrx kernel module. I had not to modify the sources in any way.<br />
+<pre class="syntax escaped c">
+module-assistant auto-install fglrx-kernel-src
+</pre></p>
+<p>10. Load the module:<br />
+<pre class="syntax escaped c">
+modprobe fglrx
+</pre></p>
+<p>11. Make sure it was loaded. If it wasn&#8217;t loaded use dmesg to check what happed.<br />
+<pre class="syntax escaped c">
+lsmod | grep fglrx
+</pre></p>
+<p>12. If you want to create a new xorg.conf file which stores your monitor setup etc.:<br />
+<pre class="syntax escaped c">
+mv /etc/X11/xorg.conf /etc/X11/xorg.conf.backup
+dpkg-reconfigure xserver-xorg (just follow the instructions)
+aticonfig --initial
+</pre></p>
+<p>13. You are done. Now start X and run the amdcccle tool and setup your screens. I had to run those steps to get dual head working:</p>
+<ul>
+	<li>Enable both displays using amdcccle</li>
+	<li>Set the resolution of both displays to the same one</li>
+	<li>Enabling Xinerama</li>
+	<li>Restart X</li>
+	<li>Enabling Multi-Display Settings (Left of ..)</li>
+	<li>Restart X</li>
+	<li>Disabling Xinerama in /etc/X11/xorg.conf</li>
+	<li>Restart X</li>
+</ul>
+<p>Download my xorg.conf:<br />
+<a href='/downloads/xorg/xorg.conf'>xorg.conf</a></p>
+<p>Overall this is a painstaking way of setting up dual head display and drivers. Please <span class="caps">AMD</span> / <span class="caps">ATI</span> create an Installer that creates valid Deb. packages or even better delete it and create a deb repository that everybody can use.</p>
+	</div>
+	
+		<footer class="entry-meta">
+		<span class="cat-links">
+		<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>&nbsp;<a href="/categories/" title="Show all articles  ansehen" rel="category">Technik</a></span>
+		<span class="sep"> | </span>
+		<span class="tag-links">
+		<span class="entry-utility-prep entry-utility-prep-tag-links">Tagged with</span>&nbsp;<a href="/tags/debian" rel="tag">debian</a></span>
+		<span class="sep"> | </span>
+	</footer>
+</article>
+
+
+<div class="comments-header toggle-switch">
+	<a href="#" id="comment-form-toggle"><h2>Add a comment</h2></a>
+</div>
+
+<div id="comments" style="display: none">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'jotschi';
+		var disqus_url = "http://www.jotschi.de/technik/2009/05/19/fglrx-and-debian-testing-on-amd64-2626-2-amd64.html";
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="http://disqus.com/?ref_noscript">comments powered by
+			Disqus.</a>
+	</noscript>
+</div>
+
+
+				</div>
+			</div>
+		</div>
+		<footer id="colophon" role="contentinfo">
+			<div id="supplementary" class="three">
+				<div id="first" class="widget-area" role="complementary">
+					<aside id="tag_cloud-2" class="widget widget_tag_cloud">
+	<h3 class="widget-title">Tags</h3>
+	<div class="tagcloud">
+		<a style='font-size: 22px' href='/tags/java/'>java</a>
+<a style='font-size: 20px' href='/tags/lenny/'>lenny</a>
+<a style='font-size: 24px' href='/tags/mars/'>mars</a>
+<a style='font-size: 24px' href='/tags/fglrx/'>fglrx</a>
+<a style='font-size: 24px' href='/tags/OpenGL/'>OpenGL</a>
+<a style='font-size: 19px' href='/tags/ati/'>ati</a>
+<a style='font-size: 16px' href='/tags/lxc/'>lxc</a>
+<a style='font-size: 26px' href='/tags/linux/'>linux</a>
+<a style='font-size: 23px' href='/tags/phoenix/'>phoenix</a>
+<a style='font-size: 16px' href='/tags/landing/'>landing</a>
+<a style='font-size: 16px' href='/tags/mysql/'>mysql</a>
+<a style='font-size: 16px' href='/tags/xorg/'>xorg</a>
+<a style='font-size: 24px' href='/tags/nasa/'>nasa</a>
+<a style='font-size: 30px' href='/tags/debian/'>debian</a>
+<a style='font-size: 16px' href='/tags/dual head/'>dual head</a>
+<a style='font-size: 19px' href='/tags/xorg.conf/'>xorg.conf</a>
+<a style='font-size: 19px' href='/tags/nasatv/'>nasatv</a>
+<a style='font-size: 16px' href='/tags/OSG/'>OSG</a>
+<a style='font-size: 16px' href='/tags/Shader/'>Shader</a>
+<a style='font-size: 19px' href='/tags/GLSL/'>GLSL</a>
+
+	</div>
+</aside>
+				</div>
+				<div id="second" class="widget-area" role="complementary">
+					<aside id="recent-posts-3" class="widget widget_recent_entries">
+	<h3 class="widget-title">Posts</h3>
+	<ul>
+		
+		<li><a href="/2015/08/12/svp-wine-linux.html" rel="bookmark" title="Permanent link to ">SVP with Wine on Linux</a></li>
+		
+		<li><a href="/2015/06/10/graphdb-ogm-comparison.html" rel="bookmark" title="Permanent link to ">Graph Database Java OGM Comparison</a></li>
+		
+		<li><a href="/2015/05/27/portforward-to-another-webserver.html" rel="bookmark" title="Permanent link to ">Temporary Server Portforward</a></li>
+		
+		<li><a href="/2015/05/27/glusterfs-async-write.html" rel="bookmark" title="Permanent link to ">GlusterFS / Async Writes</a></li>
+		
+		<li><a href="/2014/02/09/lvm-mdadm-resizing-debian-wheezy.html" rel="bookmark" title="Permanent link to ">Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy</a></li>
+		
+		<li><a href="/2014/02/07/mysql-5.6-debian-wheezy-installation.html" rel="bookmark" title="Permanent link to ">MySQL 5.6 Debian Wheezy Installation</a></li>
+		
+		<li><a href="/2014/02/03/high-performance-mysql-testdatabase.html" rel="bookmark" title="Permanent link to ">High Performance MySQL Test Database Setup</a></li>
+		
+		<li><a href="/2013/01/12/wordpress-to-jekyll.html" rel="bookmark" title="Permanent link to ">Wordpress to Jekyll Migration</a></li>
+		
+	</ul>
+</aside>
+				</div>
+				<div id="third" class="widget-area" role="complementary">
+									<aside id="categories" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+						<ul>
+						
+							<li><a href="/categories/gfx/ ">gfx</a></li>
+						
+							<li><a href="/categories/technik/ ">technik</a></li>
+						
+							<li><a href="/categories/das kalte nichts/ ">das kalte nichts</a></li>
+						
+							<li><a href="/categories/fundgrube/ ">fundgrube</a></li>
+						
+							<li><a href="/categories/neuronensturm/ ">neuronensturm</a></li>
+						
+							<li><a href="/categories/life/ ">life</a></li>
+						
+							<li><a href="/categories/uncategorized/ ">uncategorized</a></li>
+						
+							<li><a href="/categories/traumzone/ ">traumzone</a></li>
+						
+						</ul>
+				</aside>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
