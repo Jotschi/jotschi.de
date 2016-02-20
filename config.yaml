@@ -2,6 +2,7 @@ baseurl: http://jotschi.de/
 disablePathToLower: true
 languageCode: en-us
 title: Jotschi's Blog
+theme: bootie-docs
 params:
   description: ""
   withSitePosts: true
