@@ -1,8 +1,0 @@
-<aside id="recent-posts-3" class="widget widget_recent_entries">
-	<h3 class="widget-title">Posts</h3>
-	<ul>
-		{% for post in site.posts limit:8 %}
-		<li><a href="{{ post.url }}" rel="bookmark" title="Permanent link to ">{{ post.title }}</a></li>
-		{% endfor %}
-	</ul>
-</aside>

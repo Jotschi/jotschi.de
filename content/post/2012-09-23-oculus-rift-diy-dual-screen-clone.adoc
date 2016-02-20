@@ -1,0 +1,167 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories: []
+comments:
+- author: dorian
+  author_email: doriangino@gmail.com
+  author_url: ""
+  content: Wow two screen!, i love the idea!
+  date: 2012-09-24 01:35:00 +0000
+  date_gmt: 2012-09-23 23:35:00 +0000
+  id: 6654
+- author: chris
+  author_email: christian@haas-mm.sup.de
+  author_url: ""
+  content: 800x800 pixel for 3D,and 1600x800 for 2D ?
+  date: 2012-09-28 17:52:15 +0000
+  date_gmt: 2012-09-28 15:52:15 +0000
+  id: 6772
+- author: Gast1
+  author_email: gehtdichnichtsan@gmx.de
+  author_url: ""
+  content: Sehe ich da etwa Panzertape? :)
+  date: 2012-12-04 13:14:32 +0000
+  date_gmt: 2012-12-04 11:14:32 +0000
+  id: 10143
+- author: Markus
+  author_email: mr_smileyy@hotmail.com
+  author_url: ""
+  content: That looks awesome! Keep it up! :)
+  date: 2012-12-12 11:53:44 +0000
+  date_gmt: 2012-12-12 09:53:44 +0000
+  id: 10638
+- author: Markus
+  author_email: mr_smileyy@hotmail.com
+  author_url: ""
+  content: Btw... what the resolution you get on these screens?
+  date: 2012-12-12 11:56:07 +0000
+  date_gmt: 2012-12-12 09:56:07 +0000
+  id: 10639
+- author: Jotschi
+  author_email: webmaster@jotschi.de
+  author_url: http://www.Jotschi.de
+  content: Each screen has 1280x800. I use a video source with 2048x786. Usable screen
+    resolution is a bit lower since you are not able to see the full lcd screen with
+    one eye.
+  date: 2012-12-16 01:14:52 +0000
+  date_gmt: 2012-12-15 23:14:52 +0000
+  id: 10834
+date: 2012-09-23T18:18:01Z
+excerpt: |
+  This page will contain images and descriptions of my current DIY HMD project that was inspired by the Oculus Rift. Please note that this rift clone will most likely not be compatible with any "Rift Ready" Game.
+project: true
+published: true
+status: publish
+tags: []
+title: DIY Dual Screen HMD
+url: /2012/09/23/oculus-rift-diy-dual-screen-clone/
+wordpress_id: 793
+wordpress_url: /?page_id=793
+---
+
+This page will contain images and descriptions of my current DIY HMD project that was inspired by the Oculus Rift. Please note that this rift clone will most likely not be compatible with any "Rift Ready" Game.
+
+
+_Used Parts:_
+
+* Displays: 2x HV056WX1-100
+* Driver Boards: NT68674.5X, Unknown 7+1 Driver Board
+* Tracking: The <a href="https://www.sparkfun.com/products/10736">9 DoF Razor IMU from Sparkfun</a> in addition to the WiiMote Pixart sensor (connected via I2C).
+* Dual Head Setup: <a href="http://www.matrox.com/graphics/en/products/gxm/dh2go/digital_se/">Matrox Dual Head 2 Go Digital Edition</a>
+* Lenses: <a href="http://bit.ly/Tyt7sA">2x 2 inch 5x pocket loupe magnifier with Aspheric Lens</a>
+
+_Hardware TODOs:_
+
+* IR LED mounting outside the goggles
+
+* Mouting fixture for the LCD Panels inside the goggles
+
+* IMU mounting inside the goggles
+
+* External Pixart sensor mounting 
+
+
+_Software TODOs:_
+
+* OpenGL ES Demo Code
+
+* WiiMote I2C WiringPi (Example + Code)
+
+* Raspberry PI UART -> Razor IMU (Example + Code)
+
+My rift inpired HMD will use two HV056WX1-100 LCD panels. Each display has an active area of 120.960 mm by 75.600 mm. My setup will utilizes around 75.00 mm by 75.00 mm of each lcd screen per eye.
+
+<h2>Driver Box</h2>
+
+I finally put all the pices together for my driver box. It houses two driver board. The 7+1 Board which i bought from <a href="http://www.ebay.com.au/itm/5-6inch-TFT-LCD-Module-1280-800-HV056WX1-100-/300598400802?pt=LH_DefaultDomain_0&hash=item45fd0f9722#ht_5639wt_1187">eBay (vitrolight)</a> and the smaller NT68674.5X.
+
+<a href="/images/hmd/driverboard_box-top.jpg">
+<img src="/images/hmd/driverboard_box-top.jpg" alt="" title="driverboard_box-top" width="600" class="aligncenter size-full wp-image-842" /></a>
+
+<a href="/images/hmd/driverboard_box-side.jpg"><img src="/images/hmd/driverboard_box-side.jpg" alt="" title="driverboard_box-side" width="600" class="aligncenter size-full wp-image-843" /></a>
+
+<h2>LVDS <-> HDMI Breakout Boards</h2>
+
+Both boards use a LVDS->HDMI breakout adapter. The 7+1 board uses a adapter which i build from an spare HDMI cable with an female connector. The smaller NT68674.5X uses a breakout board which i build from an HDMI terminal block. 
+
+<a href="/images/hmd/hdmi-layout-v9_pcb.jpg"><img src="/images/hmd/hdmi-layout-v9_pcb.jpg" alt="" title="hdmi-layout-v9_pcb" width="444" height="840" class="aligncenter size-full wp-image-844" /></a>
+Note: The "blon" label is not positioned correctly. It should be moved down to the other pin.
+
+The new adapter works better when compared with the adapter that utilizes a hdmi cable. Soldering fine cables to a PCB is never a good idea. I ran into trouble with loose or broken connections. Nevertheless.. the adapter which i use for the 7+1 board works well for the moment.
+
+<a href="/images/hmd/pcb-breakoutboard-notetched.jpg"><img src="/images/hmd/pcb-breakoutboard-notetched.jpg" alt="" title="pcb-breakoutboard-notetched" width="345" height="514" class="aligncenter size-full wp-image-845" /></a>
+
+<a href="/images/hmd/pcb-breakoutboard-etched-cleaned.jpg"><img src="/images/hmd/pcb-breakoutboard-etched-cleaned.jpg" alt="" title="pcb-breakoutboard-etched-cleaned" width="347" height="465" class="aligncenter size-full wp-image-846" /></a>
+
+Failed attempts:
+
+<a href="/images/hmd/pinheader_spacer.jpg"><img src="/images/hmd/pinheader_spacer.jpg" alt="" title="pinheader_spacer" width="600"  class="aligncenter wp-image-794" /></a>
+
+Display driver board + breakout board:
+<a href="/images/hmd/board_pinheader_spacer.jpg"><img src="/images/hmd/board_pinheader_spacer.jpg" alt="" title="board_pinheader_spacer" width="600" class="aligncenter wp-image-796" /></a>
+
+<h2>Notes About Boards And Cables</h2>
+
+I tried various HDMI cables to connect my LVDS breakout boards. It turns out that Amazon basic cables work very well. I also tried super thin HDMI cables. Those also work but it really depends on the LVDS cable that was shipped with the display. I got two different LVDS cables because i bought two different boards.
+
+The LVDS board which was included with my NT68674.5X has a better quality than the one i got with the 7+1 board. 
+<a href="/images/hmd/DriverBoard-NT68674.5X.jpg"><img src="/images/hmd/DriverBoard-NT68674.5X.jpg" alt="" title="DriverBoard-NT68674.5X" width="600"  class="aligncenter size-full wp-image-850" /></a>
+The cable that was included with my 7+1 board got some unpopulated pins for VCC and Ground where the other cable was completely populated. Maybe it uses ground from the BLON pin for the backlight connection?
+
+I also got the impression that the 7+1 board provides a better signal to the display in comparison to the NT68674.5X. Overall the 7+1 Board could handle longer cables.
+
+<h2>HMD Unit - Paper Prototype</h2>
+
+At the first step i build a paper model for the HMD so that i could get an idea how the screens would fit inside the case and what the dimensions would be.
+
+<a href="/images/hmd/paper_proto1.jpg"><img src="/images/hmd/paper_proto1.jpg" alt="" title="paper_proto1" width="600" class="aligncenter wp-image-806" /></a>
+
+The unpainted paper model:
+<a href="/images/hmd/paper_proto2.jpg"><img src="/images/hmd/paper_proto2.jpg" alt="" title="paper_proto2" width="600" class="aligncenter wp-image-805" /></a>
+
+<h2>HMD Lense Mount</h2>
+
+<a href="/images/hmd/skigoggles_painted.jpg"><img src="/images/hmd/skigoggles_painted.jpg" alt="" title="skigoggles_painted" width="600"  class="aligncenter wp-image-802" /></a>
+
+<a href="/images/hmd/skigoggles_unpainted.jpg"><img src="/images/hmd/skigoggles_unpainted.jpg" alt="" title="skigoggles_unpainted" width="600" class="aligncenter wp-image-795" /></a>
+The goggles. Somehow they remind me of the goggles that Abe Sapien wears.
+
+<h2>HMD Renderings</h2>
+A simple rendering that shows how the screens will be positioned inside the case:
+<a href="/images/hmd/view-wire1.jpg"><img src="/images/hmd/view-wire1.jpg" alt="" title="view-wire1" width="600" class="aligncenter wp-image-797" /></a>
+<a href="/images/hmd/view-bare.jpg"><img src="/images/hmd/view-bare.jpg" alt="" title="view-bare" width="600" class="aligncenter wp-image-816" /></a>
+<a href="/images/hmd/view-inside1.jpg"><img src="/images/hmd/view-inside1.jpg" alt="" title="view-inside1" width="600" class="aligncenter wp-image-815" /></a>
+
+
+<h2>HMD Unit - Plastic Model</h2>
+
+I measured the paper model and cut some plastic sheets that were hot glued + cable tied + scotch taped together.
+<a href="/images/hmd/plastic_proto2.jpg"><img src="/images/hmd/plastic_proto2.jpg" alt="" title="plastic_proto2" width="600"  class="aligncenter wp-image-830" /></a>
+
+<a href="/images/hmd/plastic_proto1.jpg"><img src="/images/hmd/plastic_proto1.jpg" alt="" title="plastic_proto1" width="600"  class="aligncenter wp-image-831" /></a>
+
+The backside of the HMD can be opened for easy access to displays and other internal wiring. The displays are placed in between two guide rails and affixed using a plastic plate that is connected to a screw that can be fastened.
+<a href="/images/hmd/HMD-open.jpg"><img src="/images/hmd/HMD-open.jpg" alt="" title="HMD-open" width="1024" height="768" class="aligncenter size-full wp-image-849" /></a>

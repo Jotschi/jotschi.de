@@ -1,0 +1,106 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Technik
+comments: []
+date: 2011-07-08T18:36:49Z
+excerpt: "This post is about how to configure eclipse to work with a chroot environment
+  that is setup for cross compiling against ARM architecture.\n\nPlease refer to my
+  post <a href=\"/?p=594\">Cross Compile Pandaboard PowerVR OpenGL ES2 Example</a>
+  if you want to know how to setup a chroot environment for cross compiling. \n"
+published: true
+status: publish
+tags:
+- debian
+- eclipse cdt
+- chroot
+title: Eclipse CDT Cross Platform Development Within A Chroot Environment
+url: /2011/07/08/eclipse-cdt-cross-platform-development-within-a-chroot-environment/
+wordpress_id: 615
+wordpress_url: /?p=615
+---
+
+This post is about how to configure eclipse to work with a chroot environment that is setup for cross compiling against ARM architecture.
+
+Please refer to my post <a href="/?p=594">Cross Compile Pandaboard PowerVR OpenGL ES2 Example</a> if you want to know how to setup a chroot environment for cross compiling. 
+<a id="more"></a><a id="more-615"></a>
+
+===  1. Install sudo and configure sudo
+
+Install sudo:
+
+[source, bash]
+----
+apt-get install sudo 
+----
+
+
+Allow every user that is within the sudo group to execute the chroot command without entering a password by adding the line to /etc/sudoers:
+
+_/etc/sudoers_
+
+[source, bash]
+----
+%sudo   ALL= NOPASSWD: /usr/sbin/chroot
+----
+
+===  2. Prepare the project
+
+The project must be located within the within the chroot environment. You could use bind mounts to create a mountpoint that connects your workspace project with a folder inside the chroot enviroment. I just placed the project itself inside the chroot environment and created a symlink that points to my workspace. Keep in mind to close your project or eclipse if you move the project files outside of eclipse. 
+
+* 1. Create your CDT project.
+* 2. Close the project within eclipse.
+* 3. Move the project directory from e.g.: ~/workspace/MyProject/ to ~/mychroot/opt/MyProject
+* 4. Create a symlink inside of ~/workspace with the name <i>MyProject</i> that points to ~/mychroot/opt/MyProject
+* 5. Open the project within eclipse
+
+
+<h3>3. Create a external build script</h3>
+This example script (e.g: ~/workspace/MyProject/compile.sh) will execute the bash command inside of the chroot environment which is located at $HOME/mychroot. The bash command will switch into the project location inside the chroot environment and execute make. Of course you can optimize the script to make it more generic and so on. But for now i'll keep it simple.
+
+[source, bash]
+----
+#!/bin/bash
+sudo chroot $HOME/mychroot/  bash -c 'cd /opt/MyProject/; make clean; make'
+----
+
+===  4. Configure your eclipse cdt project
+
+Now we have to change the builder for our project. Since we don't want to use the host environment to build the project we need to tell eclipse to use our compile.sh script which we created earlier. Go into <i>project properties -> C/C++ Build -> Builder Settings</i> and select _External builder_. Point the Build command to your compile.sh. 
+
+To fix syntax errors within your project you have to add the correct includes of course. Go to <i>project properties -> C/C++ Build -> Setting -> Tool Settings</i> and add the include directories from your chroot enviroment. If you are using xapt to install cross libraries please note that those files are usually located at _/usr/arm-linux-gnueabi/_.
+
+Example for libx11-dev
+
+[source, bash]
+----
+root@NeXuS:/# dpkg -L  libx11-dev-armel-cross 
+/.
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/libx11-dev-armel-cross
+/usr/share/doc/libx11-dev-armel-cross/README
+/usr/arm-linux-gnueabi
+/usr/arm-linux-gnueabi/include
+/usr/arm-linux-gnueabi/include/X11
+/usr/arm-linux-gnueabi/include/X11/Xregion.h
+/usr/arm-linux-gnueabi/include/X11/Xresource.h
+/usr/arm-linux-gnueabi/include/X11/Xlib.h
+/usr/arm-linux-gnueabi/include/X11/cursorfont.h
+/usr/arm-linux-gnueabi/include/X11/XKBlib.h
+/usr/arm-linux-gnueabi/include/X11/Xlibint.h
+/usr/arm-linux-gnueabi/include/X11/Xutil.h
+/usr/arm-linux-gnueabi/include/X11/XlibConf.h
+/usr/arm-linux-gnueabi/include/X11/ImUtil.h
+/usr/arm-linux-gnueabi/include/X11/Xlocale.h
+/usr/arm-linux-gnueabi/include/X11/Xcms.h
+/usr/arm-linux-gnueabi/lib
+/usr/arm-linux-gnueabi/lib/pkgconfig
+/usr/arm-linux-gnueabi/lib/pkgconfig/x11.pc
+/usr/arm-linux-gnueabi/lib/libX11.a
+/usr/arm-linux-gnueabi/lib/libX11.so
+----

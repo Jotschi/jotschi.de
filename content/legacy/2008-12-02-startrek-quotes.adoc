@@ -1,0 +1,32 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Das kalte Nichts
+- Traumzone
+comments: []
+date: 2008-12-02T23:06:00Z
+excerpt: |
+  Some Star Trek Quotes i like.
+published: true
+status: publish
+tags:
+- StarTrek
+- Quotes
+title: StarTrek Quotes
+url: /2008/12/02/startrek-quotes/
+wordpress_id: 203
+wordpress_url: /?p=203
+---
+
+Some Star Trek Quotes i like.
+<a id="more"></a><a id="more-203"></a>
+
+<blockquote>
+And he piled upon the whale's white hump the sum of all the rage and hate felt by his whole race. If his chest had been a cannon, he would have shot his heart upon it.
+</blockquote>
+(Jean-Luc Picard: Star Trek 8: Der Erste Kontakt "First Contact")
+<br/><br/>
+{% youtube Qe0vMHBkiyk %}

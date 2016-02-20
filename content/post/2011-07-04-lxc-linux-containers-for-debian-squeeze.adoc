@@ -1,0 +1,155 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Technik
+comments:
+- author: "Dariel SubirÃ\x83Â³s"
+  author_email: dsubiros@gmail.com
+  author_url: ""
+  content: |-
+    Hi Jotschi:
+    Thanks for this tutorial.
+
+    I really am an ubuntu user, but I'm exploring Debian for a while. Some days ago I ran into LXC virtualization( Ubuntu Lucid for host and guest) and really did it, but didn't like that in new kernels(at least in Ubuntu) the Network Namespace comes disabled.
+    Today I wanted to test Debian Squeeze and began in a VBox pc, and tried to use lxc-tools, but that didn't do it with Squeeze. After some googling came into here and just modifing your mirror address and using my own local repo of Squeeze, things worked like a charm.
+
+    Awesome thanks for your lxc-debian script.
+
+    Dariel
+  date: 2011-11-11 02:04:39 +0000
+  date_gmt: 2011-11-11 00:04:39 +0000
+  id: 3775
+- author: Gregor
+  author_email: gregor.gololicic993@gmail.com
+  author_url: http://gregor.gololicic.com
+  content: Thank you for that. This script really helped me. Good job
+  date: 2012-12-21 21:31:48 +0000
+  date_gmt: 2012-12-21 19:31:48 +0000
+  id: 11164
+date: 2011-07-04T21:17:11Z
+excerpt: Today i migrated my vservers to LXC. LXC is similar to Linux VServers and
+  OpenVZ but with one big difference. You don't need to install a custom/patched Kernel
+  for LXC since the support is included within the Kernel Mainline. As for Debian
+  Linux VServers support will be dropped in future releases. This means LXC is the
+  way to go. Okay enough talking. Lets get to work.
+published: true
+status: publish
+tags: []
+title: LXC (Linux Containers) For Debian Squeeze
+url: /2011/07/04/lxc-linux-containers-for-debian-squeeze/
+wordpress_id: 554
+wordpress_url: /?p=554
+---
+
+Today i migrated my vservers to LXC. LXC is similar to Linux VServers and OpenVZ but with one big difference. You don't need to install a custom/patched Kernel for LXC since the support is included within the Kernel Mainline. As for Debian Linux VServers support will be dropped in future releases. This means LXC is the way to go. Okay enough talking. Lets get to work.<a id="more"></a><a id="more-554"></a>
+
+
+== Setup
+
+1. Install Linux Containers
+
+[source, bash]
+----
+apt-get install lxc
+----
+
+2. Add cgroup mount point:
+
+[source, bash]
+----
+mkdir -p /var/local/cgroup
+echo "cgroup  /var/local/cgroup  cgroup  defaults  0  0" >> /etc/fstab
+mount -a
+----
+
+3. Install bridge utils
+
+[source, bash]
+----
+apt-get install bridge-utils
+----
+
+4. Convert your eth0 configuration into a br0 bridge configuration:
+
+[source, bash]
+----
+# The primary network interface
+#auto eth0
+#allow-hotplug eth0
+#iface eth0 inet static
+#address 192.168.10.1
+#netmask 255.255.255.0
+
+auto br0
+iface br0 inet static
+   bridge_ports eth0
+   bridge_fd 0
+   address 192.168.10.1
+   netmask 255.255.255.0
+----
+Please keep in mind that this change might also affect your firewall settings and/or other connections. 
+
+5. Enable IP forwarding
+----
+echo 1 > /proc/sys/net/ipv4/ip_forward
+----
+
+6. Create a new container.
+I used a modified version of the lxc-debian template script from Daniel Lezcano which is included in the LXC debian package. It can be found here /usr/lib/lxc/templates/lxc-debian. The modfied version can be downloaded <a href="/downloads/lxc/lxc-debian">here</a>.
+
+[source, bash]
+----
+wget http://www.jotschi.de/downloads/lxc/lxc-debian
+chmod +x lxc-debian
+./lxc-debian
+./lxc-debian squeeze test 2
+----
+
+Your container with the name test will be installed at /var/lib/lxc/test.
+
+7. Adapt container network configuration
+For my configuration i had to adapt the resolv.conf and the /etc/network/interfaces file.
+I changed the nameserver to 192.168.10.1 since my nameserver is running of that ip.
+----
+nameserver 192.168.10.1
+----
+
+I also adapted the container  /etc/network/interfaces file.
+
+[source, bash]
+----
+auto eth0
+iface eth0 inet static
+    address 192.168.10.26
+    netmask 255.255.255.0
+    gateway 192.168.10.1
+----
+
+You can edit those file outside of your conainer by editing:
+----
+/var/lib/lxc/test/rootfs/etc/network/interfaces
+/var/lib/lxc/test/rootfs/etc/resolv.conf
+----
+
+8. Start the container
+
+[source, bash]
+----
+lxc-start -n test -d
+----
+
+9. Enter the conainer
+
+[source, bash]
+----
+lxc-console -n test
+----
+
+The default login is root/root.
+
+Use this manual for migrating linux vservers to lxc:
+
+* http://schmidi2.blog.com/2010/10/25/migrating-from-vserver-to-lxc/[migrating-from-vserver-to-lxc]

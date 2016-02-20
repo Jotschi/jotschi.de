@@ -1,0 +1,28 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Technik
+comments: []
+date: 2009-12-15T02:22:53Z
+excerpt: |
+  While searching for a tesselation example i stumbled uppon this example. It uses the GL_AMD_vertex_shader_tessellator extension.
+published: true
+status: publish
+tags: []
+title: OpenGL AMD Tesselation Example (CatmullCark SubDivision) - Linux
+url: /2009/12/15/opengl-amd-tesselation-example-catmullcark-subdivision-linux/
+wordpress_id: 460
+wordpress_url: /?p=460
+---
+
+While searching for a tesselation example i stumbled uppon this example. It uses the GL_AMD_vertex_shader_tessellator extension.
+<a id="more"></a><a id="more-460"></a>
+<img src="/images/tesselation/tesselation_raw_demo.png" alt="tesselation_raw_demo" title="tesselation_raw_demo" width="640" height="480" class="alignnone size-full wp-image-461" />
+<img src="/images/tesselation/tesselation_raw_demo_2.png" alt="tesselation_raw_demo_2" title="tesselation_raw_demo_2" width="640" height="480" class="alignnone size-full wp-image-462" />
+
+Documents can be found here:
+<a href="http://www.opengl.org/registry/specs/AMD/vertex_shader_tessellator.txt">http://www.opengl.org/registry/specs/AMD/vertex_shader_tessellator.txt</a>
+<a href="http://developer.amd.com/GPU/WGSDK/Pages/default.aspx">http://developer.amd.com/GPU/WGSDK/Pages/default.aspx</a>

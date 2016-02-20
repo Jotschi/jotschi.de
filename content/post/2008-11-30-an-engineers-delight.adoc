@@ -1,0 +1,43 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Das kalte Nichts
+comments: []
+date: 2008-11-30T23:20:12Z
+excerpt: "<p lang=\"en\">\r\nAs an introduction of an press conference about phoenix
+  mars landing Berry Goldstein shows the image below. The image shows the Phoenix
+  Mars Lander in its descent phase within EDL. The parachute is deployed and you even
+  can see the wires that connect the parachute with the lander.\r\n</p>\r\n\r\n<p
+  lang=\"de\">\r\nZu Beginn einer Press Konferenz zur Landung von Phoenix zeigte Barry
+  Goldstein das untere Bild. Auf dem Bild lÃ\x83Â¤sst sich der Lander in seiner Landephase
+  beobachten. Der Fallschirm ist entfaltet und man kann sogar die Seile erkennen die
+  den Fallschirm mit dem Lander verbinden.\r\n</p>\r\n"
+published: true
+status: publish
+tags:
+- mars
+- nasa
+- mro
+- phoenix
+- nasatv
+title: An Engineers Delight
+url: /2008/11/30/an-engineers-delight/
+---
+
+As an introduction of an press conference about phoenix mars landing Berry Goldstein shows the image below. The image shows the Phoenix Mars Lander in its descent phase within EDL. The parachute is deployed and you even can see the wires that connect the parachute with the lander.
+
+image:/images/mars/psp_008579_9020_descent_800-600.jpg
+
+----
+Phoenix Mars Lander - Press Briefing - May 26. 2008
+Barry Goldstein shows another boring engineering picture 
+----
+
+httpv://de.youtube.com/watch?v=2nmflvzJBu0
+
+Credit JPL/Nasa
+
+http://hirise.lpl.arizona.edu/phoenix-descent.php

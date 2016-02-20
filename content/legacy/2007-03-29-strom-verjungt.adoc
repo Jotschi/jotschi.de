@@ -1,0 +1,42 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Fundgrube
+- Das kalte Nichts
+comments: []
+date: 2007-03-29T03:02:19Z
+excerpt: 'Anna hat mich heute auf <em>Ijon Tichy: Raumpilot</em> aufmerksam gemacht.
+  Eine Serie die mich ein wenig an <a href="http://de.wikipedia.org/wiki/Captain_Cosmotic">Captain
+  Cosmotic</a> erinnert. Sie ist zwar wesentlich aufwendiger produziert aber besitzt
+  trozdem diesen trashigen Touch da man überall in der Serie Haushalsgegenstände als
+  Requisiten auftauchen.'
+published: true
+status: publish
+tags: []
+title: Strom verjüngt
+url: /2007/03/29/strom-verjungt/
+wordpress_id: 5
+wordpress_url: /?p=5
+---
+
+Anna hat mich heute auf <em>Ijon Tichy: Raumpilot</em> aufmerksam gemacht. Eine Serie die mich ein wenig an <a href="http://de.wikipedia.org/wiki/Captain_Cosmotic">Captain Cosmotic</a> erinnert. Sie ist zwar wesentlich aufwendiger produziert aber besitzt trozdem diesen trashigen Touch da man überall in der Serie Haushalsgegenstände als Requisiten auftauchen.<a id="more"></a><a id="more-5"></a>
+
+Die Folgen werden wie folgt ausgestrahlt:
+
+* Folge 1 - Montag, 26. März 2007, 23.55 Uhr
+* Folge 2 - Montag, 02. April 2007, 0.10 Uhr
+* Folge 3 - Montag, 16. April 2007, 23.45 Uhr
+* Folge 4 - Montag, 23. April 2007, 23.55 Uhr
+* Folge 5 - Montag, 30. April 2007, 23.45 Uhr
+* Folge 6 - Montag, 07. Mai 2007, 0.05 Uhr
+
+Ihr habt eine Folge verpasst? 
+
+Kein Problem in der http://www.zdf.de/ZDFde/inhalt/25/0,1872,5244377,00.html[Mediathek von ZDF] lassen sich die Folgen als Stream anschauen.
+
+Und hier gibts noch den Trailer zu Captain Cosmotic:
+
+{% youtube J3z7R3F11wA %}

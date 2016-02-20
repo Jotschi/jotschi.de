@@ -1,0 +1,30 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2010-09-01T22:42:45Z
+published: true
+status: publish
+tags: []
+title: Aloha Editor Wordpress Plugin
+url: /2010/09/01/aloha-editor-wordpress-plugin/
+wordpress_id: 493
+wordpress_url: /?page_id=493
+---
+
+About:
+This is a Wordpress Plugin which enables editing of posts by the usage of http://www.aloha-editor.org/[Aloha Editor]
+
+_This Project was discontinued._
+ 
+It was merged with the Front-End Editor Wordpress Plugin. 
+Please take a look at http://scribu.net/wordpress/front-end-editor/fee-2-1.html for version 2.1 that includes the Gentics Aloha Editor.</span></p><meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+Development:
+
+* You can take a look at the old code at http://github.com/Jotschi/Aloha-Editor-Wordpress-Plugin
+

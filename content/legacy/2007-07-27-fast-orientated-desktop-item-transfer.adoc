@@ -1,0 +1,32 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Neuronensturm
+- Technik
+comments: []
+date: 2007-07-27T01:25:37Z
+excerpt: "Wer kennt es nicht? Das nahezu alltÃ\x83Â¤gliche Problem.. Man sitzt an
+  seinem Laptop und mÃ\x83Â¶chte eine Datei vom Desktop des Laptops auf seinen Desktop-PC
+  verschieben. Sicher es gibt schon unzÃ\x83Â¤hlige Techniken (FTP, unison, E-Mail,
+  Samba) und ich mÃ\x83Â¶chte auch nicht das Rad komplett neu erfinden aber.."
+published: true
+status: publish
+tags: []
+title: Fast Orientated Desktop Item Transfer
+url: /2007/07/27/fast-orientated-desktop-item-transfer/
+wordpress_id: 81
+wordpress_url: /?p=81
+---
+
+Wer kennt es nicht? Das nahezu alltägliche Problem.. Man sitzt an seinem Laptop und möchte eine Datei vom Desktop des Laptops auf seinen Desktop-PC verschieben. Sicher es gibt schon unzählige Techniken (FTP, unison, E-Mail, Samba) und ich möchte auch nicht das Rad komplett neu erfinden aber..<a id="more"></a><a id="more-81"></a> wäre es nicht viel Interessanter und auch spannender man könnte einfach das gewählte Objekt auf dem Desktop nach links bzw. rechts zum Rand schieben und jenes Objekt würde dann auf dem Desktop des jeweiligen Rechners erscheinen. Markierungen am Rand des jeweiligen Desktops könnten Informationen darüber bieten in welcher Richtung sich der nächste erreichbare und auch öffentliche bzw. freigeschaltete Desktop befindet. Natürlich fehlt für diesen Fall allerdings Hardware, die heraus findet ob sich ein weiterer Rechner links oder rechts oder vor oder hinter dem aktuell betriebenen Rechner befindet. Die Idee kam mir da ich selbst viel mit Multihead arbeite und oft den Laptop auf dem Schreibtisch stehen habe. Datentransfer kann unter solchen Umständen etwas lästig werden.
+Besonders aber im schulischen Umfeld oder bei Projektarbeiten könnte sich ein solches Verfahren durchaus als praktisch erweisen. Vielleicht ist aber auch einfach nur eine Spielerei. Über Sinn und Unsinn möge man ruhig streiten.
+
+Nachtrag:
+
+Ich bin auf Synergy gestoßen. Hiermit ist es möglich Maus und Tastatur über das Netzwerk zu Sharen. Ein Synergy Server wird entsprechend der Rechnerplatzirung konfiguriert. Besitzt man Beispielsweise zwei Rechner, so ist es möglich mit der Maus des einen Rechners den anderen zu steuern indem man einfach mit der Maus je nach Konfiguration den Desktopbereich in einer Richtung verlässt und somit den Desktop des anderen Rechners erreicht.
+
+Synergy ist unter Windows und Linux lauffähig.
+Link: <a href="http://synergy2.sourceforge.net/">Synergy</a>

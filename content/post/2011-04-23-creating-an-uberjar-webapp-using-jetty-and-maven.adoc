@@ -1,0 +1,47 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2011-04-23T17:51:59Z
+excerpt: "This post is about creating an uberjar webapp. uberjar webapps are executable
+  jar archives that start a server that serves the webapp with one single command.
+  Everything is contained within a single jar. \n"
+published: true
+status: publish
+tags:
+- uberjar
+- maven
+- jetty
+title: Creating an uberjar webapp using jetty and maven
+url: /2011/04/23/creating-an-uberjar-webapp-using-jetty-and-maven/
+wordpress_id: 519
+wordpress_url: /?p=519
+---
+
+This post is about creating an uberjar webapp. uberjar webapps are executable jar archives that start a server that serves the webapp with one single command. Everything is contained within a single jar. 
+
+
+Inspired by http://open.bekk.no/2011/01/14/embedded-jetty-7-webapp-executable-with-maven/[this blogpost] ( <a href="https://github.com/bekkopen/jetty-pkg">Code</a> ) i created a similar example using maven which you can find here: <a href="https://github.com/Jotschi/Uberjar-Dummy-Webapp">Example Sources</a>.
+
+It contains a uberjar webapp that will be served using jetty. The webapp itself just contains a jersey REST resource. So this project also demonstrates how to get started with jersey.
+
+You can import all projects using the m2eclipse plugins ( http://m2eclipse.sonatype.org/installing-m2eclipse.html) 
+Note: You will need 'm2eclipse Extras' if you want to deploy the webapp within your eclipse IDE. 
+
+You can package the project using the following command:
+
+[source, bash]
+----
+mvn clean package
+----
+
+You can execute the following command to start the uberjar dummy server:
+
+[source, bash]
+----
+java -jar uberjardummy-server/target/uber-uberjardummy-server-0.0.1-SNAPSHOT.jar
+----

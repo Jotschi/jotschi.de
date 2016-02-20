@@ -1,0 +1,49 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2009-09-19T12:29:32Z
+published: true
+status: publish
+tags:
+- debian
+- panorama
+title: Convert Equirectangular Panorama To Cube Images Under Debian
+url: /2009/09/19/convert-equirectangular-panorama-to-cube-images-under-debian/
+wordpress_id: 391
+wordpress_url: /?p=391
+---
+
+1. Install dependencies for Panotools scripts
+
+[source, bash]
+----
+apt-get install libimage-size-perl
+apt-get install libimage-exiftool-perl
+apt-get install libgraphviz-perl
+apt-get install hugin-tools
+----
+
+2. Download Panotools-Script-0.23 from <a href="http://search.cpan.org/~bpostle/Panotools-Script-0.23/">Panotools-Script-0.23</a>
+
+3. Extract and build:
+
+[source, bash]
+----
+perl Makefile.PL
+make
+make test
+make install
+----
+
+4. Execute erect2cubic as described here: http://search.cpan.org/~bpostle/Panotools-Script-0.23/bin/erect2cubic
+
+[source, bash]
+----
+erect2cubic --erect=panorama.tif --ptofile=cube_project.pto
+nona -o cube_prefix cube_project.pto
+----

@@ -1,0 +1,45 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Fundgrube
+- Technik
+comments: []
+date: 2009-10-10T14:01:05Z
+excerpt: |
+  Here is how to replace a multiline text between two tags or lines of text with awk or sed.
+published: true
+status: publish
+tags:
+- sed
+- awk
+title: SED - AWK - Replace Section Within File
+url: /2009/10/10/sed-awk-replace-section-within-file/
+wordpress_id: 409
+wordpress_url: /?p=409
+---
+
+Here is how to replace a multiline text between two tags or lines of text with awk or sed.
+
+File: 'test'
+----
+###START
+1
+2
+###STOP
+----
+
+SED:
+----
+sed  -i -e "/^##START\$/,/^##STOP\$/c ##START\n${REPLACEMENT}\n##STOP" test
+----
+
+
+AWK: 
+----
+awk "/##START/{p=1;print\"###START\n${REPLACEMENT}\n###STOP\";next}/##STOP/{p=0;next}!p" test.tmp > test
+----
+
+Note: test must be copied to test.tmp before replacement can be done.

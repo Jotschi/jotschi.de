@@ -1,0 +1,37 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Neuronensturm
+- GFX
+comments: []
+date: 2009-01-04T00:16:18Z
+excerpt: "What do we need to remove a person from a video source? \n"
+published: true
+status: publish
+tags: []
+title: Removal of Humans In Motion Pictures
+url: /2009/01/04/removal-of-humans-in-motion-pictures/
+wordpress_id: 241
+wordpress_url: /?p=241
+---
+
+What do we need to remove a person from a video source? 
+
+
+At first we have to identify the person in the video. This could be done by using face tracking.
+{% youtube 5sPh6-J9wOA %}
+
+Once the location of a face of a moving person is identified within the video source we can outline the persons body. The outline of the person can be estimated by analyzing the optical flow of the video source. The corresponding pixels of the head that was pinpointed by using face tracking will most likely move with the same direction and speed as the pixels from other body parts. The background of the person can be used as a static plane by analyzing the camera movements. Once the background has been defined an estimation of the persons outline is more reliable because in the most cases the motion and direction of the background pixels and the motion and direction of the persons pixels vary.
+Moreover it is also possible to use depth estimation of the image to extrapolate different layers of the image that could be assigned to the person or the background to support the identification of the persons pixels.
+
+Once the person has been identified the person can be removed and the gap can be filled by using texture synthesis.
+{% youtube fWwy2gZuD6E %}
+
+* Harry Shum - Microsoft Research Asia
+
+In fact is is also possible to fill the gap of the person by using pixel areas from subsequent frames were no person was covering the same area. This approach is illustrated here:
+
+http://www.vision.huji.ac.il/demos/removal/removal.html

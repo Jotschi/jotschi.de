@@ -1,0 +1,39 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Technik
+- GFX
+comments: []
+date: 2007-07-27T02:28:55Z
+excerpt: 'Lighthouse ist eine Anwendung die ich zusammen mit Manuel Deil im Zuge meines
+  Studium als Projektaufgabe entwickeln musste. '
+published: true
+status: publish
+tags: []
+title: Lighthouse GDG2 Projekt SS07
+url: /2007/07/27/lighthouse-gdg2-projekt-ss07/
+wordpress_id: 83
+wordpress_url: /?p=83
+---
+
+Lighthouse ist eine Anwendung die ich zusammen mit Manuel Deil im Zuge meines Studium als Projektaufgabe entwickeln musste. <a id="more"></a><a id="more-83"></a>
+Screenshot:
+<a href='/images/lighthouse/bildschirmfoto.png' title='Screenshot'><img src='/images/lighthouse/bildschirmfoto.thumbnail.png' alt='Screenshot' /></a>
+Es handelt sich hierbei um eine Anwendung, die die Prinzipien des Schattenwurfs von verschiedenen Objekten und verschiedenen Lichtquellen verdeutlichen soll.
+Wir haben uns hierbei auf drei Lichtquellen beschränkt. 
+(Single Light) - punktförmige Lichtquelle
+(Dual Light)  - zwei punktförmige Lichtquellen
+(Area Light) - flächenförmige Lichtquelle
+
+Als technische Grundlage für dieses Projekt habe ich einen Java OpenGL Wrapper benutzt (JOGL). Hierbei verwendete ich <a href="http://xith.org/" target=_new>Xith</a> als Scenengraph und API für Hilfsfunktionen. An dieser Stelle möchte ich ein dickes Lob an die Xith Community los werden denn ohne deren rasche Hilfe wäre ich nicht fertig geworden. Die Funktionen für den Schattenwurf habe ich komplett selber implementiert. Allerdings muss ich dazu sagen das es an einigen Stellen noch Probleme gibt. Aufgrund von bestimmten Aspekten unseres Programms (z.B. zwei überlagernde Schatten) musste ich von der typischen Stencilbuffer-technik abweichen. Daher empfehle ich den jenigen die sich für Shadowcasting in 3D Anwendungen interessieren sich kein Beispiel an meiner Implementierung zunehmen. Allein schon für die Bestimmung der Siluette gibt es wesentlich effizientere Methoden.
+Ich habe eine Methode verwendet die in diesem PDF beschrieben wird: <a href="http://www.scherfgen-software.net/downloads/book/excerpt.pdf" target=_new>Link</a>
+Eine effizientere Methode wird von Tom Hall in diesem Paper beschrieben: <a href="http://www.geocities.com/tom_j_hall/SilhouetteTracking.pdf" target=_new>Link</a>
+Die dort beschrieben Methode basiert auf <em>Markosian's Randomized silhouette</em> Algorithmus. Wenn mich nicht alles täuscht verwendet die Occluder Klasse von Xith genau diesen Algorithmus. Allerdings funktioniert die dort enthaltene Implementierung im Moment (07/2007) aufgrund von API Changes nicht. 
+
+<a href="/downloads/lighthouse/lighthouse.7z" target=_new>Download Lighthouse incl. src</a> 
+Das Archiv enthält Lighthouse welches lauffähig unter Linux und Windows ist. Macintosh Support ist vorhanden aber wurde nicht getestet.
+Die verwendete XithAPI ist nicht enthalten. Zur Entwicklung verwendete ich einen SVN Trunk von 07/2007. Ein neuerer Trunk wird wahrscheinlich viele API Changes enthalten. Diese sind in Xith Forum allerdings sehr gut dokumentiert. 
+

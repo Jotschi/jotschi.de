@@ -1,0 +1,38 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2008-12-07T13:06:53Z
+excerpt: |
+  NASA Finishes Listening For Phoenix Mars Lander.
+
+  The last signal from phoenix was received on Nov. 2. 2008. Two month passed after the main mission time was reached until the lander was no longer able to communicate with MRO and therefor with earth.
+published: true
+status: publish
+tags:
+- mars
+- nasa
+- phoenix
+title: Farewell Phoenix
+url: /2008/12/07/farewell-phoenix/
+wordpress_id: 238
+wordpress_url: /?p=238
+---
+
+NASA Finishes Listening For Phoenix Mars Lander.
+
+The last signal from phoenix was received on Nov. 2. 2008. Two month passed after the main mission time was reached until the lander was no longer able to communicate with MRO and therefor with earth.
+<a id="more"></a><a id="more-238"></a>
+The mission was a full success. Phoenix found ice, water and saw even snow falling even though that this snow might be mostly frozen CO2 i believe. Phoenix demonstrated also that landing with rocket propulsion can be done well again. Some attempts of landing using rocket propulsion failed earlier.
+
+Phoenix also saw frost on the ground and melting of ice that had been uncovered from stone and ground material.
+
+{% youtube rsmlCVAzJ-U %}
+
+
+Farewell, Phoenix
+And Thank you

@@ -1,0 +1,84 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2010-10-15T18:11:50Z
+excerpt: |
+  There multiple ways to use X within a vserver. The most common would be a remote connected x session. If you just want to connect to your vserver guest and join a remote session you just need to install the desktop manager that you want to use and additionally you will need a remote control software. I prefer <a href="http://www.nomachine.com/select-package.php?os=linux&id=1">Nomachine FreeNX</a> because it is very fast and versatile.
+
+  The other way to use a X server within a vserver is the non remote version with direct usage of video hardware of the host computer.
+published: true
+status: publish
+tags: []
+title: XServer within VServer Linux
+url: /2010/10/15/xserver-within-vserver-linux/
+wordpress_id: 505
+wordpress_url: /?p=505
+---
+
+There multiple ways to use X within a vserver. The most common would be a remote connected x session. If you just want to connect to your vserver guest and join a remote session you just need to install the desktop manager that you want to use and additionally you will need a remote control software. I prefer <a href="http://www.nomachine.com/select-package.php?os=linux&id=1">Nomachine FreeNX</a> because it is very fast and versatile.
+
+The other way to use a X server within a vserver is the non remote version with direct usage of video hardware of the host computer.
+
+1. Set capabilities for the vserver guest. (Perhaps only SYS_RAWIO is needed)
+
+[source, bash]
+----
+echo -e "SYS_RAWIO\nIPC_LOCK\nIPC_OWNER\nSYS_RAWIO\nSYS_ADMIN\nNET_ADMIN\nNET_RAW\nMKNOD" > /etc/vservers/desktop-guest/bcapabilities
+----
+
+2. Create needed device nodes for the guest by coping nodes in the host system
+
+[source, bash]
+----
+cp -ax /dev/tty7 /var/lib/vservers/dev/
+cd /var/lib/vservers/desktop-guest/dev/
+ln -s tty7 tty0
+cp -ax /dev/nvidiactl /var/lib/vservers/desktop-guest/dev/
+cp -ax /dev/nvidia0 /var/lib/vservers/desktop-guest/dev/
+----
+
+3. Install the NVIDIA drivers within the guest without the kernel module. The driver must be installed within the host system as well in order to provide the loaded kernel module.
+
+[source, bash] 
+----
+./NVIDIA-Linux-x86-256.53.run --no-kernel-module
+----
+
+4. Mount sysfs within the guest:
+
+[source, bash]
+----
+mount -t sysfs /sys /sys
+----
+
+5. Finally you can start the xserver within the guest:
+
+[source, bash]
+----
+startx -- :0 vt7 -br -novtswitch -sharevts -dpi 100 -nolisten tcp
+----
+
+This was tested using:
+Host:  Debian lenny
+Guest: Debian squeeze
+
+Additional hints:
+
+If you want audio support just install alsa within the guest:
+[source, bash]
+----
+apt-get install alsa
+----
+
+And copy the /dev/snd directory from the host to the guest:
+
+[source, bash]
+----
+mv /var/lib/vservers/desktop-guest/dev /tmp
+cp -rax /dev/snd /var/lib/vservers/desktop-guest/dev/
+----

@@ -1,0 +1,23 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2008-11-30T01:50:23Z
+published: true
+status: publish
+tags: []
+title: SNPlayer
+url: /2008/11/30/snplayer/
+wordpress_id: 149
+wordpress_url: /?page_id=149
+---
+
+The approach of this project is to create an icecast radio stream that is controllable via web interface by multiple users. The source of the tracks should mainly be focused on Last.FM. Depending on user/community input to the web interface the taste of music will be adapted and playlist changes slightly.
+
+2009-02-01: Project discontinued.
+
+<a href="http://code.google.com/p/snplayer/">http://code.google.com/p/snplayer/</a>

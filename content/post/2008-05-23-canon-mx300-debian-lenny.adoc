@@ -1,0 +1,55 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Technik
+comments: []
+date: 2008-05-23T23:38:46Z
+excerpt: |
+  <p lang="en">
+  Canon MX300 with Debian Lenny<br>
+  </p>
+  <p lang="de">
+  Canon MX300 unter Debian Lenny<br>
+  </p>
+published: true
+status: publish
+tags:
+- lenny
+- debian
+- canon mx300
+- udev
+title: Canon MX300 - Debian Lenny
+url: /2008/05/23/canon-mx300-debian-lenny/
+wordpress_id: 121
+wordpress_url: /?p=121
+---
+
+
+Canon MX300 with Debian Lenny
+
+Using the CVS version of Sane (22.05.2008)<br>
+1. checkout sane, build and install.<br>
+
+----
+cvs -z3 -d:pserver:anonymous@cvs.alioth.debian.org:/cvsroot/sane co sane-backends
+---
+
+2. Add group 'scanner' (if not yet been done already)<br>
+3. The user that scans must be added to the group 'scanner'.<br>
+4. Add matching UDev rule.
+5. Connect your scanner.
+6. execute xsane
+
+
+uDev Rule:
+
+[source, bash]
+----
+# Canon PIXMA MX300
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="1727", MODE="0664", GROUP="scanner", ENV{libsane_matched}="yes"
+----
+
+

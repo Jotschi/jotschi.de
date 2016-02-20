@@ -1,0 +1,31 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Technik
+comments: []
+date: 2008-01-12T01:23:57Z
+excerpt: "Als ich mich kÃ\x83Â¼rzlich Ã\x83Â¼ber die verschiedenen HTML Standards
+  informiert habe bin ich auf einen wirklich sehr lesenswerten Artikel von Golem.de
+  gestoÃ\x83Å¸en.\r\n\r\n<a href=\"http://www.golem.de/0707/53062.html\">Webtechnologien
+  im Umbruch</a>\r\n\r\n"
+published: true
+status: publish
+tags:
+- xhtml
+- web2.0
+title: XHTML 2.0 vs. HTML 5
+url: /2008/01/12/xhtml-20-vs-html-5/
+wordpress_id: 92
+wordpress_url: /?p=92
+---
+
+Als ich mich kürzlich über die verschiedenen HTML Standards informiert habe bin ich auf einen wirklich sehr lesenswerten Artikel von Golem.de gestoßen.
+
+<a href="http://www.golem.de/0707/53062.html">Webtechnologien im Umbruch</a>
+
+<a id="more"></a><a id="more-92"></a> Durch die mit den neuen Standards kommenden neuen Features würden sich wirklich interessante Möglichkeiten erschließen. Durch den Tag Artikel ließe sich z.B. per Knopfdruck eine bestehende Website mit ihrem Layout in ein Browserinternes Artikel Preview Layout transformieren. Dies würde das ungestörte Lesen von Artikeln ermöglichen. Ob Betreiber von größeren Websites dies jedoch anwenden werden ist fraglich, da sich so leicht eine Website hijaken lassen könnte.
+
+Auch der Tag &lt;comment&gt; wäre denkbar. Ich bin gespannt was uns Webtechnologisch in diesem Bereich erwartet. Immerhin werden wir noch einige Zeit warten müssen bis es soweit ist. Für HTML5 wird eine Entwicklungszeit von 15 Jahren angestrebt. Es ist natürlich auch die Frage in wie weit sich alte Standards verdrängen lassen bzw. von neuen abgelöst werden.

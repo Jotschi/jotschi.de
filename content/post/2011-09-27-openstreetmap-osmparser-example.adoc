@@ -1,0 +1,51 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2011-09-27T00:05:46Z
+excerpt: |
+  Just a simple OpenStreetMap Example for the <a href="http://code.google.com/p/osm-parser/">osmParser Library</a>.
+published: true
+status: publish
+tags: []
+title: OpenStreetMap osmParser Example
+url: /2011/09/27/openstreetmap-osmparser-example/
+wordpress_id: 668
+wordpress_url: /?p=668
+---
+
+Just a simple OpenStreetMap Example for the <a href="http://code.google.com/p/osm-parser/">osmParser Library</a>.
+
+[source, java]
+----
+import br.zuq.osm.parser.OSMParser;
+import br.zuq.osm.parser.model.OSM;
+import br.zuq.osm.parser.model.Way;
+
+public class osmParserTest {
+
+	/**
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception {
+		String left = "16.35428";
+		String bottom = "48.20161";
+		String right = "16.36806";
+		String top = "48.20747";
+		String url = " http://api.openstreetmap.org/api/0.6/map?bbox=" + left + "," + bottom + "," + right
+				+ "," + top;
+		System.out.println(url);
+		OSM osm = OSMParser.parse(url);
+		for (Way way : osm.getWays()) {
+			System.out.println(way.getName());
+		}
+
+	}
+
+}
+----

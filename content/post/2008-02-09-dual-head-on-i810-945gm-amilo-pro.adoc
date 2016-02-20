@@ -1,0 +1,162 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Fundgrube
+- Technik
+comments: []
+date: 2008-02-09T13:50:27Z
+excerpt: |
+  <p lang="en">
+  If you want to set up a dual head configuration you might want to take a look at my xorg.conf
+  _UPDATE:_Using latest Lenny? See here: <a href="/?p=141">Link</a>
+  </p>
+published: true
+status: publish
+tags:
+- xorg
+- debian
+- dual head
+- xorg.conf
+- linux
+title: 'Dual Head on i810 - 945GM - Amilo Pro '
+url: /2008/02/09/dual-head-on-i810-945gm-amilo-pro/
+wordpress_id: 115
+wordpress_url: /?p=115
+---
+
+If you want to set up a dual head configuration you might want to take a look at my xorg.conf
+
+[source, bash]
+----
+Section "Files"
+	FontPath	"/usr/share/fonts/X11/misc"
+	FontPath	"/usr/X11R6/lib/X11/fonts/misc"
+	FontPath	"/usr/share/fonts/X11/cyrillic"
+	FontPath	"/usr/X11R6/lib/X11/fonts/cyrillic"
+	FontPath	"/usr/share/fonts/X11/100dpi/:unscaled"
+	FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/:unscaled"
+	FontPath	"/usr/share/fonts/X11/75dpi/:unscaled"
+	FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/:unscaled"
+	FontPath	"/usr/share/fonts/X11/Type1"
+	FontPath	"/usr/X11R6/lib/X11/fonts/Type1"
+	FontPath	"/usr/share/fonts/X11/100dpi"
+	FontPath	"/usr/X11R6/lib/X11/fonts/100dpi"
+	FontPath	"/usr/share/fonts/X11/75dpi"
+	FontPath	"/usr/X11R6/lib/X11/fonts/75dpi"
+	# path to defoma fonts
+	FontPath	"/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType"
+EndSection
+
+Section "Module"
+	Load    "GLcore"
+	Load	"bitmap"
+	Load	"dbe"
+	Load	"ddc"
+	Load	"dri"
+	Load	"extmod"
+	Load	"freetype"
+	Load	"glx"
+	Load	"int10"
+	Load	"record"
+	Load	"type1"
+	Load	"vbe"
+EndSection
+
+Section "InputDevice"
+	Identifier	"Generic Keyboard"
+	Driver		"kbd"
+	Option		"CoreKeyboard"
+	Option		"XkbRules"	"xorg"
+	Option		"XkbModel"	"pc105"
+	Option		"XkbLayout"	"de"
+	Option		"XkbVariant"	"nodeadkeys"
+EndSection
+
+Section "InputDevice"
+	Identifier	"Configured Mouse"
+	Driver		"evdev"
+	Option		"CorePointer"
+	Option          "Name" "Logitech USB-PS/2 Optical Mouse"
+EndSection
+
+Section "InputDevice"
+	Identifier	"Synaptics Touchpad"
+	Driver		"synaptics"
+	Option		"SendCoreEvents"	"true"
+	Option		"Device" 		"/dev/psaux"
+	Option          "SHMConfig"		"true"
+	Option		"Protocol"		"auto-dev"
+	Option		"HorizScrollDelta"	"0"
+EndSection
+
+Section "Device"
+	Identifier	"Device LCD dual"
+	Driver		"i810"
+	BusID		"PCI:0:2:0"
+	Screen		0
+	Option          "MonitorLayout" "CRT,LFP"
+EndSection
+
+Section "Device"
+	Identifier	"Device CRT dual"
+	Driver		"i810"
+	BusID		"PCI:0:2:0"
+	Screen		1
+EndSection
+
+Section "Monitor"
+        Identifier      "Monitor LCD"
+        Option          "DPMS"
+EndSection
+
+Section "Monitor"
+	Identifier	"Monitor CRT"
+	HorizSync     50-80
+	VertRefresh   60
+EndSection
+
+Section "Screen"
+	Identifier	"Screen CRT dual"
+	Device		"Device CRT dual"
+	Monitor		"Monitor CRT"
+	DefaultDepth	24
+	SubSection "Display"
+		Depth	24
+		Modes   "1280x1024"
+	EndSubSection
+EndSection
+
+Section "Screen"
+	Identifier	"Screen LCD dual"
+	Device		"Device LCD dual"
+	Monitor		"Monitor LCD"
+	DefaultDepth	24
+	SubSection "Display"
+		Depth	24
+		Modes	"1280x800"
+	EndSubSection
+EndSection
+
+Section "ServerLayout"
+	Identifier	"Default Layout"
+	Screen		0 "Screen LCD dual"
+	Screen		1 "Screen CRT dual" RightOf "Screen LCD dual"
+	InputDevice	"Generic Keyboard"
+	InputDevice	"Configured Mouse"
+	InputDevice	"Synaptics Touchpad"
+	Option		"Xinerama" "true"
+EndSection
+
+Section "DRI"
+	Mode	0666
+EndSection
+----
+
+Note: You might need to change the input devices to match your current hardware. The secondary display device does not work with Option "DPMS". Just fetch the right properties of your display and change the matching values for HorizSync and VertRefresh and you will get a higher resoultion on the device attached to secondary output.</p>
+
+Download:
+
+link:/downloads/xorg/xorg.conf.i810[Dual Head Xorg.conf]

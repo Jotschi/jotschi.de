@@ -1,0 +1,24 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2009-10-16T19:30:01Z
+published: true
+status: publish
+tags:
+- ESA
+title: ESA Television FTP Site
+url: /2009/10/16/esa-television-ftp-site/
+wordpress_id: 412
+wordpress_url: /?p=412
+---
+
+While searching fore ESA TV is stumbled over the ftp site mentioned here:
+
+http://television.esa.int/default.cfm
+
+It contains tons of interesting ESA film footage/clips.  :)

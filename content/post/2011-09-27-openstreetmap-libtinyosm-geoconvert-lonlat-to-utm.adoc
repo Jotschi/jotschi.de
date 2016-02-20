@@ -1,0 +1,30 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2011-09-27T00:21:25Z
+excerpt: |
+  Some time ago i wrote a small library in someway similar to the osmParse library. It has a smaller footprint in comparison to the josm library. The sources can be found <a href="https://github.com/Jotschi/libTinyOSM">here</a>.
+
+  I also migrated a small ruby file to java which contains useful lon/lat to utm conversion methods. These sources can be found <a href="https://github.com/Jotschi/geoconvert">here</a>.
+published: true
+status: publish
+tags: []
+title: OpenStreetMap libTinyOSM & GeoConvert lon/lat to UTM
+url: /2011/09/27/openstreetmap-libtinyosm-geoconvert-lonlat-to-utm/
+wordpress_id: 670
+wordpress_url: /?p=670
+---
+
+Some time ago i wrote a small library in someway similar to the osmParse library. It has a smaller footprint in comparison to the josm library. The sources can be found <a href="https://github.com/Jotschi/libTinyOSM">here</a>.
+
+I also migrated a small ruby file to java which contains useful lon/lat to utm conversion methods. These sources can be found <a href="https://github.com/Jotschi/geoconvert">here</a>.
+
+The libTinyOSM contains a small example that shows how both (libTinyOSM and geoconvert) work together to get drawable data from the osm api.
+
+Here is a screenshot that shows the rendered data:
+<a href="/images/osm/osmUTMGeoconvert.png"><img src="/images/osm/osmUTMGeoconvert.png" alt="" title="osmUTMGeoconvert" width="796" height="510" class="alignnone size-full wp-image-671" /></a>

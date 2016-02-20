@@ -1,0 +1,26 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Neuronensturm
+- Technik
+- GFX
+comments: []
+date: 2008-01-20T22:29:49Z
+excerpt: |-
+  Using robotic features and neuronal sensors it should be possible to create a robot that react on movements to simulate movement while realy "standing still" on the ground. Combined with virtual retinal displays or cyber glasses you could realy move inside the virtual reality without controling the movements of your virtual reality avatar by buttons or something else.
+  <p>
+published: true
+status: publish
+tags: []
+title: Virtual Reality Freedom
+url: /2008/01/20/virtual-reality-freedom/
+wordpress_id: 106
+wordpress_url: /?p=106
+---
+
+Using robotic features and neuronal sensors it should be possible to create a robot that react on movements to simulate movement while realy "standing still" on the ground. Combined with virtual retinal displays or cyber glasses you could realy move inside the virtual reality without controling the movements of your virtual reality avatar by buttons or something else.
+
+{% youtube 14C2bDrZr4I %}

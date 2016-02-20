@@ -1,0 +1,76 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2008-12-02T21:41:09Z
+excerpt: "<p lang=\"en\">\r\nSometimes its usefull to throttle your bandwith within
+  apache. There are two modules available _mod_cband_ or _mod_bw_.\r\n</p>\r\n<p
+  lang=\"de\">\r\nManchmal ist es von Vorteil wenn man die Bandbreite von Apache drosseln
+  kann. Es gibt zwei Module die hierzu MÃ\x83Â¶glichkeiten anbieten die ich gefunden
+  habe. Zum einen _mod_cband_ oder _mod_bw_.\r\n</p>\r\n"
+published: true
+status: publish
+tags:
+- lenny
+- debian
+- apache2
+- mod_bw
+title: Bandwidth Controlling for Apache2 (Lenny)
+url: /2008/12/02/bandwidth-controlling-for-apache2-lenny/
+wordpress_id: 182
+wordpress_url: /?p=182
+---
+
+Sometimes its usefull to throttle your bandwith within apache. There are two modules available _mod_cband_ or _mod_bw_.
+
+I just tested mod_bw which can be downloaded here: <a href="http://www.ivn.cl/apache/">http://www.ivn.cl/apache/</a>
+
+Installed Apache Versions:
+
+[source, bash]
+----
+ii  apache2-mpm-prefork  2.2.9-10     Apache HTTP Server - traditional non-threade
+ii  apache2-prefork-dev    2.2.9-10     Apache development headers - non-threaded MP
+ii  apache2-utils                2.2.9-10     utility programs for webservers</blockquote>
+----
+
+1. apt-get install apache2-prefork-dev 
+2. download and extract mod_bw-0.8.tgz
+3. sudo apxs2 -i -a -c mod_bw.c 
+4. Add the following line to httpd.conf:
+
+[source, bash]
+----
+LoadModule bw_module /usr/lib/apache2/modules/mod_bw.so
+----
+
+5. Add limitation to VirtualHost (sites-available/default)
+
+[source, bash]
+----
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+
+        BandwidthModule On
+        ForceBandWidthModule On
+        Bandwidth all 10240
+        MinBandwidth all -1
+
+        DocumentRoot /var/www/
+        <Directory />
+                Options +ExecCGI +Includes
+                AllowOverride None
+                Allow from all
+        </Directory>
+        ErrorLog /var/log/apache2/error.log
+        LogLevel warn
+        CustomLog /var/log/apache2/access.log combined
+        ServerSignature On
+</VirtualHost>
+----
+
+Another blogpost that contains also an how to based on mod_cband http://www.uno-code.com/?q=node/64.

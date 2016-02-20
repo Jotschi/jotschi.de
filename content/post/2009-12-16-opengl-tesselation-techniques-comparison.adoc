@@ -1,0 +1,58 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Technik
+- GFX
+comments: []
+date: 2009-12-16T01:22:24Z
+excerpt: |
+  There is a variety of different tesselation techniques you can use within opengl. This post should give a overview over the different techniques currently available:
+published: true
+status: publish
+tags: []
+title: 'OpenGL Tesselation Techniques Comparison '
+url: /2009/12/16/opengl-tesselation-techniques-comparison/
+wordpress_id: 471
+wordpress_url: /?p=471
+---
+
+There is a variety of different tesselation techniques you can use within openGL. This post should give a overview over the different techniques currently available:
+
+{% youtube Bcalc8UoJzo %}
+
+
+_1. External Library:_
+<a href="http://www.cs.cmu.edu/~quake/triangle.html">Triangle</a>
+
+* Pro's: More flexibel usage
+* Con's: Doesn't use GPU computing capabilities
+
+
+_2. Static pipeline functionality provided by GLU the GLUtesselator:_
+
+<a href="/?p=466">OpenGL GLU Tesselation Method Without DisplayLists</a>
+
+* Pro's: Simple to use
+* Con's: Doesn't use GPU computing capabilities
+
+_3. Using the GL_AMD_vertex_shader_tessellator extension from AMD / ATI_
+
+<a href="http://www.opengl.org/registry/specs/AMD/vertex_shader_tessellator.txt">Spec: vertex_shader_tessellator</a>
+<a href="/?p=460">OpenGL AMD Tesselation Example (CatmullCark SubDivision) - Linux</a>
+
+* Pro's: Does use GPU computing features
+* Con's: Does not work with Nvidia cards at all
+
+_4. Using OpenGL 3.2 Geometry Shader Extensions:_
+
+<a href="http://www.opengl.org/registry/specs/EXT/geometry_shader4.txt">Spec: geometry_shader4</a>
+<a href="http://wiki.delphigl.com/index.php/shader_tesselation">http://wiki.delphigl.com/index.php/shader_tesselation</a>
+
+* Pro's: Does use GPU computing features
+* Con's: GPU must Shader Model 4
+
+
+

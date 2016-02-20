@@ -1,0 +1,124 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Life
+comments: []
+date: 2008-01-12T00:44:02Z
+excerpt: "Für mich stand schon lange Zeit fest das ich gerne nach Österreich auswandern
+  wollte. Und so schwer ist es gar nicht.\r\n\r\n"
+published: true
+status: publish
+tags: []
+title: Auswandern nach Österreich - Ausbildung in Wien - Mein Erfahrungsbericht
+url: /2008/01/12/auswandern-nach-osterreich-ausbildung-in-wien-mein-erfahrungsbericht/
+wordpress_id: 91
+wordpress_url: /?p=91
+---
+
+Für mich stand schon lange Zeit fest das ich gerne nach Österreich auswandern wollte. Und so schwer ist es gar nicht.
+
+<a id="more"></a><a id="more-91"></a>
+
+Als Zutaten benötigt man:
+<ul>
+	<li>ein Reisedokument ( Reisepass oder Personalausweis)</li>
+	<li>eine Wohnung zum Leben</li>
+</ul>
+Ich schildere im weiteren einfach meine Erfahrungen die ich in Wien gesammelt habe und den Amtsweg der mich dort erwartet hat.
+
+1. Anmelden:
+
+Als erstes besorgst du dir einen Meldezettel. Einfach runterladen und ausdrucken:
+
+<a href="http://www.wien.gv.at/verwaltung/meldeservice/pdf/meldezettel.pdf">Meldezettel (PDF)</a>
+
+Als nächstest suchst du den Meldeservice für deinen Ort/Bezirk. Die Liste für Wien gibt es hier:
+
+<a href="http://www.wien.gv.at/verwaltung/meldeservice/stellen.html">Stellen</a>
+Einfach vorbei schauen. Das Anmelden geht in der Regel sehr schnell.
+
+2. Abmelden:
+
+Wenn du nicht vor hast deinen Wohnsitz in Österreich als Nebenwohnsitz laufen zu lassen empfiehlt es sich den Hauptwohnsitz in Deutschland abzumelden. Dies muss allerdings bei dem Einwohnermeldeamt in Deutschland geschehen wo du bisher gemeldet warst.
+
+4. AMS Dienste:
+
+Wenn du in irgendeiner Weise vom Arbeitsmarkt Service bürokratische offizielle Dienste in Anspruch nehmen möchtest brauchst du eine Österreichische Sozialversicherungsnummer. Ich habe vom AMS ein Formular bekommen mit dem ich zu Zentralen Gebietskrankenkasse gehen musste. Wichtig! Achtet darauf das euer Formular abgestempelt. Signiert und mit dem Namen des Sachbearbeiters versehen wurde. Wegen diesen "Kleinigkeiten" durfte ich schon so einiges durch machen.
+
+3. Österreichische Sozialversicherungsnummer:
+
+Am besten ihr geht relativ früh zur Gebietskrankenkasse. In Wien habe ich dort ziemlich lange warten müssen.
+
+_Ausbildung_
+
+Wenn du eine Ausbildung in Österreich bzw. in Wien oder im Ausland planst kannst du einen Antrag auf Berufsausbildungsbeihilfe stellen. Diesen Antrag kannst du bei deinem örtlichen Arbeitsamt in Deutschland stellen. Du solltest allerdings einen Termin für die Antragsstellung vereinbaren. In meinem Fall bin ich einfach mit der Tür ins Haus gefallen und habe erklärt das ich bereits am nächsten Tag umziehen werde. Daraufhin habe ich den Antrag als Ausdruck erhalten.
+
+Für den Antrag müssen einige Kriterien erfüllt werden:
+<ul>
+	<li>Die Ausbildung in Österreich muss einer Ausbildung in Deutschland gleichwertig sein. Dies überprüft die Wirtschafskammer in Deutschland.</li>
+	<li>Die Ausbildung im Ausland muss begründet werden. z.B. dadurch das man in einem Land indem nicht Deutsch gesprochen wird zusätzliche Sprach Erfahrungen sammeln kann.</li>
+	<li> Das Einkommen der Eltern darf nicht besonders hoch sein.</li>
+</ul>
+und noch einige andere die mir im Moment nicht einfallen.
+
+Für manche Ausbildungsberufe gibt es explizit eine Liste mit deren Inhalten. Es kann nicht schaden eine solche Liste dem Antrag beizufügen und in einem gesonderten Schreiben auf dieses hinzuweisen.
+
+_Banken_
+
+Banken gibt es in Österreich, wie auch in Deutschland einige.
+<ul>
+	<li>Volksbank:</li>
+</ul>
+Vorteil: Überall verfügbar, Abbuchungen von Geldautomaten in ganz Europa ohne Extra Gebühren, bietet Studentenkonto an welches evtl. auch für Auszubildende in Frage kommen könnte. (Hierzu beim ersten mal Fragen und beim zweiten mal mit dem Ausbildungsvertrag vorbei schauen, die Mitarbeiter nicht überrumpeln, Termin vereinbaren )
+<ul>
+	<li>ErsteBank:</li>
+</ul>
+k.a.
+<ul>
+	<li>Bank Austria:</li>
+</ul>
+Vorteil: Gutes Image?
+
+Nachteil: Diese Bank bot mir kein Studentenkonto als Auszubildenden an, Informationspolitik  sehr schlecht.
+Sie bieten einen großen  Hochglanzflyer ohne Fakten. Schönes Design aber das wars dann auch.
+<ul>
+	<li>Raiffeisen:</li>
+</ul>
+Nachteil: eher kleinere Bank?
+<ul>
+	<li>Postbank:</li>
+</ul>
+k.a.
+
+_Finanzen_
+
+Vorsicht beim Geldabheben mit Deutscher Bankkarte! Je nachdem bei welchem Kreditinstitut ihr seit kann es euch einiges Kosten. Abheben von 10€ führt z.B. zu einer Kontobelastung von 13,50€
+
+_Einkaufen_
+
+Ganz anders sieht es jedoch beim Bezahlen an der Kasse mit Karte aus.
+
+Mit Maestrokarte zahlt ihr hier nichts extra. ( Getestet bei Thalia )
+
+Billa akzeptiert leider nur Österreichische Maestrokarten.
+
+_Handy_
+
+Wer viel telefoniert dem ist sicherlich ein Vertragshandy empfohlen. Ich dagegen telefoniere mit meinem Handy seltener, dafür schreibe ich mehr SMS. Da ich keinen neuen Mobilfunkvertrag abschließen wollte habe ich mich auf PrePaid suche begeben.
+
+Bei Telering bin ich fündig geworden.
+
+Das Prepaid Angebot Mücke SMS konnte ich für 9,95 ergattern. Enthalten waren ausserdem 5 Euro Startguthaben.
+
+SMS ins Österreichische Mobilfunknetz kosten in diesem Tarif nur 3 Cent!
+
+SMS ins Deutsche Mobilfunknetz kosten 15 Cent.
+
+Eine Gesprächsminute in Österreich nach Deutschland kostet im Mücke SMS Tarif  70 Cent.
+
+Eine Gesprächsminute in Österreich nach Österreich kostet im Mücke SMS Tarif 9 Cent.
+
+Um in den SMS Tarif zu wechseln muss man zusätzlich eine Gebühr von 2,50 Euro bezahlen. Diese wird automatisch von dem 5 Euro Guthaben abgezogen. Interessant ist zudem das man beim Kauf der SIM Karte keinerlei Personen spezifische Daten angeben muss.

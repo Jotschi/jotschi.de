@@ -1,0 +1,228 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Technik
+- GFX
+comments: []
+date: 2009-12-15T23:23:32Z
+excerpt: "Due to the deprecation of 'DisplayLists' within OpenGL 3.2 i wanted to store
+  my tessellated mesh within a structure which i could use later on. Therefor it is
+  possible to use the GLU_TESS_VERTEX_DATA, GLU_TESS_BEGIN_DATA etc gluTessCallback
+  hooks.\n\nWhen calling the gluTessBeginPolygon method it is possible to pass a address
+  to a own structure along as second argument. This address will be handled to the
+  callback methods and therefor you can access your defined data structure to store
+  the tessellated data within it. My example shows how to deal with that. \n"
+published: true
+status: publish
+tags: []
+title: OpenGL GLU Tesselation Method Without DisplayLists
+url: /2009/12/15/opengl-glu-tesselation-method-without-displaylists/
+wordpress_id: 466
+wordpress_url: /?p=466
+---
+
+Due to the deprecation of 'DisplayLists' within OpenGL 3.2 i wanted to store my tessellated mesh within a structure which i could use later on. Therefor it is possible to use the GLU_TESS_VERTEX_DATA, GLU_TESS_BEGIN_DATA etc gluTessCallback hooks.
+
+When calling the gluTessBeginPolygon method it is possible to pass a address to a own structure along as second argument. This address will be handled to the callback methods and therefor you can access your defined data structure to store the tessellated data within it. My example shows how to deal with that. 
+
+I use the http://glm.g-truc.net/about.html[OpenGL Mathematics Library] to handle my points. 
+
+<img src="/images/tesselation/tesselation_star.png" alt="tesselation_star" title="tesselation_star" width="240" height="216" class="alignnone size-full wp-image-468" />
+
+<img src="/images/tesselation/tesselation_star_wire.png" alt="tesselation_star_wire" title="tesselation_star_wire" width="232" height="205" class="alignnone size-full wp-image-469" />
+
+_GL_GLUT_TesselationData.cpp_
+
+[source, c]
+----
+#include <GL/glut.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <vector>
+#include "glm/glm.hpp"
+using namespace std;
+
+//#define USEDISPLAYLIST
+
+GLuint startList;
+GLdouble **dataOutFinal;
+
+#ifndef USEDISPLAYLIST
+struct Mesh {
+	std::vector<glm::vec3> points;
+	GLenum type;
+} mesh;
+#endif
+
+GLdouble rect[4][3] = { 50.0, 50.0, 0.0, 200.0, 50.0, 0.0, 200.0, 140.0, 0.0,
+		50.0, 200.0, 0.0 };
+
+GLdouble star[5][6] = { 250.0, 50.0, 0.0, 1.0, 0.0, 1.0, 325.0, 200.0, 0.0,
+		1.0, 1.0, 0.0, 400.0, 50.0, 0.0, 0.0, 1.0, 1.0, 250.0, 150.0, 0.0, 1.0,
+		0.0, 0.0, 400.0, 150.0, 0.0, 0.0, 1.0, 0.0 };
+
+void display(void) {
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 0.5, 1.0);
+
+	// Enable this to see the wireframe
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+#ifndef USEDISPLAYLIST
+	vector<glm::vec3>::const_iterator cii;
+	glBegin(mesh.type);
+	for (cii = mesh.points.begin(); cii != mesh.points.end(); cii++) {
+		glVertex3f((*cii).x, (*cii).y, (*cii).z);
+		printf("Result: %f,%f,%f\n", (*cii).x, (*cii).y, (*cii).z);
+	}
+	glEnd();
+#else
+	glCallList(startList);
+#endif
+
+	glFlush();
+}
+
+void beginCallback(GLenum which, void *resultMesh) {
+	printf("Type: %i\n", which);
+#ifdef USEDISPLAYLIST
+	glBegin(which);
+#else
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).type = which;
+#endif
+
+}
+
+void errorCallback(GLenum errorCode) {
+	const GLubyte *estring;
+	estring = gluErrorString(errorCode);
+	fprintf(stderr, "Tessellation Error: %s\n", estring);
+	exit(0);
+}
+
+void endCallback(void *tessellationSetAddress) {
+#ifdef USEDISPLAYLIST
+	glEnd();
+#endif
+}
+
+void vertexCallback(GLvoid *data, void *resultMesh) {
+	const GLdouble *pointer;
+	pointer = (GLdouble *) data;
+#ifdef USEDISPLAYLIST
+	glColor3dv(pointer + 3);
+	glVertex3dv(pointer);
+#else
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).points.push_back(glm::vec3(pointer[0], pointer[1], pointer[2]));
+#endif
+	printf("Added new vertex[%f][%f][%f]\n", pointer[0], pointer[1], pointer[2]);
+
+}
+
+void combineCallback(GLdouble coords[3], GLdouble *vertex_data[4],
+		GLfloat weight[4], GLdouble **dataOut, void *resultMesh) {
+
+	GLdouble *vertex;
+	vertex = (GLdouble *) malloc(6 * sizeof(GLdouble));
+	vertex[0] = coords[0];
+	vertex[1] = coords[1];
+	vertex[2] = coords[2];
+
+#ifndef USEDISPLAYLIST
+	Mesh *myMesh = (Mesh*) resultMesh;
+	(*myMesh).points.push_back(glm::vec3(vertex[0], vertex[1], vertex[2]));
+#endif
+	printf("Added combine vertex[%f][%f][%f]\n", vertex[0], vertex[1],
+			vertex[2]);
+
+	*dataOut = vertex;
+
+}
+
+void init(void) {
+	GLUtesselator *tobj;
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+
+	tobj = gluNewTess();
+	gluTessCallback(tobj, GLU_TESS_VERTEX_DATA, (void(*)()) vertexCallback);
+	gluTessCallback(tobj, GLU_TESS_BEGIN_DATA, (void(*)()) beginCallback);
+	gluTessCallback(tobj, GLU_TESS_END_DATA, (void(*)()) endCallback);
+	gluTessCallback(tobj, GLU_TESS_ERROR, (void(*)()) errorCallback);
+	gluTessCallback(tobj, GLU_TESS_COMBINE_DATA, (void(*)()) combineCallback);
+
+#ifdef USEDISPLAYLIST
+	startList = glGenLists(1);
+	glNewList(startList, GL_COMPILE);
+#endif
+
+	glShadeModel(GL_SMOOTH);
+	gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_POSITIVE);
+
+#ifdef USEDISPLAYLIST
+	gluTessBeginPolygon(tobj, NULL);
+#else
+	gluTessBeginPolygon(tobj, &mesh);
+#endif
+
+	/*
+	 gluTessBeginContour(tobj);
+	 gluTessVertex(tobj, rect[0], rect[0]);
+	 gluTessVertex(tobj, rect[1], rect[1]);
+	 gluTessVertex(tobj, rect[2], rect[2]);
+	 gluTessVertex(tobj, rect[3], rect[3]);
+	 gluTessEndContour(tobj);
+	 */
+
+	gluTessBeginContour(tobj);
+	gluTessVertex(tobj, star[0], star[0]);
+	gluTessVertex(tobj, star[1], star[1]);
+	gluTessVertex(tobj, star[2], star[2]);
+	gluTessVertex(tobj, star[3], star[3]);
+	gluTessVertex(tobj, star[4], star[4]);
+	gluTessEndContour(tobj);
+
+	gluTessEndPolygon(tobj);
+
+#ifdef USEDISPLAYLIST
+	glEndList();
+#endif
+	gluDeleteTess(tobj);
+
+	printf("Done\n");
+
+}
+
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
+}
+
+void keyboard(unsigned char key, int x, int y) {
+	switch (key) {
+	case 27:
+		exit(0);
+		break;
+	}
+}
+
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 500);
+	glutCreateWindow(argv[0]);
+	init();
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutKeyboardFunc(keyboard);
+	glutMainLoop();
+	return 0;
+}
+----

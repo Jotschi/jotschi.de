@@ -1,0 +1,62 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2010-11-11T22:08:18Z
+published: true
+status: publish
+tags: []
+title: 'Memory Allocation Test '
+url: /2010/11/11/memory-allocation-test/
+wordpress_id: 512
+wordpress_url: /?p=512
+---
+
+If you want to test is your vserver/openvz/lxc memory quota settings are working you can just use the following memory allocation test to check it out. 
+You have to write fake data into the allocated memory area to trigger the memory checks of the kernel/virtualisation tool of your choice.</p>
+
+Memory overcommit is a Linux kernel feature that lets applications allocate more memory than is actually available. The idea behind this feature is that some applications allocate large amounts of memory just in case, but never actually use it. Thus, memory overcommit allows you to run more applications than actually fit in your memory, provided the applications don't actually use the memory they have allocated. If they do, then the kernel terminates the application.
+
+[source, c]
+----
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+main() {
+
+   int i;
+   for(i=0;i<9000;i++) {
+        int *ptr = malloc(i*1024*1024);
+        if (ptr == NULL) {
+          printf ("Soft memory allocation failed for %i MB\n",i );
+          break;
+        } else {
+            free(ptr);
+            ptr = NULL;
+        }
+   }
+
+
+   for(i=0;i<9000;i++) { 
+
+        int *ptr = malloc(i*1024*1024);
+        if (ptr == NULL) {
+          printf ("Memory allocation failed for %i MB\n",i );
+          break;
+        } else {
+            memset(ptr, 0, i*1024*1024);
+            printf("Wrote %i MB to memory\n", i);
+            //usleep(1000);
+            free(ptr);  
+            ptr = NULL;
+        }
+
+   }
+}
+----

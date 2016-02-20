@@ -1,0 +1,33 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2010-09-08T12:44:36Z
+published: true
+status: publish
+tags: []
+title: Summarize memory consumption for linux processes
+url: /2010/09/08/summarize-memory-consumption-for-linux-processes/
+wordpress_id: 503
+wordpress_url: /?p=503
+---
+
+This script will summarize the memory consumption for a given pattern. It will filter all process args by this pattern and summarize the memory consumption.
+
+[source, bash]
+----
+#!/bin/bash
+
+a=0
+sum=0
+for entry in `ps -eo rss,args | grep $1 | sed "s/\s.*//"` ; do
+a=$(($a+1));
+sum=$(($sum+$entry));
+done
+#echo $a;
+echo "Found: $a processes - Memory Usage: $sum - $(($sum/1024))"
+----

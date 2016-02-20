@@ -1,0 +1,87 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Technik
+comments: []
+date: 2009-10-18T16:49:03Z
+excerpt: |
+  Here is my small method in which i create a new osg::image that contains only the pixels that are within my specified area of interest.
+published: true
+status: publish
+tags:
+- OSG
+title: OpenSceneGraph osg::Image - getting a subimage from an image.
+url: /2009/10/18/openscenegraph-osgimage-getting-a-subimage-from-an-image/
+wordpress_id: 414
+wordpress_url: /?p=414
+---
+
+Here is my small method in which i create a new osg::image that contains only the pixels that are within my specified area of interest.
+
+[source, c]
+----
+osg::Image* getSubImage(osg::Image* sourceImage, int startX, int startY,int stopX, int stopY) {
+
+
+	int subImageWidth = stopX - startX;
+	int subImageHeight = stopY - startY;
+	if(subImageWidth<=0 || subImageHeight<=0)
+	{
+		osg::notify(osg::ALWAYS) << "Error the subimage size is not correct. Aborting.";
+		return NULL;
+	}
+
+	std::cout << "Size: " << sourceImage->s() << "x" << sourceImage->s()
+			<< std::endl;
+	std::cout << "SubImageSize: " << subImageWidth << "x" << subImageHeight
+			<< std::endl;
+	std::cout << "Channels: " << sourceImage->r() << std::endl;
+	const unsigned char *sourceData = sourceImage->data();
+	struct pixelStruct {
+		unsigned char r, g, b;
+	};
+
+	osg::Image* subImage = new osg::Image();
+
+	// allocate memory for image data
+	const unsigned char *targetData = new unsigned char[subImageWidth
+			* subImageHeight * 3];
+
+	struct pixelStruct* pPixelSource = (struct pixelStruct *) (sourceData);
+	struct pixelStruct* pPixelTarget = (struct pixelStruct *) (targetData);
+	struct pixelStruct* pCurrentPixelSource = NULL;
+	struct pixelStruct* pCurrentPixelTarget = NULL;
+
+	int subX = 0;
+	int subY = 0;
+	for (int x = startX; x < stopX; x++) {
+		for (int y = startY; y < stopY; y++) {
+
+			std::cout << "Source Pixel [" << x << "][" << y << "]" << std::endl;
+			std::cout << "Target Pixel [" << subX << "][" << subY << "]"
+					<< std::endl;
+			pCurrentPixelSource = &pPixelSource[y * sourceImage->s() + x];
+			pCurrentPixelTarget = &pPixelTarget[subY * subImageWidth + subX];
+
+			pCurrentPixelTarget->r = pCurrentPixelSource->r;
+			pCurrentPixelTarget->g = pCurrentPixelSource->g;
+			pCurrentPixelTarget->b = pCurrentPixelSource->b;
+
+			subY++;
+		}
+		subY=0;
+		subX++;
+	}
+
+	subImage->setImage(subImageWidth, subImageHeight, sourceImage->r(),
+			sourceImage->getInternalTextureFormat(),
+			sourceImage->getPixelFormat(), 5121, (unsigned char*) targetData,
+			osg::Image::NO_DELETE);
+
+	return subImage;
+
+}
+----

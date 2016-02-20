@@ -1,0 +1,49 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2011-10-23T12:53:05Z
+excerpt: "For my arduino project i needed to find a way of monitoring webserver requests
+  in realtime. \n"
+published: true
+status: publish
+tags: []
+title: Realtime Webserver Access Monitoring For Linux Users
+url: /2011/10/23/realtime-webserver-access-monitoring-for-linux-users/
+wordpress_id: 713
+wordpress_url: /?p=713
+---
+
+For my arduino project i needed to find a way of monitoring webserver requests in realtime. 
+
+==  This is how it works:
+
+On the server side i start a script that monitors the apache access log. The script just pipes useful lines into ncat to send them to connected client. <a href="http://nmap.org/ncat/">ncat</a> is similar to netcat but it allows multiple connections. ncat is included in the nmap package. You can also use netcat but this would limit you to one client connection.
+The stdbuf command is very important since it changes the output buffering. Otherwise you would receive big chucks of data instead of discrete lines.
+
+==  On the server side:
+
+[source, bash]
+----
+#!/bin/bash
+LOG=/var/log/apache2/blog_access.log
+tail -f -n 20 $LOG | stdbuf -oL awk '{print $7 " "  $9}'  | stdbuf -oL  grep "/?p" |  ncat -l 2222 -m 20 -k
+----
+
+==  On the client side you need the following script:
+
+On the client side a script is used that connects to the ncat server and reads the piped lines. Those lines are then passed to the notify-send command which is a neat small command that displays a notification message on your desktop.
+I don't recommend that you open the port 2222 to access it from the internet. Instead you could use openvpn to keep a open connection to your server or use ssh port forward.
+
+[source, bash]
+----
+#!/bin/bash
+nc yourwebserver 2222 | while read line  ; do
+  echo $line
+  notify-send "Blog: $line"
+done
+----

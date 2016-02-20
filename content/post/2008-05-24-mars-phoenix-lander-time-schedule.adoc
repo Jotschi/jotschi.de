@@ -1,0 +1,55 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Das kalte Nichts
+comments: []
+date: 2008-05-24T13:16:47Z
+excerpt: "Zeitplan fÃ\x83Â¼r die Landung: (26.05.08)\r\nDie Sonde wird voraussichtlich
+  um  00:30:40 GMT+1 in die Mars AtmosphÃ\x83Â¤re eintreten. Da Mars und Erde aber
+  zur Zeit einen Abstand von 275 Millionen Kilometer zueinander haben braucht das
+  Signal 15 Minuten und 20 Sekunden um die Erde zu erreichen."
+published: true
+status: publish
+tags:
+- mars
+- nasa
+- phoenix
+title: Mars Phoenix Lander - Time Schedule
+url: /2008/05/24/mars-phoenix-lander-time-schedule/
+wordpress_id: 122
+wordpress_url: /?p=122
+---
+
+Zeitplan für die Landung: (26.05.08)
+Die Sonde wird voraussichtlich um  00:30:40 GMT+1 in die Mars Atmosphäre eintreten. Da Mars und Erde aber zur Zeit einen Abstand von 275 Millionen Kilometer zueinander haben braucht das Signal 15 Minuten und 20 Sekunden um die Erde zu erreichen.<a id="more"></a><a id="more-122"></a>Dies bedeutet das wir erst um 01:46:00 GMT+1 die Nachricht vom Eintritt erhalten. (19:46 EDT) - (23:46 UTC) Die ersten Bilder sollten dann um ca. 02:30 GMT+1 eintreffen. Das erste Bild wird die Solarzellen zeigen um die korrekte Entfaltung sicherzustellen.
+
+-- Gelegenheit ein Bahnkorrektur Manöver auszuführen (TCM6X), 17:46:00
+-- News briefing 21:00:00
+-- Beginn der nicht kommentierten live Übertragung aus dem JPL Kontroll Raum, 00:00:00
+-- Beginn der kommentierten live Übertragung aus dem JPL Kontroll Raum, 00:30:00 
+-- Antriebssystem wird unter Druck gesetzt, 01:16:00 - (<b>26.05.08</b>)
+-- Beginn der "bent-pipe" gekoppelten Weiterleitung (Kontinuierliche Transmissionen von Phoenix Data wie sie eintreffen) durch NASA's Mars Odyssey spacecraft zu Goldstone, Calif., Deep Space Network Station, 01:38:00
+-- Green Bank, W. Va., Radio Teleskop horcht von direkten UHF Transmissionen von Phoenix, 01:38:00
+-- Cruise Stage trennt sich vom Lander, 01:39:00
+-- Die Sonde dreht sich für den Atmosphären Eintritt, 01:40:00
+-- Die Sonde tritt in die Mars Atmosphäre ein, 01:46:33
+-- Übliche  Blackout Periode da heißes Plasma das Raumschiff umhüllt, 01:47:00 bis 01:49:00
+-- Fallschirm entfaltet sich, 01:50:15, +- ca. 13 Sekunden
+-- Hitze Schild wird ab gesprengt, 01:50:30, +- ca. 13 Sekunden
+-- Landebeine werden ausgefahren, 01:50:40, +- ca. 13 Sekunden
+-- Radar aktiviert 00:51:30
+-- Lander trennt sich vom Backshell, 01:53:09, +- ca. 46 Sekunden
+-- Übertragungslücke während des Wechsels zur Helix Antenne 01:53:08 bis 01:53:14
+-- Abstiegsdüsen fahren hoch, 01:53:12
+-- Konstante Beschleunigungsphase beginnt, 01:53:34, +- ca. 46 Sekunden
+-- Touchdown, 01:53:52, +- ca. 46 Sekunden
+-- Lander Funk aus 01:54:52, +- ca. 46 Sekunden
+-- Beginn der Entfaltung der Solarzellen (während Funk Pause) 02:13:00
+-- Der NASA's Mars Reconnaissance Orbiter spielt die aufgezeichneten Phoenix Übertragungen noch einmal ab die er während der EDL gemacht hat., 02:28, Diese Daten stehen erst einige Stunden später zur Verfügung.
+-- Mars Express spielt die aufgezeichneten Phoenix Übertragungen noch einmal ab die er während der EDL gemacht hat, 02:30. Diese Daten stehen erst einige Stunden später zur Verfügung.
+-- Post-landing Aufgaben von Subsystemen Teams über den Status des Landers, 02:30:00
+-- Mars Odyssey "bent-pipe" Weiterleitung von Transmissionen von Phoenix, mit System Daten und möglicherweise den ersten Bildern, 03:43:00 bis 04:02:00. Daten können bis zu 30 zusätzlichen Minuten in der Pipeline verbringen bis sie schließlich verfügbar sind. Falls alles gut geht, live Übertragungen vom Control Room zeigen vielleicht die ersten Bilder so wie sie eintreffen. 
+-- News briefing, 01:05 (27.05.08)

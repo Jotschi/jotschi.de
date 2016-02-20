@@ -1,0 +1,51 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2012-04-17T21:58:07Z
+excerpt: |
+  If you try to sync some files to an ftp mount you might get the Operation not supported (95) error.
+published: true
+status: publish
+tags: []
+title: rsync to ftp - Operation not supported (95)
+url: /2012/04/17/rsync-to-ftp-operation-not-supported-95/
+wordpress_id: 749
+wordpress_url: /?p=749
+---
+
+If you try to sync some files to an ftp mount you might get the Operation not supported (95) error.
+
+[source, bash]
+----
+ # cd /media/ftpmountpoint/
+ # rsync -rav /tmp/somedata .
+ rsync: mkstemp "/media/ftpmountpoint/.somefile.ext.FbGJUT" failed: Operation not supported (95)
+ sent 526833 bytes  received 119 bytes  1053904.00 bytes/sec
+ total size is 526334  speedup is 1.00
+ rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1060) [sender=3.0.7]
+----
+
+
+_Solution:_
+
+[source, bash]
+----
+# mkdir -p /var/tmp/rsync
+# rsync -rav --temp-dir=/var/tmp/rsync /tmp/somedata .
+----
+
+_Explanation:_
+
+The ftp system does not allow creation of temp files. Instead you can direct rsync to create those files locally.
+
+Mouting ftp sites can be done this way:
+
+[source, bash]
+----
+curlftpfs my.host.tdl /media/ftpmountpoint -o user=username:password
+----

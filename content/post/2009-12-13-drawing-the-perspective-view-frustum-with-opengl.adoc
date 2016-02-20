@@ -1,0 +1,121 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2009-12-13T19:43:38Z
+excerpt: 'A visualization of the current view frustum can be helpful in some cases. '
+published: true
+status: publish
+tags:
+- OpenGL
+- math
+title: Drawing the perspective view frustum with OpenGL
+url: /2009/12/13/drawing-the-perspective-view-frustum-with-opengl/
+wordpress_id: 441
+wordpress_url: /?p=441
+---
+
+A visualization of the current view frustum can be helpful in some cases. <a id="more"></a><a id="more-441"></a>
+1. Extract the two important matrices you wish to visualize:
+
+[source, c]
+----
+static float proj[16];
+glGetFloatv(GL_PROJECTION_MATRIX, proj);
+
+static float mv[16];
+glGetFloatv(GL_MODELVIEW_MATRIX, mv);
+----
+
+2. Do some math and draw your frustum:
+
+[source, c]
+----
+void Helper::drawFrustum(float * proj, float *mv) {
+
+	// Get near and far from the Projection matrix.
+	const double near = proj[11] / (proj[10] - 1.0);
+	const double far = proj[11] / (1.0 + proj[10]);
+
+	// Get the sides of the near plane.
+	const double nLeft = near * (proj[2] - 1.0) / proj[0];
+	const double nRight = near * (1.0 + proj[2]) / proj[0];
+	const double nTop = near * (1.0 + proj[6]) / proj[5];
+	const double nBottom = near * (proj[6] - 1.0) / proj[5];
+
+	// Get the sides of the far plane.
+	const double fLeft = far * (proj[2] - 1.0) / proj[0];
+	const double fRight = far * (1.0 + proj[2]) / proj[0];
+	const double fTop = far * (1.0 + proj[6]) / proj[5];
+	const double fBottom = far * (proj[6] - 1.0) / proj[5];
+
+	/*
+	 0	glVertex3f(0.0f, 0.0f, 0.0f);
+	 1	glVertex3f(nLeft, nBottom, -near);
+	 2	glVertex3f(nRight, nBottom, -near);
+	 3	glVertex3f(nRight, nTop, -near);
+	 4	glVertex3f(nLeft, nTop, -near);
+	 5	glVertex3f(fLeft, fBottom, -far);
+	 6	glVertex3f(fRight, fBottom, -far);
+	 7	glVertex3f(fRight, fTop, -far);
+	 8	glVertex3f(fLeft, fTop, -far);
+	 */
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	//glLoadIdentity ();
+
+        // TODO - Update: You need to invert the mv before multiplying it with the current mv!
+
+	glMultMatrixf(mv);
+
+	glLineWidth(2);
+	glBegin(GL_LINES);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fLeft, fBottom, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fRight, fTop, -far);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(fLeft, fTop, -far);
+
+	//far
+	glVertex3f(fLeft, fBottom, -far);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(fRight, fTop, -far);
+	glVertex3f(fLeft, fTop, -far);
+
+	glVertex3f(fRight, fTop, -far);
+	glVertex3f(fRight, fBottom, -far);
+
+	glVertex3f(fLeft, fTop, -far);
+	glVertex3f(fLeft, fBottom, -far);
+
+	//near
+	glVertex3f(nLeft, nBottom, -near);
+	glVertex3f(nRight, nBottom, -near);
+
+	glVertex3f(nRight, nTop, -near);
+	glVertex3f(nLeft, nTop, -near);
+
+	glVertex3f(nLeft, nTop, -near);
+	glVertex3f(nLeft, nBottom, -near);
+
+	glVertex3f(nRight, nTop, -near);
+	glVertex3f(nRight, nBottom, -near);
+
+	glEnd();
+	glLineWidth(1);
+	glPopMatrix();
+}
+----

@@ -1,0 +1,139 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2011-07-07T00:45:28Z
+excerpt: 'This post is about how to compile the PowerVR SDK Examples within a Debian
+  Linux Chroot environment. Sometimes you may not want to compile your sources on
+  the target platform because of performance reasons. '
+published: true
+status: publish
+tags: []
+title: Pandaboard OpenGL PowerVR CrossCompile On Debian
+url: /2011/07/07/pandaboard-opengl-powervr-crosscompile-on-debian/
+wordpress_id: 569
+wordpress_url: /?p=569
+---
+
+This post is about how to compile the PowerVR SDK Examples within a Debian Linux Chroot environment. Sometimes you may not want to compile your sources on the target platform because of performance reasons.
+
+_Notes about environment:_
+
+* Debian Chroot Environment was using Debian Testing (Wheezy).
+* Pandaboard was running Ubuntu 11 (Natty)
+* PowerVR Library versions: 1.7.5.2+git20110610+9696932c.2-1
+
+
+_What do we need?_
+
+* Pandaboard running Ubuntu 11 (Natty)
+* x86 (i386) Workstation running Debian
+* http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/[pvr-omap4 orig package] (e.g.: http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz[pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz])
+* Imagination PowerVR <a href="http://www.imgtec.com/powervr/insider/sdkdownloads/index.asp">Khronos OpenGL ES 2.0 SDK</a> for Pandaboard
+
+=== 1. Create a chroot environment
+
+At first we need a chroot environment in which we can compile our code against arm architecture. 
+
+[source, bash]
+----
+# use debootstrap to create a chroot environment
+debootstrap --arch=i386 testing rootfs/
+# Switch into the chroot environment
+chroot rootfs
+# Install some basic tools
+apt-get install vim less pdebuild-cross 
+----
+
+== 2. Update our apt sources
+
+Add the emdebian repository.
+
+[source, bash]
+----
+echo "deb http://ftp.at.debian.org/debian/ testing main contrib non-free" > /etc/apt/sources.list
+echo "deb http://www.emdebian.org/debian/ testing main" >> /etc/apt/sources.list 
+apt-get install emdebian-archive-keyring
+apt-get update
+----
+
+=== 3. Install the crosscompiler tools from emdebian repository
+
+[source, bash]
+----
+apt-get install g++-4.4-arm-linux-gnueabi
+apt-get install gcc-4.4-arm-linux-gnueabi
+----
+
+=== 4. Prepare the PowerVR SDK
+
+[source, bash]
+----
+cd /opt/
+# Download the powervr sdk and extract it in /opt
+tar xfvz SDK_OGLES2_LINUX_ARMV7_2.08.28.0634.tar.gz 
+# Replace one parameter that does not work with Debian Linux.
+sed -i 's/arm-none-linux/arm-linux/' /opt/SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7/make_platform.mak  
+----
+
+=== 5. Get cross compile dependencies
+
+[source, bash]
+----
+xapt -m -a armel libx11-dev
+xapt -m -a armel libdrm-dev
+----
+
+=== 6. Store Settings
+Contents of /opt/settings.inc
+
+[source, bash]
+----
+#!/bin/bash
+export X11BUILD=1
+export PLATFORM=LinuxARMV7
+export X11ROOT=/usr/include/
+export CROSS_COMPILE=arm-linux-gnueabi-
+----
+
+=== 7. Compile example
+
+[source, bash]
+----
+cd /opt/SDKPackage_OGLES2/TrainingCourse/03_Texturing/OGLES2/Build
+# If . does not work use source to include the settings
+. /opt/settings.inc
+# Invoke the build
+make
+----
+
+=== 8. Problems and issues
+
+I transfered the binaries onto my pandaboard after i compiled the sources on my workstation. If i tried to execute them i got the following error:
+
+[source, bash]
+----
+eglBindAPI failed (40740). 
+----
+
+=== 9. Fixes
+
+I assume that the libraries which are included in the sdk are outdated. The libraries can be found here: _SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7/Lib_. I replaced them with a set of libraries which can be found at <a href="https://launchpad.net/~tiomap-dev">Launchpad TI Dev</a>. Those binaries are used to create the omap4 ubuntu packages. I used the pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz archive.
+
+[source, bash]
+----
+# Extract pvr-omap4 archive
+cd /opt/
+wget http://ppa.launchpad.net/tiomap-dev/release/ubuntu/pool/main/p/pvr-omap4/pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz
+tar xvfz pvr-omap4_1.7.5.2+git20110610+9696932c.2.orig.tar.gz 
+# Replace Libs
+cd /opt/SDKPackage_OGLES2/Builds/OGLES2/LinuxARMV7
+mv Lib/ Lib.bak
+ln -s /opt/pvr-omap4-1.7.5.2+git20110610+9696932c.2/usr/lib/ Lib
+----
+
+After replacing the libraries and recompiling the examples worked just fine.

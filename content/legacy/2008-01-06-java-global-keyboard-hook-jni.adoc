@@ -1,0 +1,441 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Technik
+- author: Jotschi
+  author_email: webmaster@jotschi.de
+  author_url: http://www.jotschi.de
+  content: "Hello blackkettle,\n\nplease take a look at the linked post at the top
+    of the page. The implementation was rewritten by Kristian Kraljic. \n\nGreetings\n\nJotschi"
+  date: 2012-08-22 09:43:43 +0000
+  date_gmt: 2012-08-22 07:43:43 +0000
+  id: 6447
+date: 2008-01-06T14:39:01Z
+excerpt: "<h2>\r\nUPDATE:\r\nThis code was written a long time ago and does not work
+  with Windows Vista/7. \r\nPlease check out a newer version which was rewritten by
+  Kristian Kraljic.\r\n</h2>\r\n&gt;&gt; <a href=\"http://ksquared.de/blog/2011/07/java-global-system-hook/\">Java
+  Global (low level) Keyboard / Mouse Hook JNI</a> &lt;&lt;\r\n\r\n"
+published: true
+status: publish
+tags: []
+title: Java Global Keyboard/Mouse Hook - JNI
+url: /2008/01/06/java-global-keyboard-hook-jni/
+wordpress_id: 90
+wordpress_url: /?p=90
+---
+
+== UPDATE:
+_This code was written a long time ago and does not work with Windows Vista/7_ 
+_Please check out a newer version which was rewritten by Kristian Kraljic_
+
+http://ksquared.de/blog/2011/07/java-global-system-hook/[Java Global (low level) Keyboard / Mouse Hook JNI]
+
+Global Keyboard/Mouse Hook für Java Applikationen. Der Standart Keyboard Listener für Java Applikationen liefert leider keine Ergebnisse sobald die Applikation den Fokus verliert. Dies ist z.B. bei Minimierung eines Fensters der Fall. Um trotzdem jedoch Interaktionen von dem Benutzer abzufangen ist es notwendig auf JNI (Java Nativ Interface) zurückzugreifen und mittels externer Libary (DLL unter Windows) bereitzustellen.
+
+Quellen: link:/downloads/keyhook/KeyHookSRC.zip[KeyHookSRC.zip]
+
+
+Code Listing:
+
+_SysHook.cpp:_
+
+[source, c]
+----
+#include &lt;windows.h&gt;
+#include "SysHook.h"
+#include &lt;jni.h&gt;
+
+HINSTANCE hInst = NULL;
+
+JavaVM * jvm = NULL;
+jobject hookObj_kb = NULL;
+jobject hookObj_ms = NULL;
+jobject g_kl = NULL;
+
+jmethodID processKeyID_kb = NULL;
+jmethodID processKeyID_ms = NULL;
+DWORD hookThreadId = 0;
+
+LONG    g_mouseLocX = -1;    // x-location of mouse position
+LONG    g_mouseLocY = -1;    // y-location of mouse position
+
+extern "C"
+BOOL APIENTRY DllMain(HINSTANCE _hInst, DWORD reason, LPVOID reserved)
+{
+	switch (reason)
+	{
+		case DLL_PROCESS_ATTACH:
+			printf("C++: DllMain - DLL_PROCESS_ATTACH.\n");
+			hInst = _hInst;
+			break;
+		default:
+			break;
+	}
+
+return TRUE;
+}
+
+LRESULT CALLBACK MouseTracker(int nCode, WPARAM wParam, LPARAM lParam)
+{
+	JNIEnv * env;
+	KBDLLHOOKSTRUCT * p = (KBDLLHOOKSTRUCT *)lParam;
+
+	if (jvm-&gt;AttachCurrentThread((void **)&amp;env, NULL) &gt;= 0)
+	{
+
+		if (nCode==HC_ACTION)
+		{
+			MOUSEHOOKSTRUCT* pStruct = (MOUSEHOOKSTRUCT*)lParam;
+			if (pStruct-&gt;pt.x != g_mouseLocX || pStruct-&gt;pt.y != g_mouseLocY)
+			{
+				env-&gt;CallVoidMethod(hookObj_ms, processKeyID_ms, (jint)pStruct-&gt;pt.x,(jint)pStruct-&gt;pt.y, g_kl);
+				g_mouseLocX = pStruct-&gt;pt.x;
+				g_mouseLocY = pStruct-&gt;pt.y;
+			}
+
+		}
+
+	}
+	else
+	{
+		printf("C++: LowLevelKeyboardProc - Error on the attach current thread.\n");
+	}
+
+return CallNextHookEx(NULL, nCode, wParam, lParam);
+}
+
+LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
+{
+	JNIEnv * env;
+	KBDLLHOOKSTRUCT * p = (KBDLLHOOKSTRUCT *)lParam;
+
+	if (jvm-&gt;AttachCurrentThread((void **)&amp;env, NULL) &gt;= 0)
+	{
+		switch (wParam)
+		{
+			case WM_KEYDOWN:
+			case WM_SYSKEYDOWN:
+				env-&gt;CallVoidMethod(hookObj_kb, processKeyID_kb, (jboolean)TRUE, p-&gt;vkCode,g_kl);
+				break;
+			case WM_KEYUP:
+			case WM_SYSKEYUP:
+				env-&gt;CallVoidMethod(hookObj_kb, processKeyID_kb, (jboolean)FALSE, p-&gt;vkCode,g_kl);
+				break;
+			default:
+				break;
+		}
+	}
+	else
+	{
+		printf("C++: LowLevelKeyboardProc - Error on the attach current thread.\n");
+	}
+
+return CallNextHookEx(NULL, nCode, wParam, lParam);
+}
+
+void MsgLoop()
+{
+	MSG message;
+	while (GetMessage(&amp;message, NULL, 0, 0))
+{
+
+TranslateMessage(&amp;message);
+DispatchMessage(&amp;message);
+}
+}
+
+JNIEXPORT void JNICALL Java_SysHook_registerHook(JNIEnv * env, jobject obj,jobject kl)
+{
+	HHOOK hookHandle_ms = SetWindowsHookEx(WH_MOUSE_LL, MouseTracker, hInst, 0);
+	HHOOK hookHandle_kb = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, hInst, 0);
+
+	g_kl = kl;
+
+	if (hookHandle_ms == NULL)
+	{
+		printf("C++: Java_SysHook_registerKeyHook - Hook failed!\n");
+		return;
+	}
+	else
+	{
+		printf("C++: Java_SysHook_registerKeyHook - Hook successful\n");
+	}
+
+	if (hookHandle_kb == NULL)
+	{
+		printf("C++: Java_SysHook_registerKeyHook - Hook failed!\n");
+		return;
+	}
+	else
+	{
+		printf("C++: Java_SysHook_registerKeyHook - Hook successful\n");
+	}
+
+	hookObj_kb = env-&gt;NewGlobalRef(obj);
+	jclass cls_kb = env-&gt;GetObjectClass(hookObj_kb);
+	processKeyID_kb = env-&gt;GetMethodID(cls_kb, "processKey", "(ZILGlobalEventListener;)V");
+
+	hookObj_ms = env-&gt;NewGlobalRef(obj);
+	jclass cls_ms = env-&gt;GetObjectClass(hookObj_ms);
+	processKeyID_ms = env-&gt;GetMethodID(cls_ms, "mouseMoved", "(IILGlobalEventListener;)V");
+
+	env-&gt;GetJavaVM(&amp;jvm);
+	hookThreadId = GetCurrentThreadId();
+
+	MsgLoop();
+
+	if (!UnhookWindowsHookEx(hookHandle_kb))
+	{
+		printf("C++: Java_SysHook_registerKeyHook - Unhook failed\n");
+	}
+	else
+	{
+		printf("C++: Java_SysHook_registerKeyHook - Unhook successful\n");
+	}
+
+	if (!UnhookWindowsHookEx(hookHandle_ms))
+	{
+		printf("C++: Java_SysHook_registerKeyHook - Unhook failed\n");
+	}
+	else
+	{
+		printf("C++: Java_SysHook_registerKeyHook - Unhook successful\n");
+	}
+}
+
+JNIEXPORT void JNICALL Java_SysHook_unRegisterHook(JNIEnv *env, jobject object)
+{
+	if (hookThreadId == 0)
+	return;
+
+	printf("C++: Java_SysHook_unRegisterKeyHook - call PostThreadMessage.\n");
+	PostThreadMessage(hookThreadId, WM_QUIT, 0, 0L);
+}
+</pre>
+
+
+_SysHook.h:_
+<pre class="syntax c">
+ /* DO NOT EDIT THIS FILE - it is machine generated */
+#include &lt;jni.h&gt;
+/* Header for class SysHook */
+
+#ifndef _Included_SysHook
+#define _Included_SysHook
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+* Class:     SysHook
+* Method:    registerHook
+* Signature: (LGlobalEventListener;)V
+*/
+JNIEXPORT void JNICALL Java_SysHook_registerHook  (JNIEnv *, jobject, jobject);
+
+/*
+* Class:     SysHook
+* Method:    unRegisterHook
+* Signature: ()V
+*/
+JNIEXPORT void JNICALL Java_SysHook_unRegisterHook  (JNIEnv *, jobject);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+----
+
+_GlobalEventListener.java:_
+
+[source, java]
+----
+public class GlobalEventListener
+{
+	PoolHook pt;
+	public GlobalEventListener()
+	{
+		pt = new PoolHook(this);
+		pt.start();
+	}
+
+	protected javax.swing.event.EventListenerList listenerList = new javax.swing.event.EventListenerList();
+
+	public void addKeyboardEventListener(KeyboardEventListener listener)
+	{
+		listenerList.add( KeyboardEventListener.class, listener );
+	}
+
+	public void removeKeyboardEventListener(KeyboardEventListener listener)
+	{
+		listenerList.remove( KeyboardEventListener.class, listener );
+	}
+
+	void keyPressed(KeyboardEvent event)
+	{
+		Object[] listeners = listenerList.getListenerList();
+		for ( int i = 0; i &lt; listeners.length; i += 2 )
+		{
+			if ( listeners[ i ] == KeyboardEventListener.class )
+		{
+		( (KeyboardEventListener)listeners[i + 1] ).GlobalKeyPressed( event );
+	}
+}
+}
+
+void keyReleased(KeyboardEvent event)
+{
+	Object[] listeners = listenerList.getListenerList();
+	for ( int i = 0; i &lt; listeners.length; i += 2 )
+	{
+		if ( listeners[ i ] == KeyboardEventListener.class )
+		{
+			( (KeyboardEventListener)listeners[i + 1] ).GlobalKeyReleased( event );
+		}
+	}
+}
+
+}
+----
+
+_KeyboardEventListener.java:_
+
+[source, java]
+----
+import java.util.*;
+
+public interface KeyboardEventListener extends EventListener
+{
+	public void GlobalKeyPressed( KeyboardEvent event );
+	public void GlobalKeyReleased( KeyboardEvent event );
+}
+
+class KeyboardEvent extends EventObject
+{
+	private static final long serialVersionUID = 2341653211621224652L;
+	boolean ts, ap, ek;
+	int vk;
+
+public KeyboardEvent( Object source, boolean ts, int vk, boolean ap, boolean ek )
+{
+	super(source);
+	this.ts = ts;
+	this.vk = vk;
+	this.ap = ap;
+	this.ek = ek;
+}
+
+public boolean getTransitionState()
+{
+	return ts;
+}
+
+public long getVirtualKeyCode()
+{
+	return vk;
+}
+
+public boolean isAltPressed()
+{
+	return ap;
+}
+
+public boolean isExtendedKey()
+{
+	return ek;
+}
+
+public boolean equals( KeyboardEvent event )
+{
+	if( event.getVirtualKeyCode() == vk )
+	{
+		if( event.isExtendedKey() == ek )
+		{
+			if( event.isAltPressed() == ap )
+			{
+				return true;
+			}
+		}
+	}
+return false;
+}
+}
+</pre>
+
+_SysHook.java:_
+<pre class="syntax c">
+class PoolHook extends Thread
+{
+	SysHook hook;
+	GlobalEventListener g_gl;
+
+	PoolHook(GlobalEventListener gl)
+	{
+		g_gl = gl;
+	}
+
+	public void run()
+	{
+		hook = new SysHook();
+		hook.registerHook(g_gl);
+	}
+
+}
+
+class SysHook
+{
+
+	static
+	{
+		System.loadLibrary("SysHook");
+	}
+
+	void processKey(  boolean ts  ,int vk, GlobalEventListener gl)
+	{
+		KeyboardEvent event = new KeyboardEvent( this, ts, vk,false, false );
+		gl.keyPressed(event);
+	}
+
+	void mouseMoved(int cord_x, int cord_y, GlobalEventListener gl)
+	{
+		//MouseEvent event = new MouseEvent( this, cord_x, cord_y);
+		//gl.mouseMoved(event);
+	}
+
+	native void registerHook(GlobalEventListener gl);
+	native void unRegisterHook();
+
+}
+----
+
+
+Example Java Program:
+
+[source, java]
+----
+public class Example  implements KeyboardEventListener
+{
+
+	static GlobalEventListener gl;
+
+	public static void main(String[] args) throws Exception
+	{
+		Example inst = new Example();
+		gl = new GlobalEventListener();
+		gl.addKeyboardEventListener(inst);
+	}
+
+	public void GlobalKeyPressed( KeyboardEvent event )
+	{
+		System.out.println( "Key Pressed: " + event.getVirtualKeyCode() );
+	}
+
+	public void GlobalKeyReleased( KeyboardEvent event )
+	{
+		System.out.println( "Key Released: " + event.getVirtualKeyCode() );
+	}
+
+}
+----

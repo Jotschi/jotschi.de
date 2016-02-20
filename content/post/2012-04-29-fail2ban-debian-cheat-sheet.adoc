@@ -1,0 +1,45 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2012-04-29T11:21:58Z
+published: true
+status: publish
+tags: []
+title: Fail2Ban Debian Cheat Sheet
+url: /2012/04/29/fail2ban-debian-cheat-sheet/
+wordpress_id: 772
+wordpress_url: /?p=772
+---
+
+[source, bash]
+----
+apt-get install fail2ban
+----
+
+Set the LogLevel parameter within /etc/ssh/sshd_config from INFO to VERBOSE. This allows fail2ban to read failed login attempts.
+
+[source, bash]
+----
+LogLevel VERBOSE
+----
+
+Restart sshd
+
+[source, bash]
+----
+/etc/init.d/ssh restart
+----
+
+Change the action parameter within the jail.conf to action_mwl. Otherwise you will not get any e-mail notification about banned ips.
+
+[source, bash]
+----
+action = %(action_mwl)s
+----
+
+Finally make sure that your ssh section within jail.conf is enabled and points to the correct logfile.

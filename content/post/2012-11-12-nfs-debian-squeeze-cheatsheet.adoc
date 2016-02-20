@@ -1,0 +1,64 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Technik
+comments: []
+date: 2012-11-12T23:20:35Z
+published: true
+status: publish
+tags:
+- linux
+- nfs
+- squeeze
+title: NFS Debian Squeeze CheatSheet
+url: /2012/11/12/nfs-debian-squeeze-cheatsheet/
+wordpress_id: 835
+wordpress_url: /?p=835
+---
+
+1. Install nfs
+
+----
+apt-get install nfs-kernel-server 
+----
+
+2. Add the export
+
+----
+ echo "/media/nfs-share 192.168.0.15(rw,no_subtree_check)" >> /etc/exports
+----
+
+3. Update your exports
+
+----
+exportfs -a
+----
+
+4. Change the following line in /etc/default/nfs-kernel-server
+
+----
+RPCMOUNTDOPTS="--manage-gids"
+----
+
+to
+
+----
+RPCMOUNTDOPTS="-p 32767 --manage-gids"
+----
+
+This will bind the nfs to the given port. Otherwise i guess you would have to use portmap.
+
+Finally mount your data:
+
+----
+sudo mount -t nfs YOURNFSSERVERIP:/media/nfs-share nfs-share
+----
+
+A fstab entry could look like this:
+
+----
+YOURNFSSERVERIP:/media/nfs-share /media/nfs-share nfs rw,rsize=4096,wsize=4096,hard,intr,async,nodev,nosuid 0 0
+----

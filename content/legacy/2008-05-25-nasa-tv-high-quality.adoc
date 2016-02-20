@@ -1,0 +1,25 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Fundgrube
+comments: []
+date: 2008-05-25T11:14:34Z
+published: true
+status: publish
+tags:
+- nasa
+- nasatv
+title: 'Nasa TV - High Quality '
+url: /2008/05/25/nasa-tv-high-quality/
+wordpress_id: 133
+wordpress_url: /?p=133
+---
+
+<del datetime="2011-09-03T14:08:53+00:00">There is an alternativ source for nasa tv available. (640x480)
+Enjoy :)
+mplayer -playlist http://playlist.yahoo.com/makeplaylist.dll?id=1368163
+</del>
+Update - 2011-09-03: The stream is no longer active. Please use <a href="http://www.Jotschi.de/?p=632">this solution</a> now.

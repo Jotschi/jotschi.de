@@ -1,0 +1,64 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments:
+- author: Kinux
+  author_email: rainbowcastel@gmail.com
+  author_url: ""
+  content: |-
+    I thank you sir. This script saved my day recording today's NASA Mars Laboratory Launch transmission.
+
+    Thank you.
+  date: 2011-11-26 18:12:31 +0000
+  date_gmt: 2011-11-26 16:12:31 +0000
+  id: 4203
+date: 2011-09-03T16:07:26Z
+excerpt: I just found a very useful script to download the Nasatv HD stream on linux.
+  The script was written by the user Naito. I found it <a href="http://forum.nasaspaceflight.com/index.php?topic=19846.990;wap2">here</a>
+published: true
+status: publish
+tags:
+- nasa
+- nasatv
+- linux
+- hd
+- stream
+title: NasaTV HD Linux
+url: /2011/09/03/nasatv-hd-linux/
+---
+
+I just found a very useful script to download the Nasatv HD stream on linux. The script was written by the user Naito. I found it http://forum.nasaspaceflight.com/index.php?topic=19846.990;wap2[here]
+
+[source, bash]
+----
+#!/bin/bash
+filename="NASA-TV-HD.`date +%y%m%d-%s`"
+
+httpurl='http://liveips.nasa.gov.edgesuite.net/msfc/Wifi.m3u8'
+trap "break; echo Finished recording. ; exit 0" SIGINT SIGTERM
+
+echo -n Buffering
+#Get initial set of files
+for nextfile in $(curl -s $httpurl | grep '.ts'); do
+        echo -n .
+        curl -s "$nextfile" >> $filename.ts
+        lastfile="$nextfile"
+done
+
+echo 100\%
+
+echo Starting continuous recording. Press CTRL-C to quit.
+while true; do
+        nextfile=$(curl -s $httpurl | grep '.ts' | tail -1)
+        if [ "$nextfile" != "$lastfile" ]; then
+                curl -s "$nextfile" >> $filename.ts
+                lastfile="$nextfile"
+        fi
+ #File list updates every 10 seconds, but don't want to sleep too long and miss an update!
+        sleep 7
+done
+----

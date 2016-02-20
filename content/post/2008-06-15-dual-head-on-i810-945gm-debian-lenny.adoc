@@ -1,0 +1,160 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Technik
+comments: []
+date: 2008-06-15T16:02:29Z
+excerpt: |
+  I just did a dist upgrade and broke my old xorg.conf dual head configuration. Here is my new one.
+published: true
+status: publish
+tags:
+- X11
+- i810
+- xorg
+- xserver
+- lenny
+- debian
+- 945GM
+- dual head
+- xorg.conf
+title: Dual Head on i810 - 945GM - Debian Lenny
+url: /2008/06/15/dual-head-on-i810-945gm-debian-lenny/
+---
+
+I just did a dist upgrade and broke my old xorg.conf dual head configuration. Here is my new one.
+
+Using:
+Debian Lenny (12.06.2008) - 2.6.23
+
+[source, bash]
+----
+ii  xserver-xorg                         1:7.3+10                        the X.Org X server
+ii  xserver-xorg-core                  2:1.4.1~git20080517-1    Xorg X server - core server
+ii  xserver-xorg-video-i810          2:2.3.1-1                       X.Org X server -- Intel i8xx, i9xx display d
+ii  xserver-xorg-video-intel          2:2.3.1-1                       X.Org X server -- Intel i8xx, i9xx display d
+----
+
+Here is the xorg.conf that i used.<a href='/downloads/xorg/xorgconf.dualheadi810'>xorgconf</a>
+
+[source, bash]
+----
+Section "Files"
+	FontPath    "/usr/share/fonts/misc:unscaled"
+	FontPath    "/usr/share/fonts/Type1"
+	FontPath    "/usr/share/fonts/TTF"
+	FontPath    "/usr/share/fonts/corefonts"
+	FontPath    "/usr/share/fonts/freefonts"
+	FontPath    "/usr/share/fonts/terminus"
+	FontPath    "/usr/share/fonts/ttf-bitstream-vera"
+	FontPath    "/usr/share/fonts/unifont"
+	FontPath    "/usr/share/fonts/75dpi:unscaled"
+	FontPath    "/usr/share/fonts/100dpi:unscaled"
+	FontPath    "/usr/share/fonts/artwiz" 
+EndSection
+
+Section "Module"
+        Load "i2c"
+        Load "bitmap"
+        Load "ddc"
+        Load "dri"
+        Load "extmod"
+        #Load "freetype"
+        Load "glx"
+        Load "int10"
+        Load "vbe" 
+EndSection
+
+Section "InputDevice"
+        Identifier      "Generic Keyboard"
+        Driver          "kbd"
+        Option          "CoreKeyboard"
+        Option          "XkbRules"      "xorg"
+        Option          "XkbModel"      "pc105"
+        Option          "XkbLayout"     "de"
+	Option          "XkbVariant"    "nodeadkeys"
+EndSection
+
+Section "InputDevice"
+        Identifier      "Configured Mouse"
+        Driver          "evdev"
+        #Option          "Name" "Logitech USB-PS/2 Optical Mouse"
+	#Option          "CorePointer"
+        Option          "Device"                "/dev/input/mice"
+        Option          "Protocol"              "ImPS/2"
+        Option          "Emulate3Buttons"       "true"
+EndSection
+
+Section "InputDevice"
+        Identifier      "Synaptics Touchpad"
+        Driver          "synaptics"
+        Option          "SendCoreEvents"        "true"
+        Option          "Device"                "/dev/psaux"
+        #This is useful to let gsynaptics change the behaviour of the touchpad (eg. disable tapping)
+        Option          "SHMConfig"             "true"
+        Option          "Protocol"              "auto-dev"
+        Option          "HorizScrollDelta"      "0"
+EndSection
+
+Section "Device"
+        Identifier      "Intel 945GM"
+        # Both drivers worked for me.
+        #Driver          "intel"
+	Driver 		"i810"
+        # Identify the different Monitors for your Device (Important part for dual head!)
+        Option  "Monitor-TMDS-1"        "TMDS Monitor"
+        Option  "Monitor-LVDS"          "LVDS Monitor"
+EndSection
+
+# LVDS is the laptop display
+Section "Monitor"
+        Identifier      "LVDS Monitor"
+        Option          "DPMS"
+        Option  "LeftOf" "TMDS Monitor"
+        Option "PreferredMode" "1280x800"
+        Option "Position" "1280 0"
+EndSection
+
+# TMDS is the device connected to the VGA port
+Section "Monitor"
+        Identifier      "TMDS Monitor"
+        Option          "DPMS"
+        #HorizSync      65-70
+        #VertRefresh    59-60
+        HorizSync 64-83
+        VertRefresh 56-75
+        Option  "PreferredMode" "1280x1024"
+EndSection
+
+# Define the virtual screen
+Section "Screen"
+        Identifier      "The Screen"
+        Device          "Intel 945GM"
+        SubSection "Display"
+                Virtual 2560 1024
+        EndSubsection
+EndSection
+
+Section "ServerLayout"
+        Identifier      "Default Layout"
+        Screen          "The Screen"
+        InputDevice     "Generic Keyboard"
+        InputDevice     "Configured Mouse"
+        InputDevice     "Synaptics Touchpad"
+EndSection
+----
+
+After you start your xserver you might encounter another problem. My external display supports a larger resolution than my laptop display. To set the external display to the desired resolution you can use xrandr. As soon as i know how to automatically workaround this issue i will do a post.
+
+Set external display to highest resolution 
+----
+xrandr --output VGA --mode "1280x1024"
+----
+
+If you get very large windows and texts you might find this command useful:
+----
+startx -- -dpi 96
+----

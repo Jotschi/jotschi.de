@@ -1,0 +1,107 @@
+---
+date: 2014-02-09T15:31:26Z
+tags:
+- debian
+- mdadm
+- luks
+- cryptsetup
+- lvm
+title: Resizing raid5 with mdadm, lvm and luks for encryption on debian wheezy
+url: /2014/02/09/lvm-mdadm-resizing-debian-wheezy/
+---
+
+This guide will show you how to setup a simple mdadm, lvm test environment in which you can experiment with changes you want to execute on a real disk system. 
+
+==  Setup the test environment
+
+You can of course use your own disks. In my case i did a trial run of the needed steps by using losetup to map a data file to a loop device.
+
+[source, bash]
+----
+  dd if=/dev/zero of=diska bs=1M count=300
+  dd if=/dev/zero of=diskb bs=1M count=300
+  dd if=/dev/zero of=diskc bs=1M count=300
+  dd if=/dev/zero of=diskd bs=1M count=300
+  losetup /dev/loop0 diska
+  losetup /dev/loop1 diskb
+  losetup /dev/loop2 diskc
+  losetup /dev/loop3 diskd
+
+  # Create raid 5 with one disk missing
+  mdadm -Cv /dev/md2 -l5 -n3 /dev/loop0 /dev/loop1 missing
+
+  # Add luks cryptolayer ontop
+  cryptsetup luksFormat /dev/md2
+  cryptsetup luksOpen /dev/md2 cryptotest
+
+  # Add lvm structure 
+  pvcreate /dev/mapper/cryptotest
+  vgcreate testvg /dev/mapper/cryptotest
+  lvcreate -l 100%FREE -n testlv testvg
+
+  # Create filesystem
+  mkfs.ext3  /dev/mapper/testvg-testlv
+  mount /dev/mapper/testvg-testlv test/
+----
+
+You can now copy your data onto the raid 5 and when done add the missing disk to the final raid. You can of course use three disks from the start. 
+
+==  Add missing disk to the raid 5
+
+[source, bash]
+----
+  # Add missing device
+  mdadm --add /dev/md2 /dev/loop2
+----
+
+
+==  Growing the raid 5 by adding a forth disk
+
+Once your data has been copied you may want to add the now free disk to the raid of md2.
+
+[source, bash]
+----
+  # Add disk and resize md2
+  mdadm --add /dev/md2 /dev/loop3
+  mdadm --grow --raid-devices=4 /dev/md2
+
+  # Check the sync process and the final result
+  cat /proc/mdstat
+  mdadm --detail /dev/md2
+  umount /tmp/test/test
+
+  # Resize the crypt layer and check the result
+  cryptsetup resize cryptotest
+  fdisk -l /dev/mapper/cryptotest
+
+  # Resize physical volume and check the result
+  pvresize /dev/mapper/cryptotest 
+  pvdisplay
+
+  # Resize logical volume and check result
+  lvextend -l +100%FREE /dev/mapper/testvg-testlv
+  lvdisplay 
+
+  # Resize filesystem
+  e2fsck -f /dev/mapper/testvg-testlv
+  resize2fs /dev/mapper/testvg-testlv
+  mount /dev/mapper/testvg-testlv test
+----
+
+==  Cleanup of the test environment
+
+Of course you should not do these steps on the real raid. These steps are just needed when you want to cleanup your testenvironment.
+
+[source, bash]
+----
+  umount /tmp/test/test
+  lvremove testvg testlv
+  vgremove testvg
+  pvremove  /dev/mapper/cryptotest 
+  cryptsetup close /dev/mapper/cryptotest 
+  mdadm --manage /dev/md2 --stop
+  losetup -d /dev/loop0
+  losetup -d /dev/loop1
+  losetup -d /dev/loop2
+  losetup -d /dev/loop3
+----

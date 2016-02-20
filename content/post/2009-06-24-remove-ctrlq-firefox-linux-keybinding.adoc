@@ -1,0 +1,24 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Fundgrube
+comments: []
+date: 2009-06-24T19:28:29Z
+published: true
+status: publish
+tags:
+- firefox
+- addons
+title: Remove CTRL+Q Firefox Linux Keybinding
+url: /2009/06/24/remove-ctrlq-firefox-linux-keybinding/
+wordpress_id: 301
+wordpress_url: /?p=301
+---
+
+Using Debian Firefox 3 with fluxbox the default keybinding of CTRL+Q is very fast and anoying quit of firefox. 
+
+Just go to http://mozilla.dorando.at/[http://mozilla.dorando.at/] and Install keyconfig.xpi and disable the keybinding for ctrl+q.
+

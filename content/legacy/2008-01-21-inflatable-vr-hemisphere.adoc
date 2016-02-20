@@ -1,0 +1,30 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Neuronensturm
+- Technik
+- GFX
+comments: []
+date: 2008-01-21T03:18:58Z
+excerpt: "Using an inflatable hemisphere as base for a virtual reality cave is in
+  my mind a very good idea because you don't need any structures that stabilize the
+  cave and you might only need one beamer to get a full 360Ã\x82Â° view shown inside
+  the cave. This is done by projecting the image from above the cave onto its material."
+published: true
+status: publish
+tags: []
+title: Inflatable VR hemisphere
+url: /2008/01/21/inflatable-vr-hemisphere/
+wordpress_id: 107
+wordpress_url: /?p=107
+---
+
+Using an inflatable hemisphere as base for a virtual reality cave is in my mind a very good idea because you don't need any structures that stabilize the cave and you might only need one beamer to get a full 360° view shown inside the cave. This is done by projecting the image from above the cave onto its material.
+
+<a id="more"></a><a id="more-107"></a>
+
+The movie gives a brief impression of what iam talking:
+{% youtube 3llN2gHXDC4 %}

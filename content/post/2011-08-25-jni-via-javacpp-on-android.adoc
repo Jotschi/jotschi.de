@@ -1,0 +1,137 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2011-08-25T23:50:55Z
+excerpt: |
+  There are multiple ways to get JNI working with android. You can of course do it the manual way and create header file and includes in your java classes but thats a lot of work and it might be even prone to errors. <a href="http://www.koushikdutta.com/2009/01/jni-in-android-and-foreword-of-why-jni.html">Here is a good post</a> from Koushik Dutta  that summarizes those bad parts in detail. This post will focus on getting started with JavaCPP and Android.
+published: true
+status: publish
+tags: []
+title: JNI via JavaCPP on Android
+url: /2011/08/25/jni-via-javacpp-on-android/
+wordpress_id: 624
+wordpress_url: /?p=624
+---
+
+There are multiple ways to get JNI working with android. You can of course do it the manual way and create header file and includes in your java classes but thats a lot of work and it might be even prone to errors. <a href="http://www.koushikdutta.com/2009/01/jni-in-android-and-foreword-of-why-jni.html">Here is a good post</a> from Koushik Dutta  that summarizes those bad parts in detail. This post will focus on getting started with JavaCPP and Android.
+
+There are some approaches to get rid of all those manual steps. There is for example https://github.com/twall/jna[JNA (Java Native Access)]. http://www.ok.ctrl.titech.ac.jp/~saudet/[Aamuel Audet] the author of JavaCPP wrote a patch for JNA to support Android. But JNA has also some <a href="http://codeanticode.wordpress.com/2010/12/07/jna-on-android/">problems</a> and <a href="https://github.com/twall/jna/blob/master/www/FrequentlyAskedQuestions.md"> drawbacks</a> which should be noted.
+
+Another solution is using JavaCPP by Aamuel Audet. This post will describe how to get JavaCPP working with Android.
+
+===  Create an Eclipse Android project
+
+Use the wizard and create a new android project with the name NativeTest. 
+
+===  Add JavaCPP to the project libs
+
+Download the javacpp binary archive and place the javacpp.jar into the /libs folder of your project. Create the folder if it does not exist. Add the javacpp.jar to your buildpath
+
+===  Add JavaCPP example code to your project
+
+Replace your default activity class with the content of NativeTestActivity. You need to adapt some package names.
+
+The example is very simple and was fetched from the JavaCPP tutorial page but i guess it shows really good how to get started with JavaCPP. If the app does not crash you'll know for sure that everything is fine.
+
+[source, java]
+----
+package de.jotschi;
+
+import com.googlecode.javacpp.Loader;
+import com.googlecode.javacpp.Pointer;
+import com.googlecode.javacpp.PointerPointer;
+import com.googlecode.javacpp.annotation.ByRef;
+import com.googlecode.javacpp.annotation.Cast;
+import com.googlecode.javacpp.annotation.Name;
+import com.googlecode.javacpp.annotation.Namespace;
+import com.googlecode.javacpp.annotation.Platform;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+@Platform(include = "<vector>")
+@Namespace("std")
+public class NativeTestActivity extends Activity {
+
+	static {
+		Loader.load();
+	}
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		PointerVector v = new PointerVector(42);
+		Pointer p = new Pointer() {
+			{
+				address = 0xDEADBEEFL;
+			}
+		};
+		v.get(0).put(p);
+
+		PointerVector v2 = new PointerVector().copy(v);
+		Pointer p2 = v2.at(0).get();
+		System.out.println(v2.size() + "  " + p2);
+
+	}
+
+	@Name("vector<void*>")
+	public static class PointerVector extends Pointer {
+		public PointerVector() {
+			allocate();
+		}
+
+		public PointerVector(long n) {
+			allocate(n);
+		}
+
+		public PointerVector(Pointer p) {
+			super(p);
+		} // this = (vector<void*>*)p
+
+		private native void allocate(); // this = new std::vector<void*>()
+
+		private native void allocate(long n); // this = new
+												// std::vector<void*>(n)
+
+		@Name("operator=")
+		public native @ByRef
+		PointerVector copy(@ByRef PointerVector x);
+
+		public native long size();
+
+		public native @Cast("bool")
+		boolean empty();
+
+		@Name("operator[]")
+		public native @ByRef
+		PointerPointer get(long n);
+
+		public native @ByRef
+		PointerPointer at(long n);
+	}
+
+}
+----
+
+===  Create the native files using JavaCPP
+
+Switch into your workspace directory and execute the following command. Please note that you have to change your paths accordingly.
+
+[source, bash]
+----
+jotschi@Amilo:~/workspace/NativeTest$ java -jar libs/javacpp.jar -classpath bin/  -d libs/armeabi/ -properties android-arm -Dplatform.root=/opt/ide/android-ndk-r6 -Dcompiler.path=/opt/ide/android-ndk-r6/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++  -classpath /opt/ide/android-sdk-linux_x86/platforms/android-10/android.jar de.jotschi.NativeTestActivity
+----
+
+You can also create an external builder task to execute the generation process automatically. This <a href="http://mobilepearls.com/labs/ndk-builder-in-eclipse/">post</a> describes how to setup a builder for the ndk. 
+
+===  Execute the example
+
+Now you can execute the example on your android device. Please note that enabling 'debug' within your android manifest will help debugging. LogCat will only print stacktraces if you have enabled that option.

@@ -1,0 +1,26 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: Jotschi
+author_url: http://www.jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2010-08-05T09:50:57Z
+published: true
+status: publish
+tags: []
+title: 'Skype Crash Debian Testing AMD64 '
+url: /2010/08/05/skype-crash-debian-testing-amd64/
+wordpress_id: 489
+wordpress_url: /?p=489
+---
+
+Skype is crashing on debian testing in different situations with the following error message:
+
+[source, bash]
+----
+Inconsistency detected by ld.so: dl-open.c: 611: _dl_open: Assertion `_dl_debug_initialize (0, args.nsid)->r_state == RT_CONSISTENT' failed! 
+----
+
+_Solution_: Just delete /usr/lib32/libpulse* which is shipped within the ia32-libs package.

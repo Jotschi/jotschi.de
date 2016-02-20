@@ -1,0 +1,44 @@
+---
+author: Jotschi
+author_email: webmaster@jotschi.de
+author_login: admin
+author_url: http://www.Jotschi.de
+categories:
+- Uncategorized
+comments: []
+date: 2009-08-16T14:04:22Z
+excerpt: 'I just made a dist upgrade and after starting X my 2D performance was awful.
+  I checked /var/log/Xorg.0.log and found out that DRI had not been initialized. '
+published: true
+status: publish
+tags:
+- lenny
+- debian
+- fglrx
+title: Laggy 2D fglrx Performance Debian Testing
+url: /2009/08/16/laggy-2d-fglrx-performance-debian-testing/
+wordpress_id: 357
+wordpress_url: /?p=357
+---
+
+I just made a dist upgrade and after starting X my 2D performance was awful. I checked /var/log/Xorg.0.log and found out that DRI had not been initialized. <a id="more"></a><a id="more-357"></a>
+Reason for this was an update of libdrm2 to a newer version. 
+
+[source, bash]
+----
+Preparing to replace libdrm2 2.3.1-2 (using .../libdrm2_2.4.12-1_i386.deb) ...
+Unpacking replacement libdrm2 ...
+----
+
+libdrm2_2.4.12-1 will not work with
+
+[source, bash]
+----
+fglrx-driver                         8.62-1                      Video driver for the ATI graphics accelerators
+----
+
+Solution:
+ 
+Install the old libdrm2 version and restart X.
+
+http://packages.debian.org/lenny/libdrm2

@@ -1,0 +1,8 @@
+baseurl: http://jotschi.de/
+disablePathToLower: true
+languageCode: en-us
+title: Jotschi's Blog
+params:
+  description: ""
+  withSitePosts: true
+...
