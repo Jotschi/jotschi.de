@@ -19,7 +19,6 @@ wordpress_url: /?p=700
 ---
 
 This article will contain a small summary on how to write an arduino bootloader to an AVR ATMega328p on Debian linux using the AVR Dragon.
-<a id="more"></a><a id="more-700"></a>
 
 ==  Get an AVR Dragon
 I got mine from http://www.watterott.com/de/Atmel-AVR-Dragon[watterott.com].
@@ -98,7 +97,7 @@ The optiboot bootloaders on the otherhand worked for me. They can be found here:
 
 You have two options:
 
-* a) Use the build script provided. The buildscript within the optiboot folder is faulty since it contains comments after the fusebit settings. Those comments introduce a whitespace which messes up the avrdude command. You can also get an updated version of <a href="http://code.google.com/p/optiboot/">optiboot here</a>.
+* a) Use the build script provided. The buildscript within the optiboot folder is faulty since it contains comments after the fusebit settings. Those comments introduce a whitespace which messes up the avrdude command. You can also get an updated version of http://code.google.com/p/optiboot/[optiboot here]
 
 [source, bash]
 ----
