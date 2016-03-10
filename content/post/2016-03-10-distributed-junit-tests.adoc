@@ -1,0 +1,65 @@
+---
+date: 2016-03-10T18:00:00Z
+tags:
+- java
+- docker
+- maven
+title: Distribute JUnit Tests using Docker
+---
+
+== The Problem
+
+There is a point at which test duration is steadily increasing and it is harder and harder to maintain fast test execution.
+
+Main contributing factors to this trend are:
+
+* Addition of more tests / Test complexity
+
+In general it is advisable to write tests that don't run the same code all over again. Fine granular unit tests that only test a specific functionality are in general faster to execute and are also much better to debug since the call stack is not that huge.
+
+* Test setup duration
+
+If possible try to avoid writing tests that use a real database.
+Using a database server in your tests most likly creates a bottleneck for your tests.
+The database needs to be started, setup and cleaned for each test run.
+
+Some databases support in-memory mode but sometimes you may be stuck with a filesystem based database. 
+In those cases a tmpfs filesystem can speedup the database big time. Another option is to use the *libeatmydata* tool to avoid filesystem flush calls.
+
+Example for MySQL Server:
+
+http://jotschi.de/2014/02/03/high-performance-mysql-testdatabase/
+https://hub.docker.com/r/gentics/tmpfs-mysql/
+
+* Overall server load during test execution
+
+It may be advisable to place your test databases on a dedicated server in order to split up the load during test execution.
+
+== Solutions
+
+=== Maven Surefire Fork Count
+
+When using maven it is highly recommended to take a look at the surefire plugin settings. The surefire plugin is responsible for junit test execution and can be configured to run tests in parallel.
+
+See https://maven.apache.org/surefire/maven-surefire-plugin/examples/fork-options-and-parallel-execution.html[surefire-plugin docs] for more information on this topic.
+
+=== Docker to the rescue
+
+It is possible to distribute the junit test execution similar to distribute a  https://hub.docker.com/r/gentics/tmpfs-mysql/[MySQL Test database] using docker.
+
+The maven surefire plugin can be configured such that a selected JVM is used for test execution. The JVM parameter can also point to any tool you like.
+I wrote the dockerJVM tool which will in fact startup a docker container and run the JVM within this container.
+
+* https://github.com/Jotschi/docker-junit-distribution-test[github.com]
+
+== Requirements
+
+* At least two docker servers
+
+* Access to a Docker Registry
+
+You can start your own docker registy (version 2!) using this command:
+
+```
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+```
