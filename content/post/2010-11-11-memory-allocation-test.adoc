@@ -32,7 +32,7 @@ main() {
 
    int i;
    for(i=0;i<9000;i++) {
-        int *ptr = malloc(i*1024*1024);
+        void *ptr = malloc(i * 1024LL * 1024LL);
         if (ptr == NULL) {
           printf ("Soft memory allocation failed for %i MB\n",i );
           break;
@@ -45,12 +45,12 @@ main() {
 
    for(i=0;i<9000;i++) { 
 
-        int *ptr = malloc(i*1024*1024);
+        void *ptr = malloc(i * 1024LL * 1024LL);
         if (ptr == NULL) {
           printf ("Memory allocation failed for %i MB\n",i );
           break;
         } else {
-            memset(ptr, 0, i*1024*1024);
+            memset(ptr, 0, i * 1024LL * 1024LL);
             printf("Wrote %i MB to memory\n", i);
             //usleep(1000);
             free(ptr);  
