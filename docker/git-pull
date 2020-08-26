@@ -1,2 +1,0 @@
-* * * * * git cd /opt/jotschi.de && git pull >> /var/log/cron.log 2>&1 
-

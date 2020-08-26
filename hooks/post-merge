@@ -1,8 +1,0 @@
-#!/bin/bash
-
-echo "Building site:"
-
-BASEDIR=$(dirname $0)
-
-cd $BASEDIR/../..
-jekyll build

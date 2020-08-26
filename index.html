@@ -1,113 +1,717 @@
-
 <!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Johannes Schüth">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Lead Developer">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://www.jotschi.de/">
+
+  
 
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi&#39;s Blog">
-		<link rel="icon" href="http://jotschi.de/favicon.ico">
-		<title>Jotschi&#39;s Blog</title>
-		
-		<link rel="stylesheet" href="http://jotschi.de/css/highlight.js.min.css">
-		<link rel="stylesheet" href="http://jotschi.de/css/bootstrap.min.css">
-		<link rel="stylesheet" href="http://jotschi.de/css/bootstrap-theme.css">
-		<link rel="stylesheet" href="http://jotschi.de/css/theme.css">
-		<link rel="stylesheet" href="http://jotschi.de/css/bootie-docs.css">
-	</head>
+  
 
-<body role="document">
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
 
-	
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="http://jotschi.de/">Jotschi&#39;s Blog</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="http://jotschi.de/">Home</a></li>
-			
-				
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-						
-							<li><a href="http://jotschi.de/categories/code">Code</a></li>
-						
-							<li><a href="http://jotschi.de/categories/electronics">Electronics</a></li>
-						
-							<li><a href="http://jotschi.de/categories/gfx">Gfx</a></li>
-						
-							<li><a href="http://jotschi.de/categories/linux">Linux</a></li>
-						
-							<li><a href="http://jotschi.de/categories/random">Random</a></li>
-						
-							<li><a href="http://jotschi.de/categories/space">Space</a></li>
-						
-						</ul>
-					</li>
-				
-				</ul>
-			</div>
-		</div>
-	</nav>
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
 
-<div class="container">
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
 
-<main role="main">
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.3343af0b0febfee7f145d924b06faaca.css">
+
+  
+
+  
+  
+  
+
+  
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Jotschi.de">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Jotschi.de">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://www.jotschi.de/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@Jotschi">
+  <meta property="twitter:creator" content="@Jotschi">
+  
+  <meta property="og:site_name" content="Jotschi.de">
+  <meta property="og:url" content="https://www.jotschi.de/">
+  <meta property="og:title" content="Jotschi.de">
+  <meta property="og:description" content="Lead Developer"><meta property="og:image" content="https://www.jotschi.de/img/icon-192.png">
+  <meta property="twitter:image" content="https://www.jotschi.de/img/icon-192.png"><meta property="og:locale" content="en-us">
+  
+  
+  
+
+  
+
+
+  
+
+
+
+
+
+  <title>Jotschi.de</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" class="dark" data-target="#navbar-main" data-offset="71">
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Jotschi.de</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about" data-target="#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+  
+
+
+<span class="js-widget-page d-none"></span>
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="hero" class="home-section wg-hero   " style="background-color: #fff;" >
+    <div class="container">
+      
+
+
+
+
+
+    
+    <div><h2 id="my-name-is-johannes-schüth-and-im-a-lead-developer-specializing-in-java-backend-development">My name is <strong>Johannes Schüth</strong> and I&rsquo;m a <strong>Lead Developer</strong> specializing in <strong>Java Backend Development</strong></h2>
+<p>I&rsquo;m currently working for APA-IT in Austria and focusing on <a href="https://getmesh.io">Gentics Mesh Core Development</a>.</p>
+</div>
+    
+
+    
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+    <p class="mt-4">
+      <a href="https://github.com/jotschi" target="_blank" rel="noopener" class="btn btn-primary btn-lg  page-scroll">GitHub</a>
+
+      
+      
+        
+        
+        
+        
+          
+        
+      <a href="https://twitter.com/jotschi" target="_blank" rel="noopener" class="btn btn-lg btn-outline-primary page-scroll">Twitter</a>
+      
+    </p>
+    
+
+  
+  
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="experience" class="home-section wg-experience   "  >
+    <div class="container">
+      
+
+
 
 <div class="row">
-	
-	<div class="jumbotron">
-		<h1>Jotschi&#39;s Blog</h1>
-		<p></p>
-	</div>
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>Experience</h1>
+    
+  </div>
+  <div class="col-12 col-lg-8">
+    
+
+    
+    
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col ">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border exp-fill">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Lead Developer</h4>
+            <h4 class="card-title exp-company text-muted my-0"><a href="https://apa-it.at" target="_blank" rel="noopener">APA-IT (Gentics Software)</a></h4>
+            <div class="text-muted exp-meta">
+              2008 –
+              
+                Present
+              
+              
+                <span class="middot-divider"></span>
+                <span>Austria</span>
+              
+            </div>
+            <div class="card-text"><p>Responsibilities include:</p>
+<ul>
+<li>Backend server development</li>
+<li>Customer consulting</li>
+<li>DevOps assistance</li>
+<li>Test development</li>
+</ul>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Junior Developer</h4>
+            <h4 class="card-title exp-company text-muted my-0"><a href="https://www.swoppen.com/de" target="_blank" rel="noopener">Swoppen</a></h4>
+            <div class="text-muted exp-meta">
+              2007 –
+              
+                2007
+              
+              
+                <span class="middot-divider"></span>
+                <span>Germany</span>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">University</h4>
+            <h4 class="card-title exp-company text-muted my-0">Albert Einstein University</h4>
+            <div class="text-muted exp-meta">
+              2006 –
+              
+                2007
+              
+              
+                <span class="middot-divider"></span>
+                <span>Germany</span>
+              
+            </div>
+            <div class="card-text">Media Informatics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Civil Service</h4>
+            <h4 class="card-title exp-company text-muted my-0"></h4>
+            <div class="text-muted exp-meta">
+              2005 –
+              
+                2006
+              
+              
+                <span class="middot-divider"></span>
+                <span>Germany</span>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col ">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">High School</h4>
+            <h4 class="card-title exp-company text-muted my-0">Mauritius Gymnasium</h4>
+            <div class="text-muted exp-meta">
+              2002 –
+              
+                2005
+              
+              
+                <span class="middot-divider"></span>
+                <span>Germany</span>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
 </div>
 
+    </div>
+  </section>
+
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academia.min.cb0a37f0a5f1671cb684ba3d9ad81275.js"></script>
+
+    
 
 
 
-<hr />
-
-<div class="row doc-main text-center">
-	<a href="http://jotschi.de/post">See posts for Jotschi&#39;s Blog</a>
-</div>
 
 
-</main>
+  
+  <div class="container">
+    <footer class="site-footer">
 
-
-<hr />
-
-<div class="row">
-	<div class="col-sm-8">
-		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
-	</div>
-</div>
-
-</div> 
-
-<footer class="doc-footer">
-	
-	
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        
+        <p>
+          
+          Powered by
+          <a href="https://themefisher.com" target="_blank" rel="noopener">themefisher</a> for
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline network-icon text-right">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/Jotschi" target="_blank" rel="noopener" title="DM Me"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
 </footer>
+  </div>
+  
 
-
-
-<script src="http://jotschi.de/js/jquery-1.11.2.min.js"></script>
-<script src="http://jotschi.de/js/bootstrap.min.js"></script>
-
-<script src="http://jotschi.de/js/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<script src="http://jotschi.de/js/ie10-viewport-bug-workaround.js"></script>
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
